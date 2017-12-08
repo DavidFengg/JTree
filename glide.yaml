@@ -1,0 +1,4 @@
+package: github.com/ljdursi/candig_mds
+import:
+
+- package: github.com/Sirupsen/logrus
