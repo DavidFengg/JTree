@@ -1,6 +1,10 @@
 # candig_mds
 
+[![Build Status](https://travis-ci.org/ljdursi/candig_mds.svg?branch=master)](https://travis-ci.org/ljdursi/candig_mds)
+
 A toy metadata service
+
+[View On SwaggerHub](https://app.swaggerhub.com/apis/CanDIG/candig-metadata_api/0.1.0)
 
 ## Getting started
 
