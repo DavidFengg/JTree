@@ -274,12 +274,12 @@ func (o *CandigMetadataAPI) initHandlerCache() {
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
-	o.handlers["POST"]["/biosample/{biosampleId}"] = NewAddBiosample(o.context, o.AddBiosampleHandler)
+	o.handlers["POST"]["/biosample"] = NewAddBiosample(o.context, o.AddBiosampleHandler)
 
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
-	o.handlers["POST"]["/individuals/{individualId}"] = NewAddIndividual(o.context, o.AddIndividualHandler)
+	o.handlers["POST"]["/individual"] = NewAddIndividual(o.context, o.AddIndividualHandler)
 
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
@@ -289,7 +289,7 @@ func (o *CandigMetadataAPI) initHandlerCache() {
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/individuals/{individualId}"] = NewGetIndividual(o.context, o.GetIndividualHandler)
+	o.handlers["GET"]["/individual/{individualId}"] = NewGetIndividual(o.context, o.GetIndividualHandler)
 
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)

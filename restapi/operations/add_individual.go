@@ -29,7 +29,7 @@ func NewAddIndividual(ctx *middleware.Context, handler AddIndividualHandler) *Ad
 	return &AddIndividual{Context: ctx, Handler: handler}
 }
 
-/*AddIndividual swagger:route POST /individuals/{individualId} addIndividual
+/*AddIndividual swagger:route POST /individual addIndividual
 
 adds an individual item
 

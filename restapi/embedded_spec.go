@@ -33,25 +33,7 @@ func init() {
   "host": "virtserver.swaggerhub.com",
   "basePath": "/CanDIG/metadata/0.1.0",
   "paths": {
-    "/biosample/{biosampleId}": {
-      "get": {
-        "summary": "Returns an biosample by ID.",
-        "operationId": "getBiosample",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Biosample"
-              }
-            }
-          },
-          "404": {
-            "description": "Biosample not found"
-          }
-        }
-      },
+    "/biosample": {
       "post": {
         "description": "Adds a biosample to the system",
         "consumes": [
@@ -81,6 +63,26 @@ func init() {
           },
           "409": {
             "description": "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/biosample/{biosampleId}": {
+      "get": {
+        "summary": "Returns an biosample by ID.",
+        "operationId": "getBiosample",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Biosample"
+              }
+            }
+          },
+          "404": {
+            "description": "Biosample not found"
           }
         }
       },
@@ -129,6 +131,68 @@ func init() {
         }
       }
     },
+    "/individual": {
+      "post": {
+        "description": "Adds an individual to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "adds an individual item",
+        "operationId": "addIndividual",
+        "parameters": [
+          {
+            "description": "Individual",
+            "name": "individual",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Individual"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "item created"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/individual/{individualId}": {
+      "get": {
+        "summary": "Returns an individual by ID.",
+        "operationId": "getIndividual",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Individual"
+              }
+            }
+          },
+          "404": {
+            "description": "individual not found"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "individualId",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
     "/individuals/search": {
       "get": {
         "description": "By passing in the appropriate options, you can search for\navailable individuals\n",
@@ -164,66 +228,6 @@ func init() {
           }
         }
       }
-    },
-    "/individuals/{individualId}": {
-      "get": {
-        "summary": "Returns an individual by ID.",
-        "operationId": "getIndividual",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Individual"
-              }
-            }
-          },
-          "404": {
-            "description": "individual not found"
-          }
-        }
-      },
-      "post": {
-        "description": "Adds an individual to the system",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "summary": "adds an individual item",
-        "operationId": "addIndividual",
-        "parameters": [
-          {
-            "description": "Individual",
-            "name": "individual",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/Individual"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "item created"
-          },
-          "400": {
-            "description": "invalid input, object invalid"
-          },
-          "409": {
-            "description": "an existing item already exists"
-          }
-        }
-      },
-      "parameters": [
-        {
-          "type": "string",
-          "name": "individualId",
-          "in": "path",
-          "required": true
-        }
-      ]
     }
   },
   "definitions": {

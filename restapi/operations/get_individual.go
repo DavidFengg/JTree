@@ -29,7 +29,7 @@ func NewGetIndividual(ctx *middleware.Context, handler GetIndividualHandler) *Ge
 	return &GetIndividual{Context: ctx, Handler: handler}
 }
 
-/*GetIndividual swagger:route GET /individuals/{individualId} getIndividual
+/*GetIndividual swagger:route GET /individual/{individualId} getIndividual
 
 Returns an individual by ID.
 

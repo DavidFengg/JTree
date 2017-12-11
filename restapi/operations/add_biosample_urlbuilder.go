@@ -9,16 +9,11 @@ import (
 	"errors"
 	"net/url"
 	golangswaggerpaths "path"
-	"strings"
 )
 
 // AddBiosampleURL generates an URL for the add biosample operation
 type AddBiosampleURL struct {
-	BiosampleID string
-
 	_basePath string
-	// avoid unkeyed usage
-	_ struct{}
 }
 
 // WithBasePath sets the base path for this url builder, only required when it's different from the
@@ -40,14 +35,8 @@ func (o *AddBiosampleURL) SetBasePath(bp string) {
 func (o *AddBiosampleURL) Build() (*url.URL, error) {
 	var result url.URL
 
-	var _path = "/biosample/{biosampleId}"
+	var _path = "/biosample"
 
-	biosampleID := o.BiosampleID
-	if biosampleID != "" {
-		_path = strings.Replace(_path, "{biosampleId}", biosampleID, -1)
-	} else {
-		return nil, errors.New("BiosampleID is required on AddBiosampleURL")
-	}
 	_basePath := o._basePath
 	if _basePath == "" {
 		_basePath = "/CanDIG/metadata/0.1.0"

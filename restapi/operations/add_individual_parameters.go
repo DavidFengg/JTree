@@ -12,8 +12,6 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	strfmt "github.com/go-openapi/strfmt"
-
 	"candig_mds/models"
 )
 
@@ -37,11 +35,6 @@ type AddIndividualParams struct {
 	  In: body
 	*/
 	Individual *models.Individual
-	/*
-	  Required: true
-	  In: path
-	*/
-	IndividualID string
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -67,24 +60,8 @@ func (o *AddIndividualParams) BindRequest(r *http.Request, route *middleware.Mat
 
 	}
 
-	rIndividualID, rhkIndividualID, _ := route.Params.GetOK("individualId")
-	if err := o.bindIndividualID(rIndividualID, rhkIndividualID, route.Formats); err != nil {
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (o *AddIndividualParams) bindIndividualID(rawData []string, hasKey bool, formats strfmt.Registry) error {
-	var raw string
-	if len(rawData) > 0 {
-		raw = rawData[len(rawData)-1]
-	}
-
-	o.IndividualID = raw
-
 	return nil
 }

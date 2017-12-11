@@ -9,16 +9,11 @@ import (
 	"errors"
 	"net/url"
 	golangswaggerpaths "path"
-	"strings"
 )
 
 // AddIndividualURL generates an URL for the add individual operation
 type AddIndividualURL struct {
-	IndividualID string
-
 	_basePath string
-	// avoid unkeyed usage
-	_ struct{}
 }
 
 // WithBasePath sets the base path for this url builder, only required when it's different from the
@@ -40,14 +35,8 @@ func (o *AddIndividualURL) SetBasePath(bp string) {
 func (o *AddIndividualURL) Build() (*url.URL, error) {
 	var result url.URL
 
-	var _path = "/individuals/{individualId}"
+	var _path = "/individual"
 
-	individualID := o.IndividualID
-	if individualID != "" {
-		_path = strings.Replace(_path, "{individualId}", individualID, -1)
-	} else {
-		return nil, errors.New("IndividualID is required on AddIndividualURL")
-	}
 	_basePath := o._basePath
 	if _basePath == "" {
 		_basePath = "/CanDIG/metadata/0.1.0"

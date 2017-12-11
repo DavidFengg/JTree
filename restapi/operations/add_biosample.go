@@ -29,7 +29,7 @@ func NewAddBiosample(ctx *middleware.Context, handler AddBiosampleHandler) *AddB
 	return &AddBiosample{Context: ctx, Handler: handler}
 }
 
-/*AddBiosample swagger:route POST /biosample/{biosampleId} addBiosample
+/*AddBiosample swagger:route POST /biosample addBiosample
 
 adds a biosample
 

@@ -40,7 +40,7 @@ func (o *GetIndividualURL) SetBasePath(bp string) {
 func (o *GetIndividualURL) Build() (*url.URL, error) {
 	var result url.URL
 
-	var _path = "/individuals/{individualId}"
+	var _path = "/individual/{individualId}"
 
 	individualID := o.IndividualID
 	if individualID != "" {

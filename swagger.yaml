@@ -41,7 +41,7 @@ paths:
         400:
           description: "bad input parameter"
 
-  /individuals/{individualId}:
+  /individual/{individualId}:
     parameters:
     - name: "individualId"
       in: "path"
@@ -59,6 +59,8 @@ paths:
               $ref: "#/definitions/Individual"
         404:
           description: "individual not found"
+
+  /individual:
     post:
       summary: "adds an individual item"
       description: "Adds an individual to the system"
@@ -127,6 +129,8 @@ paths:
               $ref: "#/definitions/Biosample"
         404:
           description: "Biosample not found"
+
+  /biosample:
     post:
       summary: "adds a biosample"
       description: "Adds a biosample to the system"
