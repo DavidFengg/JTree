@@ -10,13 +10,11 @@ import (
 	"net/url"
 	golangswaggerpaths "path"
 	"strings"
-
-	"github.com/go-openapi/strfmt"
 )
 
 // GetIndividualURL generates an URL for the get individual operation
 type GetIndividualURL struct {
-	IndividualID strfmt.UUID
+	IndividualID string
 
 	_basePath string
 	// avoid unkeyed usage
@@ -44,7 +42,7 @@ func (o *GetIndividualURL) Build() (*url.URL, error) {
 
 	var _path = "/individuals/{individualId}"
 
-	individualID := o.IndividualID.String()
+	individualID := o.IndividualID
 	if individualID != "" {
 		_path = strings.Replace(_path, "{individualId}", individualID, -1)
 	} else {

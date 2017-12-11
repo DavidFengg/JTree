@@ -41,7 +41,7 @@ type AddBiosampleParams struct {
 	  Required: true
 	  In: path
 	*/
-	BiosampleID strfmt.UUID
+	BiosampleID string
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -84,11 +84,7 @@ func (o *AddBiosampleParams) bindBiosampleID(rawData []string, hasKey bool, form
 		raw = rawData[len(rawData)-1]
 	}
 
-	value, err := formats.Parse("uuid", raw)
-	if err != nil {
-		return errors.InvalidType("biosampleId", "path", "strfmt.UUID", raw)
-	}
-	o.BiosampleID = *(value.(*strfmt.UUID))
+	o.BiosampleID = raw
 
 	return nil
 }

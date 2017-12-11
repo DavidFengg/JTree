@@ -34,7 +34,7 @@ type GetIndividualParams struct {
 	  Required: true
 	  In: path
 	*/
-	IndividualID strfmt.UUID
+	IndividualID string
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -60,11 +60,7 @@ func (o *GetIndividualParams) bindIndividualID(rawData []string, hasKey bool, fo
 		raw = rawData[len(rawData)-1]
 	}
 
-	value, err := formats.Parse("uuid", raw)
-	if err != nil {
-		return errors.InvalidType("individualId", "path", "strfmt.UUID", raw)
-	}
-	o.IndividualID = *(value.(*strfmt.UUID))
+	o.IndividualID = raw
 
 	return nil
 }

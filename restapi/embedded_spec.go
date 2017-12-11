@@ -87,7 +87,6 @@ func init() {
       "parameters": [
         {
           "type": "string",
-          "format": "uuid",
           "name": "biosampleId",
           "in": "path",
           "required": true
@@ -220,7 +219,6 @@ func init() {
       "parameters": [
         {
           "type": "string",
-          "format": "uuid",
           "name": "individualId",
           "in": "path",
           "required": true
@@ -272,12 +270,10 @@ func init() {
         },
         "id": {
           "type": "string",
-          "format": "uuid",
           "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
         },
         "individualId": {
-          "type": "string",
-          "format": "uuid"
+          "type": "string"
         },
         "name": {
           "type": "string",
@@ -329,7 +325,6 @@ func init() {
         },
         "id": {
           "type": "string",
-          "format": "uuid",
           "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
         },
         "name": {

@@ -10,13 +10,11 @@ import (
 	"net/url"
 	golangswaggerpaths "path"
 	"strings"
-
-	"github.com/go-openapi/strfmt"
 )
 
 // AddBiosampleURL generates an URL for the add biosample operation
 type AddBiosampleURL struct {
-	BiosampleID strfmt.UUID
+	BiosampleID string
 
 	_basePath string
 	// avoid unkeyed usage
@@ -44,7 +42,7 @@ func (o *AddBiosampleURL) Build() (*url.URL, error) {
 
 	var _path = "/biosample/{biosampleId}"
 
-	biosampleID := o.BiosampleID.String()
+	biosampleID := o.BiosampleID
 	if biosampleID != "" {
 		_path = strings.Replace(_path, "{biosampleId}", biosampleID, -1)
 	} else {

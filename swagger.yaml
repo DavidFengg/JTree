@@ -47,7 +47,6 @@ paths:
       in: "path"
       required: true
       type: "string"
-      format: "uuid"
     get:
       summary: "Returns an individual by ID."
       operationId: "getIndividual"
@@ -116,7 +115,6 @@ paths:
       name: biosampleId
       required: true
       type: string
-      format: uuid
     get:
       summary: "Returns an biosample by ID."
       operationId: "getBiosample"
@@ -195,7 +193,6 @@ definitions:
     properties:
       id:
         type: "string"
-        format: "uuid"
         example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
       name:
         type: "string"
@@ -243,7 +240,6 @@ definitions:
     properties:
       id:
         type: "string"
-        format: "uuid"
         example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
       name:
         type: "string"
@@ -260,7 +256,6 @@ definitions:
         format: "date"
       individualId:
         type: "string"
-        format: "uuid"
       attributes:
         $ref: "#/definitions/Attributes"
       collectionAge:

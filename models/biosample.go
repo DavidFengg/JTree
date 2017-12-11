@@ -38,11 +38,11 @@ type Biosample struct {
 
 	// id
 	// Required: true
-	ID *strfmt.UUID `json:"id"`
+	ID *string `json:"id"`
 
 	// individual Id
 	// Required: true
-	IndividualID *strfmt.UUID `json:"individualId"`
+	IndividualID *string `json:"individualId"`
 
 	// name
 	// Required: true
@@ -159,20 +159,12 @@ func (m *Biosample) validateID(formats strfmt.Registry) error {
 		return err
 	}
 
-	if err := validate.FormatOf("id", "body", "uuid", m.ID.String(), formats); err != nil {
-		return err
-	}
-
 	return nil
 }
 
 func (m *Biosample) validateIndividualID(formats strfmt.Registry) error {
 
 	if err := validate.Required("individualId", "body", m.IndividualID); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("individualId", "body", "uuid", m.IndividualID.String(), formats); err != nil {
 		return err
 	}
 
