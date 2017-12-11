@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"candig_mds/models"
+	"github.com/ljdursi/candig_mds/models"
 )
 
 // GetBiosampleOKCode is the HTTP code returned for type GetBiosampleOK
