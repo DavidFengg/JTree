@@ -1,4 +1,8 @@
 package: github.com/ljdursi/candig_mds
+ignore:
+- github.com/ljdursi/candig_mds/restapi
+- github.com/ljdursi/candig_mds/restapi/operations
+- github.com/ljdursi/candig_mds/models
 imports:
 - package: github.com/Sirupsen/logrus
 - package: github.com/go-openapi/loads
