@@ -247,13 +247,9 @@ func init() {
       "type": "object",
       "required": [
         "collectionAge",
-        "createdDate",
         "description",
-        "disease",
-        "id",
         "individualId",
-        "name",
-        "updatedDate"
+        "name"
       ],
       "properties": {
         "attributes": {
@@ -307,14 +303,8 @@ func init() {
     "Individual": {
       "type": "object",
       "required": [
-        "attributes",
-        "createdDate",
         "description",
-        "id",
-        "name",
-        "sex",
-        "species",
-        "updatedDate"
+        "name"
       ],
       "properties": {
         "attributes": {

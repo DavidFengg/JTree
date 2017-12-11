@@ -186,14 +186,8 @@ definitions:
   Individual:
     type: "object"
     required:
-    - "attributes"
-    - "createdDate"
     - "description"
-    - "id"
     - "name"
-    - "sex"
-    - "species"
-    - "updatedDate"
     properties:
       id:
         type: "string"
@@ -234,13 +228,9 @@ definitions:
     type: "object"
     required:
     - "collectionAge"
-    - "createdDate"
     - "description"
-    - "disease"
-    - "id"
     - "individualId"
     - "name"
-    - "updatedDate"
     properties:
       id:
         type: "string"

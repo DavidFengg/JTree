@@ -25,20 +25,17 @@ type Biosample struct {
 	CollectionAge *string `json:"collectionAge"`
 
 	// created date
-	// Required: true
-	CreatedDate *strfmt.Date `json:"createdDate"`
+	CreatedDate strfmt.Date `json:"createdDate,omitempty"`
 
 	// description
 	// Required: true
 	Description *string `json:"description"`
 
 	// disease
-	// Required: true
-	Disease *OntologyTerm `json:"disease"`
+	Disease *OntologyTerm `json:"disease,omitempty"`
 
 	// id
-	// Required: true
-	ID *string `json:"id"`
+	ID string `json:"id,omitempty"`
 
 	// individual Id
 	// Required: true
@@ -49,8 +46,7 @@ type Biosample struct {
 	Name *string `json:"name"`
 
 	// updated date
-	// Required: true
-	UpdatedDate *strfmt.Date `json:"updatedDate"`
+	UpdatedDate strfmt.Date `json:"updatedDate,omitempty"`
 }
 
 // Validate validates this biosample
@@ -58,11 +54,6 @@ func (m *Biosample) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCollectionAge(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateCreatedDate(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -77,22 +68,12 @@ func (m *Biosample) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateID(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if err := m.validateIndividualID(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateName(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateUpdatedDate(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -112,19 +93,6 @@ func (m *Biosample) validateCollectionAge(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Biosample) validateCreatedDate(formats strfmt.Registry) error {
-
-	if err := validate.Required("createdDate", "body", m.CreatedDate); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("createdDate", "body", "date", m.CreatedDate.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *Biosample) validateDescription(formats strfmt.Registry) error {
 
 	if err := validate.Required("description", "body", m.Description); err != nil {
@@ -136,8 +104,8 @@ func (m *Biosample) validateDescription(formats strfmt.Registry) error {
 
 func (m *Biosample) validateDisease(formats strfmt.Registry) error {
 
-	if err := validate.Required("disease", "body", m.Disease); err != nil {
-		return err
+	if swag.IsZero(m.Disease) { // not required
+		return nil
 	}
 
 	if m.Disease != nil {
@@ -148,15 +116,6 @@ func (m *Biosample) validateDisease(formats strfmt.Registry) error {
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *Biosample) validateID(formats strfmt.Registry) error {
-
-	if err := validate.Required("id", "body", m.ID); err != nil {
-		return err
 	}
 
 	return nil
@@ -174,19 +133,6 @@ func (m *Biosample) validateIndividualID(formats strfmt.Registry) error {
 func (m *Biosample) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Biosample) validateUpdatedDate(formats strfmt.Registry) error {
-
-	if err := validate.Required("updatedDate", "body", m.UpdatedDate); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("updatedDate", "body", "date", m.UpdatedDate.String(), formats); err != nil {
 		return err
 	}
 

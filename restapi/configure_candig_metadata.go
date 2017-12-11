@@ -5,18 +5,94 @@ package restapi
 import (
 	"crypto/tls"
 	"net/http"
+	"sync"
+	"sync/atomic"
+	"strconv"
 
 	errors "github.com/go-openapi/errors"
 	runtime "github.com/go-openapi/runtime"
 	middleware "github.com/go-openapi/runtime/middleware"
 	graceful "github.com/tylerb/graceful"
 
-	"candig_mds/restapi/operations"
+	operations "candig_mds/restapi/operations"
+	"candig_mds/models"
 )
 
 // This file is safe to edit. Once it exists it will not be overwritten
 
-//go:generate swagger generate server --target .. --name  --spec ../swagger.yaml
+//go:generate swagger generate server --target .. --name candig_metadata --spec ../swagger.yaml
+
+//
+// Use a simple in-memory int -> model map for Individual and biosample
+// 
+
+var individuals = make(map[int64]*models.Individual)
+var lastIndividualId int64
+var individualLock = &sync.Mutex{}
+
+var biosamples = make(map[int64]*models.Biosample)
+var lastBiosampleId int64
+var biosampleLock = &sync.Mutex{}
+
+func newIndividualID() int64 {
+	return atomic.AddInt64(&lastIndividualId, 1)
+}
+
+func newBiosampleID() int64 {
+	return atomic.AddInt64(&lastBiosampleId, 1)
+}
+
+func addIndividual(individual *models.Individual) error {
+	if individual == nil {
+		return errors.New(500, "item must be present")
+	}
+
+	individualLock.Lock()
+	defer individualLock.Unlock()
+
+	var newID = newIndividualID()
+	individual.ID = strconv.FormatInt(newID, 10)
+	individuals[newID] = individual
+
+	return nil
+}
+
+func addBiosample(biosample *models.Biosample) error {
+	if biosample == nil {
+		return errors.New(500, "item must be present")
+	}
+
+	biosampleLock.Lock()
+	defer biosampleLock.Unlock()
+
+	var newID = newBiosampleID()
+	biosample.ID = strconv.FormatInt(newID, 10)
+	biosamples[newID] = biosample
+
+	return nil
+}
+
+func allIndividuals(query string) (result []*models.Individual) {
+	result = make([]*models.Individual, 0)
+	var qint, _ = strconv.ParseInt(query, 10, 64)
+	for id, item := range individuals {
+		if query == "" || qint == id {
+			result = append(result, item)
+		}
+	}
+	return
+}
+
+func allBiosamples(query string) (result []*models.Biosample) {
+	result = make([]*models.Biosample, 0)
+	var qint, _ = strconv.ParseInt(query, 10, 64)
+	for id, item := range biosamples {
+		if query == "" || qint == id {
+			result = append(result, item)
+		}
+	}
+	return
+}
 
 func configureFlags(api *operations.CandigMetadataAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }
@@ -37,22 +113,28 @@ func configureAPI(api *operations.CandigMetadataAPI) http.Handler {
 	api.JSONProducer = runtime.JSONProducer()
 
 	api.AddBiosampleHandler = operations.AddBiosampleHandlerFunc(func(params operations.AddBiosampleParams) middleware.Responder {
-		return middleware.NotImplemented("operation .AddBiosample has not yet been implemented")
+		if err := addBiosample(params.Biosample); err != nil {
+			return operations.NewAddBiosampleBadRequest()
+		}
+		return operations.NewAddBiosampleCreated()
 	})
 	api.AddIndividualHandler = operations.AddIndividualHandlerFunc(func(params operations.AddIndividualParams) middleware.Responder {
-		return middleware.NotImplemented("operation .AddIndividual has not yet been implemented")
+		if err := addIndividual(params.Individual); err != nil {
+			return operations.NewAddIndividualBadRequest()
+		}
+		return operations.NewAddIndividualCreated()
 	})
 	api.GetBiosampleHandler = operations.GetBiosampleHandlerFunc(func(params operations.GetBiosampleParams) middleware.Responder {
-		return middleware.NotImplemented("operation .GetBiosample has not yet been implemented")
+		return operations.NewGetBiosampleOK().WithPayload(allBiosamples(params.BiosampleID))
 	})
 	api.GetIndividualHandler = operations.GetIndividualHandlerFunc(func(params operations.GetIndividualParams) middleware.Responder {
-		return middleware.NotImplemented("operation .GetIndividual has not yet been implemented")
+		return operations.NewGetIndividualOK().WithPayload(allIndividuals(params.IndividualID))
 	})
 	api.SearchBiosampleHandler = operations.SearchBiosampleHandlerFunc(func(params operations.SearchBiosampleParams) middleware.Responder {
-		return middleware.NotImplemented("operation .SearchBiosample has not yet been implemented")
+		return operations.NewGetBiosampleOK().WithPayload(allBiosamples(""))
 	})
 	api.SearchIndividualHandler = operations.SearchIndividualHandlerFunc(func(params operations.SearchIndividualParams) middleware.Responder {
-		return middleware.NotImplemented("operation .SearchIndividual has not yet been implemented")
+		return operations.NewGetIndividualOK().WithPayload(allIndividuals(""))
 	})
 
 	api.ServerShutdown = func() {}
