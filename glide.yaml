@@ -1,6 +1,5 @@
 package: github.com/ljdursi/candig_mds
-import:
-
+imports:
 - package: github.com/Sirupsen/logrus
 - package: github.com/go-openapi/loads
 - package: github.com/go-openapi/strfmt
