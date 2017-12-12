@@ -15,6 +15,7 @@ ENV PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 ADD . /gopath/src/github.com/ljdursi/candig_mds
 WORKDIR /gopath/src/github.com/ljdursi/candig_mds
 
+RUN make get-deps
 RUN make build-alpine
 
 # Final Stage
