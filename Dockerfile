@@ -1,5 +1,5 @@
 # Build Stage
-FROM varikin/golang-glide-alpine:latest AS build-stage
+FROM lacion/docker-alpine:gobuildimage AS build-stage
 
 LABEL app="build-candig_mds"
 LABEL REPO="https://github.com/ljdursi/candig_mds"
@@ -15,6 +15,7 @@ ENV PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 ADD . /gopath/src/github.com/ljdursi/candig_mds
 WORKDIR /gopath/src/github.com/ljdursi/candig_mds
 
+RUN apk add glide
 RUN make get-deps
 RUN make build-alpine
 
