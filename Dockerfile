@@ -15,6 +15,9 @@ ENV PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 ADD . /gopath/src/github.com/ljdursi/candig_mds
 WORKDIR /gopath/src/github.com/ljdursi/candig_mds
 
+RUN echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && apk update
+RUN apk add --no-cache glide@edge git g++ make
+
 RUN apk add glide
 RUN make get-deps
 RUN make build-alpine
