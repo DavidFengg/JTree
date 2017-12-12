@@ -15,16 +15,17 @@ Running it then should be as simple as:
 ```console
 $ make get-deps
 $ make build
-$ ./bin/candig_mds
-```
-
-One can then run with
-
-```console
 $ ./bin/candig_mds --port=8000
 ```
 
-and then in another terminal:
+Alternately, one can run
+
+```console
+$ docker pull quay.io/ljdursi/candig_mds
+```
+and replace 8000 below with the port output.
+
+Query the server in another terminal:
 
 ```console
 $ curl http://127.0.0.1:8000/CanDIG/metadata/0.1.0/individuals/search
@@ -40,7 +41,7 @@ $ curl http://127.0.0.1:8000/CanDIG/metadata/0.1.0/individuals/search
 
 $ curl -X POST -H 'Content-Type: application/json' \
   http://127.0.0.1:8000/CanDIG/metadata/0.1.0/biosample \
-  -d '{ "individualId": "1", "name" : "CANDIG_001_sample", "description" : "foo",
+  -d '{ "individualId": "1", "name" : "CANDIG_001_sample", "description" : "foo", \
         "collectionAge": "20" }'
 
 $ curl http://127.0.0.1:8000/CanDIG/metadata/0.1.0/biosamples/search
