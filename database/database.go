@@ -3,6 +3,7 @@ package database
 import (
 	"log"
 
+	config "github.com/canDIG/candig_mds/conf"
 	"gopkg.in/mgo.v2"
 )
 
@@ -21,6 +22,8 @@ func Init(dbName, connectionstring string) {
 	if err != nil {
 		panic(err)
 	}
+	var c config.Conf
+	c.GetConf()
 	//defer session.Close()
 }
 
@@ -49,4 +52,13 @@ func RemoveAll(collection string) bool {
 		return false
 	}
 	return true
+}
+
+func checkCollections() {
+
+}
+
+func createCollection() bool {
+
+	return false
 }
