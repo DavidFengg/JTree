@@ -13,7 +13,7 @@ var session *mgo.Session
 var err error
 
 //DatabaseInit creates a connection to the database
-func DatabaseInit(dbName, connectionstring string) {
+func Init(dbName, connectionstring string) {
 	databaseName = dbName
 	connectionString = connectionstring + dbName
 
@@ -40,23 +40,6 @@ func Insert(collection string, object interface{}) bool {
 	return true
 }
 
-// func GetAll(collection string) []interface{} {
-// 	var result interface{}
-// 	c := SetCollection(collection)
-// 	iter := c.Find(nil).Iter()
-// 	count, _ := c.Find(nil).Count()
-// 	list := make([]interface{}, count)
-// 	counter := 0
-// 	for iter.Next(&result) {
-// 		list[counter] = result
-// 		counter++
-// 	}
-// 	if err := iter.Close(); err != nil {
-// 		fmt.Printf("%v", err)
-// 	}
-// 	return list
-// }
-
 //RemoveAll will empty a collection
 func RemoveAll(collection string) bool {
 	c := SetCollection(collection)
@@ -67,25 +50,3 @@ func RemoveAll(collection string) bool {
 	}
 	return true
 }
-
-// //Test tests connection with simple queries
-// func Test() {
-// 	var result interface{}
-// 	c := setCollection("objects")
-// 	err = c.Find(bson.M{"first": "mitchell"}).One(&result)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	//fmt.Printf("%v", result)
-// 	addPerson()
-// 	addPerson()
-// 	addPerson()
-
-// 	fmt.Printf("%v", GetAll("people"))
-// 	RemoveAll("people")
-// }
-
-// func addPerson() {
-// 	pers := Person{FirstName: "Mitchell", LastName: "Strong", IsUHN: true, AddedOn: time.Now()}
-// 	Insert("people", pers)
-// }
