@@ -103,7 +103,7 @@ func configureAPI(api *operations.CandigMetadataAPI) http.Handler {
 	api.ServeError = errors.ServeError
 
 	//Configure database connection
-	database.DatabaseInit("candig", "mongodb://localhost:27017/")
+	database.Init("candig", "mongodb://localhost:27017/")
 
 	// Set your custom logger if needed. Default one is log.Printf
 	// Expected interface func(string, ...interface{})
