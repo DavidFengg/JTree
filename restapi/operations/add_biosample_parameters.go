@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"github.com/ljdursi/candig_mds/models"
+	"github.com/CanDIG/candig_mds/models"
 )
 
 // NewAddBiosampleParams creates a new AddBiosampleParams object

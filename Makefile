@@ -5,7 +5,7 @@ BIN_NAME=candig_mds
 VERSION := $(shell grep "const Version " version.go | sed -E 's/.*"(.+)"$$/\1/')
 GIT_COMMIT=$(shell git rev-parse HEAD)
 GIT_DIRTY=$(shell test -n "`git status --porcelain`" && echo "+CHANGES" || true)
-IMAGE_NAME := "ljdursi/candig_mds"
+IMAGE_NAME := "CanDIG/candig_mds"
 
 default: test
 

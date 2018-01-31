@@ -1,6 +1,6 @@
 # candig_mds
 
-[![Build Status](https://travis-ci.org/ljdursi/candig_mds.svg?branch=master)](https://travis-ci.org/ljdursi/candig_mds)
+[![Build Status](https://travis-ci.org/CanDIG/candig_mds.svg?branch=master)](https://travis-ci.org/CanDIG/candig_mds)
 
 A toy metadata service
 
@@ -21,7 +21,7 @@ $ ./bin/candig_mds --port=8000
 Alternately, one can run
 
 ```console
-$ docker pull quay.io/ljdursi/candig_mds
+$ docker pull quay.io/CanDIG/candig_mds
 ```
 and replace 8000 below with the port output.
 
