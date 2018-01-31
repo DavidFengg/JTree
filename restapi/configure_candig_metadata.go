@@ -15,11 +15,11 @@ import (
 	middleware "github.com/go-openapi/runtime/middleware"
 	graceful "github.com/tylerb/graceful"
 
-	database "github.com/candig/candig_mds/database"
-	repos "github.com/candig/candig_mds/repos"
+	database "github.com/CanDIG/candig_mds/database"
+	repos "github.com/CanDIG/candig_mds/repos"
 
-	"github.com/candig/candig_mds/models"
-	operations "github.com/candig/candig_mds/restapi/operations"
+	"github.com/CanDIG/candig_mds/models"
+	operations "github.com/CanDIG/candig_mds/restapi/operations"
 )
 
 // This file is safe to edit. Once it exists it will not be overwritten

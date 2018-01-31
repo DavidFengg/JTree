@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"log"
 
-	database "github.com/candig/candig_mds/database"
-	"github.com/candig/candig_mds/models"
+	database "github.com/CanDIG/candig_mds/database"
+	"github.com/CanDIG/candig_mds/models"
 )
 
 //GetAllIndividuals gets all and results a list of biosamples
