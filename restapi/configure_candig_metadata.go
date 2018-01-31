@@ -96,7 +96,7 @@ func allBiosamples(query string) (result []*models.Biosample) {
 }
 
 var databaseFlags = struct {
-	name string `short:"d" description:"Database parameter" required:"true"`
+	Name string `short:"d" description:"Database parameter" required:"true"`
 }{}
 
 func configureFlags(api *operations.CandigMetadataAPI) {
@@ -114,7 +114,7 @@ func configureAPI(api *operations.CandigMetadataAPI) http.Handler {
 	api.ServeError = errors.ServeError
 
 	//Configure database connection
-	database.Init("candig", databaseFlags.name)
+	database.Init("candig", databaseFlags.Name)
 
 	// Set your custom logger if needed. Default one is log.Printf
 	// Expected interface func(string, ...interface{})
