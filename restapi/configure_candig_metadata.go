@@ -13,6 +13,7 @@ import (
 	errors "github.com/go-openapi/errors"
 	runtime "github.com/go-openapi/runtime"
 	middleware "github.com/go-openapi/runtime/middleware"
+	"github.com/go-openapi/swag"
 	graceful "github.com/tylerb/graceful"
 
 	database "github.com/CanDIG/candig_mds/database"
@@ -94,8 +95,18 @@ func allBiosamples(query string) (result []*models.Biosample) {
 	return
 }
 
+var databaseFlags = struct {
+	name string `short:"d" description:"Database parameter" required:"true"`
+}{}
+
 func configureFlags(api *operations.CandigMetadataAPI) {
-	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }
+	api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{
+		swag.CommandLineOptionsGroup{
+			ShortDescription: "Database Flags",
+			LongDescription:  "",
+			Options:          &databaseFlags,
+		},
+	}
 }
 
 func configureAPI(api *operations.CandigMetadataAPI) http.Handler {
@@ -103,7 +114,7 @@ func configureAPI(api *operations.CandigMetadataAPI) http.Handler {
 	api.ServeError = errors.ServeError
 
 	//Configure database connection
-	database.Init("candig", "mongodb://localhost:27017/")
+	database.Init("candig", databaseFlags.name)
 
 	// Set your custom logger if needed. Default one is log.Printf
 	// Expected interface func(string, ...interface{})
