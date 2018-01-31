@@ -7,11 +7,11 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
-type conf struct {
+type Conf struct {
 	collections []string `yaml:"collections"`
 }
 
-func (c *conf) GetConf() *conf {
+func (c *Conf) GetConf() *Conf {
 
 	yamlFile, err := ioutil.ReadFile("conf.yaml")
 	if err != nil {
