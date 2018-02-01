@@ -22,6 +22,17 @@ func GetAllBiosamples() []*models.Biosample {
 	return list
 }
 
+//GetManyBiosamplesByString gets all and results a list of biosamples
+func GetManyBiosamplesByString(field, value string) []*models.Biosample {
+	c := database.SetCollection(biosampleCollection)
+	var list []*models.Biosample
+	err := c.Find(bson.M{field: value}).All(&list)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return list
+}
+
 //GetOneBiosampleByString gets a bio sample and returns it based on the strings provided
 func GetOneBiosampleByString(field, value string) *models.Biosample {
 	c := database.SetCollection(biosampleCollection)

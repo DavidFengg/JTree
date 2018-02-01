@@ -22,6 +22,17 @@ func GetAllIndividuals() []*models.Individual {
 	return list
 }
 
+//GetManyIndividualsByString gets all and results a list of individuals
+func GetManyIndividualsByString(field, value string) []*models.Individual {
+	c := database.SetCollection(individualCollection)
+	var list []*models.Individual
+	err := c.Find(bson.M{field: value}).All(&list)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return list
+}
+
 //GetOneIndividualByString gets a bio sample and returns it based on the strings provided
 func GetOneIndividualByString(field, value string) *models.Individual {
 	c := database.SetCollection(individualCollection)
