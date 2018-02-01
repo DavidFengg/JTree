@@ -6,11 +6,14 @@ import (
 
 	database "github.com/CanDIG/candig_mds/database"
 	"github.com/CanDIG/candig_mds/models"
+	"gopkg.in/mgo.v2/bson"
 )
 
-//GetAllIndividuals gets all and results a list of biosamples
-func GetAllIndividuals(collection string) []*models.Individual {
-	c := database.SetCollection(collection)
+const individualCollection = "individual"
+
+//GetAllIndividuals gets all and results a list of individuals
+func GetAllIndividuals() []*models.Individual {
+	c := database.SetCollection(individualCollection)
 	var list []*models.Individual
 	err := c.Find(nil).All(&list)
 	if err != nil {
@@ -19,9 +22,20 @@ func GetAllIndividuals(collection string) []*models.Individual {
 	return list
 }
 
+//GetOneIndividualByString gets a bio sample and returns it based on the strings provided
+func GetOneIndividualByString(field, value string) *models.Individual {
+	c := database.SetCollection(individualCollection)
+	var individual *models.Individual
+	err := c.Find(bson.M{field: value}).One(&individual)
+	if err != nil {
+		log.Printf("%v", err)
+	}
+	return individual
+}
+
 //InsertIndividual allows users to add generic objects to a collection in the database
-func InsertIndividual(collection string, individual *models.Individual) bool {
-	c := database.SetCollection(collection)
+func InsertIndividual(individual *models.Individual) bool {
+	c := database.SetCollection(individualCollection)
 	j, _ := json.Marshal(&individual)
 	var interindividual interface{}
 	json.Unmarshal(j, &interindividual)
@@ -34,8 +48,8 @@ func InsertIndividual(collection string, individual *models.Individual) bool {
 }
 
 //RemoveAllIndividuals will empty a collection
-func RemoveAllIndividuals(collection string) bool {
-	c := database.SetCollection(collection)
+func RemoveAllIndividuals() bool {
+	c := database.SetCollection(individualCollection)
 	_, err := c.RemoveAll(nil)
 	if err != nil {
 		log.Fatal(err)

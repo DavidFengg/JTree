@@ -59,7 +59,7 @@ func addIndividual(individual *models.Individual) error {
 
 	var newID = newIndividualID()
 	individual.ID = strconv.FormatInt(newID, 10)
-	repos.InsertIndividual("individual", individual)
+	repos.InsertIndividual(individual)
 
 	return nil
 }
@@ -74,13 +74,13 @@ func addBiosample(biosample *models.Biosample) error {
 
 	var newID = newBiosampleID()
 	biosample.ID = strconv.FormatInt(newID, 10)
-	repos.InsertBiosample("biosample", biosample)
+	repos.InsertBiosample(biosample)
 
 	return nil
 }
 
 func allIndividuals(query string) (result []*models.Individual) {
-	individuals := repos.GetAllIndividuals("individual")
+	individuals := repos.GetAllIndividuals()
 	result = make([]*models.Individual, 0)
 	for _, item := range individuals {
 		result = append(result, item)
@@ -89,7 +89,7 @@ func allIndividuals(query string) (result []*models.Individual) {
 }
 
 func allBiosamples(query string) (result []*models.Biosample) {
-	list := repos.GetAllBiosamples("biosample")
+	list := repos.GetAllBiosamples()
 	result = make([]*models.Biosample, 0)
 	for _, item := range list {
 		result = append(result, item)
