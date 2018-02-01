@@ -10,7 +10,7 @@ import (
 
 //Conf is an object created by the conf.yaml file
 type Conf struct {
-	collection []string
+	Collection []string
 }
 
 //GetConf fills the conf struct
