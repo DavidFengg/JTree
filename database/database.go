@@ -19,11 +19,10 @@ func Init(dbName, connectionstring string) {
 	connectionString = connectionstring
 
 	session, err = mgo.Dial(connectionString)
-	db = session.DB(dbName)
-
 	if err != nil {
 		panic(err)
 	}
+	db = session.DB(dbName)
 }
 
 //SetCollection changes the collection of the datbase context
