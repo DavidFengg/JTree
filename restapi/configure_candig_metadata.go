@@ -16,6 +16,7 @@ import (
 	"github.com/go-openapi/swag"
 	graceful "github.com/tylerb/graceful"
 
+	config "github.com/CanDIG/candig_mds/conf"
 	database "github.com/CanDIG/candig_mds/database"
 	repos "github.com/CanDIG/candig_mds/repos"
 
@@ -38,6 +39,7 @@ var individualLock = &sync.Mutex{}
 var biosamples = make(map[int64]*models.Biosample)
 var lastBiosampleId int64
 var biosampleLock = &sync.Mutex{}
+var c config.Conf
 
 func newIndividualID() int64 {
 	return atomic.AddInt64(&lastIndividualId, 1)
@@ -113,6 +115,7 @@ func configureAPI(api *operations.CandigMetadataAPI) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
 
+	c.GetConf()
 	//Configure database connection
 	database.Init("candig", databaseFlags.Name)
 

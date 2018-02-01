@@ -3,7 +3,6 @@ package database
 import (
 	"log"
 
-	config "github.com/CanDIG/candig_mds/conf"
 	"gopkg.in/mgo.v2"
 )
 
@@ -11,25 +10,25 @@ var databaseName string
 var connectionString string
 
 var session *mgo.Session
+var db *mgo.Database
 var err error
 
 //Init creates a connection to the database
 func Init(dbName, connectionstring string) {
 	databaseName = dbName
-	connectionString = connectionstring + dbName
+	connectionString = connectionstring
 
 	session, err = mgo.Dial(connectionString)
+	db = session.DB(dbName)
+
 	if err != nil {
 		panic(err)
 	}
-	var c config.Conf
-	c.GetConf()
-	//defer session.Close()
 }
 
 //SetCollection changes the collection of the datbase context
 func SetCollection(collection string) *mgo.Collection {
-	return session.DB(databaseName).C(collection)
+	return db.C(collection)
 }
 
 //Insert allows users to add generic objects to a collection in the database
@@ -52,13 +51,4 @@ func RemoveAll(collection string) bool {
 		return false
 	}
 	return true
-}
-
-func checkCollections() {
-
-}
-
-func createCollection() bool {
-
-	return false
 }
