@@ -3,7 +3,7 @@ package database
 import (
 	"log"
 
-	config "github.com/canDIG/candig_mds/conf"
+	config "github.com/CanDIG/candig_mds/conf"
 	"gopkg.in/mgo.v2"
 )
 
