@@ -23,19 +23,12 @@ func TestMain(m *testing.M) {
 
 	api := operations.NewCandigMetadataAPI(swaggerSpec)
 	server := restapi.NewServer(api)
+	server.Port = 8000
 	defer server.Shutdown()
 
 	parser := flags.NewParser(server, flags.Default)
 	parser.ShortDescription = "Candig Metadata API"
 	parser.LongDescription = "Metadata API"
-
-	server.ConfigureFlags()
-	for _, optsGroup := range api.CommandLineOptionsGroups {
-		_, err := parser.AddGroup(optsGroup.ShortDescription, optsGroup.LongDescription, optsGroup.Options)
-		if err != nil {
-			log.Fatalln(err)
-		}
-	}
 
 	if _, err := parser.Parse(); err != nil {
 		code := 1
@@ -49,9 +42,7 @@ func TestMain(m *testing.M) {
 
 	server.ConfigureAPI()
 
-	if err := server.Serve(); err != nil {
-		log.Fatalln(err)
-	}
+	go server.Serve()
 	os.Exit(m.Run())
 }
 
