@@ -11,6 +11,7 @@ import (
 	models "github.com/CanDIG/candig_mds/models"
 	"github.com/CanDIG/candig_mds/repos"
 	"github.com/CanDIG/candig_mds/restapi"
+	rest "github.com/CanDIG/candig_mds/restapi"
 	"github.com/CanDIG/candig_mds/restapi/operations"
 	"github.com/go-openapi/loads"
 	flags "github.com/jessevdk/go-flags"
@@ -19,7 +20,7 @@ import (
 const server = "http://localhost:8000"
 
 func TestMain(m *testing.M) {
-	Databasename = "testCandig"
+	rest.Databasename = "testCandig"
 	swaggerSpec, err := loads.Analyzed(restapi.SwaggerJSON, "")
 	if err != nil {
 		log.Fatalln(err)
