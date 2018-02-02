@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"github.com/CanDIG/candig_mds/models"
+	"github.com/bio-core/jtree/models"
 )
 
 // NewAddIndividualParams creates a new AddIndividualParams object

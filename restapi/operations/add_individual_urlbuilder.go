@@ -39,7 +39,7 @@ func (o *AddIndividualURL) Build() (*url.URL, error) {
 
 	_basePath := o._basePath
 	if _basePath == "" {
-		_basePath = "/CanDIG/metadata/0.1.0"
+		_basePath = "/jtree/metadata/0.1.0"
 	}
 	result.Path = golangswaggerpaths.Join(_basePath, _path)
 

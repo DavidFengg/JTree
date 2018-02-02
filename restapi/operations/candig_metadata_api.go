@@ -20,9 +20,9 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewCandigMetadataAPI creates a new CandigMetadata instance
-func NewCandigMetadataAPI(spec *loads.Document) *CandigMetadataAPI {
-	return &CandigMetadataAPI{
+// NewjtreeMetadataAPI creates a new jtreeMetadata instance
+func NewjtreeMetadataAPI(spec *loads.Document) *jtreeMetadataAPI {
+	return &jtreeMetadataAPI{
 		handlers:            make(map[string]map[string]http.Handler),
 		formats:             strfmt.Default,
 		defaultConsumes:     "application/json",
@@ -56,8 +56,8 @@ func NewCandigMetadataAPI(spec *loads.Document) *CandigMetadataAPI {
 	}
 }
 
-/*CandigMetadataAPI Metadata API */
-type CandigMetadataAPI struct {
+/*jtreeMetadataAPI Metadata API */
+type jtreeMetadataAPI struct {
 	spec            *loads.Document
 	context         *middleware.Context
 	handlers        map[string]map[string]http.Handler
@@ -111,42 +111,42 @@ type CandigMetadataAPI struct {
 }
 
 // SetDefaultProduces sets the default produces media type
-func (o *CandigMetadataAPI) SetDefaultProduces(mediaType string) {
+func (o *jtreeMetadataAPI) SetDefaultProduces(mediaType string) {
 	o.defaultProduces = mediaType
 }
 
 // SetDefaultConsumes returns the default consumes media type
-func (o *CandigMetadataAPI) SetDefaultConsumes(mediaType string) {
+func (o *jtreeMetadataAPI) SetDefaultConsumes(mediaType string) {
 	o.defaultConsumes = mediaType
 }
 
 // SetSpec sets a spec that will be served for the clients.
-func (o *CandigMetadataAPI) SetSpec(spec *loads.Document) {
+func (o *jtreeMetadataAPI) SetSpec(spec *loads.Document) {
 	o.spec = spec
 }
 
 // DefaultProduces returns the default produces media type
-func (o *CandigMetadataAPI) DefaultProduces() string {
+func (o *jtreeMetadataAPI) DefaultProduces() string {
 	return o.defaultProduces
 }
 
 // DefaultConsumes returns the default consumes media type
-func (o *CandigMetadataAPI) DefaultConsumes() string {
+func (o *jtreeMetadataAPI) DefaultConsumes() string {
 	return o.defaultConsumes
 }
 
 // Formats returns the registered string formats
-func (o *CandigMetadataAPI) Formats() strfmt.Registry {
+func (o *jtreeMetadataAPI) Formats() strfmt.Registry {
 	return o.formats
 }
 
 // RegisterFormat registers a custom format validator
-func (o *CandigMetadataAPI) RegisterFormat(name string, format strfmt.Format, validator strfmt.Validator) {
+func (o *jtreeMetadataAPI) RegisterFormat(name string, format strfmt.Format, validator strfmt.Validator) {
 	o.formats.Add(name, format, validator)
 }
 
-// Validate validates the registrations in the CandigMetadataAPI
-func (o *CandigMetadataAPI) Validate() error {
+// Validate validates the registrations in the jtreeMetadataAPI
+func (o *jtreeMetadataAPI) Validate() error {
 	var unregistered []string
 
 	if o.JSONConsumer == nil {
@@ -189,26 +189,26 @@ func (o *CandigMetadataAPI) Validate() error {
 }
 
 // ServeErrorFor gets a error handler for a given operation id
-func (o *CandigMetadataAPI) ServeErrorFor(operationID string) func(http.ResponseWriter, *http.Request, error) {
+func (o *jtreeMetadataAPI) ServeErrorFor(operationID string) func(http.ResponseWriter, *http.Request, error) {
 	return o.ServeError
 }
 
 // AuthenticatorsFor gets the authenticators for the specified security schemes
-func (o *CandigMetadataAPI) AuthenticatorsFor(schemes map[string]spec.SecurityScheme) map[string]runtime.Authenticator {
+func (o *jtreeMetadataAPI) AuthenticatorsFor(schemes map[string]spec.SecurityScheme) map[string]runtime.Authenticator {
 
 	return nil
 
 }
 
 // Authorizer returns the registered authorizer
-func (o *CandigMetadataAPI) Authorizer() runtime.Authorizer {
+func (o *jtreeMetadataAPI) Authorizer() runtime.Authorizer {
 
 	return nil
 
 }
 
 // ConsumersFor gets the consumers for the specified media types
-func (o *CandigMetadataAPI) ConsumersFor(mediaTypes []string) map[string]runtime.Consumer {
+func (o *jtreeMetadataAPI) ConsumersFor(mediaTypes []string) map[string]runtime.Consumer {
 
 	result := make(map[string]runtime.Consumer)
 	for _, mt := range mediaTypes {
@@ -224,7 +224,7 @@ func (o *CandigMetadataAPI) ConsumersFor(mediaTypes []string) map[string]runtime
 }
 
 // ProducersFor gets the producers for the specified media types
-func (o *CandigMetadataAPI) ProducersFor(mediaTypes []string) map[string]runtime.Producer {
+func (o *jtreeMetadataAPI) ProducersFor(mediaTypes []string) map[string]runtime.Producer {
 
 	result := make(map[string]runtime.Producer)
 	for _, mt := range mediaTypes {
@@ -240,7 +240,7 @@ func (o *CandigMetadataAPI) ProducersFor(mediaTypes []string) map[string]runtime
 }
 
 // HandlerFor gets a http.Handler for the provided operation method and path
-func (o *CandigMetadataAPI) HandlerFor(method, path string) (http.Handler, bool) {
+func (o *jtreeMetadataAPI) HandlerFor(method, path string) (http.Handler, bool) {
 	if o.handlers == nil {
 		return nil, false
 	}
@@ -255,8 +255,8 @@ func (o *CandigMetadataAPI) HandlerFor(method, path string) (http.Handler, bool)
 	return h, ok
 }
 
-// Context returns the middleware context for the candig metadata API
-func (o *CandigMetadataAPI) Context() *middleware.Context {
+// Context returns the middleware context for the jtree metadata API
+func (o *jtreeMetadataAPI) Context() *middleware.Context {
 	if o.context == nil {
 		o.context = middleware.NewRoutableContext(o.spec, o, nil)
 	}
@@ -264,7 +264,7 @@ func (o *CandigMetadataAPI) Context() *middleware.Context {
 	return o.context
 }
 
-func (o *CandigMetadataAPI) initHandlerCache() {
+func (o *jtreeMetadataAPI) initHandlerCache() {
 	o.Context() // don't care about the result, just that the initialization happened
 
 	if o.handlers == nil {
@@ -305,7 +305,7 @@ func (o *CandigMetadataAPI) initHandlerCache() {
 
 // Serve creates a http handler to serve the API over HTTP
 // can be used directly in http.ListenAndServe(":8000", api.Serve(nil))
-func (o *CandigMetadataAPI) Serve(builder middleware.Builder) http.Handler {
+func (o *jtreeMetadataAPI) Serve(builder middleware.Builder) http.Handler {
 	o.Init()
 
 	if o.Middleware != nil {
@@ -315,7 +315,7 @@ func (o *CandigMetadataAPI) Serve(builder middleware.Builder) http.Handler {
 }
 
 // Init allows you to just initialize the handler cache, you can then recompose the middelware as you see fit
-func (o *CandigMetadataAPI) Init() {
+func (o *jtreeMetadataAPI) Init() {
 	if len(o.handlers) == 0 {
 		o.initHandlerCache()
 	}

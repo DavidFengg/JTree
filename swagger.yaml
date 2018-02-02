@@ -3,14 +3,14 @@ swagger: "2.0"
 info:
   description: "Metadata API"
   version: "0.1.0"
-  title: "Candig Metadata API"
+  title: "jtree Metadata API"
   contact:
     email: "info@distributedgenomics.ca"
   license:
     name: "GPL"
     url: "https://www.gnu.org/licenses/gpl-3.0.en.html"
 host: "virtserver.swaggerhub.com"
-basePath: "/CanDIG/metadata/0.1.0"
+basePath: "/jtree/metadata/0.1.0"
 schemes:
 - "http"
 paths:
@@ -194,7 +194,7 @@ definitions:
         example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
       name:
         type: "string"
-        example: "CANDIG-BCGSC-IN-d290f1ee-6c54-4b01-90e6"
+        example: "jtree-BCGSC-IN-d290f1ee-6c54-4b01-90e6"
       description:
         type: "string"
       createdDate:
@@ -219,7 +219,7 @@ definitions:
         termId: "PATO:0020001"
         term: "male genotypic sex"
         ontology: "http://purl.obolibrary.org/obo"
-      name: "CANDIG-BCGSC-IN-d290f1ee-6c54-4b01-90e6"
+      name: "jtree-BCGSC-IN-d290f1ee-6c54-4b01-90e6"
       description: "description"
       attributes: ""
       id: "d290f1ee-6c54-4b01-90e6-d701748f0851"
@@ -237,7 +237,7 @@ definitions:
         example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
       name:
         type: "string"
-        example: "CANDIG-BCGSC-SM-d290f1ee-6c54-4b01-90e6"
+        example: "jtree-BCGSC-SM-d290f1ee-6c54-4b01-90e6"
       description:
         type: "string"
       disease:
@@ -260,7 +260,7 @@ definitions:
         term: "male genotypic sex"
         ontology: "http://purl.obolibrary.org/obo"
       createdDate: "2000-01-23"
-      name: "CANDIG-BCGSC-SM-d290f1ee-6c54-4b01-90e6"
+      name: "jtree-BCGSC-SM-d290f1ee-6c54-4b01-90e6"
       description: "description"
       attributes: ""
       id: "d290f1ee-6c54-4b01-90e6-d701748f0851"

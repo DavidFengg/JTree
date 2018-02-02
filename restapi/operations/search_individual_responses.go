@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/CanDIG/candig_mds/models"
+	"github.com/bio-core/jtree/models"
 )
 
 // SearchIndividualOKCode is the HTTP code returned for type SearchIndividualOK

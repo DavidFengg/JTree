@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"log"
 
-	database "github.com/CanDIG/candig_mds/database"
-	"github.com/CanDIG/candig_mds/models"
+	database "github.com/bio-core/jtree/database"
+	"github.com/bio-core/jtree/models"
 	"github.com/globalsign/mgo/bson"
 )
 

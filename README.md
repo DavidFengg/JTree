@@ -1,11 +1,11 @@
 # JTree
 
-**NOTE: Fork of candig project for now...will have to slowly move things over**
-[![Build Status](https://travis-ci.org/CanDIG/candig_mds.svg?branch=master)](https://travis-ci.org/CanDIG/candig_mds)
+**NOTE: Fork of jtree project for now...will have to slowly move things over**
+[![Build Status](https://travis-ci.org/jtree/jtree.svg?branch=master)](https://travis-ci.org/jtree/jtree)
 
 A toy metadata service
 
-[View On SwaggerHub](https://app.swaggerhub.com/apis/CanDIG/candig-metadata_api/0.1.0)
+[View On SwaggerHub](https://app.swaggerhub.com/apis/jtree/jtree-metadata_api/0.1.0)
 
 ## Getting started
 
@@ -16,37 +16,37 @@ Running it then should be as simple as:
 ```console
 $ make get-deps
 $ make build
-$ ./bin/candig_mds --port=8000
+$ ./bin/jtree --port=8000
 ```
 
 Alternately, one can run
 
 ```console
-$ docker pull quay.io/CanDIG/candig_mds
+$ docker pull quay.io/jtree/jtree
 ```
 and replace 8000 below with the port output.
 
 Query the server in another terminal:
 
 ```console
-$ curl http://127.0.0.1:8000/CanDIG/metadata/0.1.0/individuals/search
+$ curl http://127.0.0.1:8000/jtree/metadata/0.1.0/individuals/search
 []
 
 $ curl -X POST -H 'Content-Type: application/json' \
-  http://127.0.0.1:8000/CanDIG/metadata/0.1.0/individual \
-  -d '{ "name" : "CANDIG_001", "description" : "foo" }'
+  http://127.0.0.1:8000/jtree/metadata/0.1.0/individual \
+  -d '{ "name" : "jtree_001", "description" : "foo" }'
 
-$ curl http://127.0.0.1:8000/CanDIG/metadata/0.1.0/individuals/search
+$ curl http://127.0.0.1:8000/jtree/metadata/0.1.0/individuals/search
 [{"attributes":null,"createdDate":"0001-01-01","description":"foo","id":"1",
-  "name":"CANDIG_001","updatedDate":"0001-01-01"}]
+  "name":"jtree_001","updatedDate":"0001-01-01"}]
 
 $ curl -X POST -H 'Content-Type: application/json' \
-  http://127.0.0.1:8000/CanDIG/metadata/0.1.0/biosample \
-  -d '{ "individualId": "1", "name" : "CANDIG_001_sample", "description" : "foo", \
+  http://127.0.0.1:8000/jtree/metadata/0.1.0/biosample \
+  -d '{ "individualId": "1", "name" : "jtree_001_sample", "description" : "foo", \
         "collectionAge": "20" }'
 
-$ curl http://127.0.0.1:8000/CanDIG/metadata/0.1.0/biosamples/search
+$ curl http://127.0.0.1:8000/jtree/metadata/0.1.0/biosamples/search
 [{"attributes":null,"collectionAge":"20","createdDate":"0001-01-01",
-  "description":"foo","id":"1","individualId":"1","name":"CANDIG_001_sample",
+  "description":"foo","id":"1","individualId":"1","name":"jtree_001_sample",
   "updatedDate":"0001-01-01"}]
 ```

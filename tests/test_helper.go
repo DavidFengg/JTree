@@ -3,7 +3,7 @@ package tests
 import (
 	"net/http"
 
-	database "github.com/CanDIG/candig_mds/database"
+	database "github.com/bio-core/jtree/database"
 )
 
 //CheckPageResponse checks if a page that should respond is found correctly

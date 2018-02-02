@@ -16,17 +16,17 @@ import (
 	"github.com/go-openapi/swag"
 	graceful "github.com/tylerb/graceful"
 
-	config "github.com/CanDIG/candig_mds/conf"
-	database "github.com/CanDIG/candig_mds/database"
-	repos "github.com/CanDIG/candig_mds/repos"
+	config "github.com/bio-core/jtree/conf"
+	database "github.com/bio-core/jtree/database"
+	repos "github.com/bio-core/jtree/repos"
 
-	"github.com/CanDIG/candig_mds/models"
-	operations "github.com/CanDIG/candig_mds/restapi/operations"
+	"github.com/bio-core/jtree/models"
+	operations "github.com/bio-core/jtree/restapi/operations"
 )
 
 // This file is safe to edit. Once it exists it will not be overwritten
 
-//go:generate swagger generate server --target .. --name candig_metadata --spec ../swagger.yaml
+//go:generate swagger generate server --target .. --name jtree_metadata --spec ../swagger.yaml
 
 //
 // Use a simple in-memory int -> model map for Individual and biosample
@@ -101,7 +101,7 @@ var databaseFlags = struct {
 	Name string `short:"d" description:"Database parameter" required:"true"`
 }{}
 
-func configureFlags(api *operations.CandigMetadataAPI) {
+func configureFlags(api *operations.jtreeMetadataAPI) {
 	api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{
 		swag.CommandLineOptionsGroup{
 			ShortDescription: "Database Flags",
@@ -111,13 +111,13 @@ func configureFlags(api *operations.CandigMetadataAPI) {
 	}
 }
 
-func configureAPI(api *operations.CandigMetadataAPI) http.Handler {
+func configureAPI(api *operations.jtreeMetadataAPI) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
 
 	c.GetConf()
 	//Configure database connection
-	database.Init("candig", databaseFlags.Name)
+	database.Init("jtree", databaseFlags.Name)
 
 	// Set your custom logger if needed. Default one is log.Printf
 	// Expected interface func(string, ...interface{})

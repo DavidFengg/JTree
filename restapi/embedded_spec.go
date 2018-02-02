@@ -20,7 +20,7 @@ func init() {
   "swagger": "2.0",
   "info": {
     "description": "Metadata API",
-    "title": "Candig Metadata API",
+    "title": "jtree Metadata API",
     "contact": {
       "email": "info@distributedgenomics.ca"
     },
@@ -31,7 +31,7 @@ func init() {
     "version": "0.1.0"
   },
   "host": "virtserver.swaggerhub.com",
-  "basePath": "/CanDIG/metadata/0.1.0",
+  "basePath": "/jtree/metadata/0.1.0",
   "paths": {
     "/biosample": {
       "post": {
@@ -277,7 +277,7 @@ func init() {
         },
         "name": {
           "type": "string",
-          "example": "CANDIG-BCGSC-SM-d290f1ee-6c54-4b01-90e6"
+          "example": "jtree-BCGSC-SM-d290f1ee-6c54-4b01-90e6"
         },
         "updatedDate": {
           "type": "string",
@@ -296,7 +296,7 @@ func init() {
         },
         "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
         "individualId": "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-        "name": "CANDIG-BCGSC-SM-d290f1ee-6c54-4b01-90e6",
+        "name": "jtree-BCGSC-SM-d290f1ee-6c54-4b01-90e6",
         "updatedDate": "2000-01-23"
       }
     },
@@ -323,7 +323,7 @@ func init() {
         },
         "name": {
           "type": "string",
-          "example": "CANDIG-BCGSC-IN-d290f1ee-6c54-4b01-90e6"
+          "example": "jtree-BCGSC-IN-d290f1ee-6c54-4b01-90e6"
         },
         "sex": {
           "$ref": "#/definitions/OntologyTerm"
@@ -341,7 +341,7 @@ func init() {
         "createdDate": "2000-01-23",
         "description": "description",
         "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "name": "CANDIG-BCGSC-IN-d290f1ee-6c54-4b01-90e6",
+        "name": "jtree-BCGSC-IN-d290f1ee-6c54-4b01-90e6",
         "sex": {
           "ontology": "http://purl.obolibrary.org/obo",
           "term": "male genotypic sex",

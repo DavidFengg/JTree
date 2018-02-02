@@ -8,11 +8,11 @@ import (
 	"os"
 	"testing"
 
-	models "github.com/CanDIG/candig_mds/models"
-	"github.com/CanDIG/candig_mds/repos"
-	"github.com/CanDIG/candig_mds/restapi"
-	rest "github.com/CanDIG/candig_mds/restapi"
-	"github.com/CanDIG/candig_mds/restapi/operations"
+	models "github.com/bio-core/jtree/models"
+	"github.com/bio-core/jtree/repos"
+	"github.com/bio-core/jtree/restapi"
+	rest "github.com/bio-core/jtree/restapi"
+	"github.com/bio-core/jtree/restapi/operations"
 	"github.com/go-openapi/loads"
 	flags "github.com/jessevdk/go-flags"
 )
@@ -20,19 +20,19 @@ import (
 const server = "http://localhost:8000"
 
 func TestMain(m *testing.M) {
-	rest.Databasename = "testCandig"
+	rest.Databasename = "testjtree"
 	swaggerSpec, err := loads.Analyzed(restapi.SwaggerJSON, "")
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	api := operations.NewCandigMetadataAPI(swaggerSpec)
+	api := operations.NewjtreeMetadataAPI(swaggerSpec)
 	server := restapi.NewServer(api)
 	server.Port = 8000
 	defer server.Shutdown()
 
 	parser := flags.NewParser(server, flags.Default)
-	parser.ShortDescription = "Candig Metadata API"
+	parser.ShortDescription = "jtree Metadata API"
 	parser.LongDescription = "Metadata API"
 
 	if _, err := parser.Parse(); err != nil {
@@ -55,8 +55,8 @@ func TestMain(m *testing.M) {
 
 func TestUrls(t *testing.T) {
 	result := true
-	result = result && CheckPageResponse(server+"/CanDIG/metadata/0.1.0/biosample/search")
-	result = result && CheckPageResponse(server+"/CanDIG/metadata/0.1.0/individual/search")
+	result = result && CheckPageResponse(server+"/jtree/metadata/0.1.0/biosample/search")
+	result = result && CheckPageResponse(server+"/jtree/metadata/0.1.0/individual/search")
 	result = result && CheckNoPageResponse(server+"/x")
 
 	if result != true {
@@ -104,8 +104,8 @@ func TestAddBiosamplesPOST(t *testing.T) {
 	body := bytes.NewReader(sample1Bytes)
 	body2 := bytes.NewReader(sample2Bytes)
 
-	req, err := http.NewRequest("POST", server+"/CanDIG/metadata/0.1.0/biosample", body)
-	req2, err2 := http.NewRequest("POST", server+"/CanDIG/metadata/0.1.0/biosample", body2)
+	req, err := http.NewRequest("POST", server+"/jtree/metadata/0.1.0/biosample", body)
+	req2, err2 := http.NewRequest("POST", server+"/jtree/metadata/0.1.0/biosample", body2)
 
 	if err != nil {
 		t.Fail()
@@ -170,8 +170,8 @@ func TestAddIndividualsPOST(t *testing.T) {
 	body := bytes.NewReader(person1Bytes)
 	body2 := bytes.NewReader(person2Bytes)
 
-	req, err := http.NewRequest("POST", server+"/CanDIG/metadata/0.1.0/individual", body)
-	req2, err2 := http.NewRequest("POST", server+"/CanDIG/metadata/0.1.0/individual", body2)
+	req, err := http.NewRequest("POST", server+"/jtree/metadata/0.1.0/individual", body)
+	req2, err2 := http.NewRequest("POST", server+"/jtree/metadata/0.1.0/individual", body2)
 
 	if err != nil {
 		t.Fail()
