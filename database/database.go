@@ -3,7 +3,7 @@ package database
 import (
 	"log"
 
-	"gopkg.in/mgo.v2"
+	"github.com/globalsign/mgo"
 )
 
 var databaseName string

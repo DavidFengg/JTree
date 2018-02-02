@@ -1,10 +1,8 @@
 package log
 
 import (
-	"os"
-
 	"github.com/Sirupsen/logrus"
-	
+	"github.com/ohsu-comp-bio/funnel/config"
 )
 
 // Logger defines a set of methods for writing application logs. Derived from and
@@ -42,17 +40,14 @@ func init() {
 	defaultLogger = newLogrusLogger(config.Config())
 }
 
-
 func NewLogger() *logrus.Logger {
 	return newLogrusLogger()
 }
 
-
-
 func newLogrusLogger() *logrus.Logger {
 
 	l := logrus.New()
-	
+
 	return l
 }
 

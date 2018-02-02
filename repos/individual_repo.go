@@ -6,7 +6,7 @@ import (
 
 	database "github.com/CanDIG/candig_mds/database"
 	"github.com/CanDIG/candig_mds/models"
-	"gopkg.in/mgo.v2/bson"
+	"github.com/globalsign/mgo/bson"
 )
 
 const individualCollection = "individual"
