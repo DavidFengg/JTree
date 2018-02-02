@@ -1,5 +1,6 @@
-# candig_mds
+# JTree
 
+**NOTE: Fork of candig project for now...will have to slowly move things over**
 [![Build Status](https://travis-ci.org/CanDIG/candig_mds.svg?branch=master)](https://travis-ci.org/CanDIG/candig_mds)
 
 A toy metadata service
