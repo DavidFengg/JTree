@@ -48,6 +48,11 @@ type Individual struct {
 func (m *Individual) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateCreatedDate(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateDescription(formats); err != nil {
 		// prop
 		res = append(res, err)
@@ -68,9 +73,27 @@ func (m *Individual) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateUpdatedDate(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Individual) validateCreatedDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CreatedDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("createdDate", "body", "date", m.CreatedDate.String(), formats); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -125,6 +148,19 @@ func (m *Individual) validateSpecies(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *Individual) validateUpdatedDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.UpdatedDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("updatedDate", "body", "date", m.UpdatedDate.String(), formats); err != nil {
+		return err
 	}
 
 	return nil

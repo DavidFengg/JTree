@@ -3,14 +3,14 @@ swagger: "2.0"
 info:
   description: "Metadata API"
   version: "0.1.0"
-  title: "jtree Metadata API"
+  title: "Jtree Metadata API"
   contact:
     email: "info@distributedgenomics.ca"
   license:
     name: "GPL"
     url: "https://www.gnu.org/licenses/gpl-3.0.en.html"
 host: "virtserver.swaggerhub.com"
-basePath: "/jtree/metadata/0.1.0"
+basePath: "/Jtree/metadata/0.1.0"
 schemes:
 - "http"
 paths:

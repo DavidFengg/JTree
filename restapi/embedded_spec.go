@@ -9,8 +9,12 @@ import (
 	"encoding/json"
 )
 
-// SwaggerJSON embedded version of the swagger document used at generation time
-var SwaggerJSON json.RawMessage
+var (
+	// SwaggerJSON embedded version of the swagger document used at generation time
+	SwaggerJSON json.RawMessage
+	// FlatSwaggerJSON embedded flattened version of the swagger document used at generation time
+	FlatSwaggerJSON json.RawMessage
+)
 
 func init() {
 	SwaggerJSON = json.RawMessage([]byte(`{
@@ -20,7 +24,7 @@ func init() {
   "swagger": "2.0",
   "info": {
     "description": "Metadata API",
-    "title": "jtree Metadata API",
+    "title": "Jtree Metadata API",
     "contact": {
       "email": "info@distributedgenomics.ca"
     },
@@ -31,7 +35,7 @@ func init() {
     "version": "0.1.0"
   },
   "host": "virtserver.swaggerhub.com",
-  "basePath": "/jtree/metadata/0.1.0",
+  "basePath": "/Jtree/metadata/0.1.0",
   "paths": {
     "/biosample": {
       "post": {
@@ -381,6 +385,393 @@ func init() {
         "term": "male genotypic sex",
         "termId": "PATO:0020001"
       }
+    }
+  }
+}`))
+	FlatSwaggerJSON = json.RawMessage([]byte(`{
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Metadata API",
+    "title": "Jtree Metadata API",
+    "contact": {
+      "email": "info@distributedgenomics.ca"
+    },
+    "license": {
+      "name": "GPL",
+      "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+    },
+    "version": "0.1.0"
+  },
+  "host": "virtserver.swaggerhub.com",
+  "basePath": "/Jtree/metadata/0.1.0",
+  "paths": {
+    "/biosample": {
+      "post": {
+        "description": "Adds a biosample to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "adds a biosample",
+        "operationId": "addBiosample",
+        "parameters": [
+          {
+            "description": "Biosample",
+            "name": "biosample",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Biosample"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "item created"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/biosample/{biosampleId}": {
+      "get": {
+        "summary": "Returns an biosample by ID.",
+        "operationId": "getBiosample",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/getBiosampleOKBody"
+            }
+          },
+          "404": {
+            "description": "Biosample not found"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "biosampleId",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/biosamples/search": {
+      "get": {
+        "description": "By passing in the appropriate options, you can search for\navailable biosample\n",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "searches biosamples",
+        "operationId": "searchBiosample",
+        "parameters": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "description": "pass an optional search string for looking up inventory",
+            "name": "searchString",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "schema": {
+              "$ref": "#/definitions/searchBiosampleOKBody"
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/individual": {
+      "post": {
+        "description": "Adds an individual to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "adds an individual item",
+        "operationId": "addIndividual",
+        "parameters": [
+          {
+            "description": "Individual",
+            "name": "individual",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Individual"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "item created"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/individual/{individualId}": {
+      "get": {
+        "summary": "Returns an individual by ID.",
+        "operationId": "getIndividual",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/getIndividualOKBody"
+            }
+          },
+          "404": {
+            "description": "individual not found"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "individualId",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/individuals/search": {
+      "get": {
+        "description": "By passing in the appropriate options, you can search for\navailable individuals\n",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "searches individuals",
+        "operationId": "searchIndividual",
+        "parameters": [
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "description": "pass an optional search string for looking up inventory",
+            "name": "searchString",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "schema": {
+              "$ref": "#/definitions/searchIndividualOKBody"
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Attribute": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "Attributes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Attribute"
+      }
+    },
+    "Biosample": {
+      "type": "object",
+      "required": [
+        "collectionAge",
+        "description",
+        "individualId",
+        "name"
+      ],
+      "properties": {
+        "attributes": {
+          "$ref": "#/definitions/Attributes"
+        },
+        "collectionAge": {
+          "type": "string"
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "description": {
+          "type": "string"
+        },
+        "disease": {
+          "$ref": "#/definitions/OntologyTerm"
+        },
+        "id": {
+          "type": "string",
+          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "individualId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "example": "jtree-BCGSC-SM-d290f1ee-6c54-4b01-90e6"
+        },
+        "updatedDate": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "example": {
+        "attributes": "",
+        "collectionAge": "collectionAge",
+        "createdDate": "2000-01-23",
+        "description": "description",
+        "disease": {
+          "ontology": "http://purl.obolibrary.org/obo",
+          "term": "male genotypic sex",
+          "termId": "PATO:0020001"
+        },
+        "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+        "individualId": "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
+        "name": "jtree-BCGSC-SM-d290f1ee-6c54-4b01-90e6",
+        "updatedDate": "2000-01-23"
+      }
+    },
+    "Individual": {
+      "type": "object",
+      "required": [
+        "description",
+        "name"
+      ],
+      "properties": {
+        "attributes": {
+          "$ref": "#/definitions/Attributes"
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "name": {
+          "type": "string",
+          "example": "jtree-BCGSC-IN-d290f1ee-6c54-4b01-90e6"
+        },
+        "sex": {
+          "$ref": "#/definitions/OntologyTerm"
+        },
+        "species": {
+          "$ref": "#/definitions/OntologyTerm"
+        },
+        "updatedDate": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "example": {
+        "attributes": "",
+        "createdDate": "2000-01-23",
+        "description": "description",
+        "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+        "name": "jtree-BCGSC-IN-d290f1ee-6c54-4b01-90e6",
+        "sex": {
+          "ontology": "http://purl.obolibrary.org/obo",
+          "term": "male genotypic sex",
+          "termId": "PATO:0020001"
+        },
+        "species": {
+          "ontology": "http://purl.obolibrary.org/obo",
+          "term": "male genotypic sex",
+          "termId": "PATO:0020001"
+        },
+        "updatedDate": "2000-01-23"
+      }
+    },
+    "OntologyTerm": {
+      "type": "object",
+      "required": [
+        "term",
+        "termId"
+      ],
+      "properties": {
+        "ontology": {
+          "type": "string",
+          "format": "url",
+          "example": "http://purl.obolibrary.org/obo"
+        },
+        "term": {
+          "type": "string",
+          "example": "male genotypic sex"
+        },
+        "termId": {
+          "type": "string",
+          "example": "PATO:0020001"
+        }
+      },
+      "example": {
+        "ontology": "http://purl.obolibrary.org/obo",
+        "term": "male genotypic sex",
+        "termId": "PATO:0020001"
+      }
+    },
+    "getBiosampleOKBody": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Biosample"
+      },
+      "x-go-gen-location": "operations"
+    },
+    "getIndividualOKBody": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Individual"
+      },
+      "x-go-gen-location": "operations"
+    },
+    "searchBiosampleOKBody": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Biosample"
+      },
+      "x-go-gen-location": "operations"
+    },
+    "searchIndividualOKBody": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Individual"
+      },
+      "x-go-gen-location": "operations"
     }
   }
 }`))

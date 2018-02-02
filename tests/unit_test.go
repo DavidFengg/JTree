@@ -26,13 +26,13 @@ func TestMain(m *testing.M) {
 		log.Fatalln(err)
 	}
 
-	api := operations.NewjtreeMetadataAPI(swaggerSpec)
+	api := operations.NewJtreeMetadataAPI(swaggerSpec)
 	server := restapi.NewServer(api)
 	server.Port = 8000
 	defer server.Shutdown()
 
 	parser := flags.NewParser(server, flags.Default)
-	parser.ShortDescription = "jtree Metadata API"
+	parser.ShortDescription = "Jtree Metadata API"
 	parser.LongDescription = "Metadata API"
 
 	if _, err := parser.Parse(); err != nil {
@@ -55,8 +55,8 @@ func TestMain(m *testing.M) {
 
 func TestUrls(t *testing.T) {
 	result := true
-	result = result && CheckPageResponse(server+"/jtree/metadata/0.1.0/biosample/search")
-	result = result && CheckPageResponse(server+"/jtree/metadata/0.1.0/individual/search")
+	result = result && CheckPageResponse(server+"/Jtree/metadata/0.1.0/biosample/search")
+	result = result && CheckPageResponse(server+"/Jtree/metadata/0.1.0/individual/search")
 	result = result && CheckNoPageResponse(server+"/x")
 
 	if result != true {
@@ -104,8 +104,8 @@ func TestAddBiosamplesPOST(t *testing.T) {
 	body := bytes.NewReader(sample1Bytes)
 	body2 := bytes.NewReader(sample2Bytes)
 
-	req, err := http.NewRequest("POST", server+"/jtree/metadata/0.1.0/biosample", body)
-	req2, err2 := http.NewRequest("POST", server+"/jtree/metadata/0.1.0/biosample", body2)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/biosample", body)
+	req2, err2 := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/biosample", body2)
 
 	if err != nil {
 		t.Fail()
@@ -170,8 +170,8 @@ func TestAddIndividualsPOST(t *testing.T) {
 	body := bytes.NewReader(person1Bytes)
 	body2 := bytes.NewReader(person2Bytes)
 
-	req, err := http.NewRequest("POST", server+"/jtree/metadata/0.1.0/individual", body)
-	req2, err2 := http.NewRequest("POST", server+"/jtree/metadata/0.1.0/individual", body2)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/individual", body)
+	req2, err2 := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/individual", body2)
 
 	if err != nil {
 		t.Fail()

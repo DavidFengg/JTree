@@ -50,7 +50,7 @@ func (o *GetIndividualURL) Build() (*url.URL, error) {
 	}
 	_basePath := o._basePath
 	if _basePath == "" {
-		_basePath = "/jtree/metadata/0.1.0"
+		_basePath = "/Jtree/metadata/0.1.0"
 	}
 	result.Path = golangswaggerpaths.Join(_basePath, _path)
 

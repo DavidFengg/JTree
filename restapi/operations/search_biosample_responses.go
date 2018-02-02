@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"github.com/bio-core/jtree/models"
+	models "github.com/bio-core/jtree/models"
 )
 
 // SearchBiosampleOKCode is the HTTP code returned for type SearchBiosampleOK

@@ -58,6 +58,11 @@ func (m *Biosample) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateCreatedDate(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateDescription(formats); err != nil {
 		// prop
 		res = append(res, err)
@@ -78,6 +83,11 @@ func (m *Biosample) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateUpdatedDate(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -87,6 +97,19 @@ func (m *Biosample) Validate(formats strfmt.Registry) error {
 func (m *Biosample) validateCollectionAge(formats strfmt.Registry) error {
 
 	if err := validate.Required("collectionAge", "body", m.CollectionAge); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Biosample) validateCreatedDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CreatedDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("createdDate", "body", "date", m.CreatedDate.String(), formats); err != nil {
 		return err
 	}
 
@@ -133,6 +156,19 @@ func (m *Biosample) validateIndividualID(formats strfmt.Registry) error {
 func (m *Biosample) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Biosample) validateUpdatedDate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.UpdatedDate) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("updatedDate", "body", "date", m.UpdatedDate.String(), formats); err != nil {
 		return err
 	}
 
