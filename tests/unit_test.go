@@ -19,7 +19,7 @@ import (
 const server = "http://localhost:8000"
 
 func TestMain(m *testing.M) {
-	DatabaseName = "testCandig"
+	Databasename = "testCandig"
 	swaggerSpec, err := loads.Analyzed(restapi.SwaggerJSON, "")
 	if err != nil {
 		log.Fatalln(err)
