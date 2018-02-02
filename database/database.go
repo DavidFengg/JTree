@@ -51,3 +51,8 @@ func RemoveAll(collection string) bool {
 	}
 	return true
 }
+
+//Drop will drop the current database
+func Drop() {
+	db.DropDatabase()
+}

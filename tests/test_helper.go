@@ -2,6 +2,8 @@ package tests
 
 import (
 	"net/http"
+
+	database "github.com/CanDIG/candig_mds/database"
 )
 
 //CheckPageResponse checks if a page that should respond is found correctly
@@ -32,4 +34,8 @@ func CheckNoPageResponse(url string) bool {
 		return true
 	}
 	return false
+}
+
+func tearDown() {
+	database.Drop()
 }

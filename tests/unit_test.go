@@ -19,7 +19,7 @@ import (
 const server = "http://localhost:8000"
 
 func TestMain(m *testing.M) {
-
+	DatabaseName = "testCandig"
 	swaggerSpec, err := loads.Analyzed(restapi.SwaggerJSON, "")
 	if err != nil {
 		log.Fatalln(err)
@@ -47,7 +47,9 @@ func TestMain(m *testing.M) {
 	server.ConfigureAPI()
 
 	go server.Serve()
-	os.Exit(m.Run())
+	testResults := m.Run()
+	tearDown()
+	os.Exit(testResults)
 }
 
 func TestUrls(t *testing.T) {
