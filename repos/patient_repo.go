@@ -2,7 +2,6 @@ package repos
 
 import (
 	"database/sql"
-	"encoding/json"
 	"log"
 
 	database "github.com/Bio-core/jtree/database"
@@ -61,11 +60,28 @@ func GetOnePatientByString(field, value string) *models.Patient {
 }
 
 //InsertPatient allows users to add generic objects to a collection in the database
-func InsertPatient(patient *models.Patient) bool {
-	j, _ := json.Marshal(&patient)
-	var interpatient interface{}
-	json.Unmarshal(j, &interpatient)
-	//implement here
+func InsertPatient(person *models.Patient) bool {
+	stmt, err := database.DB.Prepare("INSERT INTO `Patients`(`first_name`,`last_name`,`initials`,`gender`,`mrn`,`dob`,`on_hcn`,`clinical_history`,`patient_type`,`se_num`,`patient_id`,`sample_id`,`data_received`,`referring_physican`,`date_reported`,`surgical_date`)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);")
+	if err != nil {
+		log.Fatal(err)
+	}
+	stmt.Exec(
+		person.FirstName,
+		person.LastName,
+		person.Initials,
+		person.Gender,
+		person.Mrn,
+		person.Dob,
+		person.OnHcn,
+		person.ClinicalHistory,
+		person.PatientType,
+		person.SeNum,
+		person.PatientID,
+		person.SampleID,
+		person.DateReceived,
+		person.ReferringPhysican,
+		person.DateReported,
+		person.SurgicalDate)
 	return true
 }
 
