@@ -14,12 +14,12 @@ basePath: "/Jtree/metadata/0.1.0"
 schemes:
 - "http"
 paths:
-  /individuals/search:
+  /patient/search:
     get:
-      summary: "searches individuals"
+      summary: "searches patients"
       description: "By passing in the appropriate options, you can search for\navailable\
-        \ individuals\n"
-      operationId: "searchIndividual"
+        \ patients\n"
+      operationId: "searchPatient"
       produces:
       - "application/json"
       parameters:
@@ -37,45 +37,45 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Individual"
+              $ref: "#/definitions/Patient"
         400:
           description: "bad input parameter"
 
-  /individual/{individualId}:
+  /patient/{patientId}:
     parameters:
-    - name: "individualId"
+    - name: "patientId"
       in: "path"
       required: true
       type: "string"
     get:
-      summary: "Returns an individual by ID."
-      operationId: "getIndividual"
+      summary: "Returns a patient by ID."
+      operationId: "getPatient"
       responses:
         200:
           description: "OK"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Individual"
+              $ref: "#/definitions/Patient"
         404:
-          description: "individual not found"
+          description: "patient not found"
 
-  /individual:
+  /patient:
     post:
-      summary: "adds an individual item"
-      description: "Adds an individual to the system"
-      operationId: "addIndividual"
+      summary: "adds a patient item"
+      description: "Adds a patient to the system"
+      operationId: "addPatient"
       consumes:
       - "application/json"
       produces:
       - "application/json"
       parameters:
       - in: "body"
-        name: "individual"
-        description: "Individual"
+        name: "patient"
+        description: "Patient"
         required: false
         schema:
-          $ref: "#/definitions/Individual"
+          $ref: "#/definitions/Patient"
       responses:
         201:
           description: "item created"
@@ -84,12 +84,12 @@ paths:
         409:
           description: "an existing item already exists"
 
-  /biosamples/search:
+  /samples/search:
     get:
-      summary: "searches biosamples"
+      summary: "searches samples"
       description: "By passing in the appropriate options, you can search for\navailable\
-        \ biosample\n"
-      operationId: "searchBiosample"
+        \ sample\n"
+      operationId: "searchSample"
       produces:
       - "application/json"
       parameters:
@@ -107,45 +107,45 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Biosample"
+              $ref: "#/definitions/Sample"
         400:
           description: "bad input parameter"
 
-  /biosample/{biosampleId}:
+  /sample/{sampleId}:
     parameters:
     - in: path
-      name: biosampleId
+      name: sampleId
       required: true
       type: string
     get:
-      summary: "Returns an biosample by ID."
-      operationId: "getBiosample"
+      summary: "Returns a sample by ID."
+      operationId: "getSample"
       responses:
         200:
           description: "OK"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Biosample"
+              $ref: "#/definitions/Sample"
         404:
-          description: "Biosample not found"
+          description: "Sample not found"
 
-  /biosample:
+  /sample:
     post:
-      summary: "adds a biosample"
-      description: "Adds a biosample to the system"
-      operationId: "addBiosample"
+      summary: "adds a sample"
+      description: "Adds a sample to the system"
+      operationId: "addSample"
       consumes:
       - "application/json"
       produces:
       - "application/json"
       parameters:
       - in: "body"
-        name: "biosample"
-        description: "Biosample"
+        name: "sample"
+        description: "Sample"
         required: false
         schema:
-          $ref: "#/definitions/Biosample"
+          $ref: "#/definitions/Sample"
       responses:
         201:
           description: "item created"
@@ -155,115 +155,223 @@ paths:
           description: "an existing item already exists"
 
 definitions:
-  OntologyTerm:
+  Patient:
     type: "object"
-    required:
-    - "term"
-    - "termId"
     properties:
-      termId:
+      patient_id:
         type: "string"
-        example: "PATO:0020001"
-      term:
+        x-nullable: true
+      sample_id:
         type: "string"
-        example: "male genotypic sex"
-      ontology:
+        x-nullable: true
+      first_name:
         type: "string"
-        format: "url"
-        example: "http://purl.obolibrary.org/obo"
-    example:
-      termId: "PATO:0020001"
-      term: "male genotypic sex"
-      ontology: "http://purl.obolibrary.org/obo"
-  Attribute:
+        x-nullable: true
+      last_name:
+        type: "string"
+        x-nullable: true
+      initials:
+        type: "string" 
+        x-nullable: true
+      gender: 
+        type: "string" 
+        x-nullable: true
+      mrn:
+        type: "string" 
+        x-nullable: true
+      dob:
+        type: "string" 
+        x-nullable: true
+      on_hcn:
+        type: "string"   
+        x-nullable: true    
+      clinical_history:
+        type: "string" 
+        x-nullable: true
+      patient_type:
+        type: "string" 
+        x-nullable: true
+      se_num:
+        type: "string" 
+        x-nullable: true
+      date_received: 
+        type: "string" 
+        x-nullable: true
+      referring_physican: 
+        type: "string" 
+        x-nullable: true
+      date_reported:
+        type: "string" 
+        x-nullable: true
+      surgical_date: 
+        type: "string" 
+        x-nullable: true
+  Sample:
     type: "object"
-    additionalProperties:
-      type: "string"
-  Attributes:
-    type: "array"
-    items:
-      $ref: "#/definitions/Attribute"
-  Individual:
-    type: "object"
-    required:
-    - "description"
-    - "name"
     properties:
-      id:
+      sample_id:
         type: "string"
-        example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
-      name:
+        x-nullable: true
+      facility:
         type: "string"
-        example: "jtree-BCGSC-IN-d290f1ee-6c54-4b01-90e6"
-      description:
+        x-nullable: true
+      test_requested:
         type: "string"
-      createdDate:
+        x-nullable: true
+      se_num:
         type: "string"
-        format: "date"
-      updatedDate:
+        x-nullable: true
+      date_collected:
         type: "string"
-        format: "date"
-      species:
-        $ref: "#/definitions/OntologyTerm"
-      sex:
-        $ref: "#/definitions/OntologyTerm"
-      attributes:
-        $ref: "#/definitions/Attributes"
-    example:
-      createdDate: "2000-01-23"
-      species:
-        termId: "PATO:0020001"
-        term: "male genotypic sex"
-        ontology: "http://purl.obolibrary.org/obo"
-      sex:
-        termId: "PATO:0020001"
-        term: "male genotypic sex"
-        ontology: "http://purl.obolibrary.org/obo"
-      name: "jtree-BCGSC-IN-d290f1ee-6c54-4b01-90e6"
-      description: "description"
-      attributes: ""
-      id: "d290f1ee-6c54-4b01-90e6-d701748f0851"
-      updatedDate: "2000-01-23"
-  Biosample:
-    type: "object"
-    required:
-    - "collectionAge"
-    - "description"
-    - "individualId"
-    - "name"
-    properties:
-      id:
+        x-nullable: true
+      date_received:
         type: "string"
-        example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
-      name:
+        x-nullable: true
+      sample_type:
         type: "string"
-        example: "jtree-BCGSC-SM-d290f1ee-6c54-4b01-90e6"
-      description:
+        x-nullable: true
+      material_received:
         type: "string"
-      disease:
-        $ref: "#/definitions/OntologyTerm"
-      createdDate:
+        x-nullable: true
+      material_received_num:
         type: "string"
-        format: "date"
-      updatedDate:
+        x-nullable: true
+      material_received_other:
         type: "string"
-        format: "date"
-      individualId:
+        x-nullable: true
+      volume_of_blood_marrow:
+        type: "number" 
+        format: "float"
+        x-nullable: true
+      surgical_num:
         type: "string"
-      attributes:
-        $ref: "#/definitions/Attributes"
-      collectionAge:
+        x-nullable: true
+      tumor_site:
         type: "string"
-    example:
-      disease:
-        termId: "PATO:0020001"
-        term: "male genotypic sex"
-        ontology: "http://purl.obolibrary.org/obo"
-      createdDate: "2000-01-23"
-      name: "jtree-BCGSC-SM-d290f1ee-6c54-4b01-90e6"
-      description: "description"
-      attributes: ""
-      id: "d290f1ee-6c54-4b01-90e6-d701748f0851"
-      updatedDate: "2000-01-23"
-      individualId: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
-      collectionAge: "collectionAge"
+        x-nullable: true
+      historical_diagnosis:
+        type: "string"
+        x-nullable: true
+      tumor_percnt_of_total:
+        type: "number" 
+        format: "float"
+        x-nullable: true
+      tumor_percnt_of_circled:
+        type: "number" 
+        format: "float"
+        x-nullable: true
+      reviewed_by:
+        type: "string"
+        x-nullable: true
+      h_e_slide_location:
+        type: "string"
+        x-nullable: true
+      non_uhn_id:
+        type: "string"
+        x-nullable: true
+      name_of_requestor:
+        type: "string"
+        x-nullable: true
+      dna_concentration:
+        type: "number" 
+        format: "float"
+        x-nullable: true
+      dna_volume:
+        type: "number" 
+        format: "float"
+        x-nullable: true
+      dna_location: 
+        type: "string"
+        x-nullable: true
+      rna_concentration: 
+        type: "number" 
+        format: "float"
+        x-nullable: true
+      rna_volume:
+        type: "number" 
+        format: "float"
+        x-nullable: true
+      rna_location:
+        type: "string"
+        x-nullable: true
+      wbc_location:
+        type: "string"
+        x-nullable: true
+      plasma_location:
+        type: "string"
+        x-nullable: true
+      cf_plasma_location:
+        type: "string"
+        x-nullable: true
+      pb_bm_location:
+        type: "string"
+        x-nullable: true
+      rna_lysate_location:
+        type: "string"
+        x-nullable: true
+      sample_size:
+        type: "string"
+        x-nullable: true
+      study_id:
+        type: "string"
+        x-nullable: true
+      sample_name:
+        type: "string"
+        x-nullable: true
+      date_submitted:
+        type: "string"
+        x-nullable: true
+      container_type:
+        type: "string"
+        x-nullable: true
+      container_name:
+        type: "string"
+        x-nullable: true
+      container_id:
+        type: "string"
+        x-nullable: true
+      container_well:
+        type: "string"
+        x-nullable: true
+      copath_num:
+        type: "string"
+        x-nullable: true
+      other_identifier:
+        type: "string"
+        x-nullable: true
+      has_sample_files:
+        type: "boolean"
+        x-nullable: true
+      dna_sample_barcode:
+        type: "string" 
+        x-nullable: true
+      dna_extraction_date:
+        type: "string" 
+        x-nullable: true
+      dna_quality:
+        type: "string"
+        x-nullable: true
+      ffpe_qc_date: 
+        type: "string"
+        x-nullable: true
+      delta_ct_Value: 
+        type: "number" 
+        format: "float"
+        x-nullable: true
+      comments:
+        type: "string"
+        x-nullable: true
+      rnase_p_date: 
+        type: "string"
+        x-nullable: true
+      dna_quality_by_rnase_p: 
+        type: "number" 
+        format: "float"
+        x-nullable: true
+      rna_quality:
+        type: "number" 
+        format: "float"
+        x-nullable: true
+      rna_extraction_date:
+        type: "string" 
+        x-nullable: true

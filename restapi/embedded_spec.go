@@ -37,24 +37,24 @@ func init() {
   "host": "virtserver.swaggerhub.com",
   "basePath": "/Jtree/metadata/0.1.0",
   "paths": {
-    "/biosample": {
+    "/patient": {
       "post": {
-        "description": "Adds a biosample to the system",
+        "description": "Adds a patient to the system",
         "consumes": [
           "application/json"
         ],
         "produces": [
           "application/json"
         ],
-        "summary": "adds a biosample",
-        "operationId": "addBiosample",
+        "summary": "adds a patient item",
+        "operationId": "addPatient",
         "parameters": [
           {
-            "description": "Biosample",
-            "name": "biosample",
+            "description": "Patient",
+            "name": "patient",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/Biosample"
+              "$ref": "#/definitions/Patient"
             }
           }
         ],
@@ -71,42 +71,14 @@ func init() {
         }
       }
     },
-    "/biosample/{biosampleId}": {
+    "/patient/search": {
       "get": {
-        "summary": "Returns an biosample by ID.",
-        "operationId": "getBiosample",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Biosample"
-              }
-            }
-          },
-          "404": {
-            "description": "Biosample not found"
-          }
-        }
-      },
-      "parameters": [
-        {
-          "type": "string",
-          "name": "biosampleId",
-          "in": "path",
-          "required": true
-        }
-      ]
-    },
-    "/biosamples/search": {
-      "get": {
-        "description": "By passing in the appropriate options, you can search for\navailable biosample\n",
+        "description": "By passing in the appropriate options, you can search for\navailable patients\n",
         "produces": [
           "application/json"
         ],
-        "summary": "searches biosamples",
-        "operationId": "searchBiosample",
+        "summary": "searches patients",
+        "operationId": "searchPatient",
         "parameters": [
           {
             "type": "array",
@@ -125,7 +97,7 @@ func init() {
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Biosample"
+                "$ref": "#/definitions/Patient"
               }
             }
           },
@@ -135,24 +107,52 @@ func init() {
         }
       }
     },
-    "/individual": {
+    "/patient/{patientId}": {
+      "get": {
+        "summary": "Returns a patient by ID.",
+        "operationId": "getPatient",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Patient"
+              }
+            }
+          },
+          "404": {
+            "description": "patient not found"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "patientId",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/sample": {
       "post": {
-        "description": "Adds an individual to the system",
+        "description": "Adds a sample to the system",
         "consumes": [
           "application/json"
         ],
         "produces": [
           "application/json"
         ],
-        "summary": "adds an individual item",
-        "operationId": "addIndividual",
+        "summary": "adds a sample",
+        "operationId": "addSample",
         "parameters": [
           {
-            "description": "Individual",
-            "name": "individual",
+            "description": "Sample",
+            "name": "sample",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/Individual"
+              "$ref": "#/definitions/Sample"
             }
           }
         ],
@@ -169,42 +169,42 @@ func init() {
         }
       }
     },
-    "/individual/{individualId}": {
+    "/sample/{sampleId}": {
       "get": {
-        "summary": "Returns an individual by ID.",
-        "operationId": "getIndividual",
+        "summary": "Returns a sample by ID.",
+        "operationId": "getSample",
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Individual"
+                "$ref": "#/definitions/Sample"
               }
             }
           },
           "404": {
-            "description": "individual not found"
+            "description": "Sample not found"
           }
         }
       },
       "parameters": [
         {
           "type": "string",
-          "name": "individualId",
+          "name": "sampleId",
           "in": "path",
           "required": true
         }
       ]
     },
-    "/individuals/search": {
+    "/samples/search": {
       "get": {
-        "description": "By passing in the appropriate options, you can search for\navailable individuals\n",
+        "description": "By passing in the appropriate options, you can search for\navailable sample\n",
         "produces": [
           "application/json"
         ],
-        "summary": "searches individuals",
-        "operationId": "searchIndividual",
+        "summary": "searches samples",
+        "operationId": "searchSample",
         "parameters": [
           {
             "type": "array",
@@ -223,7 +223,7 @@ func init() {
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Individual"
+                "$ref": "#/definitions/Sample"
               }
             }
           },
@@ -235,155 +235,296 @@ func init() {
     }
   },
   "definitions": {
-    "Attribute": {
+    "Patient": {
       "type": "object",
-      "additionalProperties": {
-        "type": "string"
-      }
-    },
-    "Attributes": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Attribute"
-      }
-    },
-    "Biosample": {
-      "type": "object",
-      "required": [
-        "collectionAge",
-        "description",
-        "individualId",
-        "name"
-      ],
       "properties": {
-        "attributes": {
-          "$ref": "#/definitions/Attributes"
-        },
-        "collectionAge": {
-          "type": "string"
-        },
-        "createdDate": {
+        "clinical_history": {
           "type": "string",
-          "format": "date"
+          "x-nullable": true
         },
-        "description": {
-          "type": "string"
-        },
-        "disease": {
-          "$ref": "#/definitions/OntologyTerm"
-        },
-        "id": {
+        "date_received": {
           "type": "string",
-          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          "x-nullable": true
         },
-        "individualId": {
-          "type": "string"
-        },
-        "name": {
+        "date_reported": {
           "type": "string",
-          "example": "jtree-BCGSC-SM-d290f1ee-6c54-4b01-90e6"
+          "x-nullable": true
         },
-        "updatedDate": {
+        "dob": {
           "type": "string",
-          "format": "date"
+          "x-nullable": true
+        },
+        "first_name": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "gender": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "initials": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "last_name": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "mrn": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "on_hcn": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "patient_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "patient_type": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "referring_physican": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sample_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "se_num": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "surgical_date": {
+          "type": "string",
+          "x-nullable": true
         }
-      },
-      "example": {
-        "attributes": "",
-        "collectionAge": "collectionAge",
-        "createdDate": "2000-01-23",
-        "description": "description",
-        "disease": {
-          "ontology": "http://purl.obolibrary.org/obo",
-          "term": "male genotypic sex",
-          "termId": "PATO:0020001"
-        },
-        "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "individualId": "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-        "name": "jtree-BCGSC-SM-d290f1ee-6c54-4b01-90e6",
-        "updatedDate": "2000-01-23"
       }
     },
-    "Individual": {
+    "Sample": {
       "type": "object",
-      "required": [
-        "description",
-        "name"
-      ],
       "properties": {
-        "attributes": {
-          "$ref": "#/definitions/Attributes"
-        },
-        "createdDate": {
+        "cf_plasma_location": {
           "type": "string",
-          "format": "date"
+          "x-nullable": true
         },
-        "description": {
-          "type": "string"
-        },
-        "id": {
+        "comments": {
           "type": "string",
-          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          "x-nullable": true
         },
-        "name": {
+        "container_id": {
           "type": "string",
-          "example": "jtree-BCGSC-IN-d290f1ee-6c54-4b01-90e6"
+          "x-nullable": true
         },
-        "sex": {
-          "$ref": "#/definitions/OntologyTerm"
-        },
-        "species": {
-          "$ref": "#/definitions/OntologyTerm"
-        },
-        "updatedDate": {
+        "container_name": {
           "type": "string",
-          "format": "date"
+          "x-nullable": true
+        },
+        "container_type": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "container_well": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "copath_num": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "date_collected": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "date_received": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "date_submitted": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "delta_ct_Value": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "dna_concentration": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "dna_extraction_date": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "dna_location": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "dna_quality": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "dna_quality_by_rnase_p": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "dna_sample_barcode": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "dna_volume": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "facility": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "ffpe_qc_date": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "h_e_slide_location": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "has_sample_files": {
+          "type": "boolean",
+          "x-nullable": true
+        },
+        "historical_diagnosis": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "material_received": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "material_received_num": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "material_received_other": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "name_of_requestor": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "non_uhn_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "other_identifier": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "pb_bm_location": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "plasma_location": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "reviewed_by": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "rna_concentration": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "rna_extraction_date": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "rna_location": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "rna_lysate_location": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "rna_quality": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "rna_volume": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "rnase_p_date": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sample_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sample_name": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sample_size": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sample_type": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "se_num": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "study_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "surgical_num": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "test_requested": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "tumor_percnt_of_circled": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "tumor_percnt_of_total": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "tumor_site": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "volume_of_blood_marrow": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "wbc_location": {
+          "type": "string",
+          "x-nullable": true
         }
-      },
-      "example": {
-        "attributes": "",
-        "createdDate": "2000-01-23",
-        "description": "description",
-        "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "name": "jtree-BCGSC-IN-d290f1ee-6c54-4b01-90e6",
-        "sex": {
-          "ontology": "http://purl.obolibrary.org/obo",
-          "term": "male genotypic sex",
-          "termId": "PATO:0020001"
-        },
-        "species": {
-          "ontology": "http://purl.obolibrary.org/obo",
-          "term": "male genotypic sex",
-          "termId": "PATO:0020001"
-        },
-        "updatedDate": "2000-01-23"
-      }
-    },
-    "OntologyTerm": {
-      "type": "object",
-      "required": [
-        "term",
-        "termId"
-      ],
-      "properties": {
-        "ontology": {
-          "type": "string",
-          "format": "url",
-          "example": "http://purl.obolibrary.org/obo"
-        },
-        "term": {
-          "type": "string",
-          "example": "male genotypic sex"
-        },
-        "termId": {
-          "type": "string",
-          "example": "PATO:0020001"
-        }
-      },
-      "example": {
-        "ontology": "http://purl.obolibrary.org/obo",
-        "term": "male genotypic sex",
-        "termId": "PATO:0020001"
       }
     }
   }
@@ -408,24 +549,24 @@ func init() {
   "host": "virtserver.swaggerhub.com",
   "basePath": "/Jtree/metadata/0.1.0",
   "paths": {
-    "/biosample": {
+    "/patient": {
       "post": {
-        "description": "Adds a biosample to the system",
+        "description": "Adds a patient to the system",
         "consumes": [
           "application/json"
         ],
         "produces": [
           "application/json"
         ],
-        "summary": "adds a biosample",
-        "operationId": "addBiosample",
+        "summary": "adds a patient item",
+        "operationId": "addPatient",
         "parameters": [
           {
-            "description": "Biosample",
-            "name": "biosample",
+            "description": "Patient",
+            "name": "patient",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/Biosample"
+              "$ref": "#/definitions/Patient"
             }
           }
         ],
@@ -442,39 +583,14 @@ func init() {
         }
       }
     },
-    "/biosample/{biosampleId}": {
+    "/patient/search": {
       "get": {
-        "summary": "Returns an biosample by ID.",
-        "operationId": "getBiosample",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/getBiosampleOKBody"
-            }
-          },
-          "404": {
-            "description": "Biosample not found"
-          }
-        }
-      },
-      "parameters": [
-        {
-          "type": "string",
-          "name": "biosampleId",
-          "in": "path",
-          "required": true
-        }
-      ]
-    },
-    "/biosamples/search": {
-      "get": {
-        "description": "By passing in the appropriate options, you can search for\navailable biosample\n",
+        "description": "By passing in the appropriate options, you can search for\navailable patients\n",
         "produces": [
           "application/json"
         ],
-        "summary": "searches biosamples",
-        "operationId": "searchBiosample",
+        "summary": "searches patients",
+        "operationId": "searchPatient",
         "parameters": [
           {
             "type": "array",
@@ -491,7 +607,7 @@ func init() {
           "200": {
             "description": "search results matching criteria",
             "schema": {
-              "$ref": "#/definitions/searchBiosampleOKBody"
+              "$ref": "#/definitions/searchPatientOKBody"
             }
           },
           "400": {
@@ -500,24 +616,49 @@ func init() {
         }
       }
     },
-    "/individual": {
+    "/patient/{patientId}": {
+      "get": {
+        "summary": "Returns a patient by ID.",
+        "operationId": "getPatient",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/getPatientOKBody"
+            }
+          },
+          "404": {
+            "description": "patient not found"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "patientId",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/sample": {
       "post": {
-        "description": "Adds an individual to the system",
+        "description": "Adds a sample to the system",
         "consumes": [
           "application/json"
         ],
         "produces": [
           "application/json"
         ],
-        "summary": "adds an individual item",
-        "operationId": "addIndividual",
+        "summary": "adds a sample",
+        "operationId": "addSample",
         "parameters": [
           {
-            "description": "Individual",
-            "name": "individual",
+            "description": "Sample",
+            "name": "sample",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/Individual"
+              "$ref": "#/definitions/Sample"
             }
           }
         ],
@@ -534,39 +675,39 @@ func init() {
         }
       }
     },
-    "/individual/{individualId}": {
+    "/sample/{sampleId}": {
       "get": {
-        "summary": "Returns an individual by ID.",
-        "operationId": "getIndividual",
+        "summary": "Returns a sample by ID.",
+        "operationId": "getSample",
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/getIndividualOKBody"
+              "$ref": "#/definitions/getSampleOKBody"
             }
           },
           "404": {
-            "description": "individual not found"
+            "description": "Sample not found"
           }
         }
       },
       "parameters": [
         {
           "type": "string",
-          "name": "individualId",
+          "name": "sampleId",
           "in": "path",
           "required": true
         }
       ]
     },
-    "/individuals/search": {
+    "/samples/search": {
       "get": {
-        "description": "By passing in the appropriate options, you can search for\navailable individuals\n",
+        "description": "By passing in the appropriate options, you can search for\navailable sample\n",
         "produces": [
           "application/json"
         ],
-        "summary": "searches individuals",
-        "operationId": "searchIndividual",
+        "summary": "searches samples",
+        "operationId": "searchSample",
         "parameters": [
           {
             "type": "array",
@@ -583,7 +724,7 @@ func init() {
           "200": {
             "description": "search results matching criteria",
             "schema": {
-              "$ref": "#/definitions/searchIndividualOKBody"
+              "$ref": "#/definitions/searchSampleOKBody"
             }
           },
           "400": {
@@ -594,182 +735,323 @@ func init() {
     }
   },
   "definitions": {
-    "Attribute": {
+    "Patient": {
       "type": "object",
-      "additionalProperties": {
-        "type": "string"
+      "properties": {
+        "clinical_history": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "date_received": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "date_reported": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "dob": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "first_name": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "gender": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "initials": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "last_name": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "mrn": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "on_hcn": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "patient_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "patient_type": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "referring_physican": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sample_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "se_num": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "surgical_date": {
+          "type": "string",
+          "x-nullable": true
+        }
       }
     },
-    "Attributes": {
+    "Sample": {
+      "type": "object",
+      "properties": {
+        "cf_plasma_location": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "comments": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "container_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "container_name": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "container_type": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "container_well": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "copath_num": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "date_collected": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "date_received": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "date_submitted": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "delta_ct_Value": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "dna_concentration": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "dna_extraction_date": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "dna_location": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "dna_quality": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "dna_quality_by_rnase_p": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "dna_sample_barcode": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "dna_volume": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "facility": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "ffpe_qc_date": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "h_e_slide_location": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "has_sample_files": {
+          "type": "boolean",
+          "x-nullable": true
+        },
+        "historical_diagnosis": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "material_received": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "material_received_num": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "material_received_other": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "name_of_requestor": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "non_uhn_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "other_identifier": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "pb_bm_location": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "plasma_location": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "reviewed_by": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "rna_concentration": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "rna_extraction_date": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "rna_location": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "rna_lysate_location": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "rna_quality": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "rna_volume": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "rnase_p_date": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sample_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sample_name": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sample_size": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sample_type": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "se_num": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "study_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "surgical_num": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "test_requested": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "tumor_percnt_of_circled": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "tumor_percnt_of_total": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "tumor_site": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "volume_of_blood_marrow": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "wbc_location": {
+          "type": "string",
+          "x-nullable": true
+        }
+      }
+    },
+    "getPatientOKBody": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/Attribute"
-      }
-    },
-    "Biosample": {
-      "type": "object",
-      "required": [
-        "collectionAge",
-        "description",
-        "individualId",
-        "name"
-      ],
-      "properties": {
-        "attributes": {
-          "$ref": "#/definitions/Attributes"
-        },
-        "collectionAge": {
-          "type": "string"
-        },
-        "createdDate": {
-          "type": "string",
-          "format": "date"
-        },
-        "description": {
-          "type": "string"
-        },
-        "disease": {
-          "$ref": "#/definitions/OntologyTerm"
-        },
-        "id": {
-          "type": "string",
-          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
-        },
-        "individualId": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string",
-          "example": "jtree-BCGSC-SM-d290f1ee-6c54-4b01-90e6"
-        },
-        "updatedDate": {
-          "type": "string",
-          "format": "date"
-        }
-      },
-      "example": {
-        "attributes": "",
-        "collectionAge": "collectionAge",
-        "createdDate": "2000-01-23",
-        "description": "description",
-        "disease": {
-          "ontology": "http://purl.obolibrary.org/obo",
-          "term": "male genotypic sex",
-          "termId": "PATO:0020001"
-        },
-        "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "individualId": "046b6c7f-0b8a-43b9-b35d-6489e6daee91",
-        "name": "jtree-BCGSC-SM-d290f1ee-6c54-4b01-90e6",
-        "updatedDate": "2000-01-23"
-      }
-    },
-    "Individual": {
-      "type": "object",
-      "required": [
-        "description",
-        "name"
-      ],
-      "properties": {
-        "attributes": {
-          "$ref": "#/definitions/Attributes"
-        },
-        "createdDate": {
-          "type": "string",
-          "format": "date"
-        },
-        "description": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string",
-          "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
-        },
-        "name": {
-          "type": "string",
-          "example": "jtree-BCGSC-IN-d290f1ee-6c54-4b01-90e6"
-        },
-        "sex": {
-          "$ref": "#/definitions/OntologyTerm"
-        },
-        "species": {
-          "$ref": "#/definitions/OntologyTerm"
-        },
-        "updatedDate": {
-          "type": "string",
-          "format": "date"
-        }
-      },
-      "example": {
-        "attributes": "",
-        "createdDate": "2000-01-23",
-        "description": "description",
-        "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "name": "jtree-BCGSC-IN-d290f1ee-6c54-4b01-90e6",
-        "sex": {
-          "ontology": "http://purl.obolibrary.org/obo",
-          "term": "male genotypic sex",
-          "termId": "PATO:0020001"
-        },
-        "species": {
-          "ontology": "http://purl.obolibrary.org/obo",
-          "term": "male genotypic sex",
-          "termId": "PATO:0020001"
-        },
-        "updatedDate": "2000-01-23"
-      }
-    },
-    "OntologyTerm": {
-      "type": "object",
-      "required": [
-        "term",
-        "termId"
-      ],
-      "properties": {
-        "ontology": {
-          "type": "string",
-          "format": "url",
-          "example": "http://purl.obolibrary.org/obo"
-        },
-        "term": {
-          "type": "string",
-          "example": "male genotypic sex"
-        },
-        "termId": {
-          "type": "string",
-          "example": "PATO:0020001"
-        }
-      },
-      "example": {
-        "ontology": "http://purl.obolibrary.org/obo",
-        "term": "male genotypic sex",
-        "termId": "PATO:0020001"
-      }
-    },
-    "getBiosampleOKBody": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Biosample"
+        "$ref": "#/definitions/Patient"
       },
       "x-go-gen-location": "operations"
     },
-    "getIndividualOKBody": {
+    "getSampleOKBody": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/Individual"
+        "$ref": "#/definitions/Sample"
       },
       "x-go-gen-location": "operations"
     },
-    "searchBiosampleOKBody": {
+    "searchPatientOKBody": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/Biosample"
+        "$ref": "#/definitions/Patient"
       },
       "x-go-gen-location": "operations"
     },
-    "searchIndividualOKBody": {
+    "searchSampleOKBody": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/Individual"
+        "$ref": "#/definitions/Sample"
       },
       "x-go-gen-location": "operations"
     }

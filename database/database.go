@@ -1,58 +1,27 @@
 package database
 
 import (
-	"log"
+	"database/sql"
 
-	"github.com/globalsign/mgo"
+	// SQL driver for mysql
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var databaseName string
 var connectionString string
 
-var session *mgo.Session
-var db *mgo.Database
 var err error
+
+//DB is the database reference
+var DB *sql.DB
 
 //Init creates a connection to the database
 func Init(dbName, connectionstring string) {
 	databaseName = dbName
 	connectionString = connectionstring
 
-	session, err = mgo.Dial(connectionString)
+	DB, err = sql.Open("mysql", "root:waterloo@/JTree")
 	if err != nil {
 		panic(err)
 	}
-	db = session.DB(dbName)
-}
-
-//SetCollection changes the collection of the datbase context
-func SetCollection(collection string) *mgo.Collection {
-	return db.C(collection)
-}
-
-//Insert allows users to add generic objects to a collection in the database
-func Insert(collection string, object interface{}) bool {
-	c := SetCollection(collection)
-	err := c.Insert(object)
-	if err != nil {
-		log.Fatal(err)
-		return false
-	}
-	return true
-}
-
-//RemoveAll will empty a collection
-func RemoveAll(collection string) bool {
-	c := SetCollection(collection)
-	_, err := c.RemoveAll(nil)
-	if err != nil {
-		log.Fatal(err)
-		return false
-	}
-	return true
-}
-
-//Drop will drop the current database
-func Drop() {
-	db.DropDatabase()
 }
