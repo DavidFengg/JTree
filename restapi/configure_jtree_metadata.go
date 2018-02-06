@@ -4,6 +4,7 @@ package restapi
 
 import (
 	"crypto/tls"
+	"fmt"
 	"net/http"
 	"strconv"
 	"sync"
@@ -94,6 +95,12 @@ func allSamples(query string) (result []*models.Sample) {
 	return
 }
 
+func getSamplesByQuery(query *models.Query) []*models.Sample {
+	queryString := database.BuildQuery(*query)
+	fmt.Printf("%v", *query)
+	return allSamples(queryString)
+}
+
 func configureFlags(api *operations.JtreeMetadataAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }
 }
@@ -136,6 +143,9 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	})
 	api.SearchSampleHandler = operations.SearchSampleHandlerFunc(func(params operations.SearchSampleParams) middleware.Responder {
 		return operations.NewGetSampleOK().WithPayload(allSamples(""))
+	})
+	api.GetSamplesByQueryHandler = operations.GetSamplesByQueryHandlerFunc(func(params operations.GetSamplesByQueryParams) middleware.Responder {
+		return operations.NewGetSampleOK().WithPayload(getSamplesByQuery(params.Query))
 	})
 
 	api.ServerShutdown = func() {}

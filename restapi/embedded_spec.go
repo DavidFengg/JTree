@@ -169,6 +169,41 @@ func init() {
         }
       }
     },
+    "/sample/query": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Query for Sample",
+        "operationId": "getSamplesByQuery",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Query"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Sample"
+              }
+            }
+          },
+          "404": {
+            "description": "Sample not found"
+          }
+        }
+      }
+    },
     "/sample/{sampleId}": {
       "get": {
         "summary": "Returns a sample by ID.",
@@ -317,6 +352,32 @@ func init() {
           "type": "string",
           "x-go-custom-tag": "db:\"surgical_date\"",
           "x-nullable": true
+        }
+      }
+    },
+    "Query": {
+      "type": "object",
+      "properties": {
+        "selected_condition": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "selected_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "selected_tables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -743,6 +804,38 @@ func init() {
         }
       }
     },
+    "/sample/query": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Query for Sample",
+        "operationId": "getSamplesByQuery",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Query"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/getSamplesByQueryOKBody"
+            }
+          },
+          "404": {
+            "description": "Sample not found"
+          }
+        }
+      }
+    },
     "/sample/{sampleId}": {
       "get": {
         "summary": "Returns a sample by ID.",
@@ -885,6 +978,32 @@ func init() {
           "type": "string",
           "x-go-custom-tag": "db:\"surgical_date\"",
           "x-nullable": true
+        }
+      }
+    },
+    "Query": {
+      "type": "object",
+      "properties": {
+        "selected_condition": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "selected_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "selected_tables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -1171,6 +1290,13 @@ func init() {
       "x-go-gen-location": "operations"
     },
     "getSampleOKBody": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Sample"
+      },
+      "x-go-gen-location": "operations"
+    },
+    "getSamplesByQueryOKBody": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/Sample"

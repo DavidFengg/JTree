@@ -130,6 +130,31 @@ paths:
         404:
           description: "Sample not found"
 
+  /sample/query:
+    post:
+      summary: "Query for Sample"
+      operationId: "getSamplesByQuery"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: body
+        name: query
+        required: false
+        schema:
+            $ref: "#/definitions/Query"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Sample"
+        404:
+          description: "Sample not found"
+
+
   /sample:
     post:
       summary: "adds a sample"
@@ -443,3 +468,20 @@ definitions:
         type: "string" 
         x-nullable: true         
         x-go-custom-tag: "db:\"rna_extraction_date\""
+  Query:
+    type: "object"
+    properties:
+      selected_condition:
+        type: "array"
+        items:
+          type: "array"
+          items:
+            type: "string"
+      selected_tables:
+        type: "array"
+        items:
+          type: "string"
+      selected_fields:
+        type: "array"
+        items:
+          type: "string"

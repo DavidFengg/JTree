@@ -49,6 +49,9 @@ func NewJtreeMetadataAPI(spec *loads.Document) *JtreeMetadataAPI {
 		GetSampleHandler: GetSampleHandlerFunc(func(params GetSampleParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetSample has not yet been implemented")
 		}),
+		GetSamplesByQueryHandler: GetSamplesByQueryHandlerFunc(func(params GetSamplesByQueryParams) middleware.Responder {
+			return middleware.NotImplemented("operation GetSamplesByQuery has not yet been implemented")
+		}),
 		SearchPatientHandler: SearchPatientHandlerFunc(func(params SearchPatientParams) middleware.Responder {
 			return middleware.NotImplemented("operation SearchPatient has not yet been implemented")
 		}),
@@ -94,6 +97,8 @@ type JtreeMetadataAPI struct {
 	GetPatientHandler GetPatientHandler
 	// GetSampleHandler sets the operation handler for the get sample operation
 	GetSampleHandler GetSampleHandler
+	// GetSamplesByQueryHandler sets the operation handler for the get samples by query operation
+	GetSamplesByQueryHandler GetSamplesByQueryHandler
 	// SearchPatientHandler sets the operation handler for the search patient operation
 	SearchPatientHandler SearchPatientHandler
 	// SearchSampleHandler sets the operation handler for the search sample operation
@@ -175,6 +180,10 @@ func (o *JtreeMetadataAPI) Validate() error {
 
 	if o.GetSampleHandler == nil {
 		unregistered = append(unregistered, "GetSampleHandler")
+	}
+
+	if o.GetSamplesByQueryHandler == nil {
+		unregistered = append(unregistered, "GetSamplesByQueryHandler")
 	}
 
 	if o.SearchPatientHandler == nil {
@@ -302,6 +311,11 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/sample/{sampleId}"] = NewGetSample(o.context, o.GetSampleHandler)
+
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/sample/query"] = NewGetSamplesByQuery(o.context, o.GetSamplesByQueryHandler)
 
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
