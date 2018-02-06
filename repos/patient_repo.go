@@ -21,11 +21,11 @@ func GetAllPatients(query string) []*models.Patient {
 
 //InsertPatient allows users to add generic objects to a collection in the database
 func InsertPatient(person *models.Patient) bool {
-	stmt, err := database.DB.Prepare("INSERT INTO `Patients`(`first_name`,`last_name`,`initials`,`gender`,`mrn`,`dob`,`on_hcn`,`clinical_history`,`patient_type`,`se_num`,`patient_id`,`sample_id`,`data_received`,`referring_physican`,`date_reported`,`surgical_date`)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);")
+	stmt, err := database.DB.Prepare("INSERT INTO `Patients`(`first_name`,`last_name`,`initials`,`gender`,`mrn`,`dob`,`on_hcn`,`clinical_history`,`patient_type`,`se_num`,`patient_id`,`sample_id`,`date_received`,`referring_physican`,`date_reported`,`surgical_date`)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);")
 	if err != nil {
 		log.Fatal(err)
 	}
-	stmt.Exec(
+	result, err := stmt.Exec(
 		person.FirstName,
 		person.LastName,
 		person.Initials,
@@ -42,6 +42,9 @@ func InsertPatient(person *models.Patient) bool {
 		person.ReferringPhysican,
 		person.DateReported,
 		person.SurgicalDate)
+	if err != nil {
+		log.Fatal(err, result)
+	}
 	return true
 }
 
