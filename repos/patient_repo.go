@@ -19,6 +19,21 @@ func GetAllPatients(query string) []*models.Patient {
 	return patients
 }
 
+//GetPatientColumns gets the columns in a table
+func GetPatientColumns() []string {
+	rows, err := database.DB.Query("Select * from patients where patient_id = \"err\"")
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	columns, err := rows.Columns()
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	return columns
+}
+
 //InsertPatient allows users to add generic objects to a collection in the database
 func InsertPatient(person *models.Patient) bool {
 	stmt, err := database.DB.Prepare("INSERT INTO `Patients`(`first_name`,`last_name`,`initials`,`gender`,`mrn`,`dob`,`on_hcn`,`clinical_history`,`patient_type`,`se_num`,`patient_id`,`sample_id`,`date_received`,`referring_physican`,`date_reported`,`surgical_date`)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);")
