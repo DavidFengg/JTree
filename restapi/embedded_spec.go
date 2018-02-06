@@ -240,66 +240,82 @@ func init() {
       "properties": {
         "clinical_history": {
           "type": "string",
+          "x-go-custom-tag": "db:\"clinical_history\"",
           "x-nullable": true
         },
         "date_received": {
           "type": "string",
+          "x-go-custom-tag": "db:\"date_received\"",
           "x-nullable": true
         },
         "date_reported": {
           "type": "string",
+          "x-go-custom-tag": "db:\"date_reported\"",
           "x-nullable": true
         },
         "dob": {
           "type": "string",
+          "x-go-custom-tag": "db:\"dob\"",
           "x-nullable": true
         },
         "first_name": {
           "type": "string",
+          "x-go-custom-tag": "db:\"first_name\"",
           "x-nullable": true
         },
         "gender": {
           "type": "string",
+          "x-go-custom-tag": "db:\"gender\"",
           "x-nullable": true
         },
         "initials": {
           "type": "string",
+          "x-go-custom-tag": "db:\"initials\"",
           "x-nullable": true
         },
         "last_name": {
           "type": "string",
+          "x-go-custom-tag": "db:\"last_name\"",
           "x-nullable": true
         },
         "mrn": {
           "type": "string",
+          "x-go-custom-tag": "db:\"mrn\"",
           "x-nullable": true
         },
         "on_hcn": {
           "type": "string",
+          "x-go-custom-tag": "db:\"on_hcn\"",
           "x-nullable": true
         },
         "patient_id": {
           "type": "string",
+          "x-go-custom-tag": "db:\"patient_id\"",
           "x-nullable": true
         },
         "patient_type": {
           "type": "string",
+          "x-go-custom-tag": "db:\"patient_type\"",
           "x-nullable": true
         },
         "referring_physican": {
           "type": "string",
+          "x-go-custom-tag": "db:\"referring_physican\"",
           "x-nullable": true
         },
         "sample_id": {
           "type": "string",
+          "x-go-custom-tag": "db:\"sample_id\"",
           "x-nullable": true
         },
         "se_num": {
           "type": "string",
+          "x-go-custom-tag": "db:\"se_num\"",
           "x-nullable": true
         },
         "surgical_date": {
           "type": "string",
+          "x-go-custom-tag": "db:\"surgical_date\"",
           "x-nullable": true
         }
       }
@@ -309,220 +325,272 @@ func init() {
       "properties": {
         "cf_plasma_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"cf_plasma_location\"",
           "x-nullable": true
         },
         "comments": {
           "type": "string",
+          "x-go-custom-tag": "db:\"comments\"",
           "x-nullable": true
         },
         "container_id": {
           "type": "string",
+          "x-go-custom-tag": "db:\"container_id\"",
           "x-nullable": true
         },
         "container_name": {
           "type": "string",
+          "x-go-custom-tag": "db:\"container_name\"",
           "x-nullable": true
         },
         "container_type": {
           "type": "string",
+          "x-go-custom-tag": "db:\"container_type\"",
           "x-nullable": true
         },
         "container_well": {
           "type": "string",
+          "x-go-custom-tag": "db:\"container_well\"",
           "x-nullable": true
         },
         "copath_num": {
           "type": "string",
+          "x-go-custom-tag": "db:\"copath_num\"",
           "x-nullable": true
         },
         "date_collected": {
           "type": "string",
+          "x-go-custom-tag": "db:\"date_collected\"",
           "x-nullable": true
         },
         "date_received": {
           "type": "string",
+          "x-go-custom-tag": "db:\"date_received\"",
           "x-nullable": true
         },
         "date_submitted": {
           "type": "string",
+          "x-go-custom-tag": "db:\"date_submitted\"",
           "x-nullable": true
         },
         "delta_ct_Value": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"delta_ct_Value\"",
           "x-nullable": true
         },
         "dna_concentration": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"dna_concentration\"",
           "x-nullable": true
         },
         "dna_extraction_date": {
           "type": "string",
+          "x-go-custom-tag": "db:\"dna_extraction_date\"",
           "x-nullable": true
         },
         "dna_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"dna_location\"",
           "x-nullable": true
         },
         "dna_quality": {
           "type": "string",
+          "x-go-custom-tag": "db:\"dna_quality\"",
           "x-nullable": true
         },
         "dna_quality_by_rnase_p": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"dna_quality_by_rnase_p\"",
           "x-nullable": true
         },
         "dna_sample_barcode": {
           "type": "string",
+          "x-go-custom-tag": "db:\"dna_sample_barcode\"",
           "x-nullable": true
         },
         "dna_volume": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"dna_volume\"",
           "x-nullable": true
         },
         "facility": {
           "type": "string",
+          "x-go-custom-tag": "db:\"facility\"",
           "x-nullable": true
         },
         "ffpe_qc_date": {
           "type": "string",
+          "x-go-custom-tag": "db:\"ffpe_qc_date\"",
           "x-nullable": true
         },
         "h_e_slide_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"h_e_slide_location\"",
           "x-nullable": true
         },
         "has_sample_files": {
           "type": "boolean",
+          "x-go-custom-tag": "db:\"has_sample_files\"",
           "x-nullable": true
         },
         "historical_diagnosis": {
           "type": "string",
+          "x-go-custom-tag": "db:\"historical_diagnosis\"",
           "x-nullable": true
         },
         "material_received": {
           "type": "string",
+          "x-go-custom-tag": "db:\"material_received\"",
           "x-nullable": true
         },
         "material_received_num": {
           "type": "string",
+          "x-go-custom-tag": "db:\"material_received_num\"",
           "x-nullable": true
         },
         "material_received_other": {
           "type": "string",
+          "x-go-custom-tag": "db:\"material_received_other\"",
           "x-nullable": true
         },
         "name_of_requestor": {
           "type": "string",
+          "x-go-custom-tag": "db:\"name_of_requestor\"",
           "x-nullable": true
         },
         "non_uhn_id": {
           "type": "string",
+          "x-go-custom-tag": "db:\"non_uhn_id\"",
           "x-nullable": true
         },
         "other_identifier": {
           "type": "string",
+          "x-go-custom-tag": "db:\"other_identifier\"",
           "x-nullable": true
         },
         "pb_bm_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"pb_bm_location\"",
           "x-nullable": true
         },
         "plasma_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"plasma_location\"",
           "x-nullable": true
         },
         "reviewed_by": {
           "type": "string",
+          "x-go-custom-tag": "db:\"reviewed_by\"",
           "x-nullable": true
         },
         "rna_concentration": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"rna_concentration\"",
           "x-nullable": true
         },
         "rna_extraction_date": {
           "type": "string",
+          "x-go-custom-tag": "db:\"rna_extraction_date\"",
           "x-nullable": true
         },
         "rna_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"rna_location\"",
           "x-nullable": true
         },
         "rna_lysate_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"rna_lysate_location\"",
           "x-nullable": true
         },
         "rna_quality": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"rna_quality\"",
           "x-nullable": true
         },
         "rna_volume": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"rna_volume\"",
           "x-nullable": true
         },
         "rnase_p_date": {
           "type": "string",
+          "x-go-custom-tag": "db:\"rnase_p_date\"",
           "x-nullable": true
         },
         "sample_id": {
           "type": "string",
+          "x-go-custom-tag": "db:\"sample_id\"",
           "x-nullable": true
         },
         "sample_name": {
           "type": "string",
+          "x-go-custom-tag": "db:\"sample_name\"",
           "x-nullable": true
         },
         "sample_size": {
           "type": "string",
+          "x-go-custom-tag": "db:\"sample_size\"",
           "x-nullable": true
         },
         "sample_type": {
           "type": "string",
+          "x-go-custom-tag": "db:\"sample_type\"",
           "x-nullable": true
         },
         "se_num": {
           "type": "string",
+          "x-go-custom-tag": "db:\"se_num\"",
           "x-nullable": true
         },
         "study_id": {
           "type": "string",
+          "x-go-custom-tag": "db:\"study_id\"",
           "x-nullable": true
         },
         "surgical_num": {
           "type": "string",
+          "x-go-custom-tag": "db:\"surgical_num\"",
           "x-nullable": true
         },
         "test_requested": {
           "type": "string",
+          "x-go-custom-tag": "db:\"test_requested\"",
           "x-nullable": true
         },
         "tumor_percnt_of_circled": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"tumor_percnt_of_circled\"",
           "x-nullable": true
         },
         "tumor_percnt_of_total": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"tumor_percnt_of_total\"",
           "x-nullable": true
         },
         "tumor_site": {
           "type": "string",
+          "x-go-custom-tag": "db:\"tumor_site\"",
           "x-nullable": true
         },
         "volume_of_blood_marrow": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"volume_of_blood_marrow\"",
           "x-nullable": true
         },
         "wbc_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"wbc_location\"",
           "x-nullable": true
         }
       }
@@ -740,66 +808,82 @@ func init() {
       "properties": {
         "clinical_history": {
           "type": "string",
+          "x-go-custom-tag": "db:\"clinical_history\"",
           "x-nullable": true
         },
         "date_received": {
           "type": "string",
+          "x-go-custom-tag": "db:\"date_received\"",
           "x-nullable": true
         },
         "date_reported": {
           "type": "string",
+          "x-go-custom-tag": "db:\"date_reported\"",
           "x-nullable": true
         },
         "dob": {
           "type": "string",
+          "x-go-custom-tag": "db:\"dob\"",
           "x-nullable": true
         },
         "first_name": {
           "type": "string",
+          "x-go-custom-tag": "db:\"first_name\"",
           "x-nullable": true
         },
         "gender": {
           "type": "string",
+          "x-go-custom-tag": "db:\"gender\"",
           "x-nullable": true
         },
         "initials": {
           "type": "string",
+          "x-go-custom-tag": "db:\"initials\"",
           "x-nullable": true
         },
         "last_name": {
           "type": "string",
+          "x-go-custom-tag": "db:\"last_name\"",
           "x-nullable": true
         },
         "mrn": {
           "type": "string",
+          "x-go-custom-tag": "db:\"mrn\"",
           "x-nullable": true
         },
         "on_hcn": {
           "type": "string",
+          "x-go-custom-tag": "db:\"on_hcn\"",
           "x-nullable": true
         },
         "patient_id": {
           "type": "string",
+          "x-go-custom-tag": "db:\"patient_id\"",
           "x-nullable": true
         },
         "patient_type": {
           "type": "string",
+          "x-go-custom-tag": "db:\"patient_type\"",
           "x-nullable": true
         },
         "referring_physican": {
           "type": "string",
+          "x-go-custom-tag": "db:\"referring_physican\"",
           "x-nullable": true
         },
         "sample_id": {
           "type": "string",
+          "x-go-custom-tag": "db:\"sample_id\"",
           "x-nullable": true
         },
         "se_num": {
           "type": "string",
+          "x-go-custom-tag": "db:\"se_num\"",
           "x-nullable": true
         },
         "surgical_date": {
           "type": "string",
+          "x-go-custom-tag": "db:\"surgical_date\"",
           "x-nullable": true
         }
       }
@@ -809,220 +893,272 @@ func init() {
       "properties": {
         "cf_plasma_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"cf_plasma_location\"",
           "x-nullable": true
         },
         "comments": {
           "type": "string",
+          "x-go-custom-tag": "db:\"comments\"",
           "x-nullable": true
         },
         "container_id": {
           "type": "string",
+          "x-go-custom-tag": "db:\"container_id\"",
           "x-nullable": true
         },
         "container_name": {
           "type": "string",
+          "x-go-custom-tag": "db:\"container_name\"",
           "x-nullable": true
         },
         "container_type": {
           "type": "string",
+          "x-go-custom-tag": "db:\"container_type\"",
           "x-nullable": true
         },
         "container_well": {
           "type": "string",
+          "x-go-custom-tag": "db:\"container_well\"",
           "x-nullable": true
         },
         "copath_num": {
           "type": "string",
+          "x-go-custom-tag": "db:\"copath_num\"",
           "x-nullable": true
         },
         "date_collected": {
           "type": "string",
+          "x-go-custom-tag": "db:\"date_collected\"",
           "x-nullable": true
         },
         "date_received": {
           "type": "string",
+          "x-go-custom-tag": "db:\"date_received\"",
           "x-nullable": true
         },
         "date_submitted": {
           "type": "string",
+          "x-go-custom-tag": "db:\"date_submitted\"",
           "x-nullable": true
         },
         "delta_ct_Value": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"delta_ct_Value\"",
           "x-nullable": true
         },
         "dna_concentration": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"dna_concentration\"",
           "x-nullable": true
         },
         "dna_extraction_date": {
           "type": "string",
+          "x-go-custom-tag": "db:\"dna_extraction_date\"",
           "x-nullable": true
         },
         "dna_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"dna_location\"",
           "x-nullable": true
         },
         "dna_quality": {
           "type": "string",
+          "x-go-custom-tag": "db:\"dna_quality\"",
           "x-nullable": true
         },
         "dna_quality_by_rnase_p": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"dna_quality_by_rnase_p\"",
           "x-nullable": true
         },
         "dna_sample_barcode": {
           "type": "string",
+          "x-go-custom-tag": "db:\"dna_sample_barcode\"",
           "x-nullable": true
         },
         "dna_volume": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"dna_volume\"",
           "x-nullable": true
         },
         "facility": {
           "type": "string",
+          "x-go-custom-tag": "db:\"facility\"",
           "x-nullable": true
         },
         "ffpe_qc_date": {
           "type": "string",
+          "x-go-custom-tag": "db:\"ffpe_qc_date\"",
           "x-nullable": true
         },
         "h_e_slide_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"h_e_slide_location\"",
           "x-nullable": true
         },
         "has_sample_files": {
           "type": "boolean",
+          "x-go-custom-tag": "db:\"has_sample_files\"",
           "x-nullable": true
         },
         "historical_diagnosis": {
           "type": "string",
+          "x-go-custom-tag": "db:\"historical_diagnosis\"",
           "x-nullable": true
         },
         "material_received": {
           "type": "string",
+          "x-go-custom-tag": "db:\"material_received\"",
           "x-nullable": true
         },
         "material_received_num": {
           "type": "string",
+          "x-go-custom-tag": "db:\"material_received_num\"",
           "x-nullable": true
         },
         "material_received_other": {
           "type": "string",
+          "x-go-custom-tag": "db:\"material_received_other\"",
           "x-nullable": true
         },
         "name_of_requestor": {
           "type": "string",
+          "x-go-custom-tag": "db:\"name_of_requestor\"",
           "x-nullable": true
         },
         "non_uhn_id": {
           "type": "string",
+          "x-go-custom-tag": "db:\"non_uhn_id\"",
           "x-nullable": true
         },
         "other_identifier": {
           "type": "string",
+          "x-go-custom-tag": "db:\"other_identifier\"",
           "x-nullable": true
         },
         "pb_bm_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"pb_bm_location\"",
           "x-nullable": true
         },
         "plasma_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"plasma_location\"",
           "x-nullable": true
         },
         "reviewed_by": {
           "type": "string",
+          "x-go-custom-tag": "db:\"reviewed_by\"",
           "x-nullable": true
         },
         "rna_concentration": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"rna_concentration\"",
           "x-nullable": true
         },
         "rna_extraction_date": {
           "type": "string",
+          "x-go-custom-tag": "db:\"rna_extraction_date\"",
           "x-nullable": true
         },
         "rna_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"rna_location\"",
           "x-nullable": true
         },
         "rna_lysate_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"rna_lysate_location\"",
           "x-nullable": true
         },
         "rna_quality": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"rna_quality\"",
           "x-nullable": true
         },
         "rna_volume": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"rna_volume\"",
           "x-nullable": true
         },
         "rnase_p_date": {
           "type": "string",
+          "x-go-custom-tag": "db:\"rnase_p_date\"",
           "x-nullable": true
         },
         "sample_id": {
           "type": "string",
+          "x-go-custom-tag": "db:\"sample_id\"",
           "x-nullable": true
         },
         "sample_name": {
           "type": "string",
+          "x-go-custom-tag": "db:\"sample_name\"",
           "x-nullable": true
         },
         "sample_size": {
           "type": "string",
+          "x-go-custom-tag": "db:\"sample_size\"",
           "x-nullable": true
         },
         "sample_type": {
           "type": "string",
+          "x-go-custom-tag": "db:\"sample_type\"",
           "x-nullable": true
         },
         "se_num": {
           "type": "string",
+          "x-go-custom-tag": "db:\"se_num\"",
           "x-nullable": true
         },
         "study_id": {
           "type": "string",
+          "x-go-custom-tag": "db:\"study_id\"",
           "x-nullable": true
         },
         "surgical_num": {
           "type": "string",
+          "x-go-custom-tag": "db:\"surgical_num\"",
           "x-nullable": true
         },
         "test_requested": {
           "type": "string",
+          "x-go-custom-tag": "db:\"test_requested\"",
           "x-nullable": true
         },
         "tumor_percnt_of_circled": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"tumor_percnt_of_circled\"",
           "x-nullable": true
         },
         "tumor_percnt_of_total": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"tumor_percnt_of_total\"",
           "x-nullable": true
         },
         "tumor_site": {
           "type": "string",
+          "x-go-custom-tag": "db:\"tumor_site\"",
           "x-nullable": true
         },
         "volume_of_blood_marrow": {
           "type": "number",
           "format": "float",
+          "x-go-custom-tag": "db:\"volume_of_blood_marrow\"",
           "x-nullable": true
         },
         "wbc_location": {
           "type": "string",
+          "x-go-custom-tag": "db:\"wbc_location\"",
           "x-nullable": true
         }
       }

@@ -17,52 +17,52 @@ import (
 type Patient struct {
 
 	// clinical history
-	ClinicalHistory *string `json:"clinical_history,omitempty"`
+	ClinicalHistory *string `json:"clinical_history,omitempty" db:"clinical_history"`
 
 	// date received
-	DateReceived *string `json:"date_received,omitempty"`
+	DateReceived *string `json:"date_received,omitempty" db:"date_received"`
 
 	// date reported
-	DateReported *string `json:"date_reported,omitempty"`
+	DateReported *string `json:"date_reported,omitempty" db:"date_reported"`
 
 	// dob
-	Dob *string `json:"dob,omitempty"`
+	Dob *string `json:"dob,omitempty" db:"dob"`
 
 	// first name
-	FirstName *string `json:"first_name,omitempty"`
+	FirstName *string `json:"first_name,omitempty" db:"first_name"`
 
 	// gender
-	Gender *string `json:"gender,omitempty"`
+	Gender *string `json:"gender,omitempty" db:"gender"`
 
 	// initials
-	Initials *string `json:"initials,omitempty"`
+	Initials *string `json:"initials,omitempty" db:"initials"`
 
 	// last name
-	LastName *string `json:"last_name,omitempty"`
+	LastName *string `json:"last_name,omitempty" db:"last_name"`
 
 	// mrn
-	Mrn *string `json:"mrn,omitempty"`
+	Mrn *string `json:"mrn,omitempty" db:"mrn"`
 
 	// on hcn
-	OnHcn *string `json:"on_hcn,omitempty"`
+	OnHcn *string `json:"on_hcn,omitempty" db:"on_hcn"`
 
 	// patient id
-	PatientID *string `json:"patient_id,omitempty"`
+	PatientID *string `json:"patient_id,omitempty" db:"patient_id"`
 
 	// patient type
-	PatientType *string `json:"patient_type,omitempty"`
+	PatientType *string `json:"patient_type,omitempty" db:"patient_type"`
 
 	// referring physican
-	ReferringPhysican *string `json:"referring_physican,omitempty"`
+	ReferringPhysican *string `json:"referring_physican,omitempty" db:"referring_physican"`
 
 	// sample id
-	SampleID *string `json:"sample_id,omitempty"`
+	SampleID *string `json:"sample_id,omitempty" db:"sample_id"`
 
 	// se num
-	SeNum *string `json:"se_num,omitempty"`
+	SeNum *string `json:"se_num,omitempty" db:"se_num"`
 
 	// surgical date
-	SurgicalDate *string `json:"surgical_date,omitempty"`
+	SurgicalDate *string `json:"surgical_date,omitempty" db:"surgical_date"`
 }
 
 // Validate validates this patient

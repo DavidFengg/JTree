@@ -71,7 +71,10 @@ func addSample(sample *models.Sample) error {
 }
 
 func allPatients(query string) (result []*models.Patient) {
-	patients := repos.GetAllPatients()
+	if query == "search" || query == "" {
+		query = "SELECT * FROM Patients"
+	}
+	patients := repos.GetAllPatients(query)
 	result = make([]*models.Patient, 0)
 	for _, item := range patients {
 		result = append(result, item)
@@ -80,7 +83,10 @@ func allPatients(query string) (result []*models.Patient) {
 }
 
 func allSamples(query string) (result []*models.Sample) {
-	list := repos.GetAllSamples()
+	if query == "search" || query == "" {
+		query = "SELECT * FROM Samples"
+	}
+	list := repos.GetAllSamples(query)
 	result = make([]*models.Sample, 0)
 	for _, item := range list {
 		result = append(result, item)

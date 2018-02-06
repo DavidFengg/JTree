@@ -17,160 +17,160 @@ import (
 type Sample struct {
 
 	// cf plasma location
-	CfPlasmaLocation *string `json:"cf_plasma_location,omitempty"`
+	CfPlasmaLocation *string `json:"cf_plasma_location,omitempty" db:"cf_plasma_location"`
 
 	// comments
-	Comments *string `json:"comments,omitempty"`
+	Comments *string `json:"comments,omitempty" db:"comments"`
 
 	// container id
-	ContainerID *string `json:"container_id,omitempty"`
+	ContainerID *string `json:"container_id,omitempty" db:"container_id"`
 
 	// container name
-	ContainerName *string `json:"container_name,omitempty"`
+	ContainerName *string `json:"container_name,omitempty" db:"container_name"`
 
 	// container type
-	ContainerType *string `json:"container_type,omitempty"`
+	ContainerType *string `json:"container_type,omitempty" db:"container_type"`
 
 	// container well
-	ContainerWell *string `json:"container_well,omitempty"`
+	ContainerWell *string `json:"container_well,omitempty" db:"container_well"`
 
 	// copath num
-	CopathNum *string `json:"copath_num,omitempty"`
+	CopathNum *string `json:"copath_num,omitempty" db:"copath_num"`
 
 	// date collected
-	DateCollected *string `json:"date_collected,omitempty"`
+	DateCollected *string `json:"date_collected,omitempty" db:"date_collected"`
 
 	// date received
-	DateReceived *string `json:"date_received,omitempty"`
+	DateReceived *string `json:"date_received,omitempty" db:"date_received"`
 
 	// date submitted
-	DateSubmitted *string `json:"date_submitted,omitempty"`
+	DateSubmitted *string `json:"date_submitted,omitempty" db:"date_submitted"`
 
 	// delta ct value
-	DeltaCtValue *float32 `json:"delta_ct_Value,omitempty"`
+	DeltaCtValue *float32 `json:"delta_ct_Value,omitempty" db:"delta_ct_Value"`
 
 	// dna concentration
-	DnaConcentration *float32 `json:"dna_concentration,omitempty"`
+	DnaConcentration *float32 `json:"dna_concentration,omitempty" db:"dna_concentration"`
 
 	// dna extraction date
-	DnaExtractionDate *string `json:"dna_extraction_date,omitempty"`
+	DnaExtractionDate *string `json:"dna_extraction_date,omitempty" db:"dna_extraction_date"`
 
 	// dna location
-	DnaLocation *string `json:"dna_location,omitempty"`
+	DnaLocation *string `json:"dna_location,omitempty" db:"dna_location"`
 
 	// dna quality
-	DnaQuality *string `json:"dna_quality,omitempty"`
+	DnaQuality *string `json:"dna_quality,omitempty" db:"dna_quality"`
 
 	// dna quality by rnase p
-	DnaQualityByRnaseP *float32 `json:"dna_quality_by_rnase_p,omitempty"`
+	DnaQualityByRnaseP *float32 `json:"dna_quality_by_rnase_p,omitempty" db:"dna_quality_by_rnase_p"`
 
 	// dna sample barcode
-	DnaSampleBarcode *string `json:"dna_sample_barcode,omitempty"`
+	DnaSampleBarcode *string `json:"dna_sample_barcode,omitempty" db:"dna_sample_barcode"`
 
 	// dna volume
-	DnaVolume *float32 `json:"dna_volume,omitempty"`
+	DnaVolume *float32 `json:"dna_volume,omitempty" db:"dna_volume"`
 
 	// facility
-	Facility *string `json:"facility,omitempty"`
+	Facility *string `json:"facility,omitempty" db:"facility"`
 
 	// ffpe qc date
-	FfpeQcDate *string `json:"ffpe_qc_date,omitempty"`
+	FfpeQcDate *string `json:"ffpe_qc_date,omitempty" db:"ffpe_qc_date"`
 
 	// h e slide location
-	HESlideLocation *string `json:"h_e_slide_location,omitempty"`
+	HESlideLocation *string `json:"h_e_slide_location,omitempty" db:"h_e_slide_location"`
 
 	// has sample files
-	HasSampleFiles *bool `json:"has_sample_files,omitempty"`
+	HasSampleFiles *bool `json:"has_sample_files,omitempty" db:"has_sample_files"`
 
 	// historical diagnosis
-	HistoricalDiagnosis *string `json:"historical_diagnosis,omitempty"`
+	HistoricalDiagnosis *string `json:"historical_diagnosis,omitempty" db:"historical_diagnosis"`
 
 	// material received
-	MaterialReceived *string `json:"material_received,omitempty"`
+	MaterialReceived *string `json:"material_received,omitempty" db:"material_received"`
 
 	// material received num
-	MaterialReceivedNum *string `json:"material_received_num,omitempty"`
+	MaterialReceivedNum *string `json:"material_received_num,omitempty" db:"material_received_num"`
 
 	// material received other
-	MaterialReceivedOther *string `json:"material_received_other,omitempty"`
+	MaterialReceivedOther *string `json:"material_received_other,omitempty" db:"material_received_other"`
 
 	// name of requestor
-	NameOfRequestor *string `json:"name_of_requestor,omitempty"`
+	NameOfRequestor *string `json:"name_of_requestor,omitempty" db:"name_of_requestor"`
 
 	// non uhn id
-	NonUhnID *string `json:"non_uhn_id,omitempty"`
+	NonUhnID *string `json:"non_uhn_id,omitempty" db:"non_uhn_id"`
 
 	// other identifier
-	OtherIdentifier *string `json:"other_identifier,omitempty"`
+	OtherIdentifier *string `json:"other_identifier,omitempty" db:"other_identifier"`
 
 	// pb bm location
-	PbBmLocation *string `json:"pb_bm_location,omitempty"`
+	PbBmLocation *string `json:"pb_bm_location,omitempty" db:"pb_bm_location"`
 
 	// plasma location
-	PlasmaLocation *string `json:"plasma_location,omitempty"`
+	PlasmaLocation *string `json:"plasma_location,omitempty" db:"plasma_location"`
 
 	// reviewed by
-	ReviewedBy *string `json:"reviewed_by,omitempty"`
+	ReviewedBy *string `json:"reviewed_by,omitempty" db:"reviewed_by"`
 
 	// rna concentration
-	RnaConcentration *float32 `json:"rna_concentration,omitempty"`
+	RnaConcentration *float32 `json:"rna_concentration,omitempty" db:"rna_concentration"`
 
 	// rna extraction date
-	RnaExtractionDate *string `json:"rna_extraction_date,omitempty"`
+	RnaExtractionDate *string `json:"rna_extraction_date,omitempty" db:"rna_extraction_date"`
 
 	// rna location
-	RnaLocation *string `json:"rna_location,omitempty"`
+	RnaLocation *string `json:"rna_location,omitempty" db:"rna_location"`
 
 	// rna lysate location
-	RnaLysateLocation *string `json:"rna_lysate_location,omitempty"`
+	RnaLysateLocation *string `json:"rna_lysate_location,omitempty" db:"rna_lysate_location"`
 
 	// rna quality
-	RnaQuality *float32 `json:"rna_quality,omitempty"`
+	RnaQuality *float32 `json:"rna_quality,omitempty" db:"rna_quality"`
 
 	// rna volume
-	RnaVolume *float32 `json:"rna_volume,omitempty"`
+	RnaVolume *float32 `json:"rna_volume,omitempty" db:"rna_volume"`
 
 	// rnase p date
-	RnasePDate *string `json:"rnase_p_date,omitempty"`
+	RnasePDate *string `json:"rnase_p_date,omitempty" db:"rnase_p_date"`
 
 	// sample id
-	SampleID *string `json:"sample_id,omitempty"`
+	SampleID *string `json:"sample_id,omitempty" db:"sample_id"`
 
 	// sample name
-	SampleName *string `json:"sample_name,omitempty"`
+	SampleName *string `json:"sample_name,omitempty" db:"sample_name"`
 
 	// sample size
-	SampleSize *string `json:"sample_size,omitempty"`
+	SampleSize *string `json:"sample_size,omitempty" db:"sample_size"`
 
 	// sample type
-	SampleType *string `json:"sample_type,omitempty"`
+	SampleType *string `json:"sample_type,omitempty" db:"sample_type"`
 
 	// se num
-	SeNum *string `json:"se_num,omitempty"`
+	SeNum *string `json:"se_num,omitempty" db:"se_num"`
 
 	// study id
-	StudyID *string `json:"study_id,omitempty"`
+	StudyID *string `json:"study_id,omitempty" db:"study_id"`
 
 	// surgical num
-	SurgicalNum *string `json:"surgical_num,omitempty"`
+	SurgicalNum *string `json:"surgical_num,omitempty" db:"surgical_num"`
 
 	// test requested
-	TestRequested *string `json:"test_requested,omitempty"`
+	TestRequested *string `json:"test_requested,omitempty" db:"test_requested"`
 
 	// tumor percnt of circled
-	TumorPercntOfCircled *float32 `json:"tumor_percnt_of_circled,omitempty"`
+	TumorPercntOfCircled *float32 `json:"tumor_percnt_of_circled,omitempty" db:"tumor_percnt_of_circled"`
 
 	// tumor percnt of total
-	TumorPercntOfTotal *float32 `json:"tumor_percnt_of_total,omitempty"`
+	TumorPercntOfTotal *float32 `json:"tumor_percnt_of_total,omitempty" db:"tumor_percnt_of_total"`
 
 	// tumor site
-	TumorSite *string `json:"tumor_site,omitempty"`
+	TumorSite *string `json:"tumor_site,omitempty" db:"tumor_site"`
 
 	// volume of blood marrow
-	VolumeOfBloodMarrow *float32 `json:"volume_of_blood_marrow,omitempty"`
+	VolumeOfBloodMarrow *float32 `json:"volume_of_blood_marrow,omitempty" db:"volume_of_blood_marrow"`
 
 	// wbc location
-	WbcLocation *string `json:"wbc_location,omitempty"`
+	WbcLocation *string `json:"wbc_location,omitempty" db:"wbc_location"`
 }
 
 // Validate validates this sample
