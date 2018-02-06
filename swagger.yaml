@@ -41,6 +41,23 @@ paths:
         400:
           description: "bad input parameter"
 
+  /patient/columns:
+      get:
+        summary: "gets columns"
+        description: "gets column names"
+        operationId: "getPatientColumns"
+        produces:
+        - "application/json"
+        responses:
+          200:
+            description: "columns"
+            schema:
+              type: "array"
+              items:
+                type: "string"
+          400:
+            description: "bad input parameter"   
+
   /patient/{patientId}:
     parameters:
     - name: "patientId"
@@ -110,6 +127,23 @@ paths:
               $ref: "#/definitions/Sample"
         400:
           description: "bad input parameter"
+
+  /samples/columns:
+      get:
+        summary: "gets columns"
+        description: "gets column names"
+        operationId: "getSampleColumns"
+        produces:
+        - "application/json"
+        responses:
+          200:
+            description: "columns"
+            schema:
+              type: "array"
+              items:
+                type: "string"
+          400:
+            description: "bad input parameter"          
 
   /sample/{sampleId}:
     parameters:

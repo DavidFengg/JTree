@@ -46,8 +46,14 @@ func NewJtreeMetadataAPI(spec *loads.Document) *JtreeMetadataAPI {
 		GetPatientHandler: GetPatientHandlerFunc(func(params GetPatientParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetPatient has not yet been implemented")
 		}),
+		GetPatientColumnsHandler: GetPatientColumnsHandlerFunc(func(params GetPatientColumnsParams) middleware.Responder {
+			return middleware.NotImplemented("operation GetPatientColumns has not yet been implemented")
+		}),
 		GetSampleHandler: GetSampleHandlerFunc(func(params GetSampleParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetSample has not yet been implemented")
+		}),
+		GetSampleColumnsHandler: GetSampleColumnsHandlerFunc(func(params GetSampleColumnsParams) middleware.Responder {
+			return middleware.NotImplemented("operation GetSampleColumns has not yet been implemented")
 		}),
 		GetSamplesByQueryHandler: GetSamplesByQueryHandlerFunc(func(params GetSamplesByQueryParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetSamplesByQuery has not yet been implemented")
@@ -95,8 +101,12 @@ type JtreeMetadataAPI struct {
 	AddSampleHandler AddSampleHandler
 	// GetPatientHandler sets the operation handler for the get patient operation
 	GetPatientHandler GetPatientHandler
+	// GetPatientColumnsHandler sets the operation handler for the get patient columns operation
+	GetPatientColumnsHandler GetPatientColumnsHandler
 	// GetSampleHandler sets the operation handler for the get sample operation
 	GetSampleHandler GetSampleHandler
+	// GetSampleColumnsHandler sets the operation handler for the get sample columns operation
+	GetSampleColumnsHandler GetSampleColumnsHandler
 	// GetSamplesByQueryHandler sets the operation handler for the get samples by query operation
 	GetSamplesByQueryHandler GetSamplesByQueryHandler
 	// SearchPatientHandler sets the operation handler for the search patient operation
@@ -178,8 +188,16 @@ func (o *JtreeMetadataAPI) Validate() error {
 		unregistered = append(unregistered, "GetPatientHandler")
 	}
 
+	if o.GetPatientColumnsHandler == nil {
+		unregistered = append(unregistered, "GetPatientColumnsHandler")
+	}
+
 	if o.GetSampleHandler == nil {
 		unregistered = append(unregistered, "GetSampleHandler")
+	}
+
+	if o.GetSampleColumnsHandler == nil {
+		unregistered = append(unregistered, "GetSampleColumnsHandler")
 	}
 
 	if o.GetSamplesByQueryHandler == nil {
@@ -310,7 +328,17 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
+	o.handlers["GET"]["/patient/columns"] = NewGetPatientColumns(o.context, o.GetPatientColumnsHandler)
+
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
 	o.handlers["GET"]["/sample/{sampleId}"] = NewGetSample(o.context, o.GetSampleHandler)
+
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/samples/columns"] = NewGetSampleColumns(o.context, o.GetSampleColumnsHandler)
 
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)

@@ -71,6 +71,30 @@ func init() {
         }
       }
     },
+    "/patient/columns": {
+      "get": {
+        "description": "gets column names",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets columns",
+        "operationId": "getPatientColumns",
+        "responses": {
+          "200": {
+            "description": "columns",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
     "/patient/search": {
       "get": {
         "description": "By passing in the appropriate options, you can search for\navailable patients\n",
@@ -231,6 +255,30 @@ func init() {
           "required": true
         }
       ]
+    },
+    "/samples/columns": {
+      "get": {
+        "description": "gets column names",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets columns",
+        "operationId": "getSampleColumns",
+        "responses": {
+          "200": {
+            "description": "columns",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
     },
     "/samples/search": {
       "get": {
@@ -712,6 +760,30 @@ func init() {
         }
       }
     },
+    "/patient/columns": {
+      "get": {
+        "description": "gets column names",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets columns",
+        "operationId": "getPatientColumns",
+        "responses": {
+          "200": {
+            "description": "columns",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
     "/patient/search": {
       "get": {
         "description": "By passing in the appropriate options, you can search for\navailable patients\n",
@@ -860,6 +932,30 @@ func init() {
           "required": true
         }
       ]
+    },
+    "/samples/columns": {
+      "get": {
+        "description": "gets column names",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets columns",
+        "operationId": "getSampleColumns",
+        "responses": {
+          "200": {
+            "description": "columns",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
     },
     "/samples/search": {
       "get": {
