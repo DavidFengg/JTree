@@ -22,7 +22,7 @@ func BuildQuery(query models.Query) string {
 func printFields(selectedFields []string) string {
 	var str = ""
 	for i := 0; i < len(selectedFields); i++ {
-		str += selectedFields[i] + ", "
+		str += selectedFields[i] + " AS '" + selectedFields[i] + "', "
 	}
 	str = str[0 : len(str)-2]
 	return str

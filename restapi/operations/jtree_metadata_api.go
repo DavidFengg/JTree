@@ -343,7 +343,7 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
-	o.handlers["POST"]["/sample/query"] = NewGetSamplesByQuery(o.context, o.GetSamplesByQueryHandler)
+	o.handlers["POST"]["/query"] = NewGetSamplesByQuery(o.context, o.GetSamplesByQueryHandler)
 
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)

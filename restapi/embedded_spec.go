@@ -193,7 +193,7 @@ func init() {
         }
       }
     },
-    "/sample/query": {
+    "/query": {
       "post": {
         "consumes": [
           "application/json"
@@ -887,7 +887,7 @@ func init() {
         }
       }
     },
-    "/sample/query": {
+    "/query": {
       "post": {
         "consumes": [
           "application/json"

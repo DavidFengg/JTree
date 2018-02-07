@@ -35,7 +35,7 @@ func (o *GetSamplesByQueryURL) SetBasePath(bp string) {
 func (o *GetSamplesByQueryURL) Build() (*url.URL, error) {
 	var result url.URL
 
-	var _path = "/sample/query"
+	var _path = "/query"
 
 	_basePath := o._basePath
 	if _basePath == "" {

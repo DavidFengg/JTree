@@ -164,7 +164,7 @@ paths:
         404:
           description: "Sample not found"
 
-  /sample/query:
+  /query:
     post:
       summary: "Query for Sample"
       operationId: "getSamplesByQuery"

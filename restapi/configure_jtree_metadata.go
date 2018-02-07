@@ -2,7 +2,6 @@ package restapi
 
 import (
 	"crypto/tls"
-	"fmt"
 	"net/http"
 	"strconv"
 	"sync"
@@ -91,7 +90,6 @@ func allSamples(query string) (result []*models.Record) {
 
 func getSamplesByQuery(query *models.Query) []*models.Record {
 	queryString := database.BuildQuery(*query)
-	fmt.Printf("%v", *query)
 	return allSamples(queryString)
 }
 
