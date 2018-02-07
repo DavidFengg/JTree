@@ -93,12 +93,8 @@ func getSamplesByQuery(query *models.Query) []*models.Record {
 	return allSamples(queryString)
 }
 
-func getSampleColumns() []string {
-	return repos.GetSampleColumns()
-}
-
-func getPatientColumns() []string {
-	return repos.GetPatientColumns()
+func getColumns() []string {
+	return database.GetColumns(database.GetTables())
 }
 
 func configureFlags(api *operations.JtreeMetadataAPI) {
@@ -148,10 +144,7 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 		return operations.NewGetSampleOK().WithPayload(getSamplesByQuery(params.Query))
 	})
 	api.GetSampleColumnsHandler = operations.GetSampleColumnsHandlerFunc(func(params operations.GetSampleColumnsParams) middleware.Responder {
-		return operations.NewGetSampleColumnsOK().WithPayload(getSampleColumns())
-	})
-	api.GetPatientColumnsHandler = operations.GetPatientColumnsHandlerFunc(func(params operations.GetPatientColumnsParams) middleware.Responder {
-		return operations.NewGetPatientColumnsOK().WithPayload(getPatientColumns())
+		return operations.NewGetSampleColumnsOK().WithPayload(getColumns())
 	})
 
 	api.ServerShutdown = func() {}

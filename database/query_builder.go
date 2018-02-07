@@ -1,11 +1,18 @@
 package database
 
 import (
+	"fmt"
+
+	strings "strings"
+
 	"github.com/Bio-core/jtree/models"
 )
 
 //BuildQuery takes a Query object and returns a string of the query
 func BuildQuery(query models.Query) string {
+	if len(query.SelectedFields) == 1 && query.SelectedFields[0] == "*" {
+		query.SelectedFields = GetColumns(query.SelectedTables)
+	}
 	fields := printFields(query.SelectedFields)
 	tables := printTables(query.SelectedTables)
 	queryString := "SELECT " + fields + " FROM " + tables
@@ -49,4 +56,41 @@ func printConditions(SelectedCondition [][]string) string {
 
 	str = str[4 : len(str)-1]
 	return str
+}
+
+//GetColumns returns colums based off of table names
+func GetColumns(tables []string) []string {
+	var columns []string
+	for _, tableName := range tables {
+		rows, err := DB.Query("Select * from " + tableName + " where 0=1")
+		if err != nil {
+			fmt.Println(err)
+			return nil
+		}
+		columnsSet, err := rows.Columns()
+		if err != nil {
+			fmt.Println(err)
+			return nil
+		}
+		for _, j := range columnsSet {
+			columns = append(columns, tableName+"."+j)
+		}
+	}
+	return columns
+}
+
+//GetTables gets all of the tables in the db
+func GetTables() []string {
+	var tables []string
+	rows, err := DB.Query("Show Tables")
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	for rows.Next() {
+		var tname string
+		rows.Scan(&tname)
+		tables = append(tables, strings.ToLower(tname))
+	}
+	return tables
 }

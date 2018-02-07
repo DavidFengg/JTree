@@ -128,7 +128,7 @@ paths:
         400:
           description: "bad input parameter"
 
-  /samples/columns:
+  /columns:
       get:
         summary: "gets columns"
         description: "gets column names"
