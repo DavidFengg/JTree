@@ -1,13 +1,20 @@
 package database
 
-import "github.com/Bio-core/jtree/models"
+import (
+	"github.com/Bio-core/jtree/models"
+)
 
 //BuildQuery takes a Query object and returns a string of the query
 func BuildQuery(query models.Query) string {
 	fields := printFields(query.SelectedFields)
 	tables := printTables(query.SelectedTables)
-	conditions := printConditions(query.SelectedCondition)
-	queryString := "SELECT " + fields + " FROM " + tables + " WHERE (" + conditions + ")"
+	queryString := "SELECT " + fields + " FROM " + tables
+	if len(query.SelectedCondition) != 0 {
+		if len(query.SelectedCondition[0]) != 0 {
+			conditions := printConditions(query.SelectedCondition)
+			queryString += " WHERE (" + conditions + ")"
+		}
+	}
 	return queryString
 }
 
@@ -24,9 +31,13 @@ func printFields(selectedFields []string) string {
 func printTables(selectedTables []string) string {
 	var str = ""
 	for i := 0; i < len(selectedTables); i++ {
-		str += selectedTables[i] + ", "
+		if i == 0 {
+			str += selectedTables[i]
+
+		} else {
+			str += " JOIN " + selectedTables[i] + " ON " + "patients.sample_id = samples.sample_id"
+		}
 	}
-	str = str[0 : len(str)-2]
 	return str
 }
 

@@ -9,8 +9,8 @@ import (
 )
 
 //GetAllSamples gets all and results a list of samples
-func GetAllSamples(query string) []*models.Sample {
-	samples := []*models.Sample{}
+func GetAllSamples(query string) []*models.Record {
+	samples := []*models.Record{}
 	err := database.DB.Select(&samples, query)
 	if err != nil {
 		fmt.Println(err)

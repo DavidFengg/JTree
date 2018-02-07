@@ -519,3 +519,10 @@ definitions:
         type: "array"
         items:
           type: "string"
+  Record:
+    type: "object"
+    properties:
+      Sample:
+        $ref: "#/definitions/Sample"
+      Patient:
+        $ref: "#/definitions/Patient"

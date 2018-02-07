@@ -429,6 +429,17 @@ func init() {
         }
       }
     },
+    "Record": {
+      "type": "object",
+      "properties": {
+        "Patient": {
+          "$ref": "#/definitions/Patient"
+        },
+        "Sample": {
+          "$ref": "#/definitions/Sample"
+        }
+      }
+    },
     "Sample": {
       "type": "object",
       "properties": {
@@ -1100,6 +1111,17 @@ func init() {
           "items": {
             "type": "string"
           }
+        }
+      }
+    },
+    "Record": {
+      "type": "object",
+      "properties": {
+        "Patient": {
+          "$ref": "#/definitions/Patient"
+        },
+        "Sample": {
+          "$ref": "#/definitions/Sample"
         }
       }
     },
