@@ -35,6 +35,27 @@ func init() {
   "host": "virtserver.swaggerhub.com",
   "basePath": "/Jtree/metadata/0.1.0",
   "paths": {
+    "/logout": {
+      "get": {
+        "description": "logs users out",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "logsout",
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          "404": {
+            "description": "Sample not found"
+          }
+        }
+      }
+    },
     "/patient": {
       "post": {
         "description": "Adds a patient to the system",
@@ -735,6 +756,27 @@ func init() {
   "host": "virtserver.swaggerhub.com",
   "basePath": "/Jtree/metadata/0.1.0",
   "paths": {
+    "/logout": {
+      "get": {
+        "description": "logs users out",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "logsout",
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          "404": {
+            "description": "Sample not found"
+          }
+        }
+      }
+    },
     "/patient": {
       "post": {
         "description": "Adds a patient to the system",

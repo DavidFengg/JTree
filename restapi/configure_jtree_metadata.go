@@ -98,9 +98,8 @@ func getColumns() []string {
 	return database.GetColumns(database.GetTables())
 }
 
-func logout() models.LogoutOKBody {
-	keycloak.LogoutUser()
-	return true
+func logout() bool {
+	return keycloak.LogoutUser()
 }
 
 func configureFlags(api *operations.JtreeMetadataAPI) {
@@ -149,12 +148,11 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	api.GetSamplesByQueryHandler = operations.GetSamplesByQueryHandlerFunc(func(params operations.GetSamplesByQueryParams) middleware.Responder {
 		return operations.NewGetSampleOK().WithPayload(getSamplesByQuery(params.Query))
 	})
-	api.GetSampleColumnsHandler = operations.GetSampleColumnsHandlerFunc(func(params operations.GetSampleColumnsParams) middleware.Responder {
-		return operations.NewGetSampleColumnsOK().WithPayload(getColumns())
-	})
-
 	api.LogoutHandler = operations.LogoutHandlerFunc(func(params operations.LogoutParams) middleware.Responder {
 		return operations.NewLogoutOK().WithPayload(logout())
+	})
+	api.GetSampleColumnsHandler = operations.GetSampleColumnsHandlerFunc(func(params operations.GetSampleColumnsParams) middleware.Responder {
+		return operations.NewGetSampleColumnsOK().WithPayload(getColumns())
 	})
 
 	api.ServerShutdown = func() {}

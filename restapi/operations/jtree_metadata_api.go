@@ -56,13 +56,13 @@ func NewJtreeMetadataAPI(spec *loads.Document) *JtreeMetadataAPI {
 		GetSamplesByQueryHandler: GetSamplesByQueryHandlerFunc(func(params GetSamplesByQueryParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetSamplesByQuery has not yet been implemented")
 		}),
+		LogoutHandler: LogoutHandlerFunc(func(params LogoutParams) middleware.Responder {
+			return middleware.NotImplemented("operation Logout has not yet been implemented")
+		}),
 		SearchPatientHandler: SearchPatientHandlerFunc(func(params SearchPatientParams) middleware.Responder {
 			return middleware.NotImplemented("operation SearchPatient has not yet been implemented")
 		}),
 		SearchSampleHandler: SearchSampleHandlerFunc(func(params SearchSampleParams) middleware.Responder {
-			return middleware.NotImplemented("operation SearchSample has not yet been implemented")
-		}),
-		LogoutHandler: LogoutHandlerFunc(func(params LogoutParams) middleware.Responder {
 			return middleware.NotImplemented("operation SearchSample has not yet been implemented")
 		}),
 	}
@@ -110,12 +110,12 @@ type JtreeMetadataAPI struct {
 	GetSampleColumnsHandler GetSampleColumnsHandler
 	// GetSamplesByQueryHandler sets the operation handler for the get samples by query operation
 	GetSamplesByQueryHandler GetSamplesByQueryHandler
+	// LogoutHandler sets the operation handler for the logout operation
+	LogoutHandler LogoutHandler
 	// SearchPatientHandler sets the operation handler for the search patient operation
 	SearchPatientHandler SearchPatientHandler
 	// SearchSampleHandler sets the operation handler for the search sample operation
 	SearchSampleHandler SearchSampleHandler
-	// LogoutHandler sets the operation handler for the search sample operation
-	LogoutHandler LogoutHandler
 
 	// ServeError is called when an error is received, there is a default handler
 	// but you can set your own with this
@@ -207,16 +207,16 @@ func (o *JtreeMetadataAPI) Validate() error {
 		unregistered = append(unregistered, "GetSamplesByQueryHandler")
 	}
 
+	if o.LogoutHandler == nil {
+		unregistered = append(unregistered, "LogoutHandler")
+	}
+
 	if o.SearchPatientHandler == nil {
 		unregistered = append(unregistered, "SearchPatientHandler")
 	}
 
 	if o.SearchSampleHandler == nil {
 		unregistered = append(unregistered, "SearchSampleHandler")
-	}
-
-	if o.LogoutHandler == nil {
-		unregistered = append(unregistered, "LogoutHandler")
 	}
 
 	if len(unregistered) > 0 {
@@ -345,17 +345,17 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/columns"] = NewGetSampleColumns(o.context, o.GetSampleColumnsHandler)
+	o.handlers["GET"]["/samples/columns"] = NewGetSampleColumns(o.context, o.GetSampleColumnsHandler)
+
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/sample/query"] = NewGetSamplesByQuery(o.context, o.GetSamplesByQueryHandler)
 
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/logout"] = NewLogout(o.context, o.LogoutHandler)
-
-	if o.handlers["POST"] == nil {
-		o.handlers["POST"] = make(map[string]http.Handler)
-	}
-	o.handlers["POST"]["/query"] = NewGetSamplesByQuery(o.context, o.GetSamplesByQueryHandler)
 
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
