@@ -98,6 +98,11 @@ func getColumns() []string {
 	return database.GetColumns(database.GetTables())
 }
 
+func logout() models.LogoutOKBody {
+	keycloak.LogoutUser()
+	return true
+}
+
 func configureFlags(api *operations.JtreeMetadataAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }
 }
@@ -146,6 +151,10 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	})
 	api.GetSampleColumnsHandler = operations.GetSampleColumnsHandlerFunc(func(params operations.GetSampleColumnsParams) middleware.Responder {
 		return operations.NewGetSampleColumnsOK().WithPayload(getColumns())
+	})
+
+	api.LogoutHandler = operations.LogoutHandlerFunc(func(params operations.LogoutParams) middleware.Responder {
+		return operations.NewLogoutOK().WithPayload(logout())
 	})
 
 	api.ServerShutdown = func() {}

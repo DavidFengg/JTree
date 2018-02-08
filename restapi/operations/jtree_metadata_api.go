@@ -62,6 +62,9 @@ func NewJtreeMetadataAPI(spec *loads.Document) *JtreeMetadataAPI {
 		SearchSampleHandler: SearchSampleHandlerFunc(func(params SearchSampleParams) middleware.Responder {
 			return middleware.NotImplemented("operation SearchSample has not yet been implemented")
 		}),
+		LogoutHandler: LogoutHandlerFunc(func(params LogoutParams) middleware.Responder {
+			return middleware.NotImplemented("operation SearchSample has not yet been implemented")
+		}),
 	}
 }
 
@@ -111,6 +114,8 @@ type JtreeMetadataAPI struct {
 	SearchPatientHandler SearchPatientHandler
 	// SearchSampleHandler sets the operation handler for the search sample operation
 	SearchSampleHandler SearchSampleHandler
+	// LogoutHandler sets the operation handler for the search sample operation
+	LogoutHandler LogoutHandler
 
 	// ServeError is called when an error is received, there is a default handler
 	// but you can set your own with this
@@ -208,6 +213,10 @@ func (o *JtreeMetadataAPI) Validate() error {
 
 	if o.SearchSampleHandler == nil {
 		unregistered = append(unregistered, "SearchSampleHandler")
+	}
+
+	if o.LogoutHandler == nil {
+		unregistered = append(unregistered, "LogoutHandler")
 	}
 
 	if len(unregistered) > 0 {
@@ -337,6 +346,11 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/columns"] = NewGetSampleColumns(o.context, o.GetSampleColumnsHandler)
+
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/logout"] = NewLogout(o.context, o.LogoutHandler)
 
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)

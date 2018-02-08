@@ -278,6 +278,27 @@ func init() {
         }
       }
     },
+    "/logout": {
+      "get": {
+        "description": "logsout",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets columns",
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "columns",
+            "schema": {
+              "type": "bool",
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
     "/samples/search": {
       "get": {
         "description": "By passing in the appropriate options, you can search for\navailable sample\n",
@@ -958,6 +979,27 @@ func init() {
               "items": {
                 "type": "string"
               }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "description": "logsout",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets columns",
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "columns",
+            "schema": {
+              "type": "boolean",
             }
           },
           "400": {
