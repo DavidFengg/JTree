@@ -213,6 +213,21 @@ paths:
         409:
           description: "an existing item already exists"
 
+  /logout:
+    get:
+      summary: "logsout"
+      description: "logs users out"
+      operationId: "logout"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "boolean"
+        404:
+          description: "Sample not found"
+
 definitions:
   Patient:
     type: "object"
