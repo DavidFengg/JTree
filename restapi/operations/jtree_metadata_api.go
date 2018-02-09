@@ -327,6 +327,7 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 	}
 	o.handlers["POST"]["/sample"] = NewAddSample(o.context, o.AddSampleHandler)
 
+	//ENDPOINTPURGE
 	// if o.handlers["GET"] == nil {
 	// 	o.handlers["GET"] = make(map[string]http.Handler)
 	// }
