@@ -105,7 +105,10 @@ func logout() bool {
 }
 
 var databaseFlags = struct {
-	Name string `long:"databaseHost" description:"Database Host" required:"true"`
+	Host string `long:"databaseHost" description:"Database Host" required:"false"`
+	Name string `long:"databaseName" description:"Database Name" required:"false"`
+	User string `long:"dbUsername" description:"Database Username" required:"false"`
+	Pass string `long:"dbPassword" description:"Database Password" required:"false"`
 }{}
 var keycloakFlags = struct {
 	Active bool   `short:"s" description:"Use Security Bool" required:"false"`

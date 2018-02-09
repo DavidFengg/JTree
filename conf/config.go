@@ -10,7 +10,27 @@ import (
 
 //Conf is an object created by the conf.yaml file
 type Conf struct {
-	Collection []string
+	Database Database
+	Keycloak Keycloak
+	App      App
+}
+
+//Database Config Object
+type Database struct {
+	Host string
+	Name string
+	User string
+	Pass string
+}
+
+//Keycloak Config Object
+type Keycloak struct {
+	Host string
+}
+
+//App Config Object
+type App struct {
+	Port int
 }
 
 //GetConf fills the conf struct
