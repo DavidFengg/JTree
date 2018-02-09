@@ -20,7 +20,7 @@ func Init(dbName, connectionstring string) {
 	databaseName = dbName
 	connectionString = connectionstring
 
-	DB, err = sqlx.Connect("mysql", "root:waterloo@/JTree")
+	DB, err = sqlx.Connect(dbName, connectionString)
 	if err != nil {
 		panic(err)
 	}

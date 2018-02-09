@@ -31,6 +31,7 @@ type Keycloak struct {
 //App Config Object
 type App struct {
 	Port int
+	Host string
 }
 
 //GetConf fills the conf struct

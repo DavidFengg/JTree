@@ -135,9 +135,10 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	api.ServeError = errors.ServeError
 
 	c.GetConf()
-	database.Init("", "")
-	ServerName := "http://127.0.0.1:8000"
-	KeycloakserverName := "http://localhost:8080"
+	setupOptions()
+	database.Init(c.Database.Host, c.Database.User+":"+c.Database.Pass+"@/"+c.Database.Name)
+	ServerName := c.App.Host + ":" + strconv.Itoa(c.App.Port)
+	KeycloakserverName := c.Keycloak.Host
 
 	if keycloakFlags.Active {
 		keycloak.Init(KeycloakserverName, ServerName)
@@ -218,4 +219,22 @@ func setupGlobalMiddleware(handler http.Handler) http.Handler {
 		return keycloak.AuthMiddlewareHandler(handler)
 	}
 	return handler
+}
+
+func setupOptions() {
+	if databaseFlags.Host != "" {
+		c.Database.Host = databaseFlags.Host
+	}
+	if databaseFlags.Name != "" {
+		c.Database.Name = databaseFlags.Name
+	}
+	if databaseFlags.User != "" {
+		c.Database.User = databaseFlags.User
+	}
+	if databaseFlags.Pass != "" {
+		c.Database.Pass = databaseFlags.Pass
+	}
+	if keycloakFlags.Host != "" {
+		c.Keycloak.Host = keycloakFlags.Host
+	}
 }
