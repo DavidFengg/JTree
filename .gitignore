@@ -28,4 +28,5 @@ cmd/jtree-metadata-server/log
 
 # Don't need to include log files
 log/*.log
+*.DS_Store
 
