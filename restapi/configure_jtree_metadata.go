@@ -7,6 +7,7 @@ import (
 	"sync"
 	"sync/atomic"
 
+	config "github.com/Bio-core/jtree/conf"
 	database "github.com/Bio-core/jtree/database"
 	"github.com/Bio-core/jtree/models"
 	"github.com/Bio-core/jtree/repos"
@@ -14,6 +15,7 @@ import (
 	errors "github.com/go-openapi/errors"
 	runtime "github.com/go-openapi/runtime"
 	middleware "github.com/go-openapi/runtime/middleware"
+	"github.com/go-openapi/swag"
 	graceful "github.com/tylerb/graceful"
 
 	"github.com/Bio-core/jtree/restapi/operations"
@@ -21,9 +23,9 @@ import (
 
 var lastPatientID int64
 var patientLock = &sync.Mutex{}
-
 var lastSampleID int64
 var sampleLock = &sync.Mutex{}
+var c config.Conf
 
 func newPatientID() int64 {
 	return atomic.AddInt64(&lastPatientID, 1)
@@ -99,16 +101,28 @@ func getColumns() []string {
 }
 
 func logout() bool {
-	return keycloak.LogoutUser()
+	return true
 }
 
+var databaseFlags = struct {
+	Name string `short:"d" description:"Database parameter" required:"true"`
+}{}
+
 func configureFlags(api *operations.JtreeMetadataAPI) {
-	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }
+	api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{
+		swag.CommandLineOptionsGroup{
+			ShortDescription: "Database Flags",
+			LongDescription:  "",
+			Options:          &databaseFlags,
+		},
+	}
 }
 
 func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
+
+	c.GetConf()
 	database.Init("", "")
 
 	// Set your custom logger if needed. Default one is log.Printf
@@ -133,18 +147,19 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 		}
 		return operations.NewAddSampleCreated()
 	})
-	api.GetPatientHandler = operations.GetPatientHandlerFunc(func(params operations.GetPatientParams) middleware.Responder {
-		return operations.NewGetPatientOK().WithPayload(allPatients(params.PatientID))
-	})
-	api.GetSampleHandler = operations.GetSampleHandlerFunc(func(params operations.GetSampleParams) middleware.Responder {
-		return operations.NewGetSampleOK().WithPayload(allSamples(params.SampleID))
-	})
-	api.SearchPatientHandler = operations.SearchPatientHandlerFunc(func(params operations.SearchPatientParams) middleware.Responder {
-		return operations.NewGetPatientOK().WithPayload(allPatients(""))
-	})
-	api.SearchSampleHandler = operations.SearchSampleHandlerFunc(func(params operations.SearchSampleParams) middleware.Responder {
-		return operations.NewGetSampleOK().WithPayload(allSamples(""))
-	})
+	//ENDPOINTPURGE
+	// api.GetPatientHandler = operations.GetPatientHandlerFunc(func(params operations.GetPatientParams) middleware.Responder {
+	// 	return operations.NewGetPatientOK().WithPayload(allPatients(params.PatientID))
+	// })
+	// api.GetSampleHandler = operations.GetSampleHandlerFunc(func(params operations.GetSampleParams) middleware.Responder {
+	// 	return operations.NewGetSampleOK().WithPayload(allSamples(params.SampleID))
+	// })
+	// api.SearchPatientHandler = operations.SearchPatientHandlerFunc(func(params operations.SearchPatientParams) middleware.Responder {
+	// 	return operations.NewGetPatientOK().WithPayload(allPatients(""))
+	// })
+	// api.SearchSampleHandler = operations.SearchSampleHandlerFunc(func(params operations.SearchSampleParams) middleware.Responder {
+	// 	return operations.NewGetSampleOK().WithPayload(allSamples(""))
+	// })
 	api.GetSamplesByQueryHandler = operations.GetSamplesByQueryHandlerFunc(func(params operations.GetSamplesByQueryParams) middleware.Responder {
 		return operations.NewGetSampleOK().WithPayload(getSamplesByQuery(params.Query))
 	})

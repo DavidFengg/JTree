@@ -357,15 +357,16 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 	}
 	o.handlers["GET"]["/logout"] = NewLogout(o.context, o.LogoutHandler)
 
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/patient/search"] = NewSearchPatient(o.context, o.SearchPatientHandler)
+	//ENDPOINTPURGE
+	// if o.handlers["GET"] == nil {
+	// 	o.handlers["GET"] = make(map[string]http.Handler)
+	// }
+	// o.handlers["GET"]["/patient/search"] = NewSearchPatient(o.context, o.SearchPatientHandler)
 
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/samples/search"] = NewSearchSample(o.context, o.SearchSampleHandler)
+	// if o.handlers["GET"] == nil {
+	// 	o.handlers["GET"] = make(map[string]http.Handler)
+	// }
+	// o.handlers["GET"]["/samples/search"] = NewSearchSample(o.context, o.SearchSampleHandler)
 
 }
 
