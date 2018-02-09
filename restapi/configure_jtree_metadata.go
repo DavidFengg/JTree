@@ -105,7 +105,11 @@ func logout() bool {
 }
 
 var databaseFlags = struct {
-	Name string `short:"d" description:"Database parameter" required:"true"`
+	Name string `long:"databaseHost" description:"Database Host" required:"true"`
+}{}
+var keycloakFlags = struct {
+	Active bool   `short:"s" description:"Use Security Bool" required:"false"`
+	Host   string `long:"keycloakHost" description:"Keycloak Host" required:"false"`
 }{}
 
 func configureFlags(api *operations.JtreeMetadataAPI) {
@@ -114,6 +118,11 @@ func configureFlags(api *operations.JtreeMetadataAPI) {
 			ShortDescription: "Database Flags",
 			LongDescription:  "",
 			Options:          &databaseFlags,
+		},
+		swag.CommandLineOptionsGroup{
+			ShortDescription: "Keycloak Flags",
+			LongDescription:  "",
+			Options:          &keycloakFlags,
 		},
 	}
 }
@@ -124,6 +133,12 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 
 	c.GetConf()
 	database.Init("", "")
+	ServerName := "http://127.0.0.1:8000"
+	KeycloakserverName := "http://localhost:8080"
+
+	if keycloakFlags.Active {
+		keycloak.Init(KeycloakserverName, ServerName)
+	}
 
 	// Set your custom logger if needed. Default one is log.Printf
 	// Expected interface func(string, ...interface{})
@@ -196,5 +211,8 @@ func setupMiddlewares(handler http.Handler) http.Handler {
 // The middleware configuration happens before anything, this middleware also applies to serving the swagger.json document.
 // So this is a good place to plug in a panic handling middleware, logging and metrics
 func setupGlobalMiddleware(handler http.Handler) http.Handler {
-	return keycloak.AuthMiddlewareHandler(handler)
+	if keycloakFlags.Active {
+		return keycloak.AuthMiddlewareHandler(handler)
+	}
+	return handler
 }

@@ -327,25 +327,25 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 	}
 	o.handlers["POST"]["/sample"] = NewAddSample(o.context, o.AddSampleHandler)
 
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/patient/{patientId}"] = NewGetPatient(o.context, o.GetPatientHandler)
+	// if o.handlers["GET"] == nil {
+	// 	o.handlers["GET"] = make(map[string]http.Handler)
+	// }
+	// o.handlers["GET"]["/patient/{patientId}"] = NewGetPatient(o.context, o.GetPatientHandler)
+
+	// if o.handlers["GET"] == nil {
+	// 	o.handlers["GET"] = make(map[string]http.Handler)
+	// }
+	// o.handlers["GET"]["/patient/columns"] = NewGetPatientColumns(o.context, o.GetPatientColumnsHandler)
+
+	// if o.handlers["GET"] == nil {
+	// 	o.handlers["GET"] = make(map[string]http.Handler)
+	// }
+	// o.handlers["GET"]["/sample/{sampleId}"] = NewGetSample(o.context, o.GetSampleHandler)
 
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/patient/columns"] = NewGetPatientColumns(o.context, o.GetPatientColumnsHandler)
-
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/sample/{sampleId}"] = NewGetSample(o.context, o.GetSampleHandler)
-
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/samples/columns"] = NewGetSampleColumns(o.context, o.GetSampleColumnsHandler)
+	o.handlers["GET"]["/columns"] = NewGetSampleColumns(o.context, o.GetSampleColumnsHandler)
 
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
