@@ -12,3 +12,7 @@ go get -u github.com/go-openapi/runtime
 go get -u github.com/go-openapi/spec
 go get -u github.com/go-openapi/strfmt
 go get -u github.com/go-openapi/swag
+go get -u github.com/go-openapi/validate
+
+go get -u github.com/docker/go-units
+go get -u gopkg.in/mgo.v2/bson

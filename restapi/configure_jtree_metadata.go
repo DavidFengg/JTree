@@ -9,6 +9,7 @@ import (
 
 	config "github.com/Bio-core/jtree/conf"
 	database "github.com/Bio-core/jtree/database"
+	"github.com/Bio-core/jtree/dummydata"
 	"github.com/Bio-core/jtree/models"
 	"github.com/Bio-core/jtree/repos"
 	keycloak "github.com/Bio-core/keycloakgo"
@@ -118,6 +119,9 @@ var keycloakFlags = struct {
 	Active bool   `short:"s" description:"Use Security Bool" required:"false"`
 	Host   string `long:"keycloakHost" description:"Keycloak Host" required:"false"`
 }{}
+var dataGenFlags = struct {
+	Active bool `short:"g" description:"generate data" required:"false"`
+}{}
 
 func configureFlags(api *operations.JtreeMetadataAPI) {
 	api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{
@@ -146,6 +150,9 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 
 	if keycloakFlags.Active {
 		keycloak.Init(KeycloakserverName, ServerName)
+	}
+	if dataGenFlags.Active {
+		dummydata.MakeData(20, 20)
 	}
 
 	// Set your custom logger if needed. Default one is log.Printf
