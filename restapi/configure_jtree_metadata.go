@@ -135,6 +135,11 @@ func configureFlags(api *operations.JtreeMetadataAPI) {
 			LongDescription:  "",
 			Options:          &keycloakFlags,
 		},
+		swag.CommandLineOptionsGroup{
+			ShortDescription: "Data Generation Flags",
+			LongDescription:  "",
+			Options:          &dataGenFlags,
+		},
 	}
 }
 
