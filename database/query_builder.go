@@ -25,7 +25,7 @@ func BuildQuery(query models.Query) string {
 	return queryString
 }
 
-// Print comma seperated selected fields
+// Print comma separated selected fields
 func printFields(selectedFields []string) string {
 	var str = ""
 	for i := 0; i < len(selectedFields); i++ {
