@@ -50,7 +50,7 @@ func main() {
 
 	server.ConfigureAPI()
 
-	dummydata.MakeData(2, 2)
+	dummydata.MakeData(20, 20)
 
 	if err := server.Serve(); err != nil {
 		log.Fatalln(err)

@@ -25,8 +25,22 @@ func makeRandomString() string {
 }
 
 func makeRandomDate() string {
-	date := strconv.Itoa(rand.Intn(11)+1) + "-" + strconv.Itoa(rand.Intn(11)+1) + "-" + strconv.Itoa(rand.Intn(19)+1)
+	date := strconv.Itoa(rand.Intn(2019)+1) + "-" + strconv.Itoa(rand.Intn(11)+1) + "-" + strconv.Itoa(rand.Intn(27)+1)
 	return date
+}
+
+func makeRandomFloat() float32 {
+	num := rand.Float32()
+	num += float32(rand.Intn(2000))
+	return num
+}
+
+func makeRandomBool() bool {
+	num := rand.Intn(1)
+	if num == 1 {
+		return true
+	}
+	return false
 }
 
 func createPatients(number int) {
@@ -38,7 +52,7 @@ func createPatients(number int) {
 
 func createSamples(number int) {
 	for i := 0; i < number; i++ {
-		tempSample := models.Sample{}
+		tempSample := makeSample()
 		repos.InsertSample(&tempSample)
 	}
 }
@@ -87,4 +101,112 @@ func makePatient() models.Patient {
 	patient.SurgicalDate = &SurgicalDate
 
 	return patient
+}
+
+func makeSample() models.Sample {
+	sample := models.Sample{}
+	SampleID := makeRandomString()
+	sample.SampleID = &SampleID
+	Facility := makeRandomString()
+	sample.Facility = &Facility
+	TestRequested := makeRandomString()
+	sample.TestRequested = &TestRequested
+	SeNum := makeRandomString()
+	sample.SeNum = &SeNum
+	DateCollected := makeRandomDate()
+	sample.DateCollected = &DateCollected
+	DateReceived := makeRandomDate()
+	sample.DateReceived = &DateReceived
+	SampleType := makeRandomString()
+	sample.SampleType = &SampleType
+	MaterialReceived := makeRandomString()
+	sample.MaterialReceived = &MaterialReceived
+	MaterialReceivedNum := makeRandomString()
+	sample.MaterialReceivedNum = &MaterialReceivedNum
+	MaterialReceivedOther := makeRandomString()
+	sample.MaterialReceivedOther = &MaterialReceivedOther
+	VolumeOfBloodMarrow := makeRandomFloat()
+	sample.VolumeOfBloodMarrow = &VolumeOfBloodMarrow
+	SurgicalNum := makeRandomString()
+	sample.SurgicalNum = &SurgicalNum
+	TumorSite := makeRandomString()
+	sample.TumorSite = &TumorSite
+	HistoricalDiagnosis := makeRandomString()
+	sample.HistoricalDiagnosis = &HistoricalDiagnosis
+	TumorPercntOfTotal := makeRandomFloat()
+	sample.TumorPercntOfTotal = &TumorPercntOfTotal
+	TumorPercntOfCircled := makeRandomFloat()
+	sample.TumorPercntOfCircled = &TumorPercntOfCircled
+	ReviewedBy := makeRandomString()
+	sample.ReviewedBy = &ReviewedBy
+	HESlideLocation := makeRandomString()
+	sample.HESlideLocation = &HESlideLocation
+	NonUhnID := makeRandomString()
+	sample.NonUhnID = &NonUhnID
+	NameOfRequestor := makeRandomString()
+	sample.NameOfRequestor = &NameOfRequestor
+	DnaConcentration := makeRandomFloat()
+	sample.DnaConcentration = &DnaConcentration
+	DnaVolume := makeRandomFloat()
+	sample.DnaVolume = &DnaVolume
+	DnaLocation := makeRandomString()
+	sample.DnaLocation = &DnaLocation
+	RnaConcentration := makeRandomFloat()
+	sample.RnaConcentration = &RnaConcentration
+	RnaVolume := makeRandomFloat()
+	sample.RnaVolume = &RnaVolume
+	RnaLocation := makeRandomString()
+	sample.RnaLocation = &RnaLocation
+	WbcLocation := makeRandomString()
+	sample.WbcLocation = &WbcLocation
+	PlasmaLocation := makeRandomString()
+	sample.PlasmaLocation = &PlasmaLocation
+	CfPlasmaLocation := makeRandomString()
+	sample.CfPlasmaLocation = &CfPlasmaLocation
+	PbBmLocation := makeRandomString()
+	sample.PbBmLocation = &PbBmLocation
+	RnaLysateLocation := makeRandomString()
+	sample.RnaLysateLocation = &RnaLysateLocation
+	SampleSize := makeRandomString()
+	sample.SampleSize = &SampleSize
+	StudyID := makeRandomString()
+	sample.StudyID = &StudyID
+	SampleName := makeRandomString()
+	sample.SampleName = &SampleName
+	DateSubmitted := makeRandomDate()
+	sample.DateSubmitted = &DateSubmitted
+	ContainerType := makeRandomString()
+	sample.ContainerType = &ContainerType
+	ContainerID := makeRandomString()
+	sample.ContainerID = &ContainerID
+	ContainerWell := makeRandomString()
+	sample.ContainerWell = &ContainerWell
+	CopathNum := makeRandomString()
+	sample.CopathNum = &CopathNum
+	OtherIdentifier := makeRandomString()
+	sample.OtherIdentifier = &OtherIdentifier
+	HasSampleFiles := makeRandomBool()
+	sample.HasSampleFiles = &HasSampleFiles
+	DnaSampleBarcode := makeRandomString()
+	sample.DnaSampleBarcode = &DnaSampleBarcode
+	DnaExtractionDate := makeRandomDate()
+	sample.DnaExtractionDate = &DnaExtractionDate
+	DnaQuality := makeRandomString()
+	sample.DnaQuality = &DnaQuality
+	FfpeQcDate := makeRandomDate()
+	sample.FfpeQcDate = &FfpeQcDate
+	DeltaCtValue := makeRandomFloat()
+	sample.DeltaCtValue = &DeltaCtValue
+	Comments := makeRandomString()
+	sample.Comments = &Comments
+	RnasePDate := makeRandomDate()
+	sample.RnasePDate = &RnasePDate
+	DnaQualityByRnaseP := makeRandomFloat()
+	sample.DnaQualityByRnaseP = &DnaQualityByRnaseP
+	RnaQuality := makeRandomFloat()
+	sample.RnaQuality = &RnaQuality
+	RnaExtractionDate := makeRandomDate()
+	sample.RnaExtractionDate = &RnaExtractionDate
+
+	return sample
 }
