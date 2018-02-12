@@ -5,6 +5,7 @@ Database Access API
 [View On SwaggerHub](https://app.swaggerhub.com/apis/JTree/jtree-metadata_api/0.1.0)
 </br>
 [![Build Status](https://travis-ci.org/Bio-Core/JTree.svg?branch=master)](https://travis-ci.org/Bio-Core/JTree)
+[![Go Report Card](https://goreportcard.com/badge/Bio-core/Jtree)](https://goreportcard.com/report/Bio-core/Jtree)
 
 ## Getting started
 
