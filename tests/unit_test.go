@@ -54,7 +54,9 @@ func TestMain(m *testing.M) {
 	go server.Serve()
 
 	testResults := m.Run()
-	tearDown()
+	if !tearDown() {
+		testResults = -1
+	}
 	os.Exit(testResults)
 }
 
@@ -214,19 +216,3 @@ func TestAddPatientsPOST(t *testing.T) {
 	defer resp2.Body.Close()
 
 }
-
-// func TestRemoveAllBiosamples(t *testing.T) {
-// 	result := repos.RemoveAllBiosamples()
-// 	if !result {
-// 		t.Fail()
-// 		return
-// 	}
-// }
-
-// func TestRemoveAllIndividuals(t *testing.T) {
-// 	result := repos.RemoveAllIndividuals()
-// 	if !result {
-// 		t.Fail()
-// 		return
-// 	}
-// }

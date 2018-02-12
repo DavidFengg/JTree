@@ -45,7 +45,9 @@ func addPatient(patient *models.Patient) error {
 
 	var newID = newPatientID()
 	var newIDString = strconv.FormatInt(newID, 10)
-	patient.PatientID = &newIDString
+	if *patient.PatientID == "" {
+		patient.PatientID = &newIDString
+	}
 	repos.InsertPatient(patient)
 
 	return nil
@@ -61,7 +63,9 @@ func addSample(sample *models.Sample) error {
 
 	var newID = newSampleID()
 	var newIDString = strconv.FormatInt(newID, 10)
-	sample.SampleID = &newIDString
+	if *sample.SampleID == "" {
+		sample.SampleID = &newIDString
+	}
 	repos.InsertSample(sample)
 
 	return nil

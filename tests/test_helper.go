@@ -2,6 +2,8 @@ package tests
 
 import (
 	"net/http"
+
+	repos "github.com/Bio-core/jtree/repos"
 )
 
 //CheckPageResponse checks if a page that should respond is found correctly
@@ -36,6 +38,9 @@ func CheckNoPageResponse(url string) bool {
 	return false
 }
 
-func tearDown() {
-
+func tearDown() bool {
+	result := true
+	result = result && repos.RemoveUnitTestPatients()
+	result = result && repos.RemoveUnitTestSamples()
+	return result
 }

@@ -102,3 +102,12 @@ func RemoveAllSamples() bool {
 	//Implement here
 	return true
 }
+
+//RemoveUnitTestSamples will empty a collection
+func RemoveUnitTestSamples() bool {
+	_, err := database.DB.Query("Delete from samples where sample_id LIKE \"%Sample%\"")
+	if err != nil {
+		return false
+	}
+	return true
+}

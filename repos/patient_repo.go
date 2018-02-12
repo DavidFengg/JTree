@@ -68,3 +68,12 @@ func RemoveAllPatients() bool {
 	//implement here
 	return true
 }
+
+//RemoveAllPatients will empty a collection
+func RemoveUnitTestPatients() bool {
+	_, err := database.DB.Query("Delete from patients where patient_id LIKE \"%patient%\"")
+	if err != nil {
+		return false
+	}
+	return true
+}
