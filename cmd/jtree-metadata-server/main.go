@@ -7,7 +7,6 @@ import (
 	loads "github.com/go-openapi/loads"
 	flags "github.com/jessevdk/go-flags"
 
-	"github.com/Bio-core/jtree/dummydata"
 	"github.com/Bio-core/jtree/restapi"
 	"github.com/Bio-core/jtree/restapi/operations"
 )
@@ -50,7 +49,7 @@ func main() {
 
 	server.ConfigureAPI()
 
-	dummydata.MakeData(2, 2)
+	//dummydata.MakeData(2, 2)
 
 	if err := server.Serve(); err != nil {
 		log.Fatalln(err)
