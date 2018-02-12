@@ -25,7 +25,7 @@ func makeRandomString() string {
 }
 
 func makeRandomDate() string {
-	date := strconv.Itoa(rand.Intn(12)) + "-" + strconv.Itoa(rand.Intn(12)) + "-" + strconv.Itoa(rand.Intn(20))
+	date := strconv.Itoa(rand.Intn(11)+1) + "-" + strconv.Itoa(rand.Intn(11)+1) + "-" + strconv.Itoa(rand.Intn(19)+1)
 	return date
 }
 
