@@ -8,32 +8,36 @@ import (
 	"os"
 	"testing"
 
-	models "github.com/bio-core/jtree/models"
-	"github.com/bio-core/jtree/repos"
-	"github.com/bio-core/jtree/restapi"
-	rest "github.com/bio-core/jtree/restapi"
-	"github.com/bio-core/jtree/restapi/operations"
+	models "github.com/Bio-core/jtree/models"
+	"github.com/Bio-core/jtree/restapi"
+	"github.com/Bio-core/jtree/restapi/operations"
 	"github.com/go-openapi/loads"
 	flags "github.com/jessevdk/go-flags"
 )
 
-const server = "http://localhost:8000"
+const server = "http://127.0.0.1:8000"
 
 func TestMain(m *testing.M) {
-	rest.Databasename = "testjtree"
-	swaggerSpec, err := loads.Analyzed(restapi.SwaggerJSON, "")
+	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
 	if err != nil {
 		log.Fatalln(err)
 	}
 
 	api := operations.NewJtreeMetadataAPI(swaggerSpec)
 	server := restapi.NewServer(api)
-	server.Port = 8000
 	defer server.Shutdown()
 
 	parser := flags.NewParser(server, flags.Default)
 	parser.ShortDescription = "Jtree Metadata API"
 	parser.LongDescription = "Metadata API"
+
+	server.ConfigureFlags()
+	for _, optsGroup := range api.CommandLineOptionsGroups {
+		_, err := parser.AddGroup(optsGroup.ShortDescription, optsGroup.LongDescription, optsGroup.Options)
+		if err != nil {
+			log.Fatalln(err)
+		}
+	}
 
 	if _, err := parser.Parse(); err != nil {
 		code := 1
@@ -46,8 +50,9 @@ func TestMain(m *testing.M) {
 	}
 
 	server.ConfigureAPI()
-
+	//server.Host = "127.0.0.1"
 	go server.Serve()
+
 	testResults := m.Run()
 	tearDown()
 	os.Exit(testResults)
@@ -55,8 +60,7 @@ func TestMain(m *testing.M) {
 
 func TestUrls(t *testing.T) {
 	result := true
-	result = result && CheckPageResponse(server+"/Jtree/metadata/0.1.0/biosample/search")
-	result = result && CheckPageResponse(server+"/Jtree/metadata/0.1.0/individual/search")
+	result = result && CheckPageResponse(server+"/Jtree/metadata/0.1.0/columns")
 	result = result && CheckNoPageResponse(server+"/x")
 
 	if result != true {
@@ -64,28 +68,30 @@ func TestUrls(t *testing.T) {
 	}
 }
 
-func TestAddBiosamplesPOST(t *testing.T) {
-	nameSample1 := "Sample1"
-	descriptionSample1 := "This is a test sample"
-	idSample1 := "UNIT_TESTS"
-	collectionageSample1 := "10"
-	nameSample2 := "Sample2"
-	descriptionSample2 := "This is another test sample"
-	idSample2 := "UNIT_TESTS"
-	collectionageSample2 := "20"
+func TestAddSamplesPOST(t *testing.T) {
+	sampleidSample1 := "Sample1"
+	facilitySample1 := "TGH"
+	var volumeOfBloodMarrowSample1 float32
+	volumeOfBloodMarrowSample1 = 14.2
+	dateCollectedSample1 := "20140506"
+	sampleidSample2 := "Sample2"
+	facilitySample2 := "PMH"
+	var volumeOfBloodMarrowSample2 float32
+	volumeOfBloodMarrowSample2 = 105.67
+	dateCollectedSample2 := "2020-09-08"
 
-	sample1 := models.Biosample{
-		Name:          &nameSample1,
-		Description:   &descriptionSample1,
-		IndividualID:  &idSample1,
-		CollectionAge: &collectionageSample1,
+	sample1 := models.Sample{
+		SampleID:            &sampleidSample1,
+		Facility:            &facilitySample1,
+		VolumeOfBloodMarrow: &volumeOfBloodMarrowSample1,
+		DateCollected:       &dateCollectedSample1,
 	}
 
-	sample2 := models.Biosample{
-		Name:          &nameSample2,
-		Description:   &descriptionSample2,
-		IndividualID:  &idSample2,
-		CollectionAge: &collectionageSample2,
+	sample2 := models.Sample{
+		SampleID:            &sampleidSample2,
+		Facility:            &facilitySample2,
+		VolumeOfBloodMarrow: &volumeOfBloodMarrowSample2,
+		DateCollected:       &dateCollectedSample2,
 	}
 
 	sample1Bytes, err := json.Marshal(sample1)
@@ -104,8 +110,8 @@ func TestAddBiosamplesPOST(t *testing.T) {
 	body := bytes.NewReader(sample1Bytes)
 	body2 := bytes.NewReader(sample2Bytes)
 
-	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/biosample", body)
-	req2, err2 := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/biosample", body2)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/sample", body)
+	req2, err2 := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/sample", body2)
 
 	if err != nil {
 		t.Fail()
@@ -138,20 +144,24 @@ func TestAddBiosamplesPOST(t *testing.T) {
 	defer resp2.Body.Close()
 
 }
-func TestAddIndividualsPOST(t *testing.T) {
-	namePerson1 := "Sample1"
-	descriptionPerson1 := "This is a test sample"
-	namePerson2 := "Sample2"
-	descriptionPerson2 := "This is another test sample"
+func TestAddPatientsPOST(t *testing.T) {
+	namePerson1 := "Mitchell"
+	patientidPerson1 := "patient1"
+	sampleidPerson1 := "Sample1"
+	namePerson2 := "Strong"
+	patientidPerson2 := "patient2"
+	sampleidPerson2 := "Sample2"
 
-	person1 := models.Individual{
-		Name:        &namePerson1,
-		Description: &descriptionPerson1,
+	person1 := models.Patient{
+		FirstName: &namePerson1,
+		PatientID: &patientidPerson1,
+		SampleID:  &sampleidPerson1,
 	}
 
-	person2 := models.Individual{
-		Name:        &namePerson2,
-		Description: &descriptionPerson2,
+	person2 := models.Patient{
+		FirstName: &namePerson2,
+		PatientID: &patientidPerson2,
+		SampleID:  &sampleidPerson2,
 	}
 
 	person1Bytes, err := json.Marshal(person1)
@@ -170,8 +180,8 @@ func TestAddIndividualsPOST(t *testing.T) {
 	body := bytes.NewReader(person1Bytes)
 	body2 := bytes.NewReader(person2Bytes)
 
-	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/individual", body)
-	req2, err2 := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/individual", body2)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/patient", body)
+	req2, err2 := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/patient", body2)
 
 	if err != nil {
 		t.Fail()
@@ -205,18 +215,18 @@ func TestAddIndividualsPOST(t *testing.T) {
 
 }
 
-func TestRemoveAllBiosamples(t *testing.T) {
-	result := repos.RemoveAllBiosamples()
-	if !result {
-		t.Fail()
-		return
-	}
-}
+// func TestRemoveAllBiosamples(t *testing.T) {
+// 	result := repos.RemoveAllBiosamples()
+// 	if !result {
+// 		t.Fail()
+// 		return
+// 	}
+// }
 
-func TestRemoveAllIndividuals(t *testing.T) {
-	result := repos.RemoveAllIndividuals()
-	if !result {
-		t.Fail()
-		return
-	}
-}
+// func TestRemoveAllIndividuals(t *testing.T) {
+// 	result := repos.RemoveAllIndividuals()
+// 	if !result {
+// 		t.Fail()
+// 		return
+// 	}
+// }

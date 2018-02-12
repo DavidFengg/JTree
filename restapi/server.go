@@ -53,6 +53,8 @@ func (s *Server) ConfigureAPI() {
 	if s.Port == 0 {
 		s.Port = c.App.Port
 	}
+	s.Host = c.App.Host
+
 }
 
 // ConfigureFlags configures the additional flags defined by the handlers. Needs to be called before the parser.Parse
