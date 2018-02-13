@@ -94,6 +94,7 @@ func InsertSample(sample *models.Sample) bool {
 		sample.DnaQualityByRnaseP,
 		sample.RnaQuality,
 		sample.RnaExtractionDate)
+		stmt.Close()
 	if err != nil {
 		fmt.Println(err)
 		return false

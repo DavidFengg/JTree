@@ -57,6 +57,7 @@ func InsertPatient(person *models.Patient) bool {
 		person.ReferringPhysican,
 		person.DateReported,
 		person.SurgicalDate)
+	stmt.Close()
 	if err != nil {
 		log.Fatal(err, result)
 	}

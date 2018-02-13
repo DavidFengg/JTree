@@ -158,7 +158,7 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 		keycloak.Init(KeycloakserverName, ServerName)
 	}
 	if dataGenFlags.Active {
-		dummydata.MakeData(5000, 5000)
+		dummydata.MakeData(10000, 10000)
 	}
 
 	// Set your custom logger if needed. Default one is log.Printf
