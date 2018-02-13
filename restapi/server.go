@@ -53,7 +53,7 @@ func (s *Server) ConfigureAPI() {
 	if s.Port == 0 {
 		s.Port = c.App.Port
 	}
-	//s.Host = c.App.Host
+	s.Host = c.App.Host
 
 }
 
