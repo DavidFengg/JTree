@@ -2,7 +2,7 @@ database:
   host: mysql
   user: root
   pass: waterloo
-  name: JTree
+  name: Jtree
 keycloak:
   host: http://localhost:8080
 app:
