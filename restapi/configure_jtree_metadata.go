@@ -2,7 +2,6 @@ package restapi
 
 import (
 	"crypto/tls"
-	"fmt"
 	"net/http"
 	"strconv"
 	"sync"
@@ -149,12 +148,9 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	api.ServeError = errors.ServeError
 
 	c.GetConf()
-	fmt.Printf("Config File")
 	setupOptions()
-	fmt.Printf("Setup Options")
 
 	database.Init(c.Database.Host, c.Database.User+":"+c.Database.Pass+"@/"+c.Database.Name)
-	fmt.Printf("db init")
 	ServerName := c.App.Host + ":" + strconv.Itoa(c.App.Port)
 	KeycloakserverName := c.Keycloak.Host
 
