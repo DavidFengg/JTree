@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -15,6 +16,7 @@ import (
 // Make sure not to overwrite this file after you generated it because all your edits would be lost!
 
 func main() {
+	fmt.Printf("Hit the main")
 
 	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
 	if err != nil {
@@ -30,6 +32,8 @@ func main() {
 	parser.LongDescription = "Metadata API"
 
 	server.ConfigureFlags()
+	fmt.Printf("Flags Done")
+
 	for _, optsGroup := range api.CommandLineOptionsGroups {
 		_, err := parser.AddGroup(optsGroup.ShortDescription, optsGroup.LongDescription, optsGroup.Options)
 		if err != nil {
@@ -48,6 +52,7 @@ func main() {
 	}
 
 	server.ConfigureAPI()
+	fmt.Printf("API Done")
 
 	if err := server.Serve(); err != nil {
 		log.Fatalln(err)
