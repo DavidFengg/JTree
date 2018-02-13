@@ -41,7 +41,7 @@ func InsertSample(sample *models.Sample) bool {
 	if err != nil {
 		log.Fatal(err)
 	}
-	stmt.Exec(
+	_, err = stmt.Exec(
 		sample.SampleID,
 		sample.Facility,
 		sample.TestRequested,
@@ -94,6 +94,10 @@ func InsertSample(sample *models.Sample) bool {
 		sample.DnaQualityByRnaseP,
 		sample.RnaQuality,
 		sample.RnaExtractionDate)
+	if err != nil {
+		fmt.Println(err)
+		return false
+	}
 	return true
 }
 

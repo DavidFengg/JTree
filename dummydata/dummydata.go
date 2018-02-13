@@ -10,6 +10,8 @@ import (
 
 var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 var r *rand.Rand
+var id1 int
+var id2 int
 
 //MakeData makes dummy data and puts it into the db
 func MakeData(numberPatients, numberSamples int) {
@@ -31,7 +33,7 @@ func makeRandomDate() string {
 
 func makeRandomFloat() float32 {
 	num := rand.Float32()
-	num += float32(rand.Intn(2000))
+	num += float32(rand.Intn(1000))
 	return num
 }
 
@@ -45,6 +47,7 @@ func makeRandomBool() bool {
 
 func createPatients(number int) {
 	for i := 0; i < number; i++ {
+		id1++
 		tempPatient := makePatient()
 		repos.InsertPatient(&tempPatient)
 	}
@@ -52,6 +55,7 @@ func createPatients(number int) {
 
 func createSamples(number int) {
 	for i := 0; i < number; i++ {
+		id2++
 		tempSample := makeSample()
 		repos.InsertSample(&tempSample)
 	}
@@ -93,7 +97,7 @@ func makePatient() models.Patient {
 	patient.PatientType = &PatientType
 	ReferringPhysican := makeRandomString()
 	patient.ReferringPhysican = &ReferringPhysican
-	SampleID := makeRandomString()
+	SampleID := strconv.Itoa(id1)
 	patient.SampleID = &SampleID
 	SeNum := makeRandomString()
 	patient.SeNum = &SeNum
@@ -105,7 +109,7 @@ func makePatient() models.Patient {
 
 func makeSample() models.Sample {
 	sample := models.Sample{}
-	SampleID := makeRandomString()
+	SampleID := strconv.Itoa(id2)
 	sample.SampleID = &SampleID
 	Facility := makeRandomString()
 	sample.Facility = &Facility
