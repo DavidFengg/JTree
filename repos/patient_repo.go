@@ -22,6 +22,7 @@ func GetAllPatients(query string) []*models.Patient {
 //GetPatientColumns gets the columns in a table
 func GetPatientColumns() []string {
 	rows, err := database.DB.Query("Select * from patients where patient_id = \"err\"")
+	defer rows.Close()
 	if err != nil {
 		fmt.Println(err)
 		return nil

@@ -63,6 +63,7 @@ func GetColumns(tables []string) []string {
 	var columns []string
 	for _, tableName := range tables {
 		rows, err := DB.Query("Select * from " + tableName + " where 0=1")
+		defer rows.Close()
 		if err != nil {
 			fmt.Println(err)
 			return nil
@@ -83,6 +84,7 @@ func GetColumns(tables []string) []string {
 func GetTables() []string {
 	var tables []string
 	rows, err := DB.Query("Show Tables")
+	defer rows.Close()
 	if err != nil {
 		fmt.Println(err)
 		return nil

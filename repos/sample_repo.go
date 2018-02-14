@@ -22,6 +22,7 @@ func GetAllSamples(query string) []*models.Record {
 //GetSampleColumns gets the columns in a table
 func GetSampleColumns() []string {
 	rows, err := database.DB.Query("Select * from Samples where sample_id = \"err\"")
+	defer rows.Close()
 	if err != nil {
 		fmt.Println(err)
 		return nil
@@ -94,7 +95,7 @@ func InsertSample(sample *models.Sample) bool {
 		sample.DnaQualityByRnaseP,
 		sample.RnaQuality,
 		sample.RnaExtractionDate)
-		stmt.Close()
+	stmt.Close()
 	if err != nil {
 		fmt.Println(err)
 		return false

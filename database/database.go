@@ -19,9 +19,9 @@ var DB *sqlx.DB
 func Init(dbName, connectionstring string) {
 	databaseName = dbName
 	connectionString = connectionstring
-
-	DB, err = sqlx.Connect(dbName, connectionString)
+	DB, err = sqlx.Connect(databaseName, connectionString)
 	if err != nil {
 		panic(err)
 	}
+	DB.SetMaxOpenConns(100)
 }
