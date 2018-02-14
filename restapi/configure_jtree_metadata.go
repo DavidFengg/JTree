@@ -120,7 +120,7 @@ var keycloakFlags = struct {
 	Host   string `long:"keycloakHost" description:"Keycloak Host" required:"false"`
 }{}
 var dataGenFlags = struct {
-	Active bool `short:"g" description:"generate data" required:"false"`
+	Generate int `short:"g" description:"generate data" required:"false"`
 }{}
 
 func configureFlags(api *operations.JtreeMetadataAPI) {
@@ -157,8 +157,8 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	if keycloakFlags.Active {
 		keycloak.Init(KeycloakserverName, ServerName)
 	}
-	if dataGenFlags.Active {
-		dummydata.MakeData(10000, 10000)
+	if dataGenFlags.Generate != 0 {
+		dummydata.MakeData(dataGenFlags.Generate, dataGenFlags.Generate)
 	}
 
 	// Set your custom logger if needed. Default one is log.Printf
