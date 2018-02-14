@@ -5,4 +5,6 @@ for i in `seq 1 100`;
             add=$(curl -X POST -w %{time_total} -o /dev/null -s -H 'Content-Type: application/json' http://127.0.0.1:8000/Jtree/metadata/0.1.0/query -d '{"selected_fields": ["*"],"selected_tables": ["patients","samples"],"selected_conditions": []}')
             sum=$(echo "$sum + $add" | bc)
         done 
+hun=100
+sum=$(echo "$sum / $hun"| bc -l)
 echo $sum
