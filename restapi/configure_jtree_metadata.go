@@ -171,6 +171,9 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 
 	api.JSONProducer = runtime.JSONProducer()
 
+	api.AddExperimentHandler = operations.AddExperimentHandlerFunc(func(params operations.AddExperimentParams) middleware.Responder {
+		return middleware.NotImplemented("operation .AddExperiment has not yet been implemented")
+	})
 	api.AddPatientHandler = operations.AddPatientHandlerFunc(func(params operations.AddPatientParams) middleware.Responder {
 		if err := addPatient(params.Patient); err != nil {
 			return operations.NewAddPatientBadRequest()

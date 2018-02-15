@@ -35,6 +35,40 @@ func init() {
   "host": "virtserver.swaggerhub.com",
   "basePath": "/Jtree/metadata/0.1.0",
   "paths": {
+    "/experiment": {
+      "post": {
+        "description": "Adds an experiment to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "adds an experiment",
+        "operationId": "addExperiment",
+        "parameters": [
+          {
+            "description": "Experiment",
+            "name": "experiment",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Experiment"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "item created"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
+          }
+        }
+      }
+    },
     "/logout": {
       "get": {
         "description": "logs users out",
@@ -337,6 +371,69 @@ func init() {
     }
   },
   "definitions": {
+    "Experiment": {
+      "type": "object",
+      "properties": {
+        "chip_cartridge_barcode": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "complete_date": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "experiment_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "has_project_files": {
+          "type": "boolean",
+          "x-nullable": true
+        },
+        "opened_date": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "panel_assay_screened": {
+          "type": "number",
+          "format": "int",
+          "x-nullable": true
+        },
+        "pcr": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "priority": {
+          "type": "number",
+          "format": "int",
+          "x-nullable": true
+        },
+        "procedure_order_datetime": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "project_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "project_name": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sample_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "study_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "test_date": {
+          "type": "string",
+          "x-nullable": true
+        }
+      }
+    },
     "Patient": {
       "type": "object",
       "properties": {
@@ -756,6 +853,40 @@ func init() {
   "host": "virtserver.swaggerhub.com",
   "basePath": "/Jtree/metadata/0.1.0",
   "paths": {
+    "/experiment": {
+      "post": {
+        "description": "Adds an experiment to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "adds an experiment",
+        "operationId": "addExperiment",
+        "parameters": [
+          {
+            "description": "Experiment",
+            "name": "experiment",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Experiment"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "item created"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
+          }
+        }
+      }
+    },
     "/logout": {
       "get": {
         "description": "logs users out",
@@ -1043,6 +1174,69 @@ func init() {
     }
   },
   "definitions": {
+    "Experiment": {
+      "type": "object",
+      "properties": {
+        "chip_cartridge_barcode": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "complete_date": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "experiment_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "has_project_files": {
+          "type": "boolean",
+          "x-nullable": true
+        },
+        "opened_date": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "panel_assay_screened": {
+          "type": "number",
+          "format": "int",
+          "x-nullable": true
+        },
+        "pcr": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "priority": {
+          "type": "number",
+          "format": "int",
+          "x-nullable": true
+        },
+        "procedure_order_datetime": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "project_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "project_name": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "sample_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "study_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "test_date": {
+          "type": "string",
+          "x-nullable": true
+        }
+      }
+    },
     "Patient": {
       "type": "object",
       "properties": {

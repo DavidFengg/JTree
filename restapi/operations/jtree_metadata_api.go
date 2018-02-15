@@ -35,6 +35,9 @@ func NewJtreeMetadataAPI(spec *loads.Document) *JtreeMetadataAPI {
 		BearerAuthenticator: security.BearerAuth,
 		JSONConsumer:        runtime.JSONConsumer(),
 		JSONProducer:        runtime.JSONProducer(),
+		AddExperimentHandler: AddExperimentHandlerFunc(func(params AddExperimentParams) middleware.Responder {
+			return middleware.NotImplemented("operation AddExperiment has not yet been implemented")
+		}),
 		AddPatientHandler: AddPatientHandlerFunc(func(params AddPatientParams) middleware.Responder {
 			return middleware.NotImplemented("operation AddPatient has not yet been implemented")
 		}),
@@ -96,6 +99,8 @@ type JtreeMetadataAPI struct {
 	// JSONProducer registers a producer for a "application/json" mime type
 	JSONProducer runtime.Producer
 
+	// AddExperimentHandler sets the operation handler for the add experiment operation
+	AddExperimentHandler AddExperimentHandler
 	// AddPatientHandler sets the operation handler for the add patient operation
 	AddPatientHandler AddPatientHandler
 	// AddSampleHandler sets the operation handler for the add sample operation
@@ -177,6 +182,10 @@ func (o *JtreeMetadataAPI) Validate() error {
 
 	if o.JSONProducer == nil {
 		unregistered = append(unregistered, "JSONProducer")
+	}
+
+	if o.AddExperimentHandler == nil {
+		unregistered = append(unregistered, "AddExperimentHandler")
 	}
 
 	if o.AddPatientHandler == nil {
@@ -316,6 +325,11 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 	if o.handlers == nil {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
+
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/experiment"] = NewAddExperiment(o.context, o.AddExperimentHandler)
 
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
