@@ -19,3 +19,14 @@ vendor
 .vscode
 .DS_Store
 glide.lock
+
+# Dev folders
+cmd/jtree-metadata-server/conf
+cmd/jtree-metadata-server/debug
+cmd/jtree-metadata-server/json
+cmd/jtree-metadata-server/log
+
+# Don't need to include log files
+log/*.log
+*.DS_Store
+

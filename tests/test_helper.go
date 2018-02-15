@@ -3,12 +3,14 @@ package tests
 import (
 	"net/http"
 
-	database "github.com/bio-core/jtree/database"
+	repos "github.com/Bio-core/jtree/repos"
 )
 
 //CheckPageResponse checks if a page that should respond is found correctly
 func CheckPageResponse(url string) bool {
-	response, err := http.Get(url)
+	client := &http.Client{}
+	req, _ := http.NewRequest("GET", url, nil)
+	response, err := client.Do(req)
 	if err != nil {
 		return false
 	}
@@ -36,6 +38,9 @@ func CheckNoPageResponse(url string) bool {
 	return false
 }
 
-func tearDown() {
-	database.Drop()
+func tearDown() bool {
+	result := true
+	result = result && repos.RemoveUnitTestPatients()
+	result = result && repos.RemoveUnitTestSamples()
+	return result
 }

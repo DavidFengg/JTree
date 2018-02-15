@@ -7,3 +7,6 @@ install:
   - go get -v github.com/Masterminds/glide 
   - make get-deps
   - make test
+  
+notifications:
+  email: false

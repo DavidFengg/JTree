@@ -22,6 +22,7 @@ func GetAllPatients(query string) []*models.Patient {
 //GetPatientColumns gets the columns in a table
 func GetPatientColumns() []string {
 	rows, err := database.DB.Query("Select * from patients where patient_id = \"err\"")
+	defer rows.Close()
 	if err != nil {
 		fmt.Println(err)
 		return nil
@@ -36,7 +37,7 @@ func GetPatientColumns() []string {
 
 //InsertPatient allows users to add generic objects to a collection in the database
 func InsertPatient(person *models.Patient) bool {
-	stmt, err := database.DB.Prepare("INSERT INTO `Patients`(`first_name`,`last_name`,`initials`,`gender`,`mrn`,`dob`,`on_hcn`,`clinical_history`,`patient_type`,`se_num`,`patient_id`,`sample_id`,`date_received`,`referring_physican`,`date_reported`,`surgical_date`)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);")
+	stmt, err := database.DB.Prepare("INSERT INTO `patients`(`first_name`,`last_name`,`initials`,`gender`,`mrn`,`dob`,`on_hcn`,`clinical_history`,`patient_type`,`se_num`,`patient_id`,`sample_id`,`date_received`,`referring_physican`,`date_reported`,`surgical_date`)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -57,6 +58,7 @@ func InsertPatient(person *models.Patient) bool {
 		person.ReferringPhysican,
 		person.DateReported,
 		person.SurgicalDate)
+	stmt.Close()
 	if err != nil {
 		log.Fatal(err, result)
 	}
@@ -66,5 +68,14 @@ func InsertPatient(person *models.Patient) bool {
 //RemoveAllPatients will empty a collection
 func RemoveAllPatients() bool {
 	//implement here
+	return true
+}
+
+//RemoveAllPatients will empty a collection
+func RemoveUnitTestPatients() bool {
+	_, err := database.DB.Query("Delete from patients where patient_id LIKE \"%patient%\"")
+	if err != nil {
+		return false
+	}
 	return true
 }

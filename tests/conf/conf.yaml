@@ -1,0 +1,10 @@
+database:
+  host: mysql
+  user: root
+  pass: waterloo
+  name: JTree
+keycloak:
+  host: http://localhost:8080
+app:
+  port: 8000
+  host: "127.0.0.1"

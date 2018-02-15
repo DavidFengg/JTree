@@ -29,7 +29,7 @@ func NewGetSamplesByQuery(ctx *middleware.Context, handler GetSamplesByQueryHand
 	return &GetSamplesByQuery{Context: ctx, Handler: handler}
 }
 
-/*GetSamplesByQuery swagger:route POST /sample/query getSamplesByQuery
+/*GetSamplesByQuery swagger:route POST /query getSamplesByQuery
 
 Query for Sample
 

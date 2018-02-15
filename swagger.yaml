@@ -128,7 +128,7 @@ paths:
         400:
           description: "bad input parameter"
 
-  /samples/columns:
+  /columns:
       get:
         summary: "gets columns"
         description: "gets column names"
@@ -164,7 +164,7 @@ paths:
         404:
           description: "Sample not found"
 
-  /sample/query:
+  /query:
     post:
       summary: "Query for Sample"
       operationId: "getSamplesByQuery"
@@ -212,6 +212,21 @@ paths:
           description: "invalid input, object invalid"
         409:
           description: "an existing item already exists"
+
+  /logout:
+    get:
+      summary: "logsout"
+      description: "logs users out"
+      operationId: "logout"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            type: "boolean"
+        404:
+          description: "Sample not found"
 
 definitions:
   Patient:
@@ -519,3 +534,10 @@ definitions:
         type: "array"
         items:
           type: "string"
+  Record:
+    type: "object"
+    properties:
+      Sample:
+        $ref: "#/definitions/Sample"
+      Patient:
+        $ref: "#/definitions/Patient"
