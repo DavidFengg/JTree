@@ -72,6 +72,24 @@ func addSample(sample *models.Sample) error {
 	return nil
 }
 
+func addExperiment(experiment *models.Experiment) error {
+	if experiment == nil {
+		return errors.New(500, "item must be present")
+	}
+
+	sampleLock.Lock()
+	defer sampleLock.Unlock()
+
+	var newID = newSampleID()
+	var newIDString = strconv.FormatInt(newID, 10)
+	if *experiment.ExperimentID == "" {
+		experiment.ExperimentID = &newIDString
+	}
+	repos.InsertExperiment(experiment)
+
+	return nil
+}
+
 func allPatients(query string) (result []*models.Patient) {
 	if query == "search" || query == "" {
 		query = "SELECT * FROM Patients"
@@ -172,7 +190,10 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	api.JSONProducer = runtime.JSONProducer()
 
 	api.AddExperimentHandler = operations.AddExperimentHandlerFunc(func(params operations.AddExperimentParams) middleware.Responder {
-		return middleware.NotImplemented("operation .AddExperiment has not yet been implemented")
+		if err := addExperiment(params.Experiment); err != nil {
+			return operations.NewAddExperimentBadRequest()
+		}
+		return operations.NewAddExperimentCreated()
 	})
 	api.AddPatientHandler = operations.AddPatientHandlerFunc(func(params operations.AddPatientParams) middleware.Responder {
 		if err := addPatient(params.Patient); err != nil {
