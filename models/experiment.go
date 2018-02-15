@@ -15,46 +15,46 @@ import (
 type Experiment struct {
 
 	// chip cartridge barcode
-	ChipCartridgeBarcode *string `json:"chip_cartridge_barcode,omitempty"`
+	ChipCartridgeBarcode *string `json:"experiments.chip_cartridge_barcode,omitempty" db:"experiments.chip_cartridge_barcode"`
 
 	// complete date
-	CompleteDate *string `json:"complete_date,omitempty"`
+	CompleteDate *string `json:"experiments.complete_date,omitempty" db:"experiments.complete_date"`
 
 	// experiment id
-	ExperimentID *string `json:"experiment_id,omitempty"`
+	ExperimentID *string `json:"experiments.experiment_id,omitempty" db:"experiments.experiment_id"`
 
 	// has project files
-	HasProjectFiles *bool `json:"has_project_files,omitempty"`
+	HasProjectFiles *bool `json:"experiments.has_project_files,omitempty" db:"experiments.has_project_files"`
 
 	// opened date
-	OpenedDate *string `json:"opened_date,omitempty"`
+	OpenedDate *string `json:"experiments.opened_date,omitempty" db:"experiments.opened_date"`
 
 	// panel assay screened
-	PanelAssayScreened *int64 `json:"panel_assay_screened,omitempty"`
+	PanelAssayScreened *int64 `json:"experiments.panel_assay_screened,omitempty" db:"experiments.panel_assay_screened"`
 
 	// pcr
-	Pcr *string `json:"pcr,omitempty"`
+	Pcr *string `json:"experiments.pcr,omitempty" db:"experiments.pcr"`
 
 	// priority
-	Priority *int64 `json:"priority,omitempty"`
+	Priority *int64 `json:"experiments.priority,omitempty" db:"experiments.priority"`
 
 	// procedure order datetime
-	ProcedureOrderDatetime *string `json:"procedure_order_datetime,omitempty"`
+	ProcedureOrderDatetime *string `json:"experiments.procedure_order_datetime,omitempty" db:"experiments.procedure_order_datetime"`
 
 	// project id
-	ProjectID *string `json:"project_id,omitempty"`
+	ProjectID *string `json:"experiments.project_id,omitempty" db:"experiments.project_id"`
 
 	// project name
-	ProjectName *string `json:"project_name,omitempty"`
+	ProjectName *string `json:"experiments.project_name,omitempty" db:"experiments.project_name"`
 
 	// sample id
-	SampleID *string `json:"sample_id,omitempty"`
+	SampleID *string `json:"experiments.sample_id,omitempty" db:"experiments.sample_id"`
 
 	// study id
-	StudyID *string `json:"study_id,omitempty"`
+	StudyID *string `json:"experiments.study_id,omitempty" db:"experiments.study_id"`
 
 	// test date
-	TestDate *string `json:"test_date,omitempty"`
+	TestDate *string `json:"experiments.test_date,omitempty" db:"experiments.test_date"`
 }
 
 // Validate validates this experiment

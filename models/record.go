@@ -9,6 +9,8 @@ type Record struct {
 	Patient
 	// sample
 	Sample
+	// experiment
+	Experiment
 }
 
 // MarshalBinary interface implementation
