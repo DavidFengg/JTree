@@ -41,9 +41,12 @@ func printTables(selectedTables []string) string {
 		if i == 0 {
 			str += selectedTables[i]
 
+			// } else {
+			// 	str += " JOIN " + selectedTables[i] + " ON " + "patients.sample_id = samples.sample_id"
 		} else {
-			str += " JOIN " + selectedTables[i] + " ON " + "patients.sample_id = samples.sample_id"
+			str += " JOIN " + selectedTables[i] + " ON " + "samples.sample_id = experiments.sample_id"
 		}
+
 	}
 	return str
 }

@@ -10,7 +10,7 @@ import (
 
 //InsertExperiment allows users to add generic objects to a collection in the database
 func InsertExperiment(experiment *models.Experiment) bool {
-	stmt, err := database.DB.Prepare("INSERT INTO `experiments` (`test_id`,`study_id`,`panel_assay_screened`,`test_date`,`chip_cartridge_barcode`,`complete_date`,`pcr`,`sample_id`,`project_name`,`priority`,`opened_date`,`project_id`,`has_project_files`,`procedure_order_datetime`)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?);")
+	stmt, err := database.DB.Prepare("INSERT INTO `experiments` (`experiment_id`,`study_id`,`panel_assay_screened`,`test_date`,`chip_cartridge_barcode`,`complete_date`,`pcr`,`sample_id`,`project_name`,`priority`,`opened_date`,`project_id`,`has_project_files`,`procedure_order_datetime`)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?);")
 
 	if err != nil {
 		log.Fatal(err)

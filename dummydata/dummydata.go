@@ -12,12 +12,14 @@ var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 var r *rand.Rand
 var id1 int
 var id2 int
+var id3 int
 
 //MakeData makes dummy data and puts it into the db
 func MakeData(numberPatients, numberSamples int) {
 	r = rand.New(rand.NewSource(99))
 	createPatients(numberPatients)
 	createSamples(numberSamples)
+	createExperiments(numberSamples)
 }
 
 func makeRandomString() string {
@@ -58,6 +60,13 @@ func createSamples(number int) {
 		id2++
 		tempSample := makeSample()
 		repos.InsertSample(&tempSample)
+	}
+}
+func createExperiments(number int) {
+	for i := 0; i < number; i++ {
+		id3++
+		tempExperiment := makeExperiment()
+		repos.InsertExperiment(&tempExperiment)
 	}
 }
 
@@ -213,4 +222,38 @@ func makeSample() models.Sample {
 	sample.RnaExtractionDate = &RnaExtractionDate
 
 	return sample
+}
+
+func makeExperiment() models.Experiment {
+	experiment := models.Experiment{}
+	ChipCartridgeBarcode := makeRandomString()
+	experiment.ChipCartridgeBarcode = &ChipCartridgeBarcode
+	CompleteDate := makeRandomDate()
+	experiment.CompleteDate = &CompleteDate
+	ExperimentID := makeRandomString()
+	experiment.ExperimentID = &ExperimentID
+	HasProjectFiles := makeRandomBool()
+	experiment.HasProjectFiles = &HasProjectFiles
+	OpenedDate := makeRandomDate()
+	experiment.OpenedDate = &OpenedDate
+	PanelAssayScreened := int64(rand.Intn(1000))
+	experiment.PanelAssayScreened = &PanelAssayScreened
+	Pcr := makeRandomString()
+	experiment.Pcr = &Pcr
+	Priority := int64(rand.Intn(1000))
+	experiment.Priority = &Priority
+	ProcedureOrderDatetime := makeRandomDate()
+	experiment.ProcedureOrderDatetime = &ProcedureOrderDatetime
+	ProjectID := makeRandomString()
+	experiment.ProjectID = &ProjectID
+	ProjectName := makeRandomString()
+	experiment.ProjectName = &ProjectName
+	SampleID := strconv.Itoa(id3)
+	experiment.SampleID = &SampleID
+	StudyID := makeRandomString()
+	experiment.StudyID = &StudyID
+	TestDate := makeRandomDate()
+	experiment.TestDate = &TestDate
+
+	return experiment
 }
