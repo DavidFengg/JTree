@@ -17,7 +17,7 @@ import (
 type Query struct {
 
 	// selected condition
-	SelectedCondition [][]string `json:"selected_condition"`
+	SelectedCondition [][]string `json:"selected_conditions"`
 
 	// selected fields
 	SelectedFields []string `json:"selected_fields"`

@@ -522,7 +522,7 @@ func init() {
     "Query": {
       "type": "object",
       "properties": {
-        "selected_condition": {
+        "selected_conditions": {
           "type": "array",
           "items": {
             "type": "array",
@@ -1325,7 +1325,7 @@ func init() {
     "Query": {
       "type": "object",
       "properties": {
-        "selected_condition": {
+        "selected_conditions": {
           "type": "array",
           "items": {
             "type": "array",
