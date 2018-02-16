@@ -1,7 +1,6 @@
 package repos
 
 import (
-	"fmt"
 	"log"
 
 	database "github.com/Bio-core/jtree/database"
@@ -9,31 +8,31 @@ import (
 )
 
 //GetAllPatients gets all and results a list of individuals
-func GetAllPatients(query string) []*models.Patient {
-	patients := []*models.Patient{}
-	err := database.DB.Select(&patients, query)
-	if err != nil {
-		fmt.Println(err)
-		return nil
-	}
-	return patients
-}
+// func GetAllPatients(query string) []*models.Patient {
+// 	patients := []*models.Patient{}
+// 	err := database.DB.Select(&patients, query)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return nil
+// 	}
+// 	return patients
+// }
 
 //GetPatientColumns gets the columns in a table
-func GetPatientColumns() []string {
-	rows, err := database.DB.Query("Select * from patients where patient_id = \"err\"")
-	defer rows.Close()
-	if err != nil {
-		fmt.Println(err)
-		return nil
-	}
-	columns, err := rows.Columns()
-	if err != nil {
-		fmt.Println(err)
-		return nil
-	}
-	return columns
-}
+// func GetPatientColumns() []string {
+// 	rows, err := database.DB.Query("Select * from patients where patient_id = \"err\"")
+// 	defer rows.Close()
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return nil
+// 	}
+// 	columns, err := rows.Columns()
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return nil
+// 	}
+// 	return columns
+// }
 
 //InsertPatient allows users to add generic objects to a collection in the database
 func InsertPatient(person *models.Patient) bool {
@@ -65,11 +64,11 @@ func InsertPatient(person *models.Patient) bool {
 	return true
 }
 
-//RemoveAllPatients will empty a collection
-func RemoveAllPatients() bool {
-	//implement here
-	return true
-}
+// //RemoveAllPatients will empty a collection
+// func RemoveAllPatients() bool {
+// 	//implement here
+// 	return true
+// }
 
 //RemoveAllPatients will empty a collection
 func RemoveUnitTestPatients() bool {

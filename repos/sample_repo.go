@@ -20,20 +20,20 @@ func GetAllSamples(query string) []*models.Record {
 }
 
 //GetSampleColumns gets the columns in a table
-func GetSampleColumns() []string {
-	rows, err := database.DB.Query("Select * from Samples where sample_id = \"err\"")
-	defer rows.Close()
-	if err != nil {
-		fmt.Println(err)
-		return nil
-	}
-	columns, err := rows.Columns()
-	if err != nil {
-		fmt.Println(err)
-		return nil
-	}
-	return columns
-}
+// func GetSampleColumns() []string {
+// 	rows, err := database.DB.Query("Select * from Samples where sample_id = \"err\"")
+// 	defer rows.Close()
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return nil
+// 	}
+// 	columns, err := rows.Columns()
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return nil
+// 	}
+// 	return columns
+// }
 
 //InsertSample allows users to add generic objects to a collection in the database
 func InsertSample(sample *models.Sample) bool {
@@ -104,10 +104,10 @@ func InsertSample(sample *models.Sample) bool {
 }
 
 //RemoveAllSamples will empty a collection
-func RemoveAllSamples() bool {
-	//Implement here
-	return true
-}
+// func RemoveAllSamples() bool {
+// 	//Implement here
+// 	return true
+// }
 
 //RemoveUnitTestSamples will empty a collection
 func RemoveUnitTestSamples() bool {

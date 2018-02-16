@@ -90,17 +90,17 @@ func addExperiment(experiment *models.Experiment) error {
 	return nil
 }
 
-func allPatients(query string) (result []*models.Patient) {
-	if query == "search" || query == "" {
-		query = "SELECT * FROM Patients"
-	}
-	patients := repos.GetAllPatients(query)
-	result = make([]*models.Patient, 0)
-	for _, item := range patients {
-		result = append(result, item)
-	}
-	return
-}
+// func allPatients(query string) (result []*models.Patient) {
+// 	if query == "search" || query == "" {
+// 		query = "SELECT * FROM Patients"
+// 	}
+// 	patients := repos.GetAllPatients(query)
+// 	result = make([]*models.Patient, 0)
+// 	for _, item := range patients {
+// 		result = append(result, item)
+// 	}
+// 	return
+// }
 
 func allSamples(query string) (result []*models.Record) {
 	if query == "search" || query == "" {
@@ -207,19 +207,6 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 		}
 		return operations.NewAddSampleCreated()
 	})
-	//ENDPOINTPURGE
-	// api.GetPatientHandler = operations.GetPatientHandlerFunc(func(params operations.GetPatientParams) middleware.Responder {
-	// 	return operations.NewGetPatientOK().WithPayload(allPatients(params.PatientID))
-	// })
-	// api.GetSampleHandler = operations.GetSampleHandlerFunc(func(params operations.GetSampleParams) middleware.Responder {
-	// 	return operations.NewGetSampleOK().WithPayload(allSamples(params.SampleID))
-	// })
-	// api.SearchPatientHandler = operations.SearchPatientHandlerFunc(func(params operations.SearchPatientParams) middleware.Responder {
-	// 	return operations.NewGetPatientOK().WithPayload(allPatients(""))
-	// })
-	// api.SearchSampleHandler = operations.SearchSampleHandlerFunc(func(params operations.SearchSampleParams) middleware.Responder {
-	// 	return operations.NewGetSampleOK().WithPayload(allSamples(""))
-	// })
 	api.GetSamplesByQueryHandler = operations.GetSamplesByQueryHandlerFunc(func(params operations.GetSamplesByQueryParams) middleware.Responder {
 		return operations.NewGetSampleOK().WithPayload(getSamplesByQuery(params.Query))
 	})
