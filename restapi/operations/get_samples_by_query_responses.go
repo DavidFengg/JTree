@@ -76,6 +76,7 @@ func NewGetSamplesByQueryNotFound() *GetSamplesByQueryNotFound {
 
 // WriteResponse to the client
 func (o *GetSamplesByQueryNotFound) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
 
 	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
 
