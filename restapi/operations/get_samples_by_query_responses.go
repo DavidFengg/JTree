@@ -47,6 +47,8 @@ func (o *GetSamplesByQueryOK) SetPayload(payload models.GetSamplesByQueryOKBody)
 // WriteResponse to the client
 func (o *GetSamplesByQueryOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 	rw.Header().Set("Access-Control-Allow-Origin", "*")
+	rw.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	rw.Header().Set("Access-Control-Allow-Headers","Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 	rw.WriteHeader(200)
 	payload := o.Payload
 	if payload == nil {

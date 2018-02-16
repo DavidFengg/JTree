@@ -41,8 +41,8 @@ type GetSamplesByQuery struct {
 
 func (o *GetSamplesByQuery) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	rw.Header().Set("Access-Control-Allow-Origin", "*")
-	rw.Header().Add("Access-Control-Allow-Methods", "POST")
-	rw.Header().Add("Access-Control-Allow-Headers", "Content-Type")
+	rw.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	rw.Header().Set("Access-Control-Allow-Headers","Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 	route, rCtx, _ := o.Context.RouteInfo(r)
 	if rCtx != nil {
 		r = rCtx
