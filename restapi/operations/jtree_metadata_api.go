@@ -44,15 +44,15 @@ func NewJtreeMetadataAPI(spec *loads.Document) *JtreeMetadataAPI {
 		AddSampleHandler: AddSampleHandlerFunc(func(params AddSampleParams) middleware.Responder {
 			return middleware.NotImplemented("operation AddSample has not yet been implemented")
 		}),
-		GetPatientHandler: GetPatientHandlerFunc(func(params GetPatientParams) middleware.Responder {
-			return middleware.NotImplemented("operation GetPatient has not yet been implemented")
-		}),
-		GetPatientColumnsHandler: GetPatientColumnsHandlerFunc(func(params GetPatientColumnsParams) middleware.Responder {
-			return middleware.NotImplemented("operation GetPatientColumns has not yet been implemented")
-		}),
-		GetSampleHandler: GetSampleHandlerFunc(func(params GetSampleParams) middleware.Responder {
-			return middleware.NotImplemented("operation GetSample has not yet been implemented")
-		}),
+		// GetPatientHandler: GetPatientHandlerFunc(func(params GetPatientParams) middleware.Responder {
+		// 	return middleware.NotImplemented("operation GetPatient has not yet been implemented")
+		// }),
+		// GetPatientColumnsHandler: GetPatientColumnsHandlerFunc(func(params GetPatientColumnsParams) middleware.Responder {
+		// 	return middleware.NotImplemented("operation GetPatientColumns has not yet been implemented")
+		// }),
+		// GetSampleHandler: GetSampleHandlerFunc(func(params GetSampleParams) middleware.Responder {
+		// 	return middleware.NotImplemented("operation GetSample has not yet been implemented")
+		// }),
 		GetSampleColumnsHandler: GetSampleColumnsHandlerFunc(func(params GetSampleColumnsParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetSampleColumns has not yet been implemented")
 		}),
@@ -62,12 +62,12 @@ func NewJtreeMetadataAPI(spec *loads.Document) *JtreeMetadataAPI {
 		LogoutHandler: LogoutHandlerFunc(func(params LogoutParams) middleware.Responder {
 			return middleware.NotImplemented("operation Logout has not yet been implemented")
 		}),
-		SearchPatientHandler: SearchPatientHandlerFunc(func(params SearchPatientParams) middleware.Responder {
-			return middleware.NotImplemented("operation SearchPatient has not yet been implemented")
-		}),
-		SearchSampleHandler: SearchSampleHandlerFunc(func(params SearchSampleParams) middleware.Responder {
-			return middleware.NotImplemented("operation SearchSample has not yet been implemented")
-		}),
+		// SearchPatientHandler: SearchPatientHandlerFunc(func(params SearchPatientParams) middleware.Responder {
+		// 	return middleware.NotImplemented("operation SearchPatient has not yet been implemented")
+		// }),
+		// SearchSampleHandler: SearchSampleHandlerFunc(func(params SearchSampleParams) middleware.Responder {
+		// 	return middleware.NotImplemented("operation SearchSample has not yet been implemented")
+		// }),
 	}
 }
 
@@ -106,11 +106,11 @@ type JtreeMetadataAPI struct {
 	// AddSampleHandler sets the operation handler for the add sample operation
 	AddSampleHandler AddSampleHandler
 	// GetPatientHandler sets the operation handler for the get patient operation
-	GetPatientHandler GetPatientHandler
+	//GetPatientHandler GetPatientHandler
 	// GetPatientColumnsHandler sets the operation handler for the get patient columns operation
-	GetPatientColumnsHandler GetPatientColumnsHandler
+	//GetPatientColumnsHandler GetPatientColumnsHandler
 	// GetSampleHandler sets the operation handler for the get sample operation
-	GetSampleHandler GetSampleHandler
+	//GetSampleHandler GetSampleHandler
 	// GetSampleColumnsHandler sets the operation handler for the get sample columns operation
 	GetSampleColumnsHandler GetSampleColumnsHandler
 	// GetSamplesByQueryHandler sets the operation handler for the get samples by query operation
@@ -118,9 +118,9 @@ type JtreeMetadataAPI struct {
 	// LogoutHandler sets the operation handler for the logout operation
 	LogoutHandler LogoutHandler
 	// SearchPatientHandler sets the operation handler for the search patient operation
-	SearchPatientHandler SearchPatientHandler
+	//SearchPatientHandler SearchPatientHandler
 	// SearchSampleHandler sets the operation handler for the search sample operation
-	SearchSampleHandler SearchSampleHandler
+	//SearchSampleHandler SearchSampleHandler
 
 	// ServeError is called when an error is received, there is a default handler
 	// but you can set your own with this
@@ -196,17 +196,17 @@ func (o *JtreeMetadataAPI) Validate() error {
 		unregistered = append(unregistered, "AddSampleHandler")
 	}
 
-	if o.GetPatientHandler == nil {
-		unregistered = append(unregistered, "GetPatientHandler")
-	}
+	// if o.GetPatientHandler == nil {
+	// 	unregistered = append(unregistered, "GetPatientHandler")
+	// }
 
-	if o.GetPatientColumnsHandler == nil {
-		unregistered = append(unregistered, "GetPatientColumnsHandler")
-	}
+	// if o.GetPatientColumnsHandler == nil {
+	// 	unregistered = append(unregistered, "GetPatientColumnsHandler")
+	// }
 
-	if o.GetSampleHandler == nil {
-		unregistered = append(unregistered, "GetSampleHandler")
-	}
+	// if o.GetSampleHandler == nil {
+	// 	unregistered = append(unregistered, "GetSampleHandler")
+	// }
 
 	if o.GetSampleColumnsHandler == nil {
 		unregistered = append(unregistered, "GetSampleColumnsHandler")
@@ -220,13 +220,13 @@ func (o *JtreeMetadataAPI) Validate() error {
 		unregistered = append(unregistered, "LogoutHandler")
 	}
 
-	if o.SearchPatientHandler == nil {
-		unregistered = append(unregistered, "SearchPatientHandler")
-	}
+	// if o.SearchPatientHandler == nil {
+	// 	unregistered = append(unregistered, "SearchPatientHandler")
+	// }
 
-	if o.SearchSampleHandler == nil {
-		unregistered = append(unregistered, "SearchSampleHandler")
-	}
+	// if o.SearchSampleHandler == nil {
+	// 	unregistered = append(unregistered, "SearchSampleHandler")
+	// }
 
 	if len(unregistered) > 0 {
 		return fmt.Errorf("missing registration: %s", strings.Join(unregistered, ", "))
@@ -341,22 +341,6 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 	}
 	o.handlers["POST"]["/sample"] = NewAddSample(o.context, o.AddSampleHandler)
 
-	//ENDPOINTPURGE
-	// if o.handlers["GET"] == nil {
-	// 	o.handlers["GET"] = make(map[string]http.Handler)
-	// }
-	// o.handlers["GET"]["/patient/{patientId}"] = NewGetPatient(o.context, o.GetPatientHandler)
-
-	// if o.handlers["GET"] == nil {
-	// 	o.handlers["GET"] = make(map[string]http.Handler)
-	// }
-	// o.handlers["GET"]["/patient/columns"] = NewGetPatientColumns(o.context, o.GetPatientColumnsHandler)
-
-	// if o.handlers["GET"] == nil {
-	// 	o.handlers["GET"] = make(map[string]http.Handler)
-	// }
-	// o.handlers["GET"]["/sample/{sampleId}"] = NewGetSample(o.context, o.GetSampleHandler)
-
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
@@ -371,17 +355,6 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/logout"] = NewLogout(o.context, o.LogoutHandler)
-
-	//ENDPOINTPURGE
-	// if o.handlers["GET"] == nil {
-	// 	o.handlers["GET"] = make(map[string]http.Handler)
-	// }
-	// o.handlers["GET"]["/patient/search"] = NewSearchPatient(o.context, o.SearchPatientHandler)
-
-	// if o.handlers["GET"] == nil {
-	// 	o.handlers["GET"] = make(map[string]http.Handler)
-	// }
-	// o.handlers["GET"]["/samples/search"] = NewSearchSample(o.context, o.SearchSampleHandler)
 
 }
 

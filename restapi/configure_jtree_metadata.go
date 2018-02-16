@@ -208,7 +208,7 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 		return operations.NewAddSampleCreated()
 	})
 	api.GetSamplesByQueryHandler = operations.GetSamplesByQueryHandlerFunc(func(params operations.GetSamplesByQueryParams) middleware.Responder {
-		return operations.NewGetSampleOK().WithPayload(getSamplesByQuery(params.Query))
+		return operations.NewGetSamplesByQueryOK().WithPayload(getSamplesByQuery(params.Query))
 	})
 	api.LogoutHandler = operations.LogoutHandlerFunc(func(params operations.LogoutParams) middleware.Responder {
 		return operations.NewLogoutOK().WithPayload(logout())

@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -16,7 +14,7 @@ import (
 
 // GetSamplesByQueryOKBody get samples by query o k body
 // swagger:model getSamplesByQueryOKBody
-type GetSamplesByQueryOKBody []*Sample
+type GetSamplesByQueryOKBody []*Record
 
 // Validate validates this get samples by query o k body
 func (m GetSamplesByQueryOKBody) Validate(formats strfmt.Registry) error {
@@ -30,12 +28,12 @@ func (m GetSamplesByQueryOKBody) Validate(formats strfmt.Registry) error {
 
 		if m[i] != nil {
 
-			if err := m[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName(strconv.Itoa(i))
-				}
-				return err
-			}
+			// if err := m[i].Validate(formats); err != nil {
+			// 	if ve, ok := err.(*errors.Validation); ok {
+			// 		return ve.ValidateName(strconv.Itoa(i))
+			// 	}
+			// 	return err
+			// }
 		}
 
 	}
