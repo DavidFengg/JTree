@@ -20,6 +20,7 @@ import (
 	graceful "github.com/tylerb/graceful"
 
 	"github.com/Bio-core/jtree/restapi/operations"
+	"github.com/rs/cors"
 )
 
 var lastPatientID int64
@@ -178,7 +179,6 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	if dataGenFlags.Generate != 0 {
 		dummydata.MakeData(dataGenFlags.Generate, dataGenFlags.Generate)
 	}
-
 	// Set your custom logger if needed. Default one is log.Printf
 	// Expected interface func(string, ...interface{})
 	//
@@ -246,6 +246,13 @@ func setupGlobalMiddleware(handler http.Handler) http.Handler {
 	if keycloakFlags.Active {
 		return keycloak.AuthMiddlewareHandler(handler)
 	}
+ 	x := cors.New(cors.Options{
+                AllowedOrigins: []string{"*"},
+                AllowCredentials: true,
+		AllowedMethods: []string{"GET","POST", "PUT"},
+		AllowedHeaders: []string{"*"},
+        })
+	handler = x.Handler(handler)
 	return handler
 }
 
