@@ -45,7 +45,7 @@ type Sample struct {
 	DateSubmitted *string `json:"samples.date_submitted,omitempty" db:"samples.date_submitted"`
 
 	// delta ct value
-	DeltaCtValue *float32 `json:"samples.delta_ct_Value,omitempty" db:"samples.delta_ct_Value"`
+	DeltaCtValue *float32 `json:"samples.delta_ct_value,omitempty" db:"samples.delta_ct_value"`
 
 	// dna concentration
 	DnaConcentration *float32 `json:"samples.dna_concentration,omitempty" db:"samples.dna_concentration"`

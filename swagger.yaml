@@ -490,11 +490,11 @@ definitions:
         type: "string"
         x-nullable: true         
         x-go-custom-tag: "db:\"ffpe_qc_date\""
-      delta_ct_Value: 
+      delta_ct_value: 
         type: "number" 
         format: "float"
         x-nullable: true         
-        x-go-custom-tag: "db:\"delta_ct_Value\""
+        x-go-custom-tag: "db:\"delta_ct_value\""
       comments:
         type: "string"
         x-nullable: true         

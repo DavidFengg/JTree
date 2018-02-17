@@ -609,10 +609,10 @@ func init() {
           "x-go-custom-tag": "db:\"date_submitted\"",
           "x-nullable": true
         },
-        "delta_ct_Value": {
+        "delta_ct_value": {
           "type": "number",
           "format": "float",
-          "x-go-custom-tag": "db:\"delta_ct_Value\"",
+          "x-go-custom-tag": "db:\"delta_ct_value\"",
           "x-nullable": true
         },
         "dna_concentration": {
@@ -1412,10 +1412,10 @@ func init() {
           "x-go-custom-tag": "db:\"date_submitted\"",
           "x-nullable": true
         },
-        "delta_ct_Value": {
+        "delta_ct_value": {
           "type": "number",
           "format": "float",
-          "x-go-custom-tag": "db:\"delta_ct_Value\"",
+          "x-go-custom-tag": "db:\"delta_ct_value\"",
           "x-nullable": true
         },
         "dna_concentration": {
