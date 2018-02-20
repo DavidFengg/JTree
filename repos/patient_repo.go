@@ -70,7 +70,7 @@ func InsertPatient(person *models.Patient) bool {
 // 	return true
 // }
 
-//RemoveAllPatients will empty a collection
+//RemoveUnitTestPatients will empty a collection
 func RemoveUnitTestPatients() bool {
 	_, err := database.DB.Query("Delete from patients where patient_id LIKE \"%patient%\"")
 	if err != nil {

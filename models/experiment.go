@@ -61,12 +61,18 @@ type Experiment struct {
 type PanelAssayScreened int
 
 const (
+	//TruSightMyeloid Enum
 	TruSightMyeloid PanelAssayScreened = iota // 0
-	Hi5NextSeq                                // 1
-	Sanger                                    // 2
-	ddPCR                                     // 3
-	MLPA                                      // 4
-	Nanostring                                // 5
+	//Hi5NextSeq Enum
+	Hi5NextSeq // 1
+	//Sanger Enum
+	Sanger // 2
+	//DDPCR Enum
+	DDPCR // 3
+	//MLPA Enum
+	MLPA // 4
+	//Nanostring Enum
+	Nanostring // 5
 )
 
 // Validate validates this experiment
