@@ -57,6 +57,18 @@ type Experiment struct {
 	TestDate *string `json:"experiments.test_date,omitempty" db:"experiments.test_date"`
 }
 
+//PanelAssayScreened Enum Definition
+type PanelAssayScreened int
+
+const (
+	TruSightMyeloid PanelAssayScreened = iota // 0
+	Hi5NextSeq                                // 1
+	Sanger                                    // 2
+	ddPCR                                     // 3
+	MLPA                                      // 4
+	Nanostring                                // 5
+)
+
 // Validate validates this experiment
 func (m *Experiment) Validate(formats strfmt.Registry) error {
 	var res []error
