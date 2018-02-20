@@ -29,7 +29,7 @@ func makeRandomString() string {
 }
 
 func makeRandomDate() string {
-	date := strconv.Itoa(rand.Intn(2019)+1) + "-" + strconv.Itoa(rand.Intn(11)+1) + "-" + strconv.Itoa(rand.Intn(27)+1)
+	date := strconv.Itoa(rand.Intn(1018)+1900) + "-" + strconv.Itoa(rand.Intn(11)+1) + "-" + strconv.Itoa(rand.Intn(27)+1)
 	return date
 }
 
@@ -236,11 +236,11 @@ func makeExperiment() models.Experiment {
 	experiment.HasProjectFiles = &HasProjectFiles
 	OpenedDate := makeRandomDate()
 	experiment.OpenedDate = &OpenedDate
-	PanelAssayScreened := int64(rand.Intn(1000))
+	PanelAssayScreened := int64(rand.Intn(5))
 	experiment.PanelAssayScreened = &PanelAssayScreened
 	Pcr := makeRandomString()
 	experiment.Pcr = &Pcr
-	Priority := int64(rand.Intn(1000))
+	Priority := int64(rand.Intn(2))
 	experiment.Priority = &Priority
 	ProcedureOrderDatetime := makeRandomDate()
 	experiment.ProcedureOrderDatetime = &ProcedureOrderDatetime
