@@ -246,12 +246,12 @@ func setupGlobalMiddleware(handler http.Handler) http.Handler {
 	if keycloakFlags.Active {
 		return keycloak.AuthMiddlewareHandler(handler)
 	}
- 	x := cors.New(cors.Options{
-                AllowedOrigins: []string{"*"},
-                AllowCredentials: true,
-		AllowedMethods: []string{"GET","POST", "PUT"},
-		AllowedHeaders: []string{"*"},
-        })
+	x := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowCredentials: true,
+		AllowedMethods:   []string{"GET", "POST", "PUT"},
+		AllowedHeaders:   []string{"*"},
+	})
 	handler = x.Handler(handler)
 	return handler
 }
