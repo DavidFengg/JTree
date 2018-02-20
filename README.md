@@ -31,7 +31,8 @@ $ curl http://127.0.0.1:8000/Jtree/metadata/0.1.0/columns
 
 # This is an example query that will return all data from the samples and patients tables
 $ curl -X POST -H "Content-Type: application/json" /
- -d '{"selected_tables":["samples", "patients"], "selected_fields":["*"], "selected_conditions":[]}' 127.0.0.1:8000/Jtree/metadata/0.1.0/query
+ -d '{"selected_tables":["samples", "patients"], "selected_fields":["*"], "selected_conditions":[]}' /
+ 127.0.0.1:8000/Jtree/metadata/0.1.0/query
 
 # INSERTS
 # samples
