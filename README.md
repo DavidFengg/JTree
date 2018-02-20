@@ -15,38 +15,36 @@ Running it then should be as simple as:
 
 ```console
 $ make get-deps
+$ make database
 $ make build
-$ ./bin/jtree --port=8000
+$ ./bin/jtree
 ```
+To generate fake data, run `$ ./bin/jtree -g=100` instead, where 100 is the amount of dummy data requested
 
-Alternately, one can run
 
-```console
-$ docker pull quay.io/jtree/jtree
-```
-and replace 8000 below with the port output.
+Endpoints:
 
-Query the server in another terminal:
-
-```console
-$ curl http://127.0.0.1:8000/Jtree/metadata/0.1.0/individuals/search
+```sh
+# This will return all of the columns in the database
+$ curl http://127.0.0.1:8000/Jtree/metadata/0.1.0/columns
 []
 
-$ curl -X POST -H 'Content-Type: application/json' \
-  http://127.0.0.1:8000/Jtree/metadata/0.1.0/individual \
-  -d '{ "name" : "jtree_001", "description" : "foo" }'
+# This is an example query that will return all data from the samples and patients tables
+$ curl -X POST -H "Content-Type: application/json" /
+ -d '{"selected_tables":["samples", "patients"], "selected_fields":["*"], "selected_conditions":[]}' 127.0.0.1:8000/Jtree/metadata/0.1.0/query
 
-$ curl http://127.0.0.1:8000/Jtree/metadata/0.1.0/individuals/search
-[{"attributes":null,"createdDate":"0001-01-01","description":"foo","id":"1",
-  "name":"jtree_001","updatedDate":"0001-01-01"}]
+# INSERTS
+# samples
+$ curl -X POST -H "Content-Type: application/json" /
+ -d '{`# See models.samples for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/samples
 
-$ curl -X POST -H 'Content-Type: application/json' \
-  http://127.0.0.1:8000/Jtree/metadata/0.1.0/biosample \
-  -d '{ "individualId": "1", "name" : "jtree_001_sample", "description" : "foo", \
-        "collectionAge": "20" }'
+# patients
+$ curl -X POST -H "Content-Type: application/json" /
+ -d '{`# See models.patients for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/patients
 
-$ curl http://127.0.0.1:8000/Jtree/metadata/0.1.0/biosamples/search
-[{"attributes":null,"collectionAge":"20","createdDate":"0001-01-01",
-  "description":"foo","id":"1","individualId":"1","name":"jtree_001_sample",
-  "updatedDate":"0001-01-01"}]
+# experiments
+$ curl -X POST -H "Content-Type: application/json" /
+ -d '{`# See models.experiments for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/experiments
+
+
 ```

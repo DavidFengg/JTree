@@ -1,4 +1,4 @@
-.PHONY: build build-alpine clean test help default
+.PHONY: build build-alpine clean test database help default 
 
 BIN_NAME=jtree
 
@@ -21,6 +21,7 @@ help:
 	@echo '    make test            Run tests on a compiled project.'
 	@echo '    make push            Push tagged images to registry'
 	@echo '    make clean           Clean the directory tree.'
+	@echo '    make database        creates the database structure.'
 	@echo
 
 build:
@@ -30,6 +31,7 @@ build:
 
 get-deps:
 	glide install
+	bash go_get.sh
 
 build-alpine:
 	@echo "building ${BIN_NAME} ${VERSION}"
@@ -57,4 +59,8 @@ clean:
 
 test:
 	go test ./tests
+
+database: 
+	@echo "test"
+	bash ./sql/DatabaseRebuild.sh
 
