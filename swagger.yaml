@@ -541,3 +541,52 @@ definitions:
         $ref: "#/definitions/Sample"
       Patient:
         $ref: "#/definitions/Patient"
+      Experiment:
+        $ref: "#/definitions/Experiment"
+  Experiment: 
+    type: "object"
+    properties: 
+      chip_cartridge_barcode: 
+        type: "string",
+        x-nullable: true
+      complete_date:
+        type: "string"
+        x-nullable: true
+      experiment_id:
+        type: "string"
+        x-nullable: true
+      has_project_files:
+        type: "boolean"
+        x-nullable: true
+      opened_date:
+        type: "string"
+        x-nullable: true
+      panel_assay_screened:
+        type: "number"
+        format: "int"
+        x-nullable: true
+      pcr:
+        type: "string"
+        x-nullable: true
+      priority:
+        type: "number"
+        format: "int"
+        x-nullable: true
+      procedure_order_datetime:
+        type: "string"
+        x-nullable: true
+      project_id:
+        type: "string"
+        x-nullable: true
+      project_name:
+        type: "string"
+        x-nullable: true
+      sample_id:
+        type: "string"
+        x-nullable: true
+      study_id:
+        type: "string"
+        x-nullable: true
+      test_date:
+        type: "string"
+        x-nullable: true  
