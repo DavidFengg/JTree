@@ -40,15 +40,15 @@ func TestMain(m *testing.M) {
 		}
 	}
 
-	// if _, err := parser.Parse(); err != nil {
-	// 	code := 1
-	// 	if fe, ok := err.(*flags.Error); ok {
-	// 		if fe.Type == flags.ErrHelp {
-	// 			code = 0
-	// 		}
-	// 	}
-	// 	os.Exit(code)
-	// }
+	if _, err := parser.Parse(); err != nil {
+		code := 1
+		if fe, ok := err.(*flags.Error); ok {
+			if fe.Type == flags.ErrHelp {
+				code = 0
+			}
+		}
+		os.Exit(code)
+	}
 
 	// server.ConfigureAPI()
 	// //server.Host = "127.0.0.1"
