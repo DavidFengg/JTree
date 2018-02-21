@@ -31,7 +31,6 @@ build:
 
 get-deps:
 	glide install
-	bash go_get.sh
 
 build-alpine:
 	@echo "building ${BIN_NAME} ${VERSION}"
