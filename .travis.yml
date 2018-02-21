@@ -15,4 +15,6 @@ services:
   - mysql
 
 before_install:
-  - make database
+  - mysql -u "root"  < "./sql/CreateDatabase.sql"
+  - mysql -u "root"  < "./sql/CreateTables.sql"
+  - mysql -u "root"  < "./sql/CreateUsers.sql"
