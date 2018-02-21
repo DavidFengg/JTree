@@ -66,7 +66,7 @@ func printConditions(SelectedCondition [][]string) string {
 func GetColumns(tables []string) []string {
 	var columns []string
 	for _, tableName := range tables {
-		rows, err := DB.Query("Select * from " + tableName + " where 0=1")
+		rows, err := DBSelect.Query("Select * from " + tableName + " where 0=1")
 		defer rows.Close()
 		if err != nil {
 			fmt.Println(err)
@@ -87,7 +87,7 @@ func GetColumns(tables []string) []string {
 //GetTables gets all of the tables in the db
 func GetTables() []string {
 	var tables []string
-	rows, err := DB.Query("Show Tables")
+	rows, err := DBSelect.Query("Show Tables")
 	defer rows.Close()
 	if err != nil {
 		fmt.Println(err)

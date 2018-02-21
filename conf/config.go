@@ -17,10 +17,12 @@ type Conf struct {
 
 //Database Config Object
 type Database struct {
-	Host string
-	Name string
-	User string
-	Pass string
+	Host       string
+	Name       string
+	Selectuser string
+	Selectpass string
+	Updateuser string
+	Updatepass string
 }
 
 //Keycloak Config Object

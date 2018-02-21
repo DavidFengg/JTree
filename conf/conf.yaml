@@ -1,7 +1,9 @@
 database:
   host: mysql
-  user: root
-  pass: waterloo
+  selectuser: select
+  selectpass: passwords
+  updateuser: update
+  updatepass: passwordu
   name: Jtree
 keycloak:
   host: http://localhost:8080

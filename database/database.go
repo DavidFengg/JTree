@@ -12,11 +12,14 @@ var connectionString string
 
 var err error
 
-//DB is the database reference
-var DB *sqlx.DB
+//DBSelect is the database reference for selects
+var DBSelect *sqlx.DB
+
+//DBUpdate is the database reference for updates
+var DBUpdate *sqlx.DB
 
 //Init creates a connection to the database
-func Init(dbName, connectionstring string) {
+func Init(dbName, connectionstring string, DB *sqlx.DB) *sqlx.DB {
 	databaseName = dbName
 	connectionString = connectionstring
 	DB, err = sqlx.Connect(databaseName, connectionString)
@@ -24,4 +27,5 @@ func Init(dbName, connectionstring string) {
 		panic(err)
 	}
 	DB.SetMaxOpenConns(100)
+	return DB
 }

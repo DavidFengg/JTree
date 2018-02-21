@@ -129,10 +129,12 @@ func logout() bool {
 }
 
 var databaseFlags = struct {
-	Host string `long:"databaseHost" description:"Database Host" required:"false"`
-	Name string `long:"databaseName" description:"Database Name" required:"false"`
-	User string `long:"dbUsername" description:"Database Username" required:"false"`
-	Pass string `long:"dbPassword" description:"Database Password" required:"false"`
+	Host       string `long:"databaseHost" description:"Database Host" required:"false"`
+	Name       string `long:"databaseName" description:"Database Name" required:"false"`
+	SelectUser string `long:"dbUsernameSelect" description:"Database Username for Select" required:"false"`
+	SelectPass string `long:"dbPasswordSelect" description:"Database Password for Select" required:"false"`
+	UpdateUser string `long:"dbUsernameUpdate" description:"Database Username for Update" required:"false"`
+	UpdatePass string `long:"dbPasswordUpdate" description:"Database Password for Update" required:"false"`
 }{}
 var keycloakFlags = struct {
 	Active bool   `short:"s" description:"Use Security Bool" required:"false"`
@@ -169,7 +171,8 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	c.GetConf()
 	setupOptions()
 
-	database.Init(c.Database.Host, c.Database.User+":"+c.Database.Pass+"@/"+c.Database.Name)
+	database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@/"+c.Database.Name, database.DBSelect)
+	database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@/"+c.Database.Name, database.DBUpdate)
 	ServerName := c.App.Host + ":" + strconv.Itoa(c.App.Port)
 	KeycloakserverName := c.Keycloak.Host
 
@@ -263,11 +266,17 @@ func setupOptions() {
 	if databaseFlags.Name != "" {
 		c.Database.Name = databaseFlags.Name
 	}
-	if databaseFlags.User != "" {
-		c.Database.User = databaseFlags.User
+	if databaseFlags.SelectUser != "" {
+		c.Database.Selectuser = databaseFlags.SelectUser
 	}
-	if databaseFlags.Pass != "" {
-		c.Database.Pass = databaseFlags.Pass
+	if databaseFlags.SelectPass != "" {
+		c.Database.Selectpass = databaseFlags.SelectPass
+	}
+	if databaseFlags.UpdateUser != "" {
+		c.Database.Updateuser = databaseFlags.UpdateUser
+	}
+	if databaseFlags.UpdatePass != "" {
+		c.Database.Updatepass = databaseFlags.UpdatePass
 	}
 	if keycloakFlags.Host != "" {
 		c.Keycloak.Host = keycloakFlags.Host
