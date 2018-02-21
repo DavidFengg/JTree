@@ -1,4 +1,4 @@
-USE `Jtree`
+USE `JTree`
 
 CREATE TABLE `patients` (
   `first_name` nvarchar(50) DEFAULT NULL,
