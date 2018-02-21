@@ -54,6 +54,7 @@ func printTables(selectedTables []string) string {
 func printConditions(SelectedCondition [][]string) string {
 	var str = ""
 	for i := 0; i < len(SelectedCondition); i++ {
+		SelectedCondition[i][3] = escapeChars(SelectedCondition[i][3])
 		str += SelectedCondition[i][0] + " " + SelectedCondition[i][1] + SelectedCondition[i][2] + "\"" + SelectedCondition[i][3] + "\" "
 	}
 
