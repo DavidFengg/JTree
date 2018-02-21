@@ -4,17 +4,22 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"testing"
 
 	models "github.com/Bio-core/jtree/models"
+	"github.com/Bio-core/jtree/restapi"
+	"github.com/Bio-core/jtree/restapi/operations"
+	"github.com/go-openapi/loads"
+	flags "github.com/jessevdk/go-flags"
 )
 
 const server = "http://127.0.0.1:8000"
 
 func TestMain(m *testing.M) {
-	// swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
+	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
 	if err != nil {
 		log.Fatalln(err)
 	}
