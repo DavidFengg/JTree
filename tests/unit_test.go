@@ -20,6 +20,7 @@ import (
 const server = "http://127.0.0.1:8000"
 
 func TestMain(m *testing.M) {
+	fmt.Printf("Print works")
 	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
 	if err != nil {
 		log.Fatalln(err)
