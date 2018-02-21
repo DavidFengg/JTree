@@ -52,7 +52,7 @@ func TestMain(m *testing.M) {
 
 	server.ConfigureAPI()
 	//server.Host = "127.0.0.1"
-	// go server.Serve()
+	go server.Serve()
 
 	testResults := m.Run()
 	if !tearDown() {
