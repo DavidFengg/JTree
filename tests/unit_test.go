@@ -3,6 +3,7 @@ package tests
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -53,7 +54,7 @@ func TestMain(m *testing.M) {
 	server.ConfigureAPI()
 	//server.Host = "127.0.0.1"
 	go server.Serve()
-
+	fmt.Printf("About to run tests")
 	testResults := m.Run()
 	if !tearDown() {
 		testResults = -1
