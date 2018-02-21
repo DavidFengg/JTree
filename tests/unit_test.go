@@ -50,8 +50,8 @@ func TestMain(m *testing.M) {
 		os.Exit(code)
 	}
 
-	// server.ConfigureAPI()
-	// //server.Host = "127.0.0.1"
+	server.ConfigureAPI()
+	//server.Host = "127.0.0.1"
 	// go server.Serve()
 
 	testResults := m.Run()
