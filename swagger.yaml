@@ -14,69 +14,6 @@ basePath: "/Jtree/metadata/0.1.0"
 schemes:
 - "http"
 paths:
-  /patient/search:
-    get:
-      summary: "searches patients"
-      description: "By passing in the appropriate options, you can search for\navailable\
-        \ patients\n"
-      operationId: "searchPatient"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "searchString"
-        in: "query"
-        description: "pass an optional search string for looking up inventory"
-        required: false
-        type: "array"
-        items:
-          type: "string"
-        collectionFormat: "multi"
-      responses:
-        200:
-          description: "search results matching criteria"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Patient"
-        400:
-          description: "bad input parameter"
-
-  /patient/columns:
-      get:
-        summary: "gets columns"
-        description: "gets column names"
-        operationId: "getPatientColumns"
-        produces:
-        - "application/json"
-        responses:
-          200:
-            description: "columns"
-            schema:
-              type: "array"
-              items:
-                type: "string"
-          400:
-            description: "bad input parameter"   
-
-  /patient/{patientId}:
-    parameters:
-    - name: "patientId"
-      in: "path"
-      required: true
-      type: "string"
-    get:
-      summary: "Returns a patient by ID."
-      operationId: "getPatient"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Patient"
-        404:
-          description: "patient not found"
-
   /patient:
     post:
       summary: "adds a patient item"
@@ -100,33 +37,54 @@ paths:
           description: "invalid input, object invalid"
         409:
           description: "an existing item already exists"
-
-  /samples/search:
-    get:
-      summary: "searches samples"
-      description: "By passing in the appropriate options, you can search for\navailable\
-        \ sample\n"
-      operationId: "searchSample"
+          
+  /sample:
+    post:
+      summary: "adds a sample"
+      description: "Adds a sample to the system"
+      operationId: "addSample"
+      consumes:
+      - "application/json"
       produces:
       - "application/json"
       parameters:
-      - name: "searchString"
-        in: "query"
-        description: "pass an optional search string for looking up inventory"
+      - in: "body"
+        name: "sample"
+        description: "Sample"
         required: false
-        type: "array"
-        items:
-          type: "string"
-        collectionFormat: "multi"
+        schema:
+          $ref: "#/definitions/Sample"
       responses:
-        200:
-          description: "search results matching criteria"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Sample"
+        201:
+          description: "item created"
         400:
-          description: "bad input parameter"
+          description: "invalid input, object invalid"
+        409:
+          description: "an existing item already exists"
+          
+  /experiment:
+    post:
+      summary: "adds an experiment item"
+      description: "Adds an experiment to the system"
+      operationId: "addExperiment"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "experiment"
+        description: "Experiment"
+        required: false
+        schema:
+          $ref: "#/definitions/Experiment"
+      responses:
+        201:
+          description: "item created"
+        400:
+          description: "invalid input, object invalid"
+        409:
+          description: "an existing item already exists"
 
   /columns:
       get:
@@ -144,25 +102,6 @@ paths:
                 type: "string"
           400:
             description: "bad input parameter"          
-
-  /sample/{sampleId}:
-    parameters:
-    - in: path
-      name: sampleId
-      required: true
-      type: string
-    get:
-      summary: "Returns a sample by ID."
-      operationId: "getSample"
-      responses:
-        200:
-          description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Sample"
-        404:
-          description: "Sample not found"
 
   /query:
     post:
@@ -187,31 +126,6 @@ paths:
               $ref: "#/definitions/Sample"
         404:
           description: "Sample not found"
-
-
-  /sample:
-    post:
-      summary: "adds a sample"
-      description: "Adds a sample to the system"
-      operationId: "addSample"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "sample"
-        description: "Sample"
-        required: false
-        schema:
-          $ref: "#/definitions/Sample"
-      responses:
-        201:
-          description: "item created"
-        400:
-          description: "invalid input, object invalid"
-        409:
-          description: "an existing item already exists"
 
   /logout:
     get:
@@ -490,11 +404,11 @@ definitions:
         type: "string"
         x-nullable: true         
         x-go-custom-tag: "db:\"ffpe_qc_date\""
-      delta_ct_value: 
+      delta_ct_Value: 
         type: "number" 
         format: "float"
         x-nullable: true         
-        x-go-custom-tag: "db:\"delta_ct_value\""
+        x-go-custom-tag: "db:\"delta_ct_Value\""
       comments:
         type: "string"
         x-nullable: true         
@@ -520,7 +434,7 @@ definitions:
   Query:
     type: "object"
     properties:
-      selected_conditions:
+      selected_condition:
         type: "array"
         items:
           type: "array"
@@ -534,20 +448,11 @@ definitions:
         type: "array"
         items:
           type: "string"
-  Record:
-    type: "object"
-    properties:
-      Sample:
-        $ref: "#/definitions/Sample"
-      Patient:
-        $ref: "#/definitions/Patient"
-      Experiment:
-        $ref: "#/definitions/Experiment"
   Experiment: 
     type: "object"
     properties: 
       chip_cartridge_barcode: 
-        type: "string",
+        type: "string"
         x-nullable: true
       complete_date:
         type: "string"
@@ -590,3 +495,12 @@ definitions:
       test_date:
         type: "string"
         x-nullable: true  
+  Record:
+    type: "object"
+    properties:
+      Sample:
+        $ref: "#/definitions/Sample"
+      Patient:
+        $ref: "#/definitions/Patient"
+      Experiment:
+        $ref: "#/definitions/Experiment"
