@@ -58,6 +58,7 @@ clean:
 
 test:
 	go test ./tests
+	mysql -u "root" "-pwaterloo" < "./tests/sql/DeleteData.sql"
 
 database: 
 	@echo "test"

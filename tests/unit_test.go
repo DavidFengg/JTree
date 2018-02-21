@@ -222,7 +222,7 @@ func TestSamplesQuery(t *testing.T) {
 	query := models.Query{
 		SelectedFields:    []string{"samples.sample_id", "samples.facility", "samples.volume_of_blood_marrow", "samples.date_collected"},
 		SelectedTables:    []string{"samples"},
-		SelectedCondition: [][]string{{"AND", "samples.sample_id", " LIKE ", "Sample%"}},
+		SelectedCondition: [][]string{},
 	}
 	queryBytes, err := json.Marshal(query)
 
@@ -270,7 +270,7 @@ func TestPatientsQuery(t *testing.T) {
 	query := models.Query{
 		SelectedFields:    []string{"patients.sample_id", "patients.patient_id", "patients.first_name"},
 		SelectedTables:    []string{"patients"},
-		SelectedCondition: [][]string{{"AND", "patients.patient_id", " LIKE ", "patient%"}},
+		SelectedCondition: [][]string{},
 	}
 	queryBytes, err := json.Marshal(query)
 
@@ -318,7 +318,7 @@ func TestJoinQuery(t *testing.T) {
 	query := models.Query{
 		SelectedFields:    []string{"patients.sample_id", "samples.sample_id"},
 		SelectedTables:    []string{"patients", "samples"},
-		SelectedCondition: [][]string{{"AND", "patients.patient_id", " LIKE ", "patient%"}},
+		SelectedCondition: [][]string{},
 	}
 	queryBytes, err := json.Marshal(query)
 
