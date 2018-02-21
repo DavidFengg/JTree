@@ -10,3 +10,9 @@ install:
   
 notifications:
   email: false
+
+services:
+  - mysql
+
+before_install:
+  - make database
