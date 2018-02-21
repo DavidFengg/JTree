@@ -3,7 +3,6 @@ package tests
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -20,7 +19,6 @@ import (
 const server = "http://127.0.0.1:8000"
 
 func TestMain(m *testing.M) {
-	fmt.Printf("Print works")
 	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
 	if err != nil {
 		log.Fatalln(err)
@@ -55,7 +53,7 @@ func TestMain(m *testing.M) {
 	server.ConfigureAPI()
 	//server.Host = "127.0.0.1"
 	go server.Serve()
-	fmt.Printf("About to run tests")
+
 	testResults := m.Run()
 	if !tearDown() {
 		testResults = -1
