@@ -55,6 +55,10 @@ func printConditions(SelectedCondition [][]string) string {
 	var str = ""
 	for i := 0; i < len(SelectedCondition); i++ {
 		SelectedCondition[i][3] = escapeChars(SelectedCondition[i][3])
+		SelectedCondition[i] = formatCondition(SelectedCondition[i])
+		if SelectedCondition[i] == nil {
+			return "0=1"
+		}
 		str += SelectedCondition[i][0] + " " + SelectedCondition[i][1] + SelectedCondition[i][2] + "\"" + SelectedCondition[i][3] + "\" "
 	}
 
@@ -99,4 +103,57 @@ func GetTables() []string {
 		tables = append(tables, strings.ToLower(tname))
 	}
 	return tables
+}
+
+func formatCondition(condition []string) []string {
+	switch condition[2] {
+	case "Equal to":
+		condition[2] = "="
+		break
+	case "Not equal to":
+		condition[2] = "<>"
+		break
+	case "Greater than":
+		condition[2] = ">"
+		break
+	case "Less than":
+		condition[2] = "<"
+		break
+	case "Greater or equal to":
+		condition[2] = ">="
+		break
+	case "Less or equal to":
+		condition[2] = "<="
+		break
+	case "Begins with":
+		condition[2] = " LIKE "
+		condition[3] += "%"
+		break
+	case "Not begins with":
+		condition[0] += " NOT"
+		condition[2] = " LIKE "
+		condition[3] += "%"
+		break
+	case "Ends with":
+		condition[2] = " LIKE "
+		condition[3] = "%" + condition[3]
+		break
+	case "Not ends with":
+		condition[0] += " NOT"
+		condition[2] = " LIKE "
+		condition[3] = "%" + condition[3]
+		break
+	case "Contains":
+		condition[2] = " LIKE "
+		condition[3] = "%" + condition[3] + "%"
+		break
+	case "Not contains":
+		condition[0] += " NOT"
+		condition[2] = " LIKE "
+		condition[3] = "%" + condition[3] + "%"
+		break
+	default:
+		return nil
+	}
+	return condition
 }
