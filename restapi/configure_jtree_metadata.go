@@ -47,7 +47,7 @@ func addPatient(patient *models.Patient) error {
 
 	var newID = newPatientID()
 	var newIDString = strconv.FormatInt(newID, 10)
-	if *patient.PatientID == "" {
+	if patient.PatientID == nil {
 		patient.PatientID = &newIDString
 	}
 	repos.InsertPatient(patient)
@@ -65,7 +65,7 @@ func addSample(sample *models.Sample) error {
 
 	var newID = newSampleID()
 	var newIDString = strconv.FormatInt(newID, 10)
-	if *sample.SampleID == "" {
+	if sample.SampleID == nil {
 		sample.SampleID = &newIDString
 	}
 	repos.InsertSample(sample)
@@ -83,7 +83,7 @@ func addExperiment(experiment *models.Experiment) error {
 
 	var newID = newSampleID()
 	var newIDString = strconv.FormatInt(newID, 10)
-	if *experiment.ExperimentID == "" {
+	if experiment.ExperimentID == nil {
 		experiment.ExperimentID = &newIDString
 	}
 	repos.InsertExperiment(experiment)
@@ -172,7 +172,6 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	setupOptions()
 
 	database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@/"+c.Database.Name, database.DBSelect)
-	//database.DBSelect = database.Init(c.Database.Host, "root@/TestJTree", database.DBSelect)
 	database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@/"+c.Database.Name, database.DBUpdate)
 	ServerName := c.App.Host + ":" + strconv.Itoa(c.App.Port)
 	KeycloakserverName := c.Keycloak.Host

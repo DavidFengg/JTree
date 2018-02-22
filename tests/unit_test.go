@@ -218,82 +218,76 @@ func TestAddSamplesPOST(t *testing.T) {
 
 }
 
-// func TestAddExperimentsPOST(t *testing.T) {
-// 	sampleidSample1 := "Sample1"
-// 	facilitySample1 := "TGH"
-// 	var volumeOfBloodMarrowSample1 float32
-// 	volumeOfBloodMarrowSample1 = 14.2
-// 	dateCollectedSample1 := "20140506"
-// 	sampleidSample2 := "Sample2"
-// 	facilitySample2 := "PMH"
-// 	var volumeOfBloodMarrowSample2 float32
-// 	volumeOfBloodMarrowSample2 = 105.67
-// 	dateCollectedSample2 := "2020-09-08"
+func TestAddExperimentsPOST(t *testing.T) {
+	sampleidSample1 := "Sample1"
+	pcrSample1 := "PCR1"
+	dateCollectedSample1 := "20140506"
+	sampleidSample2 := "Sample2"
+	pcrSample2 := "PCR2"
+	dateCollectedSample2 := "2020-09-08"
 
-// 	sample1 := models.Sample{
-// 		SampleID:            &sampleidSample1,
-// 		Facility:            &facilitySample1,
-// 		VolumeOfBloodMarrow: &volumeOfBloodMarrowSample1,
-// 		DateCollected:       &dateCollectedSample1,
-// 	}
+	sample1 := models.Experiment{
+		SampleID:     &sampleidSample1,
+		Pcr:          &pcrSample1,
+		CompleteDate: &dateCollectedSample1,
+	}
 
-// 	sample2 := models.Sample{
-// 		SampleID:            &sampleidSample2,
-// 		Facility:            &facilitySample2,
-// 		VolumeOfBloodMarrow: &volumeOfBloodMarrowSample2,
-// 		DateCollected:       &dateCollectedSample2,
-// 	}
+	sample2 := models.Experiment{
+		SampleID:     &sampleidSample2,
+		Pcr:          &pcrSample2,
+		CompleteDate: &dateCollectedSample2,
+	}
 
-// 	sample1Bytes, err := json.Marshal(sample1)
-// 	sample2Bytes, err2 := json.Marshal(sample2)
+	sample1Bytes, err := json.Marshal(sample1)
+	sample2Bytes, err2 := json.Marshal(sample2)
 
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
+	if err != nil {
+		t.Fail()
+		return
+	}
 
-// 	if err2 != nil {
-// 		t.Fail()
-// 		return
-// 	}
+	if err2 != nil {
+		t.Fail()
+		return
+	}
 
-// 	body := bytes.NewReader(sample1Bytes)
-// 	body2 := bytes.NewReader(sample2Bytes)
+	body := bytes.NewReader(sample1Bytes)
+	body2 := bytes.NewReader(sample2Bytes)
 
-// 	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/sample", body)
-// 	req2, err2 := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/sample", body2)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/experiment", body)
+	req2, err2 := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/experiment", body2)
 
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	if err2 != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	req.Header.Set("Content-Type", "application/json")
-// 	req2.Header.Set("Content-Type", "application/json")
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if err2 != nil {
+		t.Fail()
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	req2.Header.Set("Content-Type", "application/json")
 
-// 	resp, err := http.DefaultClient.Do(req)
-// 	resp2, err2 := http.DefaultClient.Do(req2)
+	resp, err := http.DefaultClient.Do(req)
+	resp2, err2 := http.DefaultClient.Do(req2)
 
-// 	if resp.Status != "201 Created" || resp2.Status != "201 Created" {
-// 		t.Fail()
-// 		return
-// 	}
+	if resp.Status != "201 Created" || resp2.Status != "201 Created" {
+		t.Fail()
+		return
+	}
 
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	if err2 != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	defer resp.Body.Close()
-// 	defer resp2.Body.Close()
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if err2 != nil {
+		t.Fail()
+		return
+	}
+	defer resp.Body.Close()
+	defer resp2.Body.Close()
 
-// }
+}
 func TestSamplesQuery(t *testing.T) {
 	query := models.Query{
 		SelectedFields:    []string{"samples.sample_id", "samples.facility", "samples.volume_of_blood_marrow", "samples.date_collected"},
