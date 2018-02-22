@@ -1,4 +1,4 @@
 	if [ $CI ]
 	then
-		@echo "Travis" 
+		echo "Travis" 
 	fi
