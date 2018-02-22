@@ -2,11 +2,15 @@ package database
 
 import (
 	"fmt"
+	"reflect"
 
 	strings "strings"
 
 	"github.com/Bio-core/jtree/models"
 )
+
+//Map for types
+var Map map[string]string
 
 //BuildQuery takes a Query object and returns a string of the query
 func BuildQuery(query models.Query) string {
@@ -59,7 +63,13 @@ func printConditions(SelectedCondition [][]string) string {
 		if SelectedCondition[i] == nil {
 			return "0=1"
 		}
-		str += SelectedCondition[i][0] + " " + SelectedCondition[i][1] + SelectedCondition[i][2] + "\"" + SelectedCondition[i][3] + "\" "
+		str += SelectedCondition[i][0] + " " + SelectedCondition[i][1] + SelectedCondition[i][2]
+		if Map[SelectedCondition[i][1]] == "*string" {
+			str += "\"" + SelectedCondition[i][3] + "\" "
+		} else if Map[SelectedCondition[i][1]] == "*float32" {
+			str += SelectedCondition[i][3] + " "
+
+		}
 	}
 
 	str = str[4 : len(str)-1]
@@ -156,4 +166,44 @@ func formatCondition(condition []string) []string {
 		return nil
 	}
 	return condition
+}
+
+//MapSuper makes a map
+func MapSuper() map[string]string {
+	m := make(map[string]string)
+	v := reflect.ValueOf(models.Patient{})
+
+	for i := 0; i < v.NumField(); i++ {
+		tag := string(reflect.TypeOf(models.Patient{}).Field(i).Tag)
+		runes := []rune(tag)
+		j := strings.Index(tag, ":")
+		k := strings.Index(tag, "omit")
+		tag = string(runes[j+2 : k-1])
+		varType := reflect.TypeOf(models.Patient{}).Field(i).Type.String()
+		m[tag] = varType
+	}
+	v = reflect.ValueOf(models.Sample{})
+
+	for i := 0; i < v.NumField(); i++ {
+		tag := string(reflect.TypeOf(models.Sample{}).Field(i).Tag)
+		runes := []rune(tag)
+		j := strings.Index(tag, ":")
+		k := strings.Index(tag, "omit")
+		tag = string(runes[j+2 : k-1])
+		varType := reflect.TypeOf(models.Sample{}).Field(i).Type.String()
+		m[tag] = varType
+	}
+	v = reflect.ValueOf(models.Experiment{})
+
+	for i := 0; i < v.NumField(); i++ {
+		tag := string(reflect.TypeOf(models.Experiment{}).Field(i).Tag)
+		runes := []rune(tag)
+		j := strings.Index(tag, ":")
+		k := strings.Index(tag, "omit")
+		tag = string(runes[j+2 : k-1])
+		varType := reflect.TypeOf(models.Experiment{}).Field(i).Type.String()
+		m[tag] = varType
+	}
+
+	return m
 }

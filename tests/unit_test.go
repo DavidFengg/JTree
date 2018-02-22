@@ -489,3 +489,686 @@ func TestJoinQuery(t *testing.T) {
 	defer resp.Body.Close()
 
 }
+
+func TestEqualTo(t *testing.T) {
+	query := models.Query{
+		SelectedFields:    []string{"*"},
+		SelectedTables:    []string{"patients", "samples", "experiments"},
+		SelectedCondition: [][]string{{"AND", "samples.sample_id", "Equal to", "Sample1"}},
+	}
+	queryBytes, err := json.Marshal(query)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+	body := bytes.NewReader(queryBytes)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	var results []models.Record
+	err = json.Unmarshal(content, &results)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if len(results) != 1 {
+		t.Fail()
+		return
+	}
+	if *results[0].Patient.FirstName != "Mitchell" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Sample.Facility != "TGH" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Experiment.Pcr != "PCR1" {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+
+func TestNotEqualTo(t *testing.T) {
+	query := models.Query{
+		SelectedFields:    []string{"*"},
+		SelectedTables:    []string{"patients", "samples", "experiments"},
+		SelectedCondition: [][]string{{"AND", "samples.sample_id", "Not equal to", "Sample1"}},
+	}
+	queryBytes, err := json.Marshal(query)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+	body := bytes.NewReader(queryBytes)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	var results []models.Record
+	err = json.Unmarshal(content, &results)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if len(results) != 1 {
+		t.Fail()
+		return
+	}
+	if *results[0].Patient.FirstName != "Strong" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Sample.Facility != "PMH" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Experiment.Pcr != "PCR2" {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+
+func TestGreaterThan(t *testing.T) {
+	query := models.Query{
+		SelectedFields:    []string{"*"},
+		SelectedTables:    []string{"patients", "samples", "experiments"},
+		SelectedCondition: [][]string{{"AND", "samples.volume_of_blood_marrow", "Greater than", "14.2"}},
+	}
+	queryBytes, err := json.Marshal(query)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+	body := bytes.NewReader(queryBytes)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	var results []models.Record
+	err = json.Unmarshal(content, &results)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if len(results) != 1 {
+		t.Fail()
+		return
+	}
+	if *results[0].Patient.FirstName != "Strong" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Sample.Facility != "PMH" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Experiment.Pcr != "PCR2" {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+
+func TestLessThan(t *testing.T) {
+	query := models.Query{
+		SelectedFields:    []string{"*"},
+		SelectedTables:    []string{"patients", "samples", "experiments"},
+		SelectedCondition: [][]string{{"AND", "samples.volume_of_blood_marrow", "Less than", "105.67"}},
+	}
+	queryBytes, err := json.Marshal(query)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+	body := bytes.NewReader(queryBytes)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	var results []models.Record
+	err = json.Unmarshal(content, &results)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if len(results) != 1 {
+		t.Fail()
+		return
+	}
+	if *results[0].Patient.FirstName != "Mitchell" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Sample.Facility != "TGH" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Experiment.Pcr != "PCR1" {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+func TestGreaterThanEqual(t *testing.T) {
+	t.Skip()
+	query := models.Query{
+		SelectedFields:    []string{"*"},
+		SelectedTables:    []string{"patients", "samples", "experiments"},
+		SelectedCondition: [][]string{{"AND", "samples.volume_of_blood_marrow", "Greater or equal to", "14.2"}},
+	}
+	queryBytes, err := json.Marshal(query)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+	body := bytes.NewReader(queryBytes)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	var results []models.Record
+	err = json.Unmarshal(content, &results)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if len(results) != 2 {
+		t.Fail()
+		return
+	}
+	if *results[0].Patient.FirstName != "Mitchell" || *results[1].Patient.FirstName != "Strong" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Sample.Facility != "TGH" || *results[1].Sample.Facility != "PMH" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Experiment.Pcr != "PCR1" || *results[1].Experiment.Pcr != "PCR2" {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+
+func TestLessThanEqual(t *testing.T) {
+	t.Skip()
+	query := models.Query{
+		SelectedFields:    []string{"*"},
+		SelectedTables:    []string{"patients", "samples", "experiments"},
+		SelectedCondition: [][]string{{"AND", "samples.volume_of_blood_marrow", "Less or equal to", "105.67"}},
+	}
+	queryBytes, err := json.Marshal(query)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+	body := bytes.NewReader(queryBytes)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	var results []models.Record
+	err = json.Unmarshal(content, &results)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if len(results) != 2 {
+		t.Fail()
+		return
+	}
+	if *results[0].Patient.FirstName != "Mitchell" || *results[1].Patient.FirstName != "Strong" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Sample.Facility != "TGH" || *results[1].Sample.Facility != "PMH" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Experiment.Pcr != "PCR1" || *results[1].Experiment.Pcr != "PCR2" {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+
+func TestBeginsWith(t *testing.T) {
+	query := models.Query{
+		SelectedFields:    []string{"*"},
+		SelectedTables:    []string{"patients", "samples", "experiments"},
+		SelectedCondition: [][]string{{"AND", "samples.sample_id", "Begins with", "Sample"}},
+	}
+	queryBytes, err := json.Marshal(query)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+	body := bytes.NewReader(queryBytes)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	var results []models.Record
+	err = json.Unmarshal(content, &results)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if len(results) != 2 {
+		t.Fail()
+		return
+	}
+	if *results[0].Patient.FirstName != "Mitchell" || *results[1].Patient.FirstName != "Strong" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Sample.Facility != "TGH" || *results[1].Sample.Facility != "PMH" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Experiment.Pcr != "PCR1" || *results[1].Experiment.Pcr != "PCR2" {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+
+func TestNotBeginsWith(t *testing.T) {
+	query := models.Query{
+		SelectedFields:    []string{"*"},
+		SelectedTables:    []string{"patients", "samples", "experiments"},
+		SelectedCondition: [][]string{{"AND", "samples.sample_id", "Not begins with", "Sample"}},
+	}
+	queryBytes, err := json.Marshal(query)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+	body := bytes.NewReader(queryBytes)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	var results []models.Record
+	err = json.Unmarshal(content, &results)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if len(results) != 0 {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+
+func TestEndsWith(t *testing.T) {
+	query := models.Query{
+		SelectedFields:    []string{"*"},
+		SelectedTables:    []string{"patients", "samples", "experiments"},
+		SelectedCondition: [][]string{{"AND", "patients.sample_id", "Ends with", "2"}},
+	}
+	queryBytes, err := json.Marshal(query)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+	body := bytes.NewReader(queryBytes)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	var results []models.Record
+	err = json.Unmarshal(content, &results)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if len(results) != 1 {
+		t.Fail()
+		return
+	}
+	if *results[0].Patient.FirstName != "Strong" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Sample.Facility != "PMH" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Experiment.Pcr != "PCR2" {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+
+func TestNotEndsWith(t *testing.T) {
+	query := models.Query{
+		SelectedFields:    []string{"*"},
+		SelectedTables:    []string{"patients", "samples", "experiments"},
+		SelectedCondition: [][]string{{"AND", "patients.sample_id", "Not ends with", "2"}},
+	}
+	queryBytes, err := json.Marshal(query)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+	body := bytes.NewReader(queryBytes)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	var results []models.Record
+	err = json.Unmarshal(content, &results)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if len(results) != 1 {
+		t.Fail()
+		return
+	}
+	if *results[0].Patient.FirstName != "Mitchell" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Sample.Facility != "TGH" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Experiment.Pcr != "PCR1" {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+
+func TestContains(t *testing.T) {
+	query := models.Query{
+		SelectedFields:    []string{"*"},
+		SelectedTables:    []string{"patients", "samples", "experiments"},
+		SelectedCondition: [][]string{{"AND", "experiments.pcr", "Contains", "pcr"}},
+	}
+	queryBytes, err := json.Marshal(query)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+	body := bytes.NewReader(queryBytes)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	var results []models.Record
+	err = json.Unmarshal(content, &results)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if len(results) != 2 {
+		t.Fail()
+		return
+	}
+	if *results[0].Patient.FirstName != "Mitchell" || *results[1].Patient.FirstName != "Strong" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Sample.Facility != "TGH" || *results[1].Sample.Facility != "PMH" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Experiment.Pcr != "PCR1" || *results[1].Experiment.Pcr != "PCR2" {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+
+func TestNotContains(t *testing.T) {
+	query := models.Query{
+		SelectedFields:    []string{"*"},
+		SelectedTables:    []string{"patients", "samples", "experiments"},
+		SelectedCondition: [][]string{{"AND", "experiments.pcr", "Not contains", "2"}},
+	}
+	queryBytes, err := json.Marshal(query)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+	body := bytes.NewReader(queryBytes)
+	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	var results []models.Record
+	err = json.Unmarshal(content, &results)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if len(results) != 1 {
+		t.Fail()
+		return
+	}
+	if *results[0].Patient.FirstName != "Mitchell" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Sample.Facility != "TGH" {
+		t.Fail()
+		return
+	}
+
+	if *results[0].Experiment.Pcr != "PCR1" {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
