@@ -64,9 +64,10 @@ func TestMain(m *testing.M) {
 func TestUrls(t *testing.T) {
 	t.Error("Enter Test URL")
 	result := true
-	result = result && CheckPageResponse(server+"/Jtree/metadata/0.1.0/columns")
-	t.Error("First Result", result)
-	result = result && CheckNoPageResponse(server+"/x")
+	//result = result &&
+	resulter := CheckPageResponse(server + "/Jtree/metadata/0.1.0/columns")
+	t.Error("First Result", resulter)
+	//result = result && CheckNoPageResponse(server+"/x")
 
 	if result != true {
 		t.Fail()

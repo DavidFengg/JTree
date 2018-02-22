@@ -5,29 +5,23 @@ import (
 )
 
 //CheckPageResponse checks if a page that should respond is found correctly
-func CheckPageResponse(url string) bool {
+func CheckPageResponse(url string) string {
 	client := &http.Client{}
-	if client == nil {
-		return true
-	}
 	req, err := http.NewRequest("GET", url, nil)
-	if req == nil {
-		return true
-	}
 	if err != nil {
-		return true
+		return "false"
 	}
 	response, err := client.Do(req)
 	if err != nil {
-		return false
+		return error.Error(err)
 	}
 	if response == nil {
-		return false
+		return "false"
 	}
 	if response.Status == "404 Not Found" {
-		return false
+		return "false"
 	}
-	return true
+	return "true"
 }
 
 //CheckNoPageResponse checks if a page that does not exist responds with a 404 Error
