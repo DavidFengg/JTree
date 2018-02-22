@@ -58,6 +58,7 @@ clean:
 
 test:
 	go test ./tests
+	bash travisCheck.sh
 
 database: 
 	bash ./sql/DatabaseRebuild.sh
