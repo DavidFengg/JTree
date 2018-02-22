@@ -16,7 +16,7 @@ import (
 	flags "github.com/jessevdk/go-flags"
 )
 
-const server = "http://127.0.0.1:8000"
+const server = "http://localhost:8000"
 
 func TestMain(m *testing.M) {
 	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
