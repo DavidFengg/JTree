@@ -18,4 +18,5 @@ before_install:
   - mysql -u "root" < "./tests/sql/DropDatabase.sql"
   - mysql -u "root" < "./tests/sql/CreateDatabase.sql"
   - mysql -u "root" < "./tests/sql/CreateTables.sql"
+  - mysql -u "root" < "./tests/sql/DeleteData.sql"
   - mysql -u "root" < "./tests/sql/CreateUsers.sql"
