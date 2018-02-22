@@ -9,7 +9,6 @@ import (
 
 	config "github.com/Bio-core/jtree/conf"
 	database "github.com/Bio-core/jtree/database"
-	"github.com/Bio-core/jtree/dummydata"
 	"github.com/Bio-core/jtree/models"
 	"github.com/Bio-core/jtree/repos"
 	keycloak "github.com/Bio-core/keycloakgo"
@@ -169,17 +168,17 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	c.GetConf()
 	setupOptions()
 
-	database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@/"+c.Database.Name, database.DBSelect)
-	database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@/"+c.Database.Name, database.DBUpdate)
-	ServerName := c.App.Host + ":" + strconv.Itoa(c.App.Port)
-	KeycloakserverName := c.Keycloak.Host
+	// database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@/"+c.Database.Name, database.DBSelect)
+	// database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@/"+c.Database.Name, database.DBUpdate)
+	// ServerName := c.App.Host + ":" + strconv.Itoa(c.App.Port)
+	// KeycloakserverName := c.Keycloak.Host
 
-	if keycloakFlags.Active {
-		keycloak.Init(KeycloakserverName, ServerName)
-	}
-	if dataGenFlags.Generate != 0 {
-		dummydata.MakeData(dataGenFlags.Generate, dataGenFlags.Generate)
-	}
+	// if keycloakFlags.Active {
+	// 	keycloak.Init(KeycloakserverName, ServerName)
+	// }
+	// if dataGenFlags.Generate != 0 {
+	// 	dummydata.MakeData(dataGenFlags.Generate, dataGenFlags.Generate)
+	// }
 	// // Set your custom logger if needed. Default one is log.Printf
 	// // Expected interface func(string, ...interface{})
 
