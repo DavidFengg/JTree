@@ -1,4 +1,6 @@
-	if [ !$CI ]
+	if [ $CI ]
 	then
-		mysql -u "root" "-pwaterloo" < "./tests/sql/DeleteData.sql" 
+        echo "Travis Complete"
+    else	
+        mysql -u "root" "-pwaterloo" < "./tests/sql/DeleteData.sql" 
 	fi
