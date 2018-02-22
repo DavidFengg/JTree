@@ -60,6 +60,5 @@ test:
 	go test ./tests
 
 database: 
-	@echo "test"
 	bash ./sql/DatabaseRebuild.sh
 
