@@ -7,10 +7,19 @@ import (
 //CheckPageResponse checks if a page that should respond is found correctly
 func CheckPageResponse(url string) bool {
 	client := &http.Client{}
-	req, _ := http.NewRequest("GET", url, nil)
-	response, err := client.Do(req)
+	if client == nil {
+		return true
+	}
+	req, err := http.NewRequest("GET", url, nil)
+	if req == nil {
+		return true
+	}
 	if err != nil {
 		return true
+	}
+	response, err := client.Do(req)
+	if err != nil {
+		return false
 	}
 	if response == nil {
 		return false
