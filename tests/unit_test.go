@@ -64,12 +64,10 @@ func TestMain(m *testing.M) {
 func TestUrls(t *testing.T) {
 	result := true
 	result = result && CheckPageResponse(server+"/Jtree/metadata/0.1.0/columns")
-	t.Error("First Result", result)
 	result = result && CheckNoPageResponse(server+"/x")
-	t.Error("First Result", result)
 
 	if result != true {
-		t.Fail()
+		t.Error("Web Pages Not Successful")
 	}
 }
 func TestAddPatientsPOST(t *testing.T) {
