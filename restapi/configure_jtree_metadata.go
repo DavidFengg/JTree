@@ -220,7 +220,7 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 
 	// api.ServerShutdown = func() {}
 
-	// return setupGlobalMiddleware(api.Serve(setupMiddlewares))
+	return setupGlobalMiddleware(api.Serve(setupMiddlewares))
 }
 
 // The TLS configuration before HTTPS server starts.
