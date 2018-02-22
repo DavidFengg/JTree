@@ -9,10 +9,13 @@ import (
 
 	config "github.com/Bio-core/jtree/conf"
 	database "github.com/Bio-core/jtree/database"
+	"github.com/Bio-core/jtree/dummydata"
 	"github.com/Bio-core/jtree/models"
 	"github.com/Bio-core/jtree/repos"
 	keycloak "github.com/Bio-core/keycloakgo"
 	errors "github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/swag"
 	graceful "github.com/tylerb/graceful"
 
@@ -170,54 +173,54 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 
 	// database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@/"+c.Database.Name, database.DBSelect)
 	// database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@/"+c.Database.Name, database.DBUpdate)
-	// ServerName := c.App.Host + ":" + strconv.Itoa(c.App.Port)
-	// KeycloakserverName := c.Keycloak.Host
+	ServerName := c.App.Host + ":" + strconv.Itoa(c.App.Port)
+	KeycloakserverName := c.Keycloak.Host
 
-	// if keycloakFlags.Active {
-	// 	keycloak.Init(KeycloakserverName, ServerName)
-	// }
-	// if dataGenFlags.Generate != 0 {
-	// 	dummydata.MakeData(dataGenFlags.Generate, dataGenFlags.Generate)
-	// }
-	// // Set your custom logger if needed. Default one is log.Printf
-	// // Expected interface func(string, ...interface{})
+	if keycloakFlags.Active {
+		keycloak.Init(KeycloakserverName, ServerName)
+	}
+	if dataGenFlags.Generate != 0 {
+		dummydata.MakeData(dataGenFlags.Generate, dataGenFlags.Generate)
+	}
+	// Set your custom logger if needed. Default one is log.Printf
+	// Expected interface func(string, ...interface{})
 
-	// // Example:
-	// // api.Logger = log.Printf
+	// Example:
+	// api.Logger = log.Printf
 
-	// api.JSONConsumer = runtime.JSONConsumer()
+	api.JSONConsumer = runtime.JSONConsumer()
 
-	// api.JSONProducer = runtime.JSONProducer()
+	api.JSONProducer = runtime.JSONProducer()
 
-	// api.AddExperimentHandler = operations.AddExperimentHandlerFunc(func(params operations.AddExperimentParams) middleware.Responder {
-	// 	if err := addExperiment(params.Experiment); err != nil {
-	// 		return operations.NewAddExperimentBadRequest()
-	// 	}
-	// 	return operations.NewAddExperimentCreated()
-	// })
-	// api.AddPatientHandler = operations.AddPatientHandlerFunc(func(params operations.AddPatientParams) middleware.Responder {
-	// 	if err := addPatient(params.Patient); err != nil {
-	// 		return operations.NewAddPatientBadRequest()
-	// 	}
-	// 	return operations.NewAddPatientCreated()
-	// })
-	// api.AddSampleHandler = operations.AddSampleHandlerFunc(func(params operations.AddSampleParams) middleware.Responder {
-	// 	if err := addSample(params.Sample); err != nil {
-	// 		return operations.NewAddSampleBadRequest()
-	// 	}
-	// 	return operations.NewAddSampleCreated()
-	// })
-	// api.GetSamplesByQueryHandler = operations.GetSamplesByQueryHandlerFunc(func(params operations.GetSamplesByQueryParams) middleware.Responder {
-	// 	return operations.NewGetSamplesByQueryOK().WithPayload(getSamplesByQuery(params.Query))
-	// })
-	// api.LogoutHandler = operations.LogoutHandlerFunc(func(params operations.LogoutParams) middleware.Responder {
-	// 	return operations.NewLogoutOK().WithPayload(logout())
-	// })
-	// api.GetSampleColumnsHandler = operations.GetSampleColumnsHandlerFunc(func(params operations.GetSampleColumnsParams) middleware.Responder {
-	// 	return operations.NewGetSampleColumnsOK().WithPayload(getColumns())
-	// })
+	api.AddExperimentHandler = operations.AddExperimentHandlerFunc(func(params operations.AddExperimentParams) middleware.Responder {
+		if err := addExperiment(params.Experiment); err != nil {
+			return operations.NewAddExperimentBadRequest()
+		}
+		return operations.NewAddExperimentCreated()
+	})
+	api.AddPatientHandler = operations.AddPatientHandlerFunc(func(params operations.AddPatientParams) middleware.Responder {
+		if err := addPatient(params.Patient); err != nil {
+			return operations.NewAddPatientBadRequest()
+		}
+		return operations.NewAddPatientCreated()
+	})
+	api.AddSampleHandler = operations.AddSampleHandlerFunc(func(params operations.AddSampleParams) middleware.Responder {
+		if err := addSample(params.Sample); err != nil {
+			return operations.NewAddSampleBadRequest()
+		}
+		return operations.NewAddSampleCreated()
+	})
+	api.GetSamplesByQueryHandler = operations.GetSamplesByQueryHandlerFunc(func(params operations.GetSamplesByQueryParams) middleware.Responder {
+		return operations.NewGetSamplesByQueryOK().WithPayload(getSamplesByQuery(params.Query))
+	})
+	api.LogoutHandler = operations.LogoutHandlerFunc(func(params operations.LogoutParams) middleware.Responder {
+		return operations.NewLogoutOK().WithPayload(logout())
+	})
+	api.GetSampleColumnsHandler = operations.GetSampleColumnsHandlerFunc(func(params operations.GetSampleColumnsParams) middleware.Responder {
+		return operations.NewGetSampleColumnsOK().WithPayload(getColumns())
+	})
 
-	// api.ServerShutdown = func() {}
+	api.ServerShutdown = func() {}
 
 	return setupGlobalMiddleware(api.Serve(setupMiddlewares))
 }
