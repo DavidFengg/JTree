@@ -171,8 +171,9 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	c.GetConf()
 	setupOptions()
 
-	// database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@/"+c.Database.Name, database.DBSelect)
-	// database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@/"+c.Database.Name, database.DBUpdate)
+	database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@/"+c.Database.Name, database.DBSelect)
+	//database.DBSelect = database.Init(c.Database.Host, "root@/TestJTree", database.DBSelect)
+	database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@/"+c.Database.Name, database.DBUpdate)
 	ServerName := c.App.Host + ":" + strconv.Itoa(c.App.Port)
 	KeycloakserverName := c.Keycloak.Host
 
