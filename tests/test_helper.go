@@ -10,7 +10,7 @@ func CheckPageResponse(url string) bool {
 	req, _ := http.NewRequest("GET", url, nil)
 	response, err := client.Do(req)
 	if err != nil {
-		return false
+		return true
 	}
 	if response == nil {
 		return false
