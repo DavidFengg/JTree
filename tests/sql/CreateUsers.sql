@@ -1,4 +1,4 @@
-grant SELECT on TestJtree.* to 'select'@'%' identified by 'passwords';
+grant SELECT on TestJTree.* to 'select'@'%' identified by 'passwords';
 flush privileges;
-grant INSERT, UPDATE on TestJtree.* to 'update'@'%' identified by 'passwordu';
+grant INSERT, UPDATE on TestJTree.* to 'update'@'%' identified by 'passwordu';
 flush privileges;
