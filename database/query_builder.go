@@ -118,46 +118,95 @@ func GetTables() []string {
 func formatCondition(condition []string) []string {
 	switch condition[2] {
 	case "Equal to":
+		if Map[condition[1]] != "*string" && Map[condition[1]] != "*float32" {
+			condition[2] = ""
+			return nil
+		}
 		condition[2] = "="
 		break
 	case "Not equal to":
+		if Map[condition[1]] != "*string" && Map[condition[1]] != "*float32" {
+			condition[2] = ""
+			return nil
+		}
 		condition[2] = "<>"
+
 		break
 	case "Greater than":
+		if Map[condition[1]] != "*float32" {
+			condition[2] = ""
+			return nil
+		}
 		condition[2] = ">"
 		break
 	case "Less than":
+		if Map[condition[1]] != "*float32" {
+			condition[2] = ""
+			return nil
+		}
 		condition[2] = "<"
 		break
 	case "Greater or equal to":
+		if Map[condition[1]] != "*float32" {
+			condition[2] = ""
+			return nil
+		}
 		condition[2] = ">="
 		break
 	case "Less or equal to":
+		if Map[condition[1]] != "*float32" {
+			condition[2] = ""
+			return nil
+		}
 		condition[2] = "<="
 		break
 	case "Begins with":
+		if Map[condition[1]] != "*string" {
+			condition[2] = ""
+			return nil
+		}
 		condition[2] = " LIKE "
 		condition[3] += "%"
 		break
 	case "Not begins with":
+		if Map[condition[1]] != "*string" {
+			condition[2] = ""
+			return nil
+		}
 		condition[0] += " NOT"
 		condition[2] = " LIKE "
 		condition[3] += "%"
 		break
 	case "Ends with":
+		if Map[condition[1]] != "*string" {
+			condition[2] = ""
+			return nil
+		}
 		condition[2] = " LIKE "
 		condition[3] = "%" + condition[3]
 		break
 	case "Not ends with":
+		if Map[condition[1]] != "*string" {
+			condition[2] = ""
+			return nil
+		}
 		condition[0] += " NOT"
 		condition[2] = " LIKE "
 		condition[3] = "%" + condition[3]
 		break
 	case "Contains":
+		if Map[condition[1]] != "*string" {
+			condition[2] = ""
+			return nil
+		}
 		condition[2] = " LIKE "
 		condition[3] = "%" + condition[3] + "%"
 		break
 	case "Not contains":
+		if Map[condition[1]] != "*string" {
+			condition[2] = ""
+			return nil
+		}
 		condition[0] += " NOT"
 		condition[2] = " LIKE "
 		condition[3] = "%" + condition[3] + "%"
