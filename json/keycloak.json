@@ -1,10 +1,10 @@
 {
-  "realm": "CanDIG",
+  "realm": "AMDL",
   "auth-server-url": "https://ga4gh.pmgenomics.ca/auth",
   "ssl-required": "external",
   "resource": "JTree",
   "credentials": {
-    "secret": "cf9689e0-3542-47ca-b840-7e1326e1c721"
+    "secret": "f7aa52a3-01c8-42c8-9302-113ed8e73d22"
   },
   "policy-enforcer": {}
 }
