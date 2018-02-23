@@ -6,7 +6,7 @@ database:
   updatepass: passwordu
   name: TestJTree
 keycloak:
-  host: http://localhost:8080
+  host: https://ga4gh.pmgenomics.ca
 app:
   port: 8000
   host: "127.0.0.1"
