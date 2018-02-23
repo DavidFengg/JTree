@@ -170,6 +170,7 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 
 	c.GetConf()
 	setupOptions()
+	models.Enums = models.GetEnums(models.Enums)
 	database.Map = database.MapSuper()
 
 	database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@/"+c.Database.Name, database.DBSelect)

@@ -236,11 +236,11 @@ func makeExperiment() models.Experiment {
 	experiment.HasProjectFiles = &HasProjectFiles
 	OpenedDate := makeRandomDate()
 	experiment.OpenedDate = &OpenedDate
-	PanelAssayScreened := int64(rand.Intn(5))
+	PanelAssayScreened := makeRandomString()
 	experiment.PanelAssayScreened = &PanelAssayScreened
 	Pcr := makeRandomString()
 	experiment.Pcr = &Pcr
-	Priority := int64(rand.Intn(2))
+	Priority := makeRandomString()
 	experiment.Priority = &Priority
 	ProcedureOrderDatetime := makeRandomDate()
 	experiment.ProcedureOrderDatetime = &ProcedureOrderDatetime

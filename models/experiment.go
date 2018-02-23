@@ -4,11 +4,19 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"io/ioutil"
+	"log"
+	"path/filepath"
+
 	strfmt "github.com/go-openapi/strfmt"
+	yaml "gopkg.in/yaml.v2"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
+
+//Enums is the experiment enums
+var Enums *ExperimentEnum
 
 // Experiment experiment
 // swagger:model Experiment
@@ -30,13 +38,13 @@ type Experiment struct {
 	OpenedDate *string `json:"experiments.opened_date,omitempty" db:"experiments.opened_date"`
 
 	// panel assay screened
-	PanelAssayScreened *int64 `json:"experiments.panel_assay_screened,omitempty" db:"experiments.panel_assay_screened"`
+	PanelAssayScreened *string `json:"experiments.panel_assay_screened,omitempty" db:"experiments.panel_assay_screened"`
 
 	// pcr
 	Pcr *string `json:"experiments.pcr,omitempty" db:"experiments.pcr"`
 
 	// priority
-	Priority *int64 `json:"experiments.priority,omitempty" db:"experiments.priority"`
+	Priority *string `json:"experiments.priority,omitempty" db:"experiments.priority"`
 
 	// procedure order datetime
 	ProcedureOrderDatetime *string `json:"experiments.procedure_order_datetime,omitempty" db:"experiments.procedure_order_datetime"`
@@ -57,23 +65,11 @@ type Experiment struct {
 	TestDate *string `json:"experiments.test_date,omitempty" db:"experiments.test_date"`
 }
 
-//PanelAssayScreened Enum Definition
-type PanelAssayScreened int
-
-const (
-	//TruSightMyeloid Enum
-	TruSightMyeloid PanelAssayScreened = iota // 0
-	//Hi5NextSeq Enum
-	Hi5NextSeq // 1
-	//Sanger Enum
-	Sanger // 2
-	//DDPCR Enum
-	DDPCR // 3
-	//MLPA Enum
-	MLPA // 4
-	//Nanostring Enum
-	Nanostring // 5
-)
+//ExperimentEnum is a struct that grabs the validation values from the enums.yaml file
+type ExperimentEnum struct {
+	PanelAssayScreened []string
+	Priority           []string
+}
 
 // Validate validates this experiment
 func (m *Experiment) Validate(formats strfmt.Registry) error {
@@ -82,7 +78,26 @@ func (m *Experiment) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	result := m.CheckEnums(Enums)
+	if !result {
+		//return error
+	}
 	return nil
+}
+
+// CheckEnums validates this experiments enums
+func (m *Experiment) CheckEnums(exe *ExperimentEnum) bool {
+	result := true
+	var interResult bool
+	for i := range exe.PanelAssayScreened {
+		if exe.PanelAssayScreened[i] == *m.PanelAssayScreened {
+			interResult = true
+			break
+		}
+		interResult = false
+	}
+	result = result && interResult
+	return result
 }
 
 // MarshalBinary interface implementation
@@ -101,4 +116,19 @@ func (m *Experiment) UnmarshalBinary(b []byte) error {
 	}
 	*m = res
 	return nil
+}
+
+//GetEnums fills the PanelAssayScreened struct
+func GetEnums(e *ExperimentEnum) *ExperimentEnum {
+	path, _ := filepath.Abs("enums.yaml")
+	yamlFile, err := ioutil.ReadFile(path)
+	if err != nil {
+		log.Printf("yamlFile.Get err   #%v ", err)
+	}
+	err = yaml.Unmarshal(yamlFile, e)
+	if err != nil {
+		log.Fatalf("Unmarshal: %v", err)
+	}
+
+	return e
 }

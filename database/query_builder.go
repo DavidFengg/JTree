@@ -118,14 +118,14 @@ func GetTables() []string {
 func formatCondition(condition []string) []string {
 	switch condition[2] {
 	case "Equal to":
-		if Map[condition[1]] != "*string" && Map[condition[1]] != "*float32" {
+		if Map[condition[1]] != "*string" && Map[condition[1]] != "*float32" && Map[condition[1]] != "*bool" && Map[condition[1]] != "*int64" {
 			condition[2] = ""
 			return nil
 		}
 		condition[2] = "="
 		break
 	case "Not equal to":
-		if Map[condition[1]] != "*string" && Map[condition[1]] != "*float32" {
+		if Map[condition[1]] != "*string" && Map[condition[1]] != "*float32" && Map[condition[1]] != "*bool" && Map[condition[1]] != "*int64" {
 			condition[2] = ""
 			return nil
 		}
@@ -133,28 +133,28 @@ func formatCondition(condition []string) []string {
 
 		break
 	case "Greater than":
-		if Map[condition[1]] != "*float32" {
+		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" {
 			condition[2] = ""
 			return nil
 		}
 		condition[2] = ">"
 		break
 	case "Less than":
-		if Map[condition[1]] != "*float32" {
+		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" {
 			condition[2] = ""
 			return nil
 		}
 		condition[2] = "<"
 		break
 	case "Greater or equal to":
-		if Map[condition[1]] != "*float32" {
+		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" {
 			condition[2] = ""
 			return nil
 		}
 		condition[2] = ">="
 		break
 	case "Less or equal to":
-		if Map[condition[1]] != "*float32" {
+		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" {
 			condition[2] = ""
 			return nil
 		}
