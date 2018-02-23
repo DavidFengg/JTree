@@ -1,11 +1,11 @@
-PanelAssayScreened:
+panelassayscreened:
   - TruSightMyeloid
   - Hi5NextSeq
   - Sanger
   - DDPCR
   - MLPA
   - Nanostring
-Priority:
+priority:
   - Low
   - Standard
   - High

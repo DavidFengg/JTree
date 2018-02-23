@@ -1,11 +1,10 @@
 {
-  "realm": "demo",
-  "auth-server-url": "http://localhost:8080/auth",
+  "realm": "CanDIG",
+  "auth-server-url": "https://ga4gh.pmgenomics.ca/auth",
   "ssl-required": "external",
-  "resource": "mitchell",
+  "resource": "JTree",
   "credentials": {
-    "secret": "6147e7de-67b9-423f-a0a5-4b79ef86e7cb"
+    "secret": "cf9689e0-3542-47ca-b840-7e1326e1c721"
   },
-  "confidential-port": 0,
   "policy-enforcer": {}
 }

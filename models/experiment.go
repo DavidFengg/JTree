@@ -11,6 +11,8 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 	yaml "gopkg.in/yaml.v2"
 
+	goerror "errors"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
@@ -67,7 +69,7 @@ type Experiment struct {
 
 //ExperimentEnum is a struct that grabs the validation values from the enums.yaml file
 type ExperimentEnum struct {
-	PanelAssayScreened []string
+	Panelassayscreened []string
 	Priority           []string
 }
 
@@ -80,7 +82,7 @@ func (m *Experiment) Validate(formats strfmt.Registry) error {
 	}
 	result := m.CheckEnums(Enums)
 	if !result {
-		//return error
+		return goerror.New("Enums Invalid")
 	}
 	return nil
 }
@@ -89,10 +91,12 @@ func (m *Experiment) Validate(formats strfmt.Registry) error {
 func (m *Experiment) CheckEnums(exe *ExperimentEnum) bool {
 	result := true
 	var interResult bool
-	for i := range exe.PanelAssayScreened {
-		if exe.PanelAssayScreened[i] == *m.PanelAssayScreened {
-			interResult = true
-			break
+	for i := range exe.Panelassayscreened {
+		if m.PanelAssayScreened != nil {
+			if exe.Panelassayscreened[i] == *m.PanelAssayScreened {
+				interResult = true
+				break
+			}
 		}
 		interResult = false
 	}
@@ -120,7 +124,9 @@ func (m *Experiment) UnmarshalBinary(b []byte) error {
 
 //GetEnums fills the PanelAssayScreened struct
 func GetEnums(e *ExperimentEnum) *ExperimentEnum {
-	path, _ := filepath.Abs("enums.yaml")
+	e = &ExperimentEnum{}
+
+	path, _ := filepath.Abs("./models/enums.yaml")
 	yamlFile, err := ioutil.ReadFile(path)
 	if err != nil {
 		log.Printf("yamlFile.Get err   #%v ", err)

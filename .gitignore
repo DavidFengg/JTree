@@ -25,6 +25,8 @@ cmd/jtree-metadata-server/conf
 cmd/jtree-metadata-server/debug
 cmd/jtree-metadata-server/json
 cmd/jtree-metadata-server/log
+cmd/jtree-metadata-server/models
+
 
 # Don't need to include log files
 log/*.log
