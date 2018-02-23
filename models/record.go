@@ -11,6 +11,11 @@ type Record struct {
 	Sample
 	// experiment
 	Experiment
+	// result
+	Result
+	// resultdetails
+	Resultdetails
+
 }
 
 // MarshalBinary interface implementation

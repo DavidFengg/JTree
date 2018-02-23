@@ -85,6 +85,55 @@ paths:
           description: "invalid input, object invalid"
         409:
           description: "an existing item already exists"
+          
+  /result:
+    post:
+      summary: "adds a result item"
+      description: "Adds a result to the system"
+      operationId: "addResult"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "result"
+        description: "Result"
+        required: false
+        schema:
+          $ref: "#/definitions/Result"
+      responses:
+        201:
+          description: "item created"
+        400:
+          description: "invalid input, object invalid"
+        409:
+          description: "an existing item already exists"
+
+  /resultdetails:
+    post:
+      summary: "adds a resultdetails item"
+      description: "Adds a resultdetails to the system"
+      operationId: "addResultdetails"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "resultdetails"
+        description: "Resultdetails"
+        required: false
+        schema:
+          $ref: "#/definitions/Resultdetails"
+      responses:
+        201:
+          description: "item created"
+        400:
+          description: "invalid input, object invalid"
+        409:
+          description: "an existing item already exists"
+
 
   /columns:
       get:
@@ -495,6 +544,88 @@ definitions:
       test_date:
         type: "string"
         x-nullable: true  
+  Result: 
+    type: "object"
+    properties: 
+      uid: 
+        type: "string"
+        x-nullable: true
+      results_id:
+        type: "number"
+        format: "int"
+        x-nullable: true
+      failed_regions:
+        type: "string"
+        x-nullable: true
+      mutation:
+        type: "string"
+        x-nullable: true
+      verification_pcr:
+        type: "string"
+        x-nullable: true
+      mlpa_pcr:
+        type: "string"
+        x-nullable: true
+      overall_quality_threshold:
+        type: "number"
+        format: "float"
+        x-nullable: true
+      overall_hotspots_threshold:
+        type: "number"
+        format: "float"
+        x-nullable: true
+      mean_depth_of_coveage:
+        type: "number"
+        format: "float"
+        x-nullable: true
+  Resultdetails: 
+    type: "object"
+    properties: 
+      uid: 
+        type: "string"
+        x-nullable: true
+      results_id:
+        type: "number"
+        format: "int"
+        x-nullable: true
+      pcr:
+        type: "string"
+        x-nullable: true
+      sample_id:
+        type: "string"
+        x-nullable: true
+      gene:
+        type: "string"
+        x-nullable: true
+      exon:
+        type: "number"
+        format: "int"
+        x-nullable: true
+      p_nomenclature:
+        type: "string"
+        x-nullable: true
+      c_nomenclature:
+        type: "string"
+        x-nullable: true
+      VAF:
+        type: "number"
+        format: "float"
+        x-nullable: true
+      quality_score:
+        type: "number"
+        format: "float"
+        x-nullable: true
+      coverage:
+        type: "number"
+        format: "int"
+        x-nullable: true
+      risk_score:
+        type: "number"
+        format: "float"
+        x-nullable: true
+      result:
+        type: "string"
+        x-nullable: true
   Record:
     type: "object"
     properties:
@@ -504,3 +635,7 @@ definitions:
         $ref: "#/definitions/Patient"
       Experiment:
         $ref: "#/definitions/Experiment"
+      Result:
+        $ref: "#/definitions/Result"
+      Resultdetails:
+        $ref: "#/definitions/Resultdetails"

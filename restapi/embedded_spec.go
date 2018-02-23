@@ -35,6 +35,30 @@ func init() {
   "host": "virtserver.swaggerhub.com",
   "basePath": "/Jtree/metadata/0.1.0",
   "paths": {
+    "/columns": {
+      "get": {
+        "description": "gets column names",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets columns",
+        "operationId": "getSampleColumns",
+        "responses": {
+          "200": {
+            "description": "columns",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
     "/experiment": {
       "post": {
         "description": "Adds an experiment to the system",
@@ -44,7 +68,7 @@ func init() {
         "produces": [
           "application/json"
         ],
-        "summary": "adds an experiment",
+        "summary": "adds an experiment item",
         "operationId": "addExperiment",
         "parameters": [
           {
@@ -124,128 +148,6 @@ func init() {
         }
       }
     },
-    "/patient/columns": {
-      "get": {
-        "description": "gets column names",
-        "produces": [
-          "application/json"
-        ],
-        "summary": "gets columns",
-        "operationId": "getPatientColumns",
-        "responses": {
-          "200": {
-            "description": "columns",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          "400": {
-            "description": "bad input parameter"
-          }
-        }
-      }
-    },
-    "/patient/search": {
-      "get": {
-        "description": "By passing in the appropriate options, you can search for\navailable patients\n",
-        "produces": [
-          "application/json"
-        ],
-        "summary": "searches patients",
-        "operationId": "searchPatient",
-        "parameters": [
-          {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "multi",
-            "description": "pass an optional search string for looking up inventory",
-            "name": "searchString",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "search results matching criteria",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Patient"
-              }
-            }
-          },
-          "400": {
-            "description": "bad input parameter"
-          }
-        }
-      }
-    },
-    "/patient/{patientId}": {
-      "get": {
-        "summary": "Returns a patient by ID.",
-        "operationId": "getPatient",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Patient"
-              }
-            }
-          },
-          "404": {
-            "description": "patient not found"
-          }
-        }
-      },
-      "parameters": [
-        {
-          "type": "string",
-          "name": "patientId",
-          "in": "path",
-          "required": true
-        }
-      ]
-    },
-    "/sample": {
-      "post": {
-        "description": "Adds a sample to the system",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "summary": "adds a sample",
-        "operationId": "addSample",
-        "parameters": [
-          {
-            "description": "Sample",
-            "name": "sample",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/Sample"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "item created"
-          },
-          "400": {
-            "description": "invalid input, object invalid"
-          },
-          "409": {
-            "description": "an existing item already exists"
-          }
-        }
-      }
-    },
     "/query": {
       "post": {
         "consumes": [
@@ -281,90 +183,104 @@ func init() {
         }
       }
     },
-    "/sample/{sampleId}": {
-      "get": {
-        "summary": "Returns a sample by ID.",
-        "operationId": "getSample",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Sample"
-              }
-            }
-          },
-          "404": {
-            "description": "Sample not found"
-          }
-        }
-      },
-      "parameters": [
-        {
-          "type": "string",
-          "name": "sampleId",
-          "in": "path",
-          "required": true
-        }
-      ]
-    },
-    "/columns": {
-      "get": {
-        "description": "gets column names",
+    "/result": {
+      "post": {
+        "description": "Adds a result to the system",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
-        "summary": "gets columns",
-        "operationId": "getSampleColumns",
-        "responses": {
-          "200": {
-            "description": "columns",
+        "summary": "adds a result item",
+        "operationId": "addResult",
+        "parameters": [
+          {
+            "description": "Result",
+            "name": "result",
+            "in": "body",
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
+              "$ref": "#/definitions/Result"
             }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "item created"
           },
           "400": {
-            "description": "bad input parameter"
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
           }
         }
       }
     },
-    "/samples/search": {
-      "get": {
-        "description": "By passing in the appropriate options, you can search for\navailable sample\n",
+    "/resultdetails": {
+      "post": {
+        "description": "Adds a resultdetails to the system",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
-        "summary": "searches samples",
-        "operationId": "searchSample",
+        "summary": "adds a resultdetails item",
+        "operationId": "addResultdetails",
         "parameters": [
           {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "multi",
-            "description": "pass an optional search string for looking up inventory",
-            "name": "searchString",
-            "in": "query"
+            "description": "Resultdetails",
+            "name": "resultdetails",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Resultdetails"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "search results matching criteria",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Sample"
-              }
-            }
+          "201": {
+            "description": "item created"
           },
           "400": {
-            "description": "bad input parameter"
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/sample": {
+      "post": {
+        "description": "Adds a sample to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "adds a sample",
+        "operationId": "addSample",
+        "parameters": [
+          {
+            "description": "Sample",
+            "name": "sample",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Sample"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "item created"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
           }
         }
       }
@@ -522,7 +438,7 @@ func init() {
     "Query": {
       "type": "object",
       "properties": {
-        "selected_conditions": {
+        "selected_condition": {
           "type": "array",
           "items": {
             "type": "array",
@@ -548,11 +464,128 @@ func init() {
     "Record": {
       "type": "object",
       "properties": {
+        "Experiment": {
+          "$ref": "#/definitions/Experiment"
+        },
         "Patient": {
           "$ref": "#/definitions/Patient"
         },
+        "Result": {
+          "$ref": "#/definitions/Result"
+        },
+        "Resultdetails": {
+          "$ref": "#/definitions/Resultdetails"
+        },
         "Sample": {
           "$ref": "#/definitions/Sample"
+        }
+      }
+    },
+    "Result": {
+      "type": "object",
+      "properties": {
+        "failed_regions": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "mean_depth_of_coveage": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "mlpa_pcr": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "mutation": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "overall_hotspots_threshold": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "overall_quality_threshold": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "results_id": {
+          "type": "number",
+          "format": "int",
+          "x-nullable": true
+        },
+        "uid": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "verification_pcr": {
+          "type": "string",
+          "x-nullable": true
+        }
+      }
+    },
+    "Resultdetails": {
+      "type": "object",
+      "properties": {
+        "VAF": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "c_nomenclature": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "coverage": {
+          "type": "number",
+          "format": "int",
+          "x-nullable": true
+        },
+        "exon": {
+          "type": "number",
+          "format": "int",
+          "x-nullable": true
+        },
+        "gene": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "p_nomenclature": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "pcr": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "quality_score": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "result": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "results_id": {
+          "type": "number",
+          "format": "int",
+          "x-nullable": true
+        },
+        "risk_score": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "sample_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "uid": {
+          "type": "string",
+          "x-nullable": true
         }
       }
     },
@@ -609,10 +642,10 @@ func init() {
           "x-go-custom-tag": "db:\"date_submitted\"",
           "x-nullable": true
         },
-        "delta_ct_value": {
+        "delta_ct_Value": {
           "type": "number",
           "format": "float",
-          "x-go-custom-tag": "db:\"delta_ct_value\"",
+          "x-go-custom-tag": "db:\"delta_ct_Value\"",
           "x-nullable": true
         },
         "dna_concentration": {
@@ -853,6 +886,30 @@ func init() {
   "host": "virtserver.swaggerhub.com",
   "basePath": "/Jtree/metadata/0.1.0",
   "paths": {
+    "/columns": {
+      "get": {
+        "description": "gets column names",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets columns",
+        "operationId": "getSampleColumns",
+        "responses": {
+          "200": {
+            "description": "columns",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
     "/experiment": {
       "post": {
         "description": "Adds an experiment to the system",
@@ -862,7 +919,7 @@ func init() {
         "produces": [
           "application/json"
         ],
-        "summary": "adds an experiment",
+        "summary": "adds an experiment item",
         "operationId": "addExperiment",
         "parameters": [
           {
@@ -942,122 +999,6 @@ func init() {
         }
       }
     },
-    "/patient/columns": {
-      "get": {
-        "description": "gets column names",
-        "produces": [
-          "application/json"
-        ],
-        "summary": "gets columns",
-        "operationId": "getPatientColumns",
-        "responses": {
-          "200": {
-            "description": "columns",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          "400": {
-            "description": "bad input parameter"
-          }
-        }
-      }
-    },
-    "/patient/search": {
-      "get": {
-        "description": "By passing in the appropriate options, you can search for\navailable patients\n",
-        "produces": [
-          "application/json"
-        ],
-        "summary": "searches patients",
-        "operationId": "searchPatient",
-        "parameters": [
-          {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "multi",
-            "description": "pass an optional search string for looking up inventory",
-            "name": "searchString",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "search results matching criteria",
-            "schema": {
-              "$ref": "#/definitions/searchPatientOKBody"
-            }
-          },
-          "400": {
-            "description": "bad input parameter"
-          }
-        }
-      }
-    },
-    "/patient/{patientId}": {
-      "get": {
-        "summary": "Returns a patient by ID.",
-        "operationId": "getPatient",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/getPatientOKBody"
-            }
-          },
-          "404": {
-            "description": "patient not found"
-          }
-        }
-      },
-      "parameters": [
-        {
-          "type": "string",
-          "name": "patientId",
-          "in": "path",
-          "required": true
-        }
-      ]
-    },
-    "/sample": {
-      "post": {
-        "description": "Adds a sample to the system",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "summary": "adds a sample",
-        "operationId": "addSample",
-        "parameters": [
-          {
-            "description": "Sample",
-            "name": "sample",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/Sample"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "item created"
-          },
-          "400": {
-            "description": "invalid input, object invalid"
-          },
-          "409": {
-            "description": "an existing item already exists"
-          }
-        }
-      }
-    },
     "/query": {
       "post": {
         "consumes": [
@@ -1090,84 +1031,104 @@ func init() {
         }
       }
     },
-    "/sample/{sampleId}": {
-      "get": {
-        "summary": "Returns a sample by ID.",
-        "operationId": "getSample",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/getSampleOKBody"
-            }
-          },
-          "404": {
-            "description": "Sample not found"
-          }
-        }
-      },
-      "parameters": [
-        {
-          "type": "string",
-          "name": "sampleId",
-          "in": "path",
-          "required": true
-        }
-      ]
-    },
-    "/columns": {
-      "get": {
-        "description": "gets column names",
+    "/result": {
+      "post": {
+        "description": "Adds a result to the system",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
-        "summary": "gets columns",
-        "operationId": "getSampleColumns",
-        "responses": {
-          "200": {
-            "description": "columns",
+        "summary": "adds a result item",
+        "operationId": "addResult",
+        "parameters": [
+          {
+            "description": "Result",
+            "name": "result",
+            "in": "body",
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
+              "$ref": "#/definitions/Result"
             }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "item created"
           },
           "400": {
-            "description": "bad input parameter"
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
           }
         }
       }
     },
-    "/samples/search": {
-      "get": {
-        "description": "By passing in the appropriate options, you can search for\navailable sample\n",
+    "/resultdetails": {
+      "post": {
+        "description": "Adds a resultdetails to the system",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
-        "summary": "searches samples",
-        "operationId": "searchSample",
+        "summary": "adds a resultdetails item",
+        "operationId": "addResultdetails",
         "parameters": [
           {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "multi",
-            "description": "pass an optional search string for looking up inventory",
-            "name": "searchString",
-            "in": "query"
+            "description": "Resultdetails",
+            "name": "resultdetails",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Resultdetails"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "search results matching criteria",
-            "schema": {
-              "$ref": "#/definitions/searchSampleOKBody"
-            }
+          "201": {
+            "description": "item created"
           },
           "400": {
-            "description": "bad input parameter"
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/sample": {
+      "post": {
+        "description": "Adds a sample to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "adds a sample",
+        "operationId": "addSample",
+        "parameters": [
+          {
+            "description": "Sample",
+            "name": "sample",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Sample"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "item created"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing item already exists"
           }
         }
       }
@@ -1325,7 +1286,7 @@ func init() {
     "Query": {
       "type": "object",
       "properties": {
-        "selected_conditions": {
+        "selected_condition": {
           "type": "array",
           "items": {
             "type": "array",
@@ -1351,11 +1312,128 @@ func init() {
     "Record": {
       "type": "object",
       "properties": {
+        "Experiment": {
+          "$ref": "#/definitions/Experiment"
+        },
         "Patient": {
           "$ref": "#/definitions/Patient"
         },
+        "Result": {
+          "$ref": "#/definitions/Result"
+        },
+        "Resultdetails": {
+          "$ref": "#/definitions/Resultdetails"
+        },
         "Sample": {
           "$ref": "#/definitions/Sample"
+        }
+      }
+    },
+    "Result": {
+      "type": "object",
+      "properties": {
+        "failed_regions": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "mean_depth_of_coveage": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "mlpa_pcr": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "mutation": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "overall_hotspots_threshold": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "overall_quality_threshold": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "results_id": {
+          "type": "number",
+          "format": "int",
+          "x-nullable": true
+        },
+        "uid": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "verification_pcr": {
+          "type": "string",
+          "x-nullable": true
+        }
+      }
+    },
+    "Resultdetails": {
+      "type": "object",
+      "properties": {
+        "VAF": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "c_nomenclature": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "coverage": {
+          "type": "number",
+          "format": "int",
+          "x-nullable": true
+        },
+        "exon": {
+          "type": "number",
+          "format": "int",
+          "x-nullable": true
+        },
+        "gene": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "p_nomenclature": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "pcr": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "quality_score": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "result": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "results_id": {
+          "type": "number",
+          "format": "int",
+          "x-nullable": true
+        },
+        "risk_score": {
+          "type": "number",
+          "format": "float",
+          "x-nullable": true
+        },
+        "sample_id": {
+          "type": "string",
+          "x-nullable": true
+        },
+        "uid": {
+          "type": "string",
+          "x-nullable": true
         }
       }
     },
@@ -1412,10 +1490,10 @@ func init() {
           "x-go-custom-tag": "db:\"date_submitted\"",
           "x-nullable": true
         },
-        "delta_ct_value": {
+        "delta_ct_Value": {
           "type": "number",
           "format": "float",
-          "x-go-custom-tag": "db:\"delta_ct_value\"",
+          "x-go-custom-tag": "db:\"delta_ct_Value\"",
           "x-nullable": true
         },
         "dna_concentration": {
@@ -1634,35 +1712,7 @@ func init() {
         }
       }
     },
-    "getPatientOKBody": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Patient"
-      },
-      "x-go-gen-location": "operations"
-    },
-    "getSampleOKBody": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Sample"
-      },
-      "x-go-gen-location": "operations"
-    },
     "getSamplesByQueryOKBody": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Sample"
-      },
-      "x-go-gen-location": "operations"
-    },
-    "searchPatientOKBody": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Patient"
-      },
-      "x-go-gen-location": "operations"
-    },
-    "searchSampleOKBody": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/Sample"
