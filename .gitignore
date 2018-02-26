@@ -26,10 +26,13 @@ cmd/jtree-metadata-server/debug
 cmd/jtree-metadata-server/json
 cmd/jtree-metadata-server/log
 cmd/jtree-metadata-server/models
+cmd/jtree-metadata-server/uploads
 
 
 # Don't need to include log files
 log/*.log
+# Don't need to include uploaded files
+uploads/*
 *.DS_Store
 # Files from the server
 mysql-community-release-el7-5.noarch.rpm

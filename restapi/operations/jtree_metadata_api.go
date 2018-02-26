@@ -21,20 +21,24 @@ import (
 // NewJtreeMetadataAPI creates a new JtreeMetadata instance
 func NewJtreeMetadataAPI(spec *loads.Document) *JtreeMetadataAPI {
 	return &JtreeMetadataAPI{
-		handlers:            make(map[string]map[string]http.Handler),
-		formats:             strfmt.Default,
-		defaultConsumes:     "application/json",
-		defaultProduces:     "application/json",
-		customConsumers:     make(map[string]runtime.Consumer),
-		customProducers:     make(map[string]runtime.Producer),
-		ServerShutdown:      func() {},
-		spec:                spec,
-		ServeError:          errors.ServeError,
-		BasicAuthenticator:  security.BasicAuth,
-		APIKeyAuthenticator: security.APIKeyAuth,
-		BearerAuthenticator: security.BearerAuth,
-		JSONConsumer:        runtime.JSONConsumer(),
-		JSONProducer:        runtime.JSONProducer(),
+		handlers:              make(map[string]map[string]http.Handler),
+		formats:               strfmt.Default,
+		defaultConsumes:       "application/json",
+		defaultProduces:       "application/json",
+		customConsumers:       make(map[string]runtime.Consumer),
+		customProducers:       make(map[string]runtime.Producer),
+		ServerShutdown:        func() {},
+		spec:                  spec,
+		ServeError:            errors.ServeError,
+		BasicAuthenticator:    security.BasicAuth,
+		APIKeyAuthenticator:   security.APIKeyAuth,
+		BearerAuthenticator:   security.BearerAuth,
+		JSONConsumer:          runtime.JSONConsumer(),
+		MultipartformConsumer: runtime.DiscardConsumer,
+		JSONProducer:          runtime.JSONProducer(),
+		PostUploadHandler: PostUploadHandlerFunc(func(params PostUploadParams) middleware.Responder {
+			return middleware.NotImplemented("operation PostUpload has not yet been implemented")
+		}),
 		AddExperimentHandler: AddExperimentHandlerFunc(func(params AddExperimentParams) middleware.Responder {
 			return middleware.NotImplemented("operation AddExperiment has not yet been implemented")
 		}),
@@ -86,10 +90,13 @@ type JtreeMetadataAPI struct {
 
 	// JSONConsumer registers a consumer for a "application/json" mime type
 	JSONConsumer runtime.Consumer
+	// MultipartformConsumer registers a consumer for a "multipart/form-data" mime type
+	MultipartformConsumer runtime.Consumer
 
 	// JSONProducer registers a producer for a "application/json" mime type
 	JSONProducer runtime.Producer
-
+	// PostUploadHandler sets the operation handler for the post upload operation
+	PostUploadHandler PostUploadHandler
 	// AddExperimentHandler sets the operation handler for the add experiment operation
 	AddExperimentHandler AddExperimentHandler
 	// AddPatientHandler sets the operation handler for the add patient operation
@@ -168,6 +175,9 @@ func (o *JtreeMetadataAPI) Validate() error {
 	if o.JSONProducer == nil {
 		unregistered = append(unregistered, "JSONProducer")
 	}
+	if o.PostUploadHandler == nil {
+		unregistered = append(unregistered, "PostUploadHandler")
+	}
 
 	if o.AddExperimentHandler == nil {
 		unregistered = append(unregistered, "AddExperimentHandler")
@@ -236,6 +246,8 @@ func (o *JtreeMetadataAPI) ConsumersFor(mediaTypes []string) map[string]runtime.
 
 		case "application/json":
 			result["application/json"] = o.JSONConsumer
+		case "multipart/form-data":
+			result["multipart/form-data"] = o.MultipartformConsumer
 
 		}
 
@@ -298,6 +310,11 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 	if o.handlers == nil {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
+
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/upload"] = NewPostUpload(o.context, o.PostUploadHandler)
 
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)

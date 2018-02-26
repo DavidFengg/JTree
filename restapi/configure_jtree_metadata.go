@@ -2,7 +2,11 @@ package restapi
 
 import (
 	"crypto/tls"
+	localerrors "errors"
+	"fmt"
+	"io"
 	"net/http"
+	"os"
 	"strconv"
 	"sync"
 	"sync/atomic"
@@ -128,6 +132,23 @@ func logout() bool {
 	return true
 }
 
+func upload(file operations.PostUploadParams) error {
+	if _, err := os.Stat("./uploads/" + file.Filename); !os.IsNotExist(err) {
+		return localerrors.New("File already exists")
+	}
+	f, err := os.OpenFile("./uploads/"+file.Filename, os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	_, err = io.Copy(f, file.Upfile)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	return nil
+}
+
 var databaseFlags = struct {
 	Host       string `long:"databaseHost" description:"Database Host" required:"false"`
 	Name       string `long:"databaseName" description:"Database Name" required:"false"`
@@ -193,7 +214,12 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	api.JSONConsumer = runtime.JSONConsumer()
 
 	api.JSONProducer = runtime.JSONProducer()
-
+	api.PostUploadHandler = operations.PostUploadHandlerFunc(func(params operations.PostUploadParams) middleware.Responder {
+		if err := upload(params); err != nil {
+			return operations.NewPostUploadConflict()
+		}
+		return operations.NewPostUploadOK().WithPayload(true)
+	})
 	api.AddExperimentHandler = operations.AddExperimentHandlerFunc(func(params operations.AddExperimentParams) middleware.Responder {
 		if err := addExperiment(params.Experiment); err != nil {
 			return operations.NewAddExperimentBadRequest()
