@@ -16,3 +16,4 @@ go get -u github.com/go-openapi/validate
 
 go get -u github.com/docker/go-units
 go get -u gopkg.in/mgo.v2/bson
+go get github.com/rs/cors
