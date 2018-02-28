@@ -188,18 +188,15 @@ func configureFlags(api *operations.JtreeMetadataAPI) {
 func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
-	fmt.Printf("one")
 	c.GetConf()
 	setupOptions()
 	models.Enums = models.GetEnums(models.Enums)
 	database.Map = database.MapSuper()
-	fmt.Printf("two")
 
 	database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@/"+c.Database.Name, database.DBSelect)
 	database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@/"+c.Database.Name, database.DBUpdate)
 	ServerName := c.App.Host + ":" + strconv.Itoa(c.App.Port)
 	KeycloakserverName := c.Keycloak.Host
-	fmt.Printf("three")
 
 	if keycloakFlags.Active {
 		keycloak.Init(KeycloakserverName, ServerName, "/Jtree/metadata/0.1.0/columns", "/logout")
@@ -212,7 +209,6 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 
 	// Example:
 	// api.Logger = log.Printf
-	fmt.Printf("four")
 
 	api.JSONConsumer = runtime.JSONConsumer()
 
