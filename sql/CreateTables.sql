@@ -98,3 +98,43 @@ CREATE TABLE `experiments` (
   CONSTRAINT `sample_id_ex` FOREIGN KEY (`sample_id`) REFERENCES `samples` (`sample_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+CREATE TABLE `results` (
+  `failed_regions` VARCHAR(255) NULL,
+  `mean_depth_of_coveage` FLOAT NULL,
+  `mlpa_pcr` VARCHAR(255) NULL,
+  `mutation` VARCHAR(255) NULL,
+  `overall_hotspots_threshold` FLOAT NULL,
+  `overall_quality_threshold` FLOAT NULL,
+  `results_id` VARCHAR(255) NULL,
+  `sample_id` VARCHAR(255) NULL,
+  `uid` VARCHAR(255) NULL,
+  `verification_pcr` VARCHAR(255) NULL,
+  INDEX `sample_id_idx2` (`sample_id` ASC),
+  CONSTRAINT `sample_id2`
+    FOREIGN KEY (`sample_id`)
+    REFERENCES `JTree`.`samples` (`sample_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `JTree`.`resultdetails` (
+  `VAF` FLOAT NULL,
+  `c_nomenclature` VARCHAR(255) NULL,
+  `coverage` INT NULL,
+  `exon` INT NULL,
+  `gene` VARCHAR(255) NULL,
+  `p_nomenclature` VARCHAR(255) NULL,
+  `pcr` VARCHAR(255) NULL,
+  `quality_score` FLOAT NULL,
+  `result` VARCHAR(255) NULL,
+  `results_details_id` VARCHAR(255) NULL,
+  `results_id` VARCHAR(255) NULL,
+  `risk_score` FLOAT NULL,
+  `sample_id` VARCHAR(255) NULL,
+  `uid` VARCHAR(255) NULL,
+  INDEX `sample_id_idx3` (`sample_id` ASC),
+  CONSTRAINT `sample_id3`
+    FOREIGN KEY (`sample_id`)
+    REFERENCES `JTree`.`samples` (`sample_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

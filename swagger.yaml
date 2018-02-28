@@ -523,129 +523,171 @@ definitions:
       chip_cartridge_barcode: 
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"chip_cartridge_barcode\""
       complete_date:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"complete_date\""
       experiment_id:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"experiment_id\""
       has_project_files:
         type: "boolean"
         x-nullable: true
+        x-go-custom-tag: "db:\"has_project_files\""
       opened_date:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"opened_date\""
       panel_assay_screened:
         type: "number"
         format: "int"
         x-nullable: true
+        x-go-custom-tag: "db:\"panel_assay_screened\""
       pcr:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"pcr\""
       priority:
         type: "number"
         format: "int"
         x-nullable: true
+        x-go-custom-tag: "db:\"priority\""
       procedure_order_datetime:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"procedure_order_datetime\""
       project_id:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"project_id\""
       project_name:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"project_name\""
       sample_id:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"sample_id\""
       study_id:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"study_id\""
       test_date:
         type: "string"
         x-nullable: true  
+        x-go-custom-tag: "db:\"test_date\""
   Result: 
     type: "object"
     properties: 
+      sample_id:
+        type: "string"
+        x-nullable: true         
+        x-go-custom-tag: "db:\"sample_id\""
       uid: 
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"uid\""
       results_id:
-        type: "number"
-        format: "int"
+        type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"results_id\""
       failed_regions:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"failed_regions\""
       mutation:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"mutation\""
       verification_pcr:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"verification_pcr\""
       mlpa_pcr:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"mlpa_pcr\""
       overall_quality_threshold:
         type: "number"
         format: "float"
         x-nullable: true
+        x-go-custom-tag: "db:\"overall_quality_threshold\""
       overall_hotspots_threshold:
         type: "number"
         format: "float"
         x-nullable: true
+        x-go-custom-tag: "db:\"overall_hotspots_threshold\""
       mean_depth_of_coveage:
         type: "number"
         format: "float"
         x-nullable: true
+        x-go-custom-tag: "db:\"mean_depth_of_coveage\""
   Resultdetails: 
     type: "object"
     properties: 
       uid: 
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"uid\""
       results_id:
-        type: "number"
-        format: "int"
+        type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"results_id\""
+      results_details_id:
+        type: "string"
+        x-nullable: true 
+        x-go-custom-tag: "db:\"results_details_id\""     
       pcr:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"pcr\""
       sample_id:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"sample_id\""
       gene:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"gene\""
       exon:
         type: "number"
         format: "int"
         x-nullable: true
+        x-go-custom-tag: "db:\"exon\""
       p_nomenclature:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"p_nomenclature\""
       c_nomenclature:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"c_nomenclature\""
       VAF:
         type: "number"
         format: "float"
         x-nullable: true
+        x-go-custom-tag: "db:\"VAF\""
       quality_score:
         type: "number"
         format: "float"
         x-nullable: true
+        x-go-custom-tag: "db:\"quality_score\""
       coverage:
         type: "number"
         format: "int"
         x-nullable: true
+        x-go-custom-tag: "db:\"coverage\""
       risk_score:
         type: "number"
         format: "float"
         x-nullable: true
+        x-go-custom-tag: "db:\"risk_score\""
       result:
         type: "string"
         x-nullable: true
+        x-go-custom-tag: "db:\"result\""
   Record:
     type: "object"
     properties:

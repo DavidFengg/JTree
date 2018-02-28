@@ -13,6 +13,8 @@ var r *rand.Rand
 var id1 int
 var id2 int
 var id3 int
+var id4 int
+var id5 int
 
 //MakeData makes dummy data and puts it into the db
 func MakeData(numberPatients, numberSamples int) {
@@ -20,6 +22,8 @@ func MakeData(numberPatients, numberSamples int) {
 	createPatients(numberPatients)
 	createSamples(numberSamples)
 	createExperiments(numberSamples)
+	createResults(numberSamples)
+	createResultDetails(numberSamples)
 }
 
 func makeRandomString() string {
@@ -52,6 +56,20 @@ func createPatients(number int) {
 		id1++
 		tempPatient := makePatient()
 		repos.InsertPatient(&tempPatient)
+	}
+}
+func createResults(number int) {
+	for i := 0; i < number; i++ {
+		id4++
+		tempResult := makeResult()
+		repos.InsertResult(&tempResult)
+	}
+}
+func createResultDetails(number int) {
+	for i := 0; i < number; i++ {
+		id5++
+		tempResultDetail := makeResultDetail()
+		repos.InsertResultDetail(&tempResultDetail)
 	}
 }
 
@@ -256,4 +274,64 @@ func makeExperiment() models.Experiment {
 	experiment.TestDate = &TestDate
 
 	return experiment
+}
+
+func makeResult() models.Result {
+	result := models.Result{}
+	FailedRegions := makeRandomString()
+	result.FailedRegions = &FailedRegions
+	MeanDepthOfCoveage := makeRandomFloat()
+	result.MeanDepthOfCoveage = &MeanDepthOfCoveage
+	MlpaPcr := makeRandomString()
+	result.MlpaPcr = &MlpaPcr
+	Mutation := makeRandomString()
+	result.Mutation = &Mutation
+	OverallHotspotsThreshold := makeRandomFloat()
+	result.OverallHotspotsThreshold = &OverallHotspotsThreshold
+	OverallQualityThreshold := makeRandomFloat()
+	result.OverallQualityThreshold = &OverallQualityThreshold
+	ResultsID := makeRandomString()
+	result.ResultsID = &ResultsID
+	SampleID := strconv.Itoa(id4)
+	result.SampleID = &SampleID
+	UID := makeRandomString()
+	result.UID = &UID
+	VerificationPcr := makeRandomString()
+	result.VerificationPcr = &VerificationPcr
+
+	return result
+}
+
+func makeResultDetail() models.Resultdetails {
+	resultdetail := models.Resultdetails{}
+	CNomenclature := makeRandomString()
+	resultdetail.CNomenclature = &CNomenclature
+	Coverage := int64(rand.Intn(1000))
+	resultdetail.Coverage = &Coverage
+	Exon := int64(rand.Intn(1000))
+	resultdetail.Exon = &Exon
+	Gene := makeRandomString()
+	resultdetail.Gene = &Gene
+	Pcr := makeRandomString()
+	resultdetail.Pcr = &Pcr
+	PNomenclature := makeRandomString()
+	resultdetail.PNomenclature = &PNomenclature
+	QualityScore := makeRandomFloat()
+	resultdetail.QualityScore = &QualityScore
+	Result := makeRandomString()
+	resultdetail.Result = &Result
+	ResultsDetailsID := makeRandomString()
+	resultdetail.ResultsDetailsID = &ResultsDetailsID
+	ResultsID := makeRandomString()
+	resultdetail.ResultsID = &ResultsID
+	RiskScore := makeRandomFloat()
+	resultdetail.RiskScore = &RiskScore
+	SampleID := strconv.Itoa(id5)
+	resultdetail.SampleID = &SampleID
+	UID := makeRandomString()
+	resultdetail.UID = &UID
+	VAF := makeRandomFloat()
+	resultdetail.VAF = &VAF
+
+	return resultdetail
 }
