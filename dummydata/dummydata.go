@@ -39,7 +39,7 @@ func makeRandomDate() string {
 
 func makeRandomFloat() float32 {
 	num := rand.Float32()
-	num += float32(rand.Intn(1000))
+	num += float32(rand.Intn(600))
 	return num
 }
 
