@@ -115,7 +115,7 @@ CREATE TABLE `results` (
     FOREIGN KEY (`sample_id`)
     REFERENCES `JTree`.`samples` (`sample_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON UPDATE NO ACTION) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `JTree`.`resultdetails` (
   `VAF` FLOAT NULL,
@@ -137,4 +137,4 @@ CREATE TABLE `JTree`.`resultdetails` (
     FOREIGN KEY (`sample_id`)
     REFERENCES `JTree`.`samples` (`sample_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON UPDATE NO ACTION) ENGINE=InnoDB DEFAULT CHARSET=utf8;
