@@ -133,28 +133,28 @@ func formatCondition(condition []string) []string {
 
 		break
 	case "Greater than":
-		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" {
+		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" && !strings.Contains(strings.ToLower(condition[1]), "date") {
 			condition[2] = ""
 			return nil
 		}
 		condition[2] = ">"
 		break
 	case "Less than":
-		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" {
+		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" && !strings.Contains(strings.ToLower(condition[1]), "date") {
 			condition[2] = ""
 			return nil
 		}
 		condition[2] = "<"
 		break
 	case "Greater or equal to":
-		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" {
+		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" && !strings.Contains(strings.ToLower(condition[1]), "date") {
 			condition[2] = ""
 			return nil
 		}
 		condition[2] = ">="
 		break
 	case "Less or equal to":
-		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" {
+		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" && !strings.Contains(strings.ToLower(condition[1]), "date") {
 			condition[2] = ""
 			return nil
 		}
