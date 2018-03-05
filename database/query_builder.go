@@ -253,6 +253,29 @@ func MapSuper() map[string]string {
 		varType := reflect.TypeOf(models.Experiment{}).Field(i).Type.String()
 		m[tag] = varType
 	}
+	v = reflect.ValueOf(models.Result{})
+
+	for i := 0; i < v.NumField(); i++ {
+		tag := string(reflect.TypeOf(models.Result{}).Field(i).Tag)
+		runes := []rune(tag)
+		j := strings.Index(tag, ":")
+		k := strings.Index(tag, "omit")
+		tag = string(runes[j+2 : k-1])
+		varType := reflect.TypeOf(models.Result{}).Field(i).Type.String()
+		m[tag] = varType
+	}
+
+	v = reflect.ValueOf(models.Resultdetails{})
+
+	for i := 0; i < v.NumField(); i++ {
+		tag := string(reflect.TypeOf(models.Resultdetails{}).Field(i).Tag)
+		runes := []rune(tag)
+		j := strings.Index(tag, ":")
+		k := strings.Index(tag, "omit")
+		tag = string(runes[j+2 : k-1])
+		varType := reflect.TypeOf(models.Resultdetails{}).Field(i).Type.String()
+		m[tag] = varType
+	}
 
 	return m
 }

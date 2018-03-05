@@ -23,7 +23,7 @@ type GetSampleColumnsOK struct {
 	/*
 	  In: Body
 	*/
-	Payload []string `json:"body,omitempty"`
+	Payload [][]string `json:"body,omitempty"`
 }
 
 // NewGetSampleColumnsOK creates GetSampleColumnsOK with default headers values
@@ -32,13 +32,13 @@ func NewGetSampleColumnsOK() *GetSampleColumnsOK {
 }
 
 // WithPayload adds the payload to the get sample columns o k response
-func (o *GetSampleColumnsOK) WithPayload(payload []string) *GetSampleColumnsOK {
+func (o *GetSampleColumnsOK) WithPayload(payload [][]string) *GetSampleColumnsOK {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the get sample columns o k response
-func (o *GetSampleColumnsOK) SetPayload(payload []string) {
+func (o *GetSampleColumnsOK) SetPayload(payload [][]string) {
 	o.Payload = payload
 }
 
@@ -48,7 +48,7 @@ func (o *GetSampleColumnsOK) WriteResponse(rw http.ResponseWriter, producer runt
 	rw.WriteHeader(200)
 	payload := o.Payload
 	if payload == nil {
-		payload = make([]string, 0, 50)
+		payload = make([][]string, 0, 50)
 	}
 
 	if err := producer.Produce(rw, payload); err != nil {

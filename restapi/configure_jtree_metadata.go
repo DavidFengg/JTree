@@ -124,8 +124,15 @@ func getSamplesByQuery(query *models.Query) []*models.Record {
 	return allSamples(queryString)
 }
 
-func getColumns() []string {
-	return database.GetColumns(database.GetTables())
+func getColumns() [][]string {
+	columns := database.GetColumns(database.GetTables())
+	columnArray := make([][]string, len(columns))
+	for i, column := range columns {
+		columnArray[i] = make([]string, 2)
+		columnArray[i][0] = column
+		columnArray[i][1] = database.Map[column]
+	}
+	return columnArray
 }
 
 func logout() bool {
