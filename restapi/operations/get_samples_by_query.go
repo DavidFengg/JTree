@@ -40,10 +40,10 @@ type GetSamplesByQuery struct {
 }
 
 func (o *GetSamplesByQuery) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-	rw.Header().Set("Access-Control-Allow-Origin", "*")
-	rw.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-	rw.Header().Set("Access-Control-Allow-Headers","Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-	rw.Header().Set("Access-Control-Allow-Credentials", "true")	
+	// rw.Header().Set("Access-Control-Allow-Origin", "*")
+	// rw.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	// rw.Header().Set("Access-Control-Allow-Headers","Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	// rw.Header().Set("Access-Control-Allow-Credentials", "true")
 	//r.Header().Set("Access-Control-Allow-Origin", "*")
 	//r.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	//r.Header().Set("Access-Control-Allow-Headers","Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")

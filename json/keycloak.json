@@ -4,7 +4,8 @@
   "ssl-required": "external",
   "resource": "JTree",
   "credentials": {
-    "secret": "f7aa52a3-01c8-42c8-9302-113ed8e73d22"
+    "secret": "ea3d6f6b-3778-4853-94e0-ee63baedf69b"
   },
+  "confidential-port": 0,
   "policy-enforcer": {}
 }

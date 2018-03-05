@@ -206,7 +206,7 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	KeycloakserverName := c.Keycloak.Host
 
 	if keycloakFlags.Active {
-		keycloak.Init(KeycloakserverName, ServerName, "/Jtree/metadata/0.1.0/columns", "/logout")
+		keycloak.Init(KeycloakserverName, "http://"+ServerName, "/Jtree/metadata/0.1.0/columns", "/logout")
 	}
 	if dataGenFlags.Generate != 0 {
 		dummydata.MakeData(dataGenFlags.Generate, dataGenFlags.Generate)
