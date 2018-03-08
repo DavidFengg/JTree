@@ -95,18 +95,6 @@ func addExperiment(experiment *models.Experiment) error {
 	return nil
 }
 
-// func allPatients(query string) (result []*models.Patient) {
-// 	if query == "search" || query == "" {
-// 		query = "SELECT * FROM Patients"
-// 	}
-// 	patients := repos.GetAllPatients(query)
-// 	result = make([]*models.Patient, 0)
-// 	for _, item := range patients {
-// 		result = append(result, item)
-// 	}
-// 	return
-// }
-
 func allSamples(query string) (result []*models.Record) {
 	if query == "search" || query == "" {
 		query = "SELECT * FROM Samples"
