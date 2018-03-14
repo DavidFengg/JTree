@@ -66,7 +66,7 @@ func printConditions(SelectedCondition [][]string) string {
 		str += SelectedCondition[i][0] + " " + SelectedCondition[i][1] + SelectedCondition[i][2]
 		if Map[SelectedCondition[i][1]] == "*string" {
 			str += "\"" + SelectedCondition[i][3] + "\" "
-		} else if Map[SelectedCondition[i][1]] == "*float32" || Map[SelectedCondition[i][1]] == "*bool" {
+		} else if Map[SelectedCondition[i][1]] == "*float32" || Map[SelectedCondition[i][1]] == "*bool" || Map[SelectedCondition[i][1]] == "*int64" {
 			str += SelectedCondition[i][3] + " "
 
 		}
