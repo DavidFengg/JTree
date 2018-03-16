@@ -1,11 +1,16 @@
 package dummydata
 
 import (
+	"fmt"
+	"io/ioutil"
+	"log"
 	"math/rand"
+	"path/filepath"
 	"strconv"
 
 	models "github.com/Bio-core/jtree/models"
 	repos "github.com/Bio-core/jtree/repos"
+	yaml "gopkg.in/yaml.v2"
 )
 
 var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
@@ -15,10 +20,18 @@ var id2 int
 var id3 int
 var id4 int
 var id5 int
+var genes *GeneArray
+
+//GeneArray is an object with an array of gene types
+type GeneArray struct {
+	Genes []string
+}
 
 //MakeData makes dummy data and puts it into the db
 func MakeData(numberPatients, numberSamples int) {
 	r = rand.New(rand.NewSource(99))
+	genes = &GeneArray{}
+	genes = genes.GetGenes()
 	createPatients(numberPatients)
 	createSamples(numberSamples)
 	createExperiments(numberSamples)
@@ -49,6 +62,11 @@ func makeRandomBool() bool {
 		return true
 	}
 	return false
+}
+
+func makeRandomGene() string {
+	num := rand.Intn(568)
+	return genes.Genes[num]
 }
 
 func createPatients(number int) {
@@ -310,7 +328,7 @@ func makeResultDetail() models.Resultdetails {
 	resultdetail.Coverage = &Coverage
 	Exon := int64(rand.Intn(1000))
 	resultdetail.Exon = &Exon
-	Gene := makeRandomString()
+	Gene := makeRandomGene()
 	resultdetail.Gene = &Gene
 	Pcr := makeRandomString()
 	resultdetail.Pcr = &Pcr
@@ -334,4 +352,19 @@ func makeResultDetail() models.Resultdetails {
 	resultdetail.VAF = &VAF
 
 	return resultdetail
+}
+
+//GetGenes fills the gene array struct
+func (g *GeneArray) GetGenes() *GeneArray {
+	path, _ := filepath.Abs("./models/genes.yaml")
+	yamlFile, err := ioutil.ReadFile(path)
+	if err != nil {
+		log.Printf("yamlFile.Get err   #%v ", err)
+	}
+	err = yaml.Unmarshal(yamlFile, g)
+	if err != nil {
+		log.Fatalf("Unmarshal: %v", err)
+	}
+	fmt.Printf("%v", g)
+	return g
 }
