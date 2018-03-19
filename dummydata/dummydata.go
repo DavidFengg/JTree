@@ -1,7 +1,6 @@
 package dummydata
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"math/rand"
@@ -65,8 +64,32 @@ func makeRandomBool() bool {
 }
 
 func makeRandomGene() string {
-	num := rand.Intn(568)
+	num := genrand(0, 568, 0, 568, 5)
 	return genes.Genes[num]
+}
+
+func genrand(bmin, bmax, rmin, rmax, n int) int {
+	const randMax = 32767
+	// Generalized random number generator;
+	// sum of n random variables (usually 3).
+	// Bell curve spans bmin<=x<bmax; then,
+	// values outside rmin<=x<rmax are rejected.
+	var sum, i, u int
+	sum = 0
+	for {
+		for i = 0; i < n; i++ {
+			sum += bmin + (rand.Intn(randMax) % (bmax - bmin))
+		}
+		if sum < 0 {
+			sum -= n - 1
+		}
+		u = sum / n
+
+		if rmin <= u && u < rmax {
+			break
+		}
+	}
+	return u
 }
 
 func createPatients(number int) {
@@ -365,6 +388,5 @@ func (g *GeneArray) GetGenes() *GeneArray {
 	if err != nil {
 		log.Fatalf("Unmarshal: %v", err)
 	}
-	fmt.Printf("%v", g)
 	return g
 }
