@@ -19,7 +19,7 @@ CREATE TABLE `patients` (
   `surgical_date` date DEFAULT NULL,
   KEY `sample_id_idx` (`sample_id`),
   KEY `samples.sample_id_idx` (`sample_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `samples` (
   `sample_id` nvarchar(50) DEFAULT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE `samples` (
   `rna_extraction_date` date DEFAULT NULL,
   KEY `sample_id_idx` (`sample_id`),
   CONSTRAINT `sample_id` FOREIGN KEY (`sample_id`) REFERENCES `patients` (`sample_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `experiments` (
@@ -96,7 +96,7 @@ CREATE TABLE `experiments` (
   `procedure_order_datetime` datetime DEFAULT NULL,
   KEY `sample_id_idx` (`sample_id`),
   CONSTRAINT `sample_id_ex` FOREIGN KEY (`sample_id`) REFERENCES `samples` (`sample_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `results` (
@@ -115,7 +115,7 @@ CREATE TABLE `results` (
     FOREIGN KEY (`sample_id`)
     REFERENCES `JTree`.`samples` (`sample_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    ON UPDATE NO ACTION) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `JTree`.`resultdetails` (
   `VAF` FLOAT NULL,
@@ -137,4 +137,4 @@ CREATE TABLE `JTree`.`resultdetails` (
     FOREIGN KEY (`sample_id`)
     REFERENCES `JTree`.`samples` (`sample_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    ON UPDATE NO ACTION) ENGINE=INNODB DEFAULT CHARSET=utf8;
