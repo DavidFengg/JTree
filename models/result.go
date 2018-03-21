@@ -43,6 +43,9 @@ type Result struct {
 
 	// verification pcr
 	VerificationPcr *string `json:"results.verification_pcr,omitempty" db:"results.verification_pcr"`
+
+	// experiment id
+	ExperimentID *string `json:"experiments.experiment_id,omitempty" db:"experiments.experiment_id"`
 }
 
 // Validate validates this result

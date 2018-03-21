@@ -53,9 +53,6 @@ type Patient struct {
 	// referring physican
 	ReferringPhysican *string `json:"patients.referring_physican,omitempty" db:"patients.referring_physican"`
 
-	// sample id
-	SampleID *string `json:"patients.sample_id,omitempty" db:"patients.sample_id"`
-
 	// se num
 	SeNum *string `json:"patients.se_num,omitempty" db:"patients.se_num"`
 
