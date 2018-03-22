@@ -35,9 +35,6 @@ type Result struct {
 	// results id
 	ResultsID *string `json:"results.results_id,omitempty" db:"results.results_id"`
 
-	// sample id
-	SampleID *string `json:"results.sample_id,omitempty" db:"results.sample_id"`
-
 	// uid
 	UID *string `json:"results.uid,omitempty" db:"results.uid"`
 
