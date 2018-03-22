@@ -159,14 +159,12 @@ func makePatient() models.Patient {
 	patient.Mrn = &Mrn
 	OnHcn := makeRandomString()
 	patient.OnHcn = &OnHcn
-	PatientID := makeRandomString()
+	PatientID := strconv.Itoa(id1)
 	patient.PatientID = &PatientID
 	PatientType := makeRandomString()
 	patient.PatientType = &PatientType
 	ReferringPhysican := makeRandomString()
 	patient.ReferringPhysican = &ReferringPhysican
-	SampleID := strconv.Itoa(id1)
-	patient.SampleID = &SampleID
 	SeNum := makeRandomString()
 	patient.SeNum = &SeNum
 	SurgicalDate := makeRandomDate()
@@ -279,6 +277,8 @@ func makeSample() models.Sample {
 	sample.RnaQuality = &RnaQuality
 	RnaExtractionDate := makeRandomDate()
 	sample.RnaExtractionDate = &RnaExtractionDate
+	PatientID := strconv.Itoa(id2)
+	sample.PatientID = &PatientID
 
 	return sample
 }
@@ -289,7 +289,7 @@ func makeExperiment() models.Experiment {
 	experiment.ChipCartridgeBarcode = &ChipCartridgeBarcode
 	CompleteDate := makeRandomDate()
 	experiment.CompleteDate = &CompleteDate
-	ExperimentID := makeRandomString()
+	ExperimentID := strconv.Itoa(id3)
 	experiment.ExperimentID = &ExperimentID
 	HasProjectFiles := makeRandomBool()
 	experiment.HasProjectFiles = &HasProjectFiles
@@ -331,10 +331,10 @@ func makeResult() models.Result {
 	result.OverallHotspotsThreshold = &OverallHotspotsThreshold
 	OverallQualityThreshold := makeRandomFloat()
 	result.OverallQualityThreshold = &OverallQualityThreshold
-	ResultsID := makeRandomString()
+	ResultsID := strconv.Itoa(id4)
 	result.ResultsID = &ResultsID
-	SampleID := strconv.Itoa(id4)
-	result.SampleID = &SampleID
+	ExperimentID := strconv.Itoa(id4)
+	result.ExperimentID = &ExperimentID
 	UID := makeRandomString()
 	result.UID = &UID
 	VerificationPcr := makeRandomString()
@@ -361,14 +361,12 @@ func makeResultDetail() models.Resultdetails {
 	resultdetail.QualityScore = &QualityScore
 	Result := makeRandomString()
 	resultdetail.Result = &Result
-	ResultsDetailsID := makeRandomString()
+	ResultsDetailsID := strconv.Itoa(id5)
 	resultdetail.ResultsDetailsID = &ResultsDetailsID
-	ResultsID := makeRandomString()
+	ResultsID := strconv.Itoa(id5)
 	resultdetail.ResultsID = &ResultsID
 	RiskScore := makeRandomFloat()
 	resultdetail.RiskScore = &RiskScore
-	SampleID := strconv.Itoa(id5)
-	resultdetail.SampleID = &SampleID
 	UID := makeRandomString()
 	resultdetail.UID = &UID
 	VAF := makeRandomFloat()

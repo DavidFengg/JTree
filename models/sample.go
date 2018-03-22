@@ -171,7 +171,7 @@ type Sample struct {
 	WbcLocation *string `json:"samples.wbc_location,omitempty" db:"samples.wbc_location"`
 
 	// patient id
-	PatientID *string `json:"patients.patient_id,omitempty" db:"patients.patient_id"`
+	PatientID *string `json:"samples.patient_id,omitempty" db:"samples.patient_id"`
 }
 
 // Validate validates this sample
