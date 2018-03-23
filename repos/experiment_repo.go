@@ -19,17 +19,17 @@ func InsertExperiment(experiment *models.Experiment) bool {
 		experiment.ExperimentID,
 		experiment.StudyID,
 		experiment.PanelAssayScreened,
-		experiment.TestDate,
+		experiment.TestDate.Format(shortForm),
 		experiment.ChipCartridgeBarcode,
-		experiment.CompleteDate,
+		experiment.CompleteDate.Format(shortForm),
 		experiment.Pcr,
 		experiment.SampleID,
 		experiment.ProjectName,
 		experiment.Priority,
-		experiment.OpenedDate,
+		experiment.OpenedDate.Format(shortForm),
 		experiment.ProjectID,
 		experiment.HasProjectFiles,
-		experiment.ProcedureOrderDatetime)
+		experiment.ProcedureOrderDatetime.Format(shortForm))
 	stmt.Close()
 	if err != nil {
 		fmt.Println(err)

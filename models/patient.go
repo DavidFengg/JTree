@@ -4,6 +4,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"time"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -18,13 +20,13 @@ type Patient struct {
 	ClinicalHistory *string `json:"patients.clinical_history,omitempty" db:"patients.clinical_history"`
 
 	// date received
-	DateReceived *string `json:"patients.date_received,omitempty" db:"patients.date_received"`
+	DateReceived *time.Time `json:"patients.date_received,omitempty" db:"patients.date_received"`
 
 	// date reported
-	DateReported *string `json:"patients.date_reported,omitempty" db:"patients.date_reported"`
+	DateReported *time.Time `json:"patients.date_reported,omitempty" db:"patients.date_reported"`
 
 	// dob
-	Dob *string `json:"patients.dob,omitempty" db:"patients.dob"`
+	Dob *time.Time `json:"patients.dob,omitempty" db:"patients.dob"`
 
 	// first name
 	FirstName *string `json:"patients.first_name,omitempty" db:"patients.first_name"`
@@ -57,7 +59,7 @@ type Patient struct {
 	SeNum *string `json:"patients.se_num,omitempty" db:"patients.se_num"`
 
 	// surgical date
-	SurgicalDate *string `json:"patients.surgical_date,omitempty" db:"patients.surgical_date"`
+	SurgicalDate *time.Time `json:"patients.surgical_date,omitempty" db:"patients.surgical_date"`
 }
 
 // Validate validates this patient

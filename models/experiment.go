@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"path/filepath"
+	"time"
 
 	strfmt "github.com/go-openapi/strfmt"
 	yaml "gopkg.in/yaml.v2"
@@ -28,7 +29,7 @@ type Experiment struct {
 	ChipCartridgeBarcode *string `json:"experiments.chip_cartridge_barcode,omitempty" db:"experiments.chip_cartridge_barcode"`
 
 	// complete date
-	CompleteDate *string `json:"experiments.complete_date,omitempty" db:"experiments.complete_date"`
+	CompleteDate *time.Time `json:"experiments.complete_date,omitempty" db:"experiments.complete_date"`
 
 	// experiment id
 	ExperimentID *string `json:"experiments.experiment_id,omitempty" db:"experiments.experiment_id"`
@@ -37,7 +38,7 @@ type Experiment struct {
 	HasProjectFiles *bool `json:"experiments.has_project_files,omitempty" db:"experiments.has_project_files"`
 
 	// opened date
-	OpenedDate *string `json:"experiments.opened_date,omitempty" db:"experiments.opened_date"`
+	OpenedDate *time.Time `json:"experiments.opened_date,omitempty" db:"experiments.opened_date"`
 
 	// panel assay screened
 	PanelAssayScreened *string `json:"experiments.panel_assay_screened,omitempty" db:"experiments.panel_assay_screened"`
@@ -49,7 +50,7 @@ type Experiment struct {
 	Priority *string `json:"experiments.priority,omitempty" db:"experiments.priority"`
 
 	// procedure order datetime
-	ProcedureOrderDatetime *string `json:"experiments.procedure_order_datetime,omitempty" db:"experiments.procedure_order_datetime"`
+	ProcedureOrderDatetime *time.Time `json:"experiments.procedure_order_datetime,omitempty" db:"experiments.procedure_order_datetime"`
 
 	// project id
 	ProjectID *string `json:"experiments.project_id,omitempty" db:"experiments.project_id"`
@@ -64,7 +65,7 @@ type Experiment struct {
 	StudyID *string `json:"experiments.study_id,omitempty" db:"experiments.study_id"`
 
 	// test date
-	TestDate *string `json:"experiments.test_date,omitempty" db:"experiments.test_date"`
+	TestDate *time.Time `json:"experiments.test_date,omitempty" db:"experiments.test_date"`
 }
 
 //ExperimentEnum is a struct that grabs the validation values from the enums.yaml file

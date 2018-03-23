@@ -4,6 +4,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"time"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -36,13 +38,13 @@ type Sample struct {
 	CopathNum *string `json:"samples.copath_num,omitempty" db:"samples.copath_num"`
 
 	// date collected
-	DateCollected *string `json:"samples.date_collected,omitempty" db:"samples.date_collected"`
+	DateCollected *time.Time `json:"samples.date_collected,omitempty" db:"samples.date_collected"`
 
 	// date received
-	DateReceived *string `json:"samples.date_received,omitempty" db:"samples.date_received"`
+	DateReceived *time.Time `json:"samples.date_received,omitempty" db:"samples.date_received"`
 
 	// date submitted
-	DateSubmitted *string `json:"samples.date_submitted,omitempty" db:"samples.date_submitted"`
+	DateSubmitted *time.Time `json:"samples.date_submitted,omitempty" db:"samples.date_submitted"`
 
 	// delta ct value
 	DeltaCtValue *float32 `json:"samples.delta_ct_value,omitempty" db:"samples.delta_ct_value"`
@@ -114,7 +116,7 @@ type Sample struct {
 	RnaConcentration *float32 `json:"samples.rna_concentration,omitempty" db:"samples.rna_concentration"`
 
 	// rna extraction date
-	RnaExtractionDate *string `json:"samples.rna_extraction_date,omitempty" db:"samples.rna_extraction_date"`
+	RnaExtractionDate *time.Time `json:"samples.rna_extraction_date,omitempty" db:"samples.rna_extraction_date"`
 
 	// rna location
 	RnaLocation *string `json:"samples.rna_location,omitempty" db:"samples.rna_location"`
@@ -129,7 +131,7 @@ type Sample struct {
 	RnaVolume *float32 `json:"samples.rna_volume,omitempty" db:"samples.rna_volume"`
 
 	// rnase p date
-	RnasePDate *string `json:"samples.rnase_p_date,omitempty" db:"samples.rnase_p_date"`
+	RnasePDate *time.Time `json:"samples.rnase_p_date,omitempty" db:"samples.rnase_p_date"`
 
 	// sample id
 	SampleID *string `json:"samples.sample_id,omitempty" db:"samples.sample_id"`

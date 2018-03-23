@@ -31,8 +31,8 @@ func InsertSample(sample *models.Sample) bool {
 		sample.Facility,
 		sample.TestRequested,
 		sample.SeNum,
-		sample.DateCollected,
-		sample.DateReceived,
+		sample.DateCollected.Format(shortForm),
+		sample.DateReceived.Format(shortForm),
 		sample.SampleType,
 		sample.MaterialReceived,
 		sample.MaterialReceivedNum,
@@ -61,7 +61,7 @@ func InsertSample(sample *models.Sample) bool {
 		sample.SampleSize,
 		sample.StudyID,
 		sample.SampleName,
-		sample.DateSubmitted,
+		sample.DateSubmitted.Format(shortForm),
 		sample.ContainerType,
 		sample.ContainerName,
 		sample.ContainerID,
@@ -75,10 +75,10 @@ func InsertSample(sample *models.Sample) bool {
 		sample.FfpeQcDate,
 		sample.DeltaCtValue,
 		sample.Comments,
-		sample.RnasePDate,
+		sample.RnasePDate.Format(shortForm),
 		sample.DnaQualityByRnaseP,
 		sample.RnaQuality,
-		sample.RnaExtractionDate,
+		sample.RnaExtractionDate.Format(shortForm),
 		sample.PatientID)
 	stmt.Close()
 	if err != nil {
