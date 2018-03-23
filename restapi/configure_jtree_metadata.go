@@ -197,7 +197,7 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 		keycloak.Init(KeycloakserverName, "http://"+ServerName, "/Jtree/metadata/0.1.0/columns", "/Jtree/metadata/0.1.0/logout")
 	}
 	if dataGenFlags.Generate != 0 {
-		dummydata.MakeData(dataGenFlags.Generate, dataGenFlags.Generate)
+		dummydata.MakeData(dataGenFlags.Generate)
 	}
 	// Set your custom logger if needed. Default one is log.Printf
 	// Expected interface func(string, ...interface{})

@@ -27,15 +27,15 @@ type GeneArray struct {
 }
 
 //MakeData makes dummy data and puts it into the db
-func MakeData(numberPatients, numberSamples int) {
+func MakeData(number int) {
 	r = rand.New(rand.NewSource(99))
 	genes = &GeneArray{}
 	genes = genes.GetGenes()
-	createPatients(numberPatients)
-	createSamples(numberSamples)
-	createExperiments(numberSamples)
-	createResults(numberSamples)
-	createResultDetails(numberSamples)
+	num1 := createPatients(number)
+	num2 := createSamples(num1)
+	num3 := createExperiments(num2)
+	num4 := createResults(num3)
+	createResultDetails(num4)
 }
 
 func makeRandomString() string {
@@ -92,41 +92,66 @@ func genrand(bmin, bmax, rmin, rmax, n int) int {
 	return u
 }
 
-func createPatients(number int) {
+func createPatients(number int) int {
 	for i := 0; i < number; i++ {
 		id1++
-		tempPatient := makePatient()
+		tempPatient := makePatient(id1)
 		repos.InsertPatient(&tempPatient)
 	}
+	return id1
 }
-func createResults(number int) {
+func createResults(number int) int {
+	id1 = 0
 	for i := 0; i < number; i++ {
-		id4++
-		tempResult := makeResult()
-		repos.InsertResult(&tempResult)
+		id1++
+		c := rand.Intn(2) + 1
+		for j := 0; j < c; j++ {
+			id4++
+			tempResult := makeResult(id1, id4)
+			repos.InsertResult(&tempResult)
+		}
 	}
+	return id4
 }
-func createResultDetails(number int) {
+func createResultDetails(number int) int {
+	id1 = 0
 	for i := 0; i < number; i++ {
-		id5++
-		tempResultDetail := makeResultDetail()
-		repos.InsertResultDetail(&tempResultDetail)
+		id1++
+		c := rand.Intn(2) + 1
+		for j := 0; j < c; j++ {
+			id5++
+			tempResultDetail := makeResultDetail(id1, id5)
+			repos.InsertResultDetail(&tempResultDetail)
+		}
 	}
+	return id5
 }
 
-func createSamples(number int) {
+func createSamples(number int) int {
+	id1 = 0
 	for i := 0; i < number; i++ {
-		id2++
-		tempSample := makeSample()
-		repos.InsertSample(&tempSample)
+		id1++
+		c := rand.Intn(5) + 1
+		for j := 0; j < c; j++ {
+			id2++
+			tempSample := makeSample(id1, id2)
+			repos.InsertSample(&tempSample)
+		}
 	}
+	return id2
 }
-func createExperiments(number int) {
+func createExperiments(number int) int {
+	id1 = 0
 	for i := 0; i < number; i++ {
-		id3++
-		tempExperiment := makeExperiment()
-		repos.InsertExperiment(&tempExperiment)
+		id1++
+		c := rand.Intn(5) + 1
+		for j := 0; j < c; j++ {
+			id3++
+			tempExperiment := makeExperiment(id1, id3)
+			repos.InsertExperiment(&tempExperiment)
+		}
 	}
+	return id3
 }
 
 func randSeq(n int) string {
@@ -137,7 +162,7 @@ func randSeq(n int) string {
 	return string(b)
 }
 
-func makePatient() models.Patient {
+func makePatient(patientID int) models.Patient {
 	patient := models.Patient{}
 	ClinicalHistory := makeRandomString()
 	patient.ClinicalHistory = &ClinicalHistory
@@ -159,7 +184,7 @@ func makePatient() models.Patient {
 	patient.Mrn = &Mrn
 	OnHcn := makeRandomString()
 	patient.OnHcn = &OnHcn
-	PatientID := strconv.Itoa(id1)
+	PatientID := strconv.Itoa(patientID)
 	patient.PatientID = &PatientID
 	PatientType := makeRandomString()
 	patient.PatientType = &PatientType
@@ -173,9 +198,9 @@ func makePatient() models.Patient {
 	return patient
 }
 
-func makeSample() models.Sample {
+func makeSample(patientID int, sampleID int) models.Sample {
 	sample := models.Sample{}
-	SampleID := strconv.Itoa(id2)
+	SampleID := strconv.Itoa(sampleID)
 	sample.SampleID = &SampleID
 	Facility := makeRandomString()
 	sample.Facility = &Facility
@@ -277,19 +302,19 @@ func makeSample() models.Sample {
 	sample.RnaQuality = &RnaQuality
 	RnaExtractionDate := makeRandomDate()
 	sample.RnaExtractionDate = &RnaExtractionDate
-	PatientID := strconv.Itoa(id2)
+	PatientID := strconv.Itoa(patientID)
 	sample.PatientID = &PatientID
 
 	return sample
 }
 
-func makeExperiment() models.Experiment {
+func makeExperiment(sampleID int, experimentID int) models.Experiment {
 	experiment := models.Experiment{}
 	ChipCartridgeBarcode := makeRandomString()
 	experiment.ChipCartridgeBarcode = &ChipCartridgeBarcode
 	CompleteDate := makeRandomDate()
 	experiment.CompleteDate = &CompleteDate
-	ExperimentID := strconv.Itoa(id3)
+	ExperimentID := strconv.Itoa(experimentID)
 	experiment.ExperimentID = &ExperimentID
 	HasProjectFiles := makeRandomBool()
 	experiment.HasProjectFiles = &HasProjectFiles
@@ -307,7 +332,7 @@ func makeExperiment() models.Experiment {
 	experiment.ProjectID = &ProjectID
 	ProjectName := makeRandomString()
 	experiment.ProjectName = &ProjectName
-	SampleID := strconv.Itoa(id3)
+	SampleID := strconv.Itoa(sampleID)
 	experiment.SampleID = &SampleID
 	StudyID := makeRandomString()
 	experiment.StudyID = &StudyID
@@ -317,7 +342,7 @@ func makeExperiment() models.Experiment {
 	return experiment
 }
 
-func makeResult() models.Result {
+func makeResult(experimentID int, resultID int) models.Result {
 	result := models.Result{}
 	FailedRegions := makeRandomString()
 	result.FailedRegions = &FailedRegions
@@ -331,9 +356,9 @@ func makeResult() models.Result {
 	result.OverallHotspotsThreshold = &OverallHotspotsThreshold
 	OverallQualityThreshold := makeRandomFloat()
 	result.OverallQualityThreshold = &OverallQualityThreshold
-	ResultsID := strconv.Itoa(id4)
+	ResultsID := strconv.Itoa(resultID)
 	result.ResultsID = &ResultsID
-	ExperimentID := strconv.Itoa(id4)
+	ExperimentID := strconv.Itoa(experimentID)
 	result.ExperimentID = &ExperimentID
 	UID := makeRandomString()
 	result.UID = &UID
@@ -343,7 +368,7 @@ func makeResult() models.Result {
 	return result
 }
 
-func makeResultDetail() models.Resultdetails {
+func makeResultDetail(resultID int, resultdetailID int) models.Resultdetails {
 	resultdetail := models.Resultdetails{}
 	CNomenclature := makeRandomString()
 	resultdetail.CNomenclature = &CNomenclature
@@ -361,9 +386,9 @@ func makeResultDetail() models.Resultdetails {
 	resultdetail.QualityScore = &QualityScore
 	Result := makeRandomString()
 	resultdetail.Result = &Result
-	ResultsDetailsID := strconv.Itoa(id5)
+	ResultsDetailsID := strconv.Itoa(resultdetailID)
 	resultdetail.ResultsDetailsID = &ResultsDetailsID
-	ResultsID := strconv.Itoa(id5)
+	ResultsID := strconv.Itoa(resultID)
 	resultdetail.ResultsID = &ResultsID
 	RiskScore := makeRandomFloat()
 	resultdetail.RiskScore = &RiskScore
