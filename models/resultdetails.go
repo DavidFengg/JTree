@@ -50,9 +50,6 @@ type Resultdetails struct {
 	// risk score
 	RiskScore *float32 `json:"resultdetails.risk_score,omitempty" db:"resultdetails.risk_score"`
 
-	// sample id
-	SampleID *string `json:"resultdetails.sample_id,omitempty" db:"resultdetails.sample_id"`
-
 	// uid
 	UID *string `json:"resultdetails.uid,omitempty" db:"resultdetails.uid"`
 }

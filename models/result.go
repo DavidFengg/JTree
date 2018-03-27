@@ -35,14 +35,14 @@ type Result struct {
 	// results id
 	ResultsID *string `json:"results.results_id,omitempty" db:"results.results_id"`
 
-	// sample id
-	SampleID *string `json:"results.sample_id,omitempty" db:"results.sample_id"`
-
 	// uid
 	UID *string `json:"results.uid,omitempty" db:"results.uid"`
 
 	// verification pcr
 	VerificationPcr *string `json:"results.verification_pcr,omitempty" db:"results.verification_pcr"`
+
+	// experiment id
+	ExperimentID *string `json:"results.experiment_id,omitempty" db:"results.experiment_id"`
 }
 
 // Validate validates this result

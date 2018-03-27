@@ -9,7 +9,7 @@ import (
 
 //InsertResult allows users to add generic objects to a collection in the database
 func InsertResult(result *models.Result) bool {
-	stmt, err := database.DBUpdate.Prepare("INSERT INTO `JTree`.`results`(`failed_regions`,`mean_depth_of_coveage`,`mlpa_pcr`,`mutation`,`overall_hotspots_threshold`,`overall_quality_threshold`,`results_id`,`sample_id`,`uid`,`verification_pcr`)VALUES(?,?,?,?,?,?,?,?,?,?);")
+	stmt, err := database.DBUpdate.Prepare("INSERT INTO `JTree`.`results`(`failed_regions`,`mean_depth_of_coveage`,`mlpa_pcr`,`mutation`,`overall_hotspots_threshold`,`overall_quality_threshold`,`results_id`,`uid`,`verification_pcr`, `experiment_id`)VALUES(?,?,?,?,?,?,?,?,?,?);")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -21,9 +21,9 @@ func InsertResult(result *models.Result) bool {
 		result.OverallHotspotsThreshold,
 		result.OverallQualityThreshold,
 		result.ResultsID,
-		result.SampleID,
 		result.UID,
-		result.VerificationPcr)
+		result.VerificationPcr,
+		result.ExperimentID)
 	stmt.Close()
 	if err != nil {
 		log.Fatal(err, outcome)

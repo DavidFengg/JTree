@@ -18,6 +18,8 @@ func BuildQuery(query models.Query) string {
 		query.SelectedFields = GetColumns(query.SelectedTables)
 	}
 	fields := printFields(query.SelectedFields)
+	query.SelectedTables = orderTablesByHigharch(query.SelectedTables)
+	query.SelectedTables = detemineMissingTablesLinks(query.SelectedTables)
 	tables := printTables(query.SelectedTables)
 	queryString := "SELECT " + fields + " FROM " + tables
 	if len(query.SelectedCondition) != 0 {
@@ -44,11 +46,8 @@ func printTables(selectedTables []string) string {
 	for i := 0; i < len(selectedTables); i++ {
 		if i == 0 {
 			str += selectedTables[i]
-
-			// } else {
-			// 	str += " JOIN " + selectedTables[i] + " ON " + "patients.sample_id = samples.sample_id"
 		} else {
-			str += " JOIN " + selectedTables[i] + " ON " + selectedTables[i-1] + ".sample_id = " + selectedTables[i] + ".sample_id"
+			str += " JOIN " + selectedTables[i] + " ON " + selectedTables[i-1] + "." + joinMap[selectedTables[i-1]][selectedTables[i]] + "=" + selectedTables[i] + "." + joinMap[selectedTables[i-1]][selectedTables[i]]
 		}
 
 	}
@@ -278,4 +277,46 @@ func MapSuper() map[string]string {
 	}
 
 	return m
+}
+
+func orderTablesByHigharch(selectedTables []string) []string {
+	order := []string{"patients", "samples", "experiments", "results", "resultdetails"}
+	newTables := make([]string, 0)
+	for _, o := range order {
+		for i := range selectedTables {
+			if selectedTables[i] == o {
+				newTables = append(newTables, o)
+			}
+		}
+	}
+	return newTables
+}
+
+func detemineMissingTablesLinks(selectedTables []string) []string {
+	order := []string{"patients", "samples", "experiments", "results", "resultdetails"}
+	if selectedTables[len(selectedTables)-1] == order[4] {
+		if len(selectedTables) == 5 {
+			return selectedTables
+		}
+		return order
+	}
+	if selectedTables[len(selectedTables)-1] == order[3] {
+		if len(selectedTables) == 4 {
+			return selectedTables
+		}
+		return order[:3]
+	}
+	if selectedTables[len(selectedTables)-1] == order[2] {
+		if len(selectedTables) == 3 {
+			return selectedTables
+		}
+		return order[:2]
+	}
+	if selectedTables[len(selectedTables)-1] == order[1] {
+		if len(selectedTables) == 2 {
+			return selectedTables
+		}
+		return order[:1]
+	}
+	return selectedTables
 }
