@@ -304,19 +304,19 @@ func detemineMissingTablesLinks(selectedTables []string) []string {
 		if len(selectedTables) == 4 {
 			return selectedTables
 		}
-		return order[:3]
+		return order[:4]
 	}
 	if selectedTables[len(selectedTables)-1] == order[2] {
 		if len(selectedTables) == 3 {
 			return selectedTables
 		}
-		return order[:2]
+		return order[:3]
 	}
 	if selectedTables[len(selectedTables)-1] == order[1] {
 		if len(selectedTables) == 2 {
 			return selectedTables
 		}
-		return order[:1]
+		return order[:2]
 	}
 	return selectedTables
 }
