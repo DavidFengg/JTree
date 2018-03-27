@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"path/filepath"
 	"strconv"
+	"time"
 
 	models "github.com/Bio-core/jtree/models"
 	repos "github.com/Bio-core/jtree/repos"
@@ -20,6 +21,8 @@ var id3 int
 var id4 int
 var id5 int
 var genes *GeneArray
+
+const shortForm = "2006-01-02"
 
 //GeneArray is an object with an array of gene types
 type GeneArray struct {
@@ -45,7 +48,18 @@ func makeRandomString() string {
 }
 
 func makeRandomDate() string {
-	date := strconv.Itoa(rand.Intn(118)+1900) + "-" + strconv.Itoa(rand.Intn(11)+1) + "-" + strconv.Itoa(rand.Intn(27)+1)
+	year := strconv.Itoa(rand.Intn(118) + 1900)
+	monthint := rand.Intn(11) + 1
+	month := strconv.Itoa(monthint)
+	if monthint < 10 {
+		month = "0" + month
+	}
+	dayint := rand.Intn(27) + 1
+	day := strconv.Itoa(dayint)
+	if dayint < 10 {
+		day = "0" + day
+	}
+	date := year + "-" + month + "-" + day
 	return date
 }
 
@@ -166,11 +180,11 @@ func makePatient(patientID int) models.Patient {
 	patient := models.Patient{}
 	ClinicalHistory := makeRandomString()
 	patient.ClinicalHistory = &ClinicalHistory
-	DateReceived := makeRandomDate()
+	DateReceived, _ := time.Parse(shortForm, makeRandomDate())
 	patient.DateReceived = &DateReceived
-	DateReported := makeRandomDate()
+	DateReported, _ := time.Parse(shortForm, makeRandomDate())
 	patient.DateReported = &DateReported
-	Dob := makeRandomDate()
+	Dob, _ := time.Parse(shortForm, makeRandomDate())
 	patient.Dob = &Dob
 	FirstName := makeRandomString()
 	patient.FirstName = &FirstName
@@ -192,7 +206,7 @@ func makePatient(patientID int) models.Patient {
 	patient.ReferringPhysican = &ReferringPhysican
 	SeNum := makeRandomString()
 	patient.SeNum = &SeNum
-	SurgicalDate := makeRandomDate()
+	SurgicalDate, _ := time.Parse(shortForm, makeRandomDate())
 	patient.SurgicalDate = &SurgicalDate
 
 	return patient
@@ -208,9 +222,9 @@ func makeSample(patientID int, sampleID int) models.Sample {
 	sample.TestRequested = &TestRequested
 	SeNum := makeRandomString()
 	sample.SeNum = &SeNum
-	DateCollected := makeRandomDate()
+	DateCollected, _ := time.Parse(shortForm, makeRandomDate())
 	sample.DateCollected = &DateCollected
-	DateReceived := makeRandomDate()
+	DateReceived, _ := time.Parse(shortForm, makeRandomDate())
 	sample.DateReceived = &DateReceived
 	SampleType := makeRandomString()
 	sample.SampleType = &SampleType
@@ -268,7 +282,7 @@ func makeSample(patientID int, sampleID int) models.Sample {
 	sample.StudyID = &StudyID
 	SampleName := makeRandomString()
 	sample.SampleName = &SampleName
-	DateSubmitted := makeRandomDate()
+	DateSubmitted, _ := time.Parse(shortForm, makeRandomDate())
 	sample.DateSubmitted = &DateSubmitted
 	ContainerType := makeRandomString()
 	sample.ContainerType = &ContainerType
@@ -294,13 +308,13 @@ func makeSample(patientID int, sampleID int) models.Sample {
 	sample.DeltaCtValue = &DeltaCtValue
 	Comments := makeRandomString()
 	sample.Comments = &Comments
-	RnasePDate := makeRandomDate()
+	RnasePDate, _ := time.Parse(shortForm, makeRandomDate())
 	sample.RnasePDate = &RnasePDate
 	DnaQualityByRnaseP := makeRandomFloat()
 	sample.DnaQualityByRnaseP = &DnaQualityByRnaseP
 	RnaQuality := makeRandomFloat()
 	sample.RnaQuality = &RnaQuality
-	RnaExtractionDate := makeRandomDate()
+	RnaExtractionDate, _ := time.Parse(shortForm, makeRandomDate())
 	sample.RnaExtractionDate = &RnaExtractionDate
 	PatientID := strconv.Itoa(patientID)
 	sample.PatientID = &PatientID
@@ -312,13 +326,13 @@ func makeExperiment(sampleID int, experimentID int) models.Experiment {
 	experiment := models.Experiment{}
 	ChipCartridgeBarcode := makeRandomString()
 	experiment.ChipCartridgeBarcode = &ChipCartridgeBarcode
-	CompleteDate := makeRandomDate()
+	CompleteDate, _ := time.Parse(shortForm, makeRandomDate())
 	experiment.CompleteDate = &CompleteDate
 	ExperimentID := strconv.Itoa(experimentID)
 	experiment.ExperimentID = &ExperimentID
 	HasProjectFiles := makeRandomBool()
 	experiment.HasProjectFiles = &HasProjectFiles
-	OpenedDate := makeRandomDate()
+	OpenedDate, _ := time.Parse(shortForm, makeRandomDate())
 	experiment.OpenedDate = &OpenedDate
 	PanelAssayScreened := makeRandomString()
 	experiment.PanelAssayScreened = &PanelAssayScreened
@@ -326,7 +340,7 @@ func makeExperiment(sampleID int, experimentID int) models.Experiment {
 	experiment.Pcr = &Pcr
 	Priority := makeRandomString()
 	experiment.Priority = &Priority
-	ProcedureOrderDatetime := makeRandomDate()
+	ProcedureOrderDatetime, _ := time.Parse(shortForm, makeRandomDate())
 	experiment.ProcedureOrderDatetime = &ProcedureOrderDatetime
 	ProjectID := makeRandomString()
 	experiment.ProjectID = &ProjectID
@@ -336,7 +350,7 @@ func makeExperiment(sampleID int, experimentID int) models.Experiment {
 	experiment.SampleID = &SampleID
 	StudyID := makeRandomString()
 	experiment.StudyID = &StudyID
-	TestDate := makeRandomDate()
+	TestDate, _ := time.Parse(shortForm, makeRandomDate())
 	experiment.TestDate = &TestDate
 
 	return experiment

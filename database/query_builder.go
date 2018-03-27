@@ -63,7 +63,7 @@ func printConditions(SelectedCondition [][]string) string {
 			return "0=1"
 		}
 		str += SelectedCondition[i][0] + " " + SelectedCondition[i][1] + SelectedCondition[i][2]
-		if Map[SelectedCondition[i][1]] == "*string" {
+		if Map[SelectedCondition[i][1]] == "*string" || Map[SelectedCondition[i][1]] == "*time.Time" {
 			str += "\"" + SelectedCondition[i][3] + "\" "
 		} else if Map[SelectedCondition[i][1]] == "*float32" || Map[SelectedCondition[i][1]] == "*bool" || Map[SelectedCondition[i][1]] == "*int64" {
 			str += SelectedCondition[i][3] + " "
@@ -117,14 +117,14 @@ func GetTables() []string {
 func formatCondition(condition []string) []string {
 	switch condition[2] {
 	case "Equal to":
-		if Map[condition[1]] != "*string" && Map[condition[1]] != "*float32" && Map[condition[1]] != "*bool" && Map[condition[1]] != "*int64" {
+		if Map[condition[1]] != "*string" && Map[condition[1]] != "*float32" && Map[condition[1]] != "*bool" && Map[condition[1]] != "*int64" && Map[condition[1]] != "*time.Time" {
 			condition[2] = ""
 			return nil
 		}
 		condition[2] = "="
 		break
 	case "Not equal to":
-		if Map[condition[1]] != "*string" && Map[condition[1]] != "*float32" && Map[condition[1]] != "*bool" && Map[condition[1]] != "*int64" {
+		if Map[condition[1]] != "*string" && Map[condition[1]] != "*float32" && Map[condition[1]] != "*bool" && Map[condition[1]] != "*int64" && Map[condition[1]] != "*time.Time" {
 			condition[2] = ""
 			return nil
 		}
@@ -132,28 +132,28 @@ func formatCondition(condition []string) []string {
 
 		break
 	case "Greater than":
-		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" && !strings.Contains(strings.ToLower(condition[1]), "date") && !strings.Contains(strings.ToLower(condition[1]), "dob") {
+		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" && Map[condition[1]] != "*time.Time" {
 			condition[2] = ""
 			return nil
 		}
 		condition[2] = ">"
 		break
 	case "Less than":
-		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" && !strings.Contains(strings.ToLower(condition[1]), "date") && !strings.Contains(strings.ToLower(condition[1]), "dob") {
+		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" && Map[condition[1]] != "*time.Time" {
 			condition[2] = ""
 			return nil
 		}
 		condition[2] = "<"
 		break
 	case "Greater or equal to":
-		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" && !strings.Contains(strings.ToLower(condition[1]), "date") && !strings.Contains(strings.ToLower(condition[1]), "dob") {
+		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" && Map[condition[1]] != "*time.Time" {
 			condition[2] = ""
 			return nil
 		}
 		condition[2] = ">="
 		break
 	case "Less or equal to":
-		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" && !strings.Contains(strings.ToLower(condition[1]), "date") && !strings.Contains(strings.ToLower(condition[1]), "dob") {
+		if Map[condition[1]] != "*float32" && Map[condition[1]] != "*int64" && Map[condition[1]] != "*time.Time" {
 			condition[2] = ""
 			return nil
 		}
