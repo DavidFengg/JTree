@@ -123,6 +123,14 @@ func getColumns() [][]string {
 	return columnArray
 }
 
+func getSearchable() []string {
+	return models.Sefields.Searchable
+}
+
+func getUneditable() []string {
+	return models.Sefields.Uneditable
+}
+
 func logout() bool {
 	return true
 }
@@ -186,6 +194,9 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	c.GetConf()
 	setupOptions()
 	models.Enums = models.GetEnums(models.Enums)
+	models.Sefields = &models.SEFields{}
+	models.Sefields = models.Sefields.GetSEFields()
+
 	database.Map = database.MapSuper()
 
 	database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@/"+c.Database.Name+"?parseTime=true", database.DBSelect)
@@ -240,6 +251,12 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	})
 	api.GetSampleColumnsHandler = operations.GetSampleColumnsHandlerFunc(func(params operations.GetSampleColumnsParams) middleware.Responder {
 		return operations.NewGetSampleColumnsOK().WithPayload(getColumns())
+	})
+	api.GetSearchableHandler = operations.GetSearchableHandlerFunc(func(params operations.GetSearchableParams) middleware.Responder {
+		return operations.NewGetSearchableOK().WithPayload(getSearchable())
+	})
+	api.GetUneditableHandler = operations.GetUneditableHandlerFunc(func(params operations.GetUneditableParams) middleware.Responder {
+		return operations.NewGetUneditableOK().WithPayload(getUneditable())
 	})
 
 	api.ServerShutdown = func() {}

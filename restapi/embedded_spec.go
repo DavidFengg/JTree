@@ -284,6 +284,54 @@ func init() {
         }
       }
     },
+    "/searchable": {
+      "get": {
+        "description": "gets searchable",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets columns",
+        "operationId": "getSearchable",
+        "responses": {
+          "200": {
+            "description": "columns",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/uneditable": {
+      "get": {
+        "description": "gets uneditable",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets columns",
+        "operationId": "getUneditable",
+        "responses": {
+          "200": {
+            "description": "columns",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
     "/upload": {
       "post": {
         "consumes": [
@@ -1207,6 +1255,54 @@ func init() {
           },
           "409": {
             "description": "an existing item already exists"
+          }
+        }
+      }
+    },
+    "/searchable": {
+      "get": {
+        "description": "gets searchable",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets columns",
+        "operationId": "getSearchable",
+        "responses": {
+          "200": {
+            "description": "columns",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/uneditable": {
+      "get": {
+        "description": "gets uneditable",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets columns",
+        "operationId": "getUneditable",
+        "responses": {
+          "200": {
+            "description": "columns",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
           }
         }
       }
