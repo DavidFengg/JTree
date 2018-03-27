@@ -1,6 +1,7 @@
 package repos
 
 import (
+	"fmt"
 	"log"
 
 	database "github.com/Bio-core/jtree/database"
@@ -36,4 +37,48 @@ func InsertPatient(person *models.Patient) bool {
 		log.Fatal(err, result)
 	}
 	return true
+}
+
+//UpdatePatient remove a patient by id
+func UpdatePatient(person *models.Patient) bool {
+	stmt, err := database.DBUpdate.Prepare("UPDATE `JTree`.`patients` SET`first_name` = ?,`last_name` = ?,`initials` = ?,`gender` = ?,`mrn` = ?,`dob` = ?,`on_hcn` = ?,`clinical_history` = ?,`patient_type` = ?,`se_num` = ?,`patient_id` = ?,`date_received` = ?,`referring_physican` = ?,`date_reported` = ?,`surgical_date` = ?WHERE `patient_id` = ?;")
+	if err != nil {
+		log.Fatal(err)
+		return false
+	}
+	result, err := stmt.Exec(
+		person.FirstName,
+		person.LastName,
+		person.Initials,
+		person.Gender,
+		person.Mrn,
+		person.Dob.Format(shortForm),
+		person.OnHcn,
+		person.ClinicalHistory,
+		person.PatientType,
+		person.SeNum,
+		person.PatientID,
+		person.DateReceived.Format(shortForm),
+		person.ReferringPhysican,
+		person.DateReported.Format(shortForm),
+		person.SurgicalDate.Format(shortForm),
+		person.PatientID)
+	stmt.Close()
+	if err != nil {
+		log.Fatal(err, result)
+		return false
+	}
+	return true
+}
+
+//GetPatientByID gets all and results a list of samples
+func GetPatientByID(ID string) *models.Patient {
+	patient := models.Patient{}
+	query := fmt.Sprintf("SELECT * FROM patients where patient_id = %v", ID)
+	err := database.DBSelect.Select(&patient, query)
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	return &patient
 }

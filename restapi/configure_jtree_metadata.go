@@ -5,13 +5,12 @@ import (
 	localerrors "errors"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"strconv"
-	"sync"
-	"sync/atomic"
 
-	config "github.com/Bio-core/jtree/conf"
 	database "github.com/Bio-core/jtree/database"
 	"github.com/Bio-core/jtree/dummydata"
 	"github.com/Bio-core/jtree/models"
@@ -27,18 +26,12 @@ import (
 	"github.com/rs/cors"
 )
 
-var lastPatientID int64
-var patientLock = &sync.Mutex{}
-var lastSampleID int64
-var sampleLock = &sync.Mutex{}
-var c config.Conf
-
-func newPatientID() int64 {
-	return atomic.AddInt64(&lastPatientID, 1)
-}
-
-func newSampleID() int64 {
-	return atomic.AddInt64(&lastSampleID, 1)
+func newID() string {
+	out, err := exec.Command("uuidgen").Output()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return fmt.Sprintf("%s", out)
 }
 
 func addPatient(patient *models.Patient) error {
@@ -46,16 +39,17 @@ func addPatient(patient *models.Patient) error {
 		return errors.New(500, "item must be present")
 	}
 
-	patientLock.Lock()
-	defer patientLock.Unlock()
-
-	var newID = newPatientID()
-	var newIDString = strconv.FormatInt(newID, 10)
-	if patient.PatientID == nil {
-		patient.PatientID = &newIDString
+	var newID = newID()
+	if patient.PatientID != nil {
+		patientOLD := repos.GetPatientByID(*patient.PatientID)
+		if patientOLD == nil {
+			return errors.New(500, "item must be present")
+		}
+		repos.UpdatePatient(patient)
+	} else {
+		patient.PatientID = &newID
+		repos.InsertPatient(patient)
 	}
-	repos.InsertPatient(patient)
-
 	return nil
 }
 

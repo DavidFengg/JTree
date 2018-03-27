@@ -12,6 +12,7 @@ ENV GOROOT=/usr/lib/go \
 # Because of https://github.com/docker/docker/issues/14914
 ENV PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
+
 ADD . /gopath/src/github.com/bio-core/jtree
 WORKDIR /gopath/src/github.com/bio-core/jtree
 
@@ -32,11 +33,11 @@ LABEL GIT_COMMIT=$GIT_COMMIT
 LABEL VERSION=$VERSION
 
 # Because of https://github.com/docker/docker/issues/14914
-ENV PATH=$PATH:/opt/jtree/bin
+#ENV PATH=$PATH:/opt/jtree/bin
 
-WORKDIR /opt/jtree/bin
+#WORKDIR /opt/jtree/bin
 
-COPY --from=build-stage /gopath/src/github.com/bio-core/jtree/bin/jtree /opt/jtree/bin/
-RUN chmod +x /opt/jtree/bin/jtree
+#COPY --from=build-stage /gopath/src/github.com/bio-core/jtree/bin/jtree /opt/jtree/bin/
+#RUN chmod +x /opt/jtree/bin/jtree
 
-CMD /opt/jtree/bin/jtree
+CMD /gopath/src/github.com/bio-core/jtree/bin/jtree
