@@ -63,16 +63,17 @@ func addSample(sample *models.Sample) error {
 		return errors.New(500, "item must be present")
 	}
 
-	// sampleLock.Lock()
-	// defer sampleLock.Unlock()
-
-	// var newID = newSampleID()
-	// var newIDString = strconv.FormatInt(newID, 10)
-	// if sample.SampleID == nil {
-	// 	sample.SampleID = &newIDString
-	// }
-	repos.InsertSample(sample)
-
+	if sample.SampleID != nil {
+		sampleOLD := repos.GetSampleByID(*sample.SampleID)
+		if sampleOLD == nil {
+			return errors.New(500, "item must be present")
+		}
+		repos.UpdateSample(sample)
+	} else {
+		var newID = newID()
+		sample.SampleID = &newID
+		repos.InsertSample(sample)
+	}
 	return nil
 }
 

@@ -53,7 +53,7 @@ type Sample struct {
 	DnaConcentration *float32 `json:"samples.dna_concentration,omitempty" db:"samples.dna_concentration"`
 
 	// dna extraction date
-	DnaExtractionDate *string `json:"samples.dna_extraction_date,omitempty" db:"samples.dna_extraction_date"`
+	DnaExtractionDate *time.Time `json:"samples.dna_extraction_date,omitempty" db:"samples.dna_extraction_date"`
 
 	// dna location
 	DnaLocation *string `json:"samples.dna_location,omitempty" db:"samples.dna_location"`
@@ -74,7 +74,7 @@ type Sample struct {
 	Facility *string `json:"samples.facility,omitempty" db:"samples.facility"`
 
 	// ffpe qc date
-	FfpeQcDate *string `json:"samples.ffpe_qc_date,omitempty" db:"samples.ffpe_qc_date"`
+	FfpeQcDate *time.Time `json:"samples.ffpe_qc_date,omitempty" db:"samples.ffpe_qc_date"`
 
 	// h e slide location
 	HESlideLocation *string `json:"samples.h_e_slide_location,omitempty" db:"samples.h_e_slide_location"`

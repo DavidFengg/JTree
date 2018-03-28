@@ -298,11 +298,11 @@ func makeSample(patientID int, sampleID int) models.Sample {
 	sample.HasSampleFiles = &HasSampleFiles
 	DnaSampleBarcode := makeRandomString()
 	sample.DnaSampleBarcode = &DnaSampleBarcode
-	DnaExtractionDate := makeRandomDate()
+	DnaExtractionDate, _ := time.Parse(shortForm, makeRandomDate())
 	sample.DnaExtractionDate = &DnaExtractionDate
 	DnaQuality := makeRandomString()
 	sample.DnaQuality = &DnaQuality
-	FfpeQcDate := makeRandomDate()
+	FfpeQcDate, _ := time.Parse(shortForm, makeRandomDate())
 	sample.FfpeQcDate = &FfpeQcDate
 	DeltaCtValue := makeRandomFloat()
 	sample.DeltaCtValue = &DeltaCtValue
