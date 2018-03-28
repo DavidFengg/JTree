@@ -116,23 +116,22 @@ func addResult(result *models.Result) error {
 }
 
 func addResultdetail(resultdetail *models.Resultdetails) error {
-	// if experiment == nil {
-	// 	return errors.New(500, "item must be present")
-	// }
+	if resultdetail == nil {
+		return errors.New(500, "item must be present")
+	}
 
-	// if experiment.ExperimentID != nil {
-	// 	experimentOLD := repos.GetExperimentByID(*experiment.ExperimentID)
-	// 	if experimentOLD == nil {
-	// 		return errors.New(500, "item must be present")
-	// 	}
-	// 	repos.UpdateExperiment(experiment)
-	// } else {
-	// 	var newID = newID()
-	// 	experiment.ExperimentID = &newID
-	// 	repos.InsertExperiment(experiment)
-	// }
-	//return nil
-	return errors.New(500, "item must be present")
+	if resultdetail.ResultsDetailsID != nil {
+		resultdetailOLD := repos.GetResultDetailByID(*resultdetail.ResultsDetailsID)
+		if resultdetailOLD == nil {
+			return errors.New(500, "item must be present")
+		}
+		repos.UpdateResultDetail(resultdetail)
+	} else {
+		var newID = newID()
+		resultdetail.ResultsDetailsID = &newID
+		repos.InsertResultDetail(resultdetail)
+	}
+	return nil
 }
 
 func allSamples(query string) (result []*models.Record) {
