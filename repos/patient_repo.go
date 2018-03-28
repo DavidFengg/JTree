@@ -41,7 +41,7 @@ func InsertPatient(person *models.Patient) bool {
 
 //UpdatePatient remove a patient by id
 func UpdatePatient(person *models.Patient) bool {
-	stmt, err := database.DBUpdate.Prepare("UPDATE `JTree`.`patients` SET`first_name` = ?,`last_name` = ?,`initials` = ?,`gender` = ?,`mrn` = ?,`dob` = ?,`on_hcn` = ?,`clinical_history` = ?,`patient_type` = ?,`se_num` = ?,`patient_id` = ?,`date_received` = ?,`referring_physican` = ?,`date_reported` = ?,`surgical_date` = ?WHERE `patient_id` = ?;")
+	stmt, err := database.DBUpdate.Prepare("UPDATE `JTree`.`patients` SET`first_name` = ?,`last_name` = ?,`initials` = ?,`gender` = ?,`mrn` = ?,`dob` = ?,`on_hcn` = ?,`clinical_history` = ?,`patient_type` = ?,`se_num` = ?,`patient_id` = ?,`date_received` = ?,`referring_physican` = ?,`date_reported` = ?,`surgical_date` = ? WHERE `patient_id` = ?;")
 	if err != nil {
 		log.Fatal(err)
 		return false
@@ -73,12 +73,25 @@ func UpdatePatient(person *models.Patient) bool {
 
 //GetPatientByID gets all and results a list of samples
 func GetPatientByID(ID string) *models.Patient {
-	patient := models.Patient{}
-	query := fmt.Sprintf("SELECT * FROM patients where patient_id = %v", ID)
-	err := database.DBSelect.Select(&patient, query)
+	patients := []*models.Patient{}
+	query := models.Query{}
+	query.SelectedFields = make([]string, 0)
+	query.SelectedFields = append(query.SelectedFields, "*")
+	query.SelectedTables = make([]string, 0)
+	query.SelectedTables = append(query.SelectedTables, "patients")
+	query.SelectedCondition = make([][]string, 0)
+	//query.SelectedCondition = append(query.SelectedCondition, make([]string, 0))
+	conditions := []string{"AND", "patients.patient_id", "Equal to", ID}
+	query.SelectedCondition = append(query.SelectedCondition, conditions)
+
+	queryString := database.BuildQuery(query)
+	err := database.DBSelect.Select(&patients, queryString)
 	if err != nil {
 		fmt.Println(err)
 		return nil
 	}
-	return &patient
+	if len(patients) == 0 {
+		return nil
+	}
+	return patients[0]
 }

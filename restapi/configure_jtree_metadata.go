@@ -11,6 +11,7 @@ import (
 	"os/exec"
 	"strconv"
 
+	config "github.com/Bio-core/jtree/conf"
 	database "github.com/Bio-core/jtree/database"
 	"github.com/Bio-core/jtree/dummydata"
 	"github.com/Bio-core/jtree/models"
@@ -26,12 +27,16 @@ import (
 	"github.com/rs/cors"
 )
 
+var c config.Conf
+
 func newID() string {
 	out, err := exec.Command("uuidgen").Output()
 	if err != nil {
 		log.Fatal(err)
 	}
-	return fmt.Sprintf("%s", out)
+	ID := fmt.Sprintf("%s", out)
+	ID = ID[:len(ID)-1]
+	return ID
 }
 
 func addPatient(patient *models.Patient) error {
@@ -39,7 +44,6 @@ func addPatient(patient *models.Patient) error {
 		return errors.New(500, "item must be present")
 	}
 
-	var newID = newID()
 	if patient.PatientID != nil {
 		patientOLD := repos.GetPatientByID(*patient.PatientID)
 		if patientOLD == nil {
@@ -47,6 +51,7 @@ func addPatient(patient *models.Patient) error {
 		}
 		repos.UpdatePatient(patient)
 	} else {
+		var newID = newID()
 		patient.PatientID = &newID
 		repos.InsertPatient(patient)
 	}
@@ -58,14 +63,14 @@ func addSample(sample *models.Sample) error {
 		return errors.New(500, "item must be present")
 	}
 
-	sampleLock.Lock()
-	defer sampleLock.Unlock()
+	// sampleLock.Lock()
+	// defer sampleLock.Unlock()
 
-	var newID = newSampleID()
-	var newIDString = strconv.FormatInt(newID, 10)
-	if sample.SampleID == nil {
-		sample.SampleID = &newIDString
-	}
+	// var newID = newSampleID()
+	// var newIDString = strconv.FormatInt(newID, 10)
+	// if sample.SampleID == nil {
+	// 	sample.SampleID = &newIDString
+	// }
 	repos.InsertSample(sample)
 
 	return nil
@@ -76,14 +81,14 @@ func addExperiment(experiment *models.Experiment) error {
 		return errors.New(500, "item must be present")
 	}
 
-	sampleLock.Lock()
-	defer sampleLock.Unlock()
+	// sampleLock.Lock()
+	// defer sampleLock.Unlock()
 
-	var newID = newSampleID()
-	var newIDString = strconv.FormatInt(newID, 10)
-	if experiment.ExperimentID == nil {
-		experiment.ExperimentID = &newIDString
-	}
+	// var newID = newSampleID()
+	// var newIDString = strconv.FormatInt(newID, 10)
+	// if experiment.ExperimentID == nil {
+	// 	experiment.ExperimentID = &newIDString
+	// }
 	repos.InsertExperiment(experiment)
 
 	return nil
