@@ -12,8 +12,6 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 	yaml "gopkg.in/yaml.v2"
 
-	goerror "errors"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
@@ -81,10 +79,10 @@ func (m *Experiment) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	result := m.CheckEnums(Enums)
-	if !result {
-		return goerror.New("Enums Invalid")
-	}
+	//result := m.CheckEnums(Enums)
+	// if !result {
+	// 	return goerror.New("Enums Invalid")
+	// }
 	return nil
 }
 

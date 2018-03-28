@@ -82,16 +82,17 @@ func addExperiment(experiment *models.Experiment) error {
 		return errors.New(500, "item must be present")
 	}
 
-	// sampleLock.Lock()
-	// defer sampleLock.Unlock()
-
-	// var newID = newSampleID()
-	// var newIDString = strconv.FormatInt(newID, 10)
-	// if experiment.ExperimentID == nil {
-	// 	experiment.ExperimentID = &newIDString
-	// }
-	repos.InsertExperiment(experiment)
-
+	if experiment.ExperimentID != nil {
+		experimentOLD := repos.GetExperimentByID(*experiment.ExperimentID)
+		if experimentOLD == nil {
+			return errors.New(500, "item must be present")
+		}
+		repos.UpdateExperiment(experiment)
+	} else {
+		var newID = newID()
+		experiment.ExperimentID = &newID
+		repos.InsertExperiment(experiment)
+	}
 	return nil
 }
 
