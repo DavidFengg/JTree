@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net"
@@ -47,6 +48,7 @@ func NewServer(api *operations.JtreeMetadataAPI) *Server {
 
 // ConfigureAPI configures the API and handlers.
 func (s *Server) ConfigureAPI() {
+	fmt.Printf("-------CONFIGURE DEEP API-------\n")
 	if s.api != nil {
 		s.handler = configureAPI(s.api)
 	}

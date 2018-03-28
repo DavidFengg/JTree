@@ -16,7 +16,7 @@ import (
 // Make sure not to overwrite this file after you generated it because all your edits would be lost!
 
 func main() {
-	fmt.Printf("-------RUNNING-------")
+	fmt.Printf("-------RUNNING-------\n")
 
 	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
 	if err != nil {
@@ -49,6 +49,12 @@ func main() {
 		}
 		os.Exit(code)
 	}
+
+	if server == nil {
+		fmt.Printf("-------NIL SERVER-------")
+
+	}
+	fmt.Printf("-------CONFIGURE API-------\n")
 
 	server.ConfigureAPI()
 

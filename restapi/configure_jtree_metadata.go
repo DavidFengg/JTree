@@ -230,19 +230,22 @@ func configureFlags(api *operations.JtreeMetadataAPI) {
 func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
+	fmt.Printf("-------READS CONFIG FILE-------")
 	c.GetConf()
 	setupOptions()
+	fmt.Printf("-------READS YAML FILES-------")
 	models.Enums = models.GetEnums(models.Enums)
 	models.Sefields = &models.SEFields{}
 	models.Sefields = models.Sefields.GetSEFields()
 
 	database.Map = database.MapSuper()
-
+	fmt.Printf("-------SETTING UP DATABASE-------")
 	database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@/"+c.Database.Name+"?parseTime=true", database.DBSelect)
 	database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@/"+c.Database.Name+"?parseTime=true", database.DBUpdate)
 	ServerName := c.App.Host + ":" + strconv.Itoa(c.App.Port)
 	KeycloakserverName := c.Keycloak.Host
 
+	fmt.Printf("-------DATABASE SETUP COMPLETE-------")
 	if keycloakFlags.Active {
 		keycloak.Init(KeycloakserverName, "http://"+ServerName, "/Jtree/metadata/0.1.0/columns", "/Jtree/metadata/0.1.0/logout")
 	}
