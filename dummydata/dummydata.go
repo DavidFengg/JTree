@@ -1,9 +1,12 @@
 package dummydata
 
 import (
+	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"math/rand"
+	"net/http"
 	"path/filepath"
 	"strconv"
 	"time"
@@ -21,6 +24,7 @@ var id3 int
 var id4 int
 var id5 int
 var genes *GeneArray
+var random []RandomPerson
 
 const shortForm = "2006-01-02"
 
@@ -29,9 +33,18 @@ type GeneArray struct {
 	Genes []string
 }
 
+//RandomPerson is a scruct to help make real names
+type RandomPerson struct {
+	Name    string `json:"name,omitempty"`
+	Surname string `json:"surname,omitempty"`
+	Gender  string `json:"gender,omitempty"`
+	Region  string `json:"region,omitempty"`
+}
+
 //MakeData makes dummy data and puts it into the db
 func MakeData(number int) {
 	r = rand.New(rand.NewSource(99))
+	random = getManyRandomPeople(number)
 	genes = &GeneArray{}
 	genes = genes.GetGenes()
 	num1 := createPatients(number)
@@ -45,6 +58,12 @@ func makeRandomString() string {
 	num := rand.Intn(50)
 	value := randSeq(num)
 	return value
+}
+func makeRandomName(id int, last bool) string {
+	if last {
+		return random[id-1].Surname
+	}
+	return random[id-1].Name
 }
 
 func makeRandomDate() string {
@@ -80,6 +99,32 @@ func makeRandomBool() bool {
 func makeRandomGene() string {
 	num := genrand(0, 568, 0, 568, 5)
 	return genes.Genes[num]
+}
+
+func getManyRandomPeople(num int) []RandomPerson {
+	url := fmt.Sprintf("https://uinames.com/api/?region=england&amount=%v", num)
+
+	// Build the request
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		log.Fatal("NewRequest: ", err)
+		return nil
+	}
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatal("Do: ", err)
+		return nil
+	}
+	defer resp.Body.Close()
+	var persons []RandomPerson
+
+	if err := json.NewDecoder(resp.Body).Decode(&persons); err != nil {
+		log.Println(err)
+	}
+	return persons
+
 }
 
 func genrand(bmin, bmax, rmin, rmax, n int) int {
@@ -186,13 +231,13 @@ func makePatient(patientID int) models.Patient {
 	patient.DateReported = &DateReported
 	Dob, _ := time.Parse(shortForm, makeRandomDate())
 	patient.Dob = &Dob
-	FirstName := makeRandomString()
+	FirstName := makeRandomName(patientID, false)
 	patient.FirstName = &FirstName
 	Gender := makeRandomString()
 	patient.Gender = &Gender
 	Initials := makeRandomString()
 	patient.Initials = &Initials
-	LastName := makeRandomString()
+	LastName := makeRandomName(patientID, true)
 	patient.LastName = &LastName
 	Mrn := makeRandomString()
 	patient.Mrn = &Mrn
