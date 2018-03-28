@@ -96,6 +96,45 @@ func addExperiment(experiment *models.Experiment) error {
 	return nil
 }
 
+func addResult(result *models.Result) error {
+	if result == nil {
+		return errors.New(500, "item must be present")
+	}
+
+	if result.ResultsID != nil {
+		resultOLD := repos.GetResultByID(*result.ResultsID)
+		if resultOLD == nil {
+			return errors.New(500, "item must be present")
+		}
+		repos.UpdateResult(result)
+	} else {
+		var newID = newID()
+		result.ResultsID = &newID
+		repos.InsertResult(result)
+	}
+	return nil
+}
+
+func addResultdetail(resultdetail *models.Resultdetails) error {
+	// if experiment == nil {
+	// 	return errors.New(500, "item must be present")
+	// }
+
+	// if experiment.ExperimentID != nil {
+	// 	experimentOLD := repos.GetExperimentByID(*experiment.ExperimentID)
+	// 	if experimentOLD == nil {
+	// 		return errors.New(500, "item must be present")
+	// 	}
+	// 	repos.UpdateExperiment(experiment)
+	// } else {
+	// 	var newID = newID()
+	// 	experiment.ExperimentID = &newID
+	// 	repos.InsertExperiment(experiment)
+	// }
+	//return nil
+	return errors.New(500, "item must be present")
+}
+
 func allSamples(query string) (result []*models.Record) {
 	if query == "search" || query == "" {
 		query = "SELECT * FROM Samples"
@@ -243,6 +282,18 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 			return operations.NewAddSampleBadRequest()
 		}
 		return operations.NewAddSampleCreated()
+	})
+	api.AddResultHandler = operations.AddResultHandlerFunc(func(params operations.AddResultParams) middleware.Responder {
+		if err := addResult(params.Result); err != nil {
+			return operations.NewAddResultBadRequest()
+		}
+		return operations.NewAddResultCreated()
+	})
+	api.AddResultdetailsHandler = operations.AddResultdetailsHandlerFunc(func(params operations.AddResultdetailsParams) middleware.Responder {
+		if err := addResultdetail(params.Resultdetails); err != nil {
+			return operations.NewAddResultdetailsBadRequest()
+		}
+		return operations.NewAddResultdetailsCreated()
 	})
 	api.GetSamplesByQueryHandler = operations.GetSamplesByQueryHandlerFunc(func(params operations.GetSamplesByQueryParams) middleware.Responder {
 		return operations.NewGetSamplesByQueryOK().WithPayload(getSamplesByQuery(params.Query))
