@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.21, for osx10.13 (x86_64)
 --
--- Host: localhost    Database: TestJtree
+-- Host: localhost    Database: TestJTree
 -- ------------------------------------------------------
 -- Server version	5.7.21
 
@@ -14,3 +14,162 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `experiments`
+--
+
+DROP TABLE IF EXISTS `experiments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `experiments` (
+  `experiment_id` varchar(255) NOT NULL,
+  `study_id` varchar(50) DEFAULT NULL,
+  `panel_assay_screened` varchar(50) DEFAULT NULL,
+  `test_date` date DEFAULT NULL,
+  `chip_cartridge_barcode` varchar(50) DEFAULT NULL,
+  `complete_date` date DEFAULT NULL,
+  `pcr` varchar(50) DEFAULT NULL,
+  `sample_id` varchar(50) DEFAULT NULL,
+  `project_name` varchar(50) DEFAULT NULL,
+  `priority` varchar(50) DEFAULT NULL,
+  `opened_date` date DEFAULT NULL,
+  `project_id` varchar(50) DEFAULT NULL,
+  `has_project_files` tinyint(1) DEFAULT NULL,
+  `procedure_order_datetime` datetime DEFAULT NULL,
+  KEY `sample_id_idx` (`sample_id`),
+  CONSTRAINT `sample_id_ex` FOREIGN KEY (`sample_id`) REFERENCES `samples` (`sample_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `experiments`
+--
+
+LOCK TABLES `experiments` WRITE;
+/*!40000 ALTER TABLE `experiments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `experiments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `patients`
+--
+
+DROP TABLE IF EXISTS `patients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `patients` (
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `initials` varchar(50) DEFAULT NULL,
+  `gender` varchar(50) DEFAULT NULL,
+  `mrn` varchar(50) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `on_hcn` varchar(50) DEFAULT NULL,
+  `clinical_history` varchar(255) DEFAULT NULL,
+  `patient_type` varchar(50) DEFAULT NULL,
+  `se_num` varchar(50) DEFAULT NULL,
+  `patient_id` varchar(50) DEFAULT NULL,
+  `sample_id` varchar(50) DEFAULT NULL,
+  `date_received` date DEFAULT NULL,
+  `referring_physican` varchar(150) DEFAULT NULL,
+  `date_reported` date DEFAULT NULL,
+  `surgical_date` date DEFAULT NULL,
+  KEY `sample_id_idx` (`sample_id`),
+  KEY `samples.sample_id_idx` (`sample_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `patients`
+--
+
+LOCK TABLES `patients` WRITE;
+/*!40000 ALTER TABLE `patients` DISABLE KEYS */;
+/*!40000 ALTER TABLE `patients` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `samples`
+--
+
+DROP TABLE IF EXISTS `samples`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `samples` (
+  `sample_id` varchar(50) DEFAULT NULL,
+  `facility` varchar(255) DEFAULT NULL,
+  `test_requested` varchar(50) DEFAULT NULL,
+  `se_num` varchar(50) DEFAULT NULL,
+  `date_collected` date DEFAULT NULL,
+  `date_received` date DEFAULT NULL,
+  `sample_type` varchar(50) DEFAULT NULL,
+  `material_received` varchar(150) DEFAULT NULL,
+  `material_received_num` varchar(150) DEFAULT NULL,
+  `material_received_other` varchar(150) DEFAULT NULL,
+  `volume_of_blood_marrow` float(5,1) DEFAULT NULL,
+  `surgical_num` varchar(50) DEFAULT NULL,
+  `tumor_site` varchar(255) DEFAULT NULL,
+  `historical_diagnosis` varchar(255) DEFAULT NULL,
+  `tumor_percnt_of_total` float(5,2) DEFAULT NULL,
+  `tumor_percnt_of_circled` float(5,2) DEFAULT NULL,
+  `reviewed_by` varchar(150) DEFAULT NULL,
+  `h_e_slide_location` varchar(150) DEFAULT NULL,
+  `non_uhn_id` varchar(50) DEFAULT NULL,
+  `name_of_requestor` varchar(150) DEFAULT NULL,
+  `dna_concentration` float(10,4) DEFAULT NULL,
+  `dna_volume` float(5,1) DEFAULT NULL,
+  `dna_location` varchar(255) DEFAULT NULL,
+  `rna_concentration` float(10,4) DEFAULT NULL,
+  `rna_volume` float(5,1) DEFAULT NULL,
+  `rna_location` varchar(150) DEFAULT NULL,
+  `wbc_location` varchar(50) DEFAULT NULL,
+  `plasma_location` varchar(50) DEFAULT NULL,
+  `cf_plasma_location` varchar(50) DEFAULT NULL,
+  `pb_bm_location` varchar(50) DEFAULT NULL,
+  `rna_lysate_location` varchar(50) DEFAULT NULL,
+  `sample_size` varchar(50) DEFAULT NULL,
+  `study_id` varchar(50) DEFAULT NULL,
+  `sample_name` varchar(50) DEFAULT NULL,
+  `date_submitted` date DEFAULT NULL,
+  `container_type` varchar(50) DEFAULT NULL,
+  `container_name` varchar(100) DEFAULT NULL,
+  `container_id` varchar(100) DEFAULT NULL,
+  `container_well` varchar(50) DEFAULT NULL,
+  `copath_num` varchar(50) DEFAULT NULL,
+  `other_identifier` varchar(50) DEFAULT NULL,
+  `has_sample_files` tinyint(1) DEFAULT NULL,
+  `dna_sample_barcode` varchar(50) DEFAULT NULL,
+  `dna_extraction_date` date DEFAULT NULL,
+  `dna_quality` varchar(255) DEFAULT NULL,
+  `ffpe_qc_date` date DEFAULT NULL,
+  `delta_ct_value` float(10,4) DEFAULT NULL,
+  `comments` varchar(255) DEFAULT NULL,
+  `rnase_p_date` date DEFAULT NULL,
+  `dna_quality_by_rnase_p` float(10,4) DEFAULT NULL,
+  `rna_quality` float(10,4) DEFAULT NULL,
+  `rna_extraction_date` date DEFAULT NULL,
+  KEY `sample_id_idx` (`sample_id`),
+  CONSTRAINT `sample_id` FOREIGN KEY (`sample_id`) REFERENCES `patients` (`sample_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `samples`
+--
+
+LOCK TABLES `samples` WRITE;
+/*!40000 ALTER TABLE `samples` DISABLE KEYS */;
+/*!40000 ALTER TABLE `samples` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-04-03 14:34:19
