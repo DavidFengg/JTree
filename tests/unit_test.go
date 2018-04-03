@@ -91,7 +91,6 @@ func TestAddPatientsPOST(t *testing.T) {
 
 	patient := dummydata.MakePatient(-1)
 	person1Bytes, err := json.Marshal(patient)
-	patient.PatientID = nil
 
 	if err != nil {
 		t.Fail()

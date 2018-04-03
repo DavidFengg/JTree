@@ -248,7 +248,9 @@ func MakePatient(patientID int) models.Patient {
 	OnHcn := makeRandomString()
 	patient.OnHcn = &OnHcn
 	PatientID := strconv.Itoa(patientID)
-	patient.PatientID = &PatientID
+	if patientID > 0 {
+		patient.PatientID = &PatientID
+	}
 	PatientType := makeRandomString()
 	patient.PatientType = &PatientType
 	ReferringPhysican := makeRandomString()
