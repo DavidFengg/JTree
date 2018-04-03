@@ -60,6 +60,9 @@ func makeRandomString() string {
 	return value
 }
 func makeRandomName(id int, last bool) string {
+	if id < 0 {
+		id = rand.Intn(99) + 1
+	}
 	if last {
 		return random[id-1].Surname
 	}
@@ -154,7 +157,7 @@ func genrand(bmin, bmax, rmin, rmax, n int) int {
 func createPatients(number int) int {
 	for i := 0; i < number; i++ {
 		id1++
-		tempPatient := makePatient(id1)
+		tempPatient := MakePatient(id1)
 		repos.InsertPatient(&tempPatient)
 	}
 	return id1
@@ -166,7 +169,7 @@ func createResults(number int) int {
 		c := rand.Intn(2) + 1
 		for j := 0; j < c; j++ {
 			id4++
-			tempResult := makeResult(id1, id4)
+			tempResult := MakeResult(id1, id4)
 			repos.InsertResult(&tempResult)
 		}
 	}
@@ -179,7 +182,7 @@ func createResultDetails(number int) int {
 		c := rand.Intn(2) + 1
 		for j := 0; j < c; j++ {
 			id5++
-			tempResultDetail := makeResultDetail(id1, id5)
+			tempResultDetail := MakeResultDetail(id1, id5)
 			repos.InsertResultDetail(&tempResultDetail)
 		}
 	}
@@ -193,7 +196,7 @@ func createSamples(number int) int {
 		c := rand.Intn(5) + 1
 		for j := 0; j < c; j++ {
 			id2++
-			tempSample := makeSample(id1, id2)
+			tempSample := MakeSample(id1, id2)
 			repos.InsertSample(&tempSample)
 		}
 	}
@@ -206,7 +209,7 @@ func createExperiments(number int) int {
 		c := rand.Intn(5) + 1
 		for j := 0; j < c; j++ {
 			id3++
-			tempExperiment := makeExperiment(id1, id3)
+			tempExperiment := MakeExperiment(id1, id3)
 			repos.InsertExperiment(&tempExperiment)
 		}
 	}
@@ -221,7 +224,8 @@ func randSeq(n int) string {
 	return string(b)
 }
 
-func makePatient(patientID int) models.Patient {
+//MakePatient makes a patient provided a pateint ID
+func MakePatient(patientID int) models.Patient {
 	patient := models.Patient{}
 	ClinicalHistory := makeRandomString()
 	patient.ClinicalHistory = &ClinicalHistory
@@ -257,7 +261,8 @@ func makePatient(patientID int) models.Patient {
 	return patient
 }
 
-func makeSample(patientID int, sampleID int) models.Sample {
+//MakeSample makes a sample provided a sample ID
+func MakeSample(patientID int, sampleID int) models.Sample {
 	sample := models.Sample{}
 	SampleID := strconv.Itoa(sampleID)
 	sample.SampleID = &SampleID
@@ -367,7 +372,8 @@ func makeSample(patientID int, sampleID int) models.Sample {
 	return sample
 }
 
-func makeExperiment(sampleID int, experimentID int) models.Experiment {
+//MakeExperiment makes a experiemnt provided a experiment ID
+func MakeExperiment(sampleID int, experimentID int) models.Experiment {
 	experiment := models.Experiment{}
 	ChipCartridgeBarcode := makeRandomString()
 	experiment.ChipCartridgeBarcode = &ChipCartridgeBarcode
@@ -401,7 +407,8 @@ func makeExperiment(sampleID int, experimentID int) models.Experiment {
 	return experiment
 }
 
-func makeResult(experimentID int, resultID int) models.Result {
+//MakeResult makes a result provided a result ID
+func MakeResult(experimentID int, resultID int) models.Result {
 	result := models.Result{}
 	FailedRegions := makeRandomString()
 	result.FailedRegions = &FailedRegions
@@ -427,7 +434,8 @@ func makeResult(experimentID int, resultID int) models.Result {
 	return result
 }
 
-func makeResultDetail(resultID int, resultdetailID int) models.Resultdetails {
+//MakeResultDetail makes a result detail provided a resiltdetail ID
+func MakeResultDetail(resultID int, resultdetailID int) models.Resultdetails {
 	resultdetail := models.Resultdetails{}
 	CNomenclature := makeRandomString()
 	resultdetail.CNomenclature = &CNomenclature

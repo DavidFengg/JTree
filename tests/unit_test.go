@@ -1,7 +1,10 @@
 package tests
 
 import (
+	"bytes"
+	"encoding/json"
 	"log"
+	"net/http"
 	"os"
 	"testing"
 
@@ -84,76 +87,43 @@ func TestGenerateDummyData(t *testing.T) {
 	return
 }
 
-// func TestAddPatientsPOST(t *testing.T) {
-// 	namePerson1 := "Mitchell"
-// 	patientidPerson1 := "patient1"
-// 	sampleidPerson1 := "Sample1"
-// 	namePerson2 := "Strong"
-// 	patientidPerson2 := "patient2"
-// 	sampleidPerson2 := "Sample2"
+func TestAddPatientsPOST(t *testing.T) {
 
-// 	person1 := models.Patient{
-// 		FirstName: &namePerson1,
-// 		PatientID: &patientidPerson1,
-// 		//SampleID:  &sampleidPerson1,
-// 	}
+	patient := dummydata.MakePatient(-1)
+	person1Bytes, err := json.Marshal(patient)
+	patient.PatientID = nil
 
-// 	person2 := models.Patient{
-// 		FirstName: &namePerson2,
-// 		PatientID: &patientidPerson2,
-// 		//SampleID:  &sampleidPerson2,
-// 	}
+	if err != nil {
+		t.Fail()
+		return
+	}
 
-// 	person1Bytes, err := json.Marshal(person1)
-// 	person2Bytes, err2 := json.Marshal(person2)
+	body := bytes.NewReader(person1Bytes)
 
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
+	req, err := http.NewRequest("POST", host+"/Jtree/metadata/0.1.0/patient", body)
 
-// 	if err2 != nil {
-// 		t.Fail()
-// 		return
-// 	}
+	if err != nil {
+		t.Fail()
+		return
+	}
 
-// 	body := bytes.NewReader(person1Bytes)
-// 	body2 := bytes.NewReader(person2Bytes)
+	req.Header.Set("Content-Type", "application/json")
 
-// 	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/patient", body)
-// 	req2, err2 := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/patient", body2)
+	resp, err := http.DefaultClient.Do(req)
 
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	if err2 != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	req.Header.Set("Content-Type", "application/json")
-// 	req2.Header.Set("Content-Type", "application/json")
+	if resp.Status != "201 Created" {
+		t.Fail()
+		return
+	}
 
-// 	resp, err := http.DefaultClient.Do(req)
-// 	resp2, err2 := http.DefaultClient.Do(req2)
+	if err != nil {
+		t.Fail()
+		return
+	}
 
-// 	if resp.Status != "201 Created" || resp2.Status != "201 Created" {
-// 		t.Fail()
-// 		return
-// 	}
+	defer resp.Body.Close()
 
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	if err2 != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	defer resp.Body.Close()
-// 	defer resp2.Body.Close()
-
-// }
+}
 
 // func TestAddSamplesPOST(t *testing.T) {
 // 	sampleidSample1 := "Sample1"
