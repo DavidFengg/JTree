@@ -10,7 +10,7 @@ import (
 
 //InsertResultDetail allows users to add generic objects to a collection in the database
 func InsertResultDetail(result *models.Resultdetails) bool {
-	stmt, err := database.DBUpdate.Prepare("INSERT INTO `JTree`.`resultdetails`(`VAF`,`c_nomenclature`,`coverage`,`exon`,`gene`,`p_nomenclature`,`pcr`,`quality_score`,`result`,`results_details_id`,`results_id`,`risk_score`,`uid`)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);")
+	stmt, err := database.DBUpdate.Prepare("INSERT INTO `resultdetails`(`VAF`,`c_nomenclature`,`coverage`,`exon`,`gene`,`p_nomenclature`,`pcr`,`quality_score`,`result`,`results_details_id`,`results_id`,`risk_score`,`uid`)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -62,7 +62,7 @@ func GetResultDetailByID(ID string) *models.Resultdetails {
 
 //UpdateResultDetail allows users to add generic objects to a collection in the database
 func UpdateResultDetail(result *models.Resultdetails) bool {
-	stmt, err := database.DBUpdate.Prepare("UPDATE `JTree`.`resultdetails` SET `VAF` = ?,`c_nomenclature` = ?,`coverage` = ?,`exon` = ?,`gene` = ?,`p_nomenclature` = ?,`pcr` = ?,`quality_score` = ?,`result` = ?,`results_details_id` = ?,`results_id` = ?,`risk_score` = ?,`uid` = ? WHERE `results_details_id` = ?;")
+	stmt, err := database.DBUpdate.Prepare("UPDATE `resultdetails` SET `VAF` = ?,`c_nomenclature` = ?,`coverage` = ?,`exon` = ?,`gene` = ?,`p_nomenclature` = ?,`pcr` = ?,`quality_score` = ?,`result` = ?,`results_details_id` = ?,`results_id` = ?,`risk_score` = ?,`uid` = ? WHERE `results_details_id` = ?;")
 	if err != nil {
 		log.Fatal(err)
 	}

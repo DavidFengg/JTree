@@ -57,7 +57,7 @@ clean:
 	@test ! -e bin/${BIN_NAME} || rm bin/${BIN_NAME}
 
 test:
-	go test ./tests
+	go test ./tests -test.v
 	bash travisCheck.sh 
 
 database: 

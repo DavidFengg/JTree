@@ -11,18 +11,16 @@ CREATE TABLE `patients` (
   `clinical_history` nvarchar(255) DEFAULT NULL,
   `patient_type` nvarchar(50) DEFAULT NULL,
   `se_num` nvarchar(50) DEFAULT NULL,
-  `patient_id` nvarchar(50) DEFAULT NULL,
-  `sample_id` nvarchar(50) DEFAULT NULL,
+  `patient_id` nvarchar(50) NOT NULL,
   `date_received` date DEFAULT NULL,
   `referring_physican` nvarchar(150) DEFAULT NULL,
   `date_reported` date DEFAULT NULL,
   `surgical_date` date DEFAULT NULL,
-  KEY `sample_id_idx` (`sample_id`),
-  KEY `samples.sample_id_idx` (`sample_id`)
+  PRIMARY KEY (`patient_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `samples` (
-  `sample_id` nvarchar(50) DEFAULT NULL,
+  `sample_id` nvarchar(50) NOT NULL,
   `facility` nvarchar(255) DEFAULT NULL,
   `test_requested` nvarchar(50) DEFAULT NULL,
   `se_num` nvarchar(50) DEFAULT NULL,
@@ -74,10 +72,11 @@ CREATE TABLE `samples` (
   `dna_quality_by_rnase_p` float(10,4) DEFAULT NULL,
   `rna_quality` float(10,4) DEFAULT NULL,
   `rna_extraction_date` date DEFAULT NULL,
-  KEY `sample_id_idx` (`sample_id`),
-  CONSTRAINT `sample_id` FOREIGN KEY (`sample_id`) REFERENCES `patients` (`sample_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `patient_id` nvarchar(50) DEFAULT NULL,
+  PRIMARY KEY (`sample_id`),
+  KEY `patient_id` (`patient_id`),
+  CONSTRAINT `patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 CREATE TABLE `experiments` (
   `experiment_id` nvarchar(255) NOT NULL,
@@ -94,7 +93,42 @@ CREATE TABLE `experiments` (
   `project_id` nvarchar(50) DEFAULT NULL,
   `has_project_files` tinyint(1) DEFAULT NULL,
   `procedure_order_datetime` datetime DEFAULT NULL,
+  PRIMARY KEY (`experiment_id`),
   KEY `sample_id_idx` (`sample_id`),
   CONSTRAINT `sample_id_ex` FOREIGN KEY (`sample_id`) REFERENCES `samples` (`sample_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `results` (
+  `failed_regions` nvarchar(255) DEFAULT NULL,
+  `mean_depth_of_coveage` float DEFAULT NULL,
+  `mlpa_pcr` nvarchar(255) DEFAULT NULL,
+  `mutation` nvarchar(255) DEFAULT NULL,
+  `overall_hotspots_threshold` float DEFAULT NULL,
+  `overall_quality_threshold` float DEFAULT NULL,
+  `results_id` nvarchar(255) NOT NULL,
+  `uid` nvarchar(255) DEFAULT NULL,
+  `verification_pcr` nvarchar(255) DEFAULT NULL,
+  `experiment_id` nvarchar(255) DEFAULT NULL,
+  PRIMARY KEY (`results_id`),
+  KEY `FK_experiment_id` (`experiment_id`),
+  CONSTRAINT `FK_experiment_id` FOREIGN KEY (`experiment_id`) REFERENCES `experiments` (`experiment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `resultdetails` (
+  `VAF` float DEFAULT NULL,
+  `c_nomenclature` nvarchar(255) DEFAULT NULL,
+  `coverage` int(11) DEFAULT NULL,
+  `exon` int(11) DEFAULT NULL,
+  `gene` nvarchar(255) DEFAULT NULL,
+  `p_nomenclature` nvarchar(255) DEFAULT NULL,
+  `pcr` nvarchar(255) DEFAULT NULL,
+  `quality_score` float DEFAULT NULL,
+  `result` nvarchar(255) DEFAULT NULL,
+  `results_details_id` nvarchar(255) NOT NULL,
+  `results_id` nvarchar(255) DEFAULT NULL,
+  `risk_score` float DEFAULT NULL,
+  `uid` nvarchar(255) DEFAULT NULL,
+  PRIMARY KEY (`results_details_id`),
+  KEY `FK_results_id` (`results_id`),
+  CONSTRAINT `FK_results_id` FOREIGN KEY (`results_id`) REFERENCES `results` (`results_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

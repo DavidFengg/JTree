@@ -5,6 +5,10 @@ import (
 	"os"
 	"testing"
 
+	"github.com/Bio-core/Jtree/dummydata"
+	"github.com/Bio-core/jtree/database"
+	"github.com/Bio-core/jtree/models"
+	"github.com/Bio-core/jtree/repos"
 	"github.com/Bio-core/jtree/restapi"
 	"github.com/Bio-core/jtree/restapi/operations"
 	"github.com/go-openapi/loads"
@@ -44,8 +48,43 @@ func TestUrls(t *testing.T) {
 	}
 }
 
+func TestGenerateDummyData(t *testing.T) {
+	dummydata.MakeData(100)
+
+	query := models.Query{}
+	query.SelectedFields = make([]string, 0)
+	query.SelectedFields = append(query.SelectedFields, "*")
+	query.SelectedTables = make([]string, 0)
+	query.SelectedTables = append(query.SelectedTables, "patients")
+	query.SelectedCondition = make([][]string, 0)
+	querystring := database.BuildQuery(query)
+	if len(repos.GetAllSamples(querystring)) != 100 {
+		t.Fail()
+	}
+	query.SelectedTables[0] = "samples"
+	querystring = database.BuildQuery(query)
+	if len(repos.GetAllSamples(querystring)) != 287 {
+		t.Fail()
+	}
+	query.SelectedTables[0] = "experiments"
+	querystring = database.BuildQuery(query)
+	if len(repos.GetAllSamples(querystring)) != 866 {
+		t.Fail()
+	}
+	query.SelectedTables[0] = "results"
+	querystring = database.BuildQuery(query)
+	if len(repos.GetAllSamples(querystring)) != 1282 {
+		t.Fail()
+	}
+	query.SelectedTables[0] = "resultdetails"
+	querystring = database.BuildQuery(query)
+	if len(repos.GetAllSamples(querystring)) != 1899 {
+		t.Fail()
+	}
+	return
+}
+
 // func TestAddPatientsPOST(t *testing.T) {
-// 	t.Skip()
 // 	namePerson1 := "Mitchell"
 // 	patientidPerson1 := "patient1"
 // 	sampleidPerson1 := "Sample1"
