@@ -1,0 +1,24 @@
+language: go
+
+go:
+  - 1.8.x
+
+install:
+  - go get -v github.com/Masterminds/glide 
+  - make get-deps
+ # - make test
+  
+notifications:
+  email: false
+
+services:
+  - mysql
+
+script: make test
+
+before_install:
+  - mysql -u "root" < "./tests/sql/DropDatabase.sql"
+  - mysql -u "root" < "./tests/sql/CreateDatabase.sql"
+  - mysql -u "root" < "./tests/sql/CreateTables.sql"
+  - mysql -u "root" < "./tests/sql/DeleteData.sql"
+  - mysql -u "root" < "./tests/sql/CreateUsers.sql"
