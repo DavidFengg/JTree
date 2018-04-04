@@ -39,20 +39,6 @@ func TestMain(m *testing.M) {
 	os.Exit(testResults)
 }
 
-func TestUrls(t *testing.T) {
-	result := true
-	result = result && CheckPageResponse(host+"/Jtree/metadata/0.1.0/columns")
-	result = result && CheckPageResponse(host+"/Jtree/metadata/0.1.0/uneditable")
-	result = result && CheckPageResponse(host+"/Jtree/metadata/0.1.0/searchable")
-	result = result && !CheckPageResponse(host+"/x")
-	result = result && !CheckNoPageResponse(host+"/Jtree/metadata/0.1.0/searchable")
-	result = result && CheckNoPageResponse(host+"/x")
-
-	if result != true {
-		t.Error("Web Pages Not Successful")
-	}
-}
-
 func TestGenerateDummyData(t *testing.T) {
 	dummydata.MakeData(100)
 
@@ -87,6 +73,19 @@ func TestGenerateDummyData(t *testing.T) {
 		t.Fail()
 	}
 	return
+}
+func TestUrls(t *testing.T) {
+	result := true
+	result = result && CheckPageResponse(host+"/Jtree/metadata/0.1.0/columns")
+	result = result && CheckPageResponse(host+"/Jtree/metadata/0.1.0/uneditable")
+	result = result && CheckPageResponse(host+"/Jtree/metadata/0.1.0/searchable")
+	result = result && !CheckPageResponse(host+"/x")
+	result = result && !CheckNoPageResponse(host+"/Jtree/metadata/0.1.0/searchable")
+	result = result && CheckNoPageResponse(host+"/x")
+
+	if result != true {
+		t.Error("Web Pages Not Successful")
+	}
 }
 
 func TestAddPatientsPOST(t *testing.T) {
@@ -271,149 +270,6 @@ func TestAddPatientsPOST(t *testing.T) {
 // 	}
 // 	defer resp.Body.Close()
 // 	defer resp2.Body.Close()
-
-// }
-// func TestSamplesQuery(t *testing.T) {
-// 	query := models.Query{
-// 		SelectedFields:    []string{"samples.sample_id", "samples.facility", "samples.volume_of_blood_marrow", "samples.date_collected"},
-// 		SelectedTables:    []string{"samples"},
-// 		SelectedCondition: [][]string{},
-// 	}
-// 	queryBytes, err := json.Marshal(query)
-
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	body := bytes.NewReader(queryBytes)
-// 	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	req.Header.Set("Content-Type", "application/json")
-// 	resp, err := http.DefaultClient.Do(req)
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	content, err := ioutil.ReadAll(resp.Body)
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	var results []models.Record
-// 	err = json.Unmarshal(content, &results)
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	if len(results) != 2 {
-// 		t.Fail()
-// 		return
-// 	}
-// 	if *results[0].Sample.SampleID != "Sample1" || *results[1].Sample.SampleID != "Sample2" {
-// 		t.Fail()
-// 		return
-// 	}
-
-// 	defer resp.Body.Close()
-
-// }
-
-// func TestPatientsQuery(t *testing.T) {
-// 	query := models.Query{
-// 		SelectedFields:    []string{"patients.sample_id", "patients.patient_id", "patients.first_name"},
-// 		SelectedTables:    []string{"patients"},
-// 		SelectedCondition: [][]string{},
-// 	}
-// 	queryBytes, err := json.Marshal(query)
-
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	body := bytes.NewReader(queryBytes)
-// 	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	req.Header.Set("Content-Type", "application/json")
-// 	resp, err := http.DefaultClient.Do(req)
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	content, err := ioutil.ReadAll(resp.Body)
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	var results []models.Record
-// 	err = json.Unmarshal(content, &results)
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	if len(results) != 2 {
-// 		t.Fail()
-// 		return
-// 	}
-// 	if *results[0].Patient.SampleID != "Sample1" || *results[1].Patient.SampleID != "Sample2" {
-// 		t.Fail()
-// 		return
-// 	}
-
-// 	defer resp.Body.Close()
-
-// }
-
-// func TestExperimentsQuery(t *testing.T) {
-// 	query := models.Query{
-// 		SelectedFields:    []string{"experiments.sample_id", "experiments.complete_date", "experiments.pcr"},
-// 		SelectedTables:    []string{"experiments"},
-// 		SelectedCondition: [][]string{},
-// 	}
-// 	queryBytes, err := json.Marshal(query)
-
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	body := bytes.NewReader(queryBytes)
-// 	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/query", body)
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	req.Header.Set("Content-Type", "application/json")
-// 	resp, err := http.DefaultClient.Do(req)
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	content, err := ioutil.ReadAll(resp.Body)
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	var results []models.Record
-// 	err = json.Unmarshal(content, &results)
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	if len(results) != 2 {
-// 		t.Fail()
-// 		return
-// 	}
-// 	if *results[0].Experiment.SampleID != "Sample1" || *results[1].Experiment.SampleID != "Sample2" {
-// 		t.Fail()
-// 		return
-// 	}
-
-// 	defer resp.Body.Close()
 
 // }
 
