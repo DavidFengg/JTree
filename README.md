@@ -36,6 +36,12 @@ Endpoints:
 # This will return all of the columns in the database
 $ curl http://127.0.0.1:8000/Jtree/metadata/0.1.0/columns
 
+# This will return all of the searchable fields in the database
+$ curl http://127.0.0.1:8000/Jtree/metadata/0.1.0/searchable
+
+# This will return all of the uneditable fields in the database
+$ curl http://127.0.0.1:8000/Jtree/metadata/0.1.0/uneditable
+
 # This is an example query that will return all data from every table in the database
 $ curl http://127.0.0.1:8000/Jtree/metadata/0.1.0/query -X POST -H "content-type:application/json" /
 -d '{"selected_fields":["*"],"selected_tables":["samples", "patients","experiments", "results", "resultdetails"],"selected_conditions":[[]]}'
@@ -45,7 +51,8 @@ $ curl http://127.0.0.1:8000/Jtree/metadata/0.1.0/query -X POST -H "content-type
 '{"selected_fields":["samples.sample_id", "patients.dob"],"selected_tables":["samples", "patients","experiments", "results", "resultdetails"],"selected_conditions":[["AND", "patients.dob", "Greater than", "1950"]]}'
 
 
-# INSERTS
+# INSERTS and UPDATES
+# Note that inserts and updates operate the same way, the only difference is that the public key is not passed with the object structure for in insert
 # samples
 $ curl -X POST -H "Content-Type: application/json" /
  -d '{`# See models.samples for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/samples
