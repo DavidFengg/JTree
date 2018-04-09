@@ -342,6 +342,174 @@ func TestUpdateExperimentPOST(t *testing.T) {
 	return
 }
 
+func TestAddResultPOST(t *testing.T) {
+
+	result := dummydata.MakeResult(1, -1)
+	result1Bytes, err := json.Marshal(result)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	body := bytes.NewReader(result1Bytes)
+
+	req, err := http.NewRequest("POST", host+"/Jtree/metadata/0.1.0/result", body)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := http.DefaultClient.Do(req)
+
+	if resp.Status != "201 Created" {
+		t.Fail()
+		return
+	}
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+
+func TestUpdateResultPOST(t *testing.T) {
+
+	result := repos.GetResultByID("1")
+	uid := "updated"
+	result.UID = &uid
+	result1Bytes, err := json.Marshal(result)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	body := bytes.NewReader(result1Bytes)
+
+	req, err := http.NewRequest("POST", host+"/Jtree/metadata/0.1.0/result", body)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := http.DefaultClient.Do(req)
+
+	if resp.Status != "201 Created" {
+		t.Fail()
+		return
+	}
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+	resultNew := repos.GetResultByID("1")
+
+	if *resultNew.UID != uid {
+		t.Fail()
+		return
+	}
+
+	return
+}
+
+func TestAddResultDetailPOST(t *testing.T) {
+
+	result := dummydata.MakeResultDetail(1, -1)
+	result1Bytes, err := json.Marshal(result)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	body := bytes.NewReader(result1Bytes)
+
+	req, err := http.NewRequest("POST", host+"/Jtree/metadata/0.1.0/resultdetails", body)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := http.DefaultClient.Do(req)
+
+	if resp.Status != "201 Created" {
+		t.Fail()
+		return
+	}
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+
+func TestUpdateResultDetailPOST(t *testing.T) {
+
+	result := repos.GetResultDetailByID("1")
+	uid := "updated"
+	result.UID = &uid
+	result1Bytes, err := json.Marshal(result)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	body := bytes.NewReader(result1Bytes)
+
+	req, err := http.NewRequest("POST", host+"/Jtree/metadata/0.1.0/resultdetails", body)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := http.DefaultClient.Do(req)
+
+	if resp.Status != "201 Created" {
+		t.Fail()
+		return
+	}
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+	resultNew := repos.GetResultByID("1")
+
+	if *resultNew.UID != uid {
+		t.Fail()
+		return
+	}
+
+	return
+}
+
 func TestQueries(t *testing.T) {
 
 	patient := dummydata.MakePatient(-1)

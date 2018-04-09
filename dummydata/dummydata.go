@@ -429,7 +429,9 @@ func MakeResult(experimentID int, resultID int) models.Result {
 	OverallQualityThreshold := makeRandomFloat()
 	result.OverallQualityThreshold = &OverallQualityThreshold
 	ResultsID := strconv.Itoa(resultID)
-	result.ResultsID = &ResultsID
+	if resultID > 0 {
+		result.ResultsID = &ResultsID
+	}
 	ExperimentID := strconv.Itoa(experimentID)
 	result.ExperimentID = &ExperimentID
 	UID := makeRandomString()
@@ -460,7 +462,9 @@ func MakeResultDetail(resultID int, resultdetailID int) models.Resultdetails {
 	Result := makeRandomString()
 	resultdetail.Result = &Result
 	ResultsDetailsID := strconv.Itoa(resultdetailID)
-	resultdetail.ResultsDetailsID = &ResultsDetailsID
+	if resultdetailID > 0 {
+		resultdetail.ResultsDetailsID = &ResultsDetailsID
+	}
 	ResultsID := strconv.Itoa(resultID)
 	resultdetail.ResultsID = &ResultsID
 	RiskScore := makeRandomFloat()
