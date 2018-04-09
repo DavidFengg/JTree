@@ -65,7 +65,6 @@ type Patient struct {
 // Validate validates this patient
 func (m *Patient) Validate(formats strfmt.Registry) error {
 	var res []error
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}

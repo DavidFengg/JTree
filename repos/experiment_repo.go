@@ -65,7 +65,7 @@ func GetExperimentByID(ID string) *models.Experiment {
 
 //UpdateExperiment allows users to add generic objects to a collection in the database
 func UpdateExperiment(experiment *models.Experiment) bool {
-	stmt, err := database.DBUpdate.Prepare("UPDATE `JTree`.`experiments` SET `experiment_id` = ?,`study_id` = ?,`panel_assay_screened` = ?,`test_date` = ?,`chip_cartridge_barcode` = ?,`complete_date` = ?,`pcr` = ?,`sample_id` = ?,`project_name` = ?,`priority` = ?,`opened_date` = ?,`project_id` = ?,`has_project_files` = ?,`procedure_order_datetime` = ? WHERE `experiment_id` = ?;")
+	stmt, err := database.DBUpdate.Prepare("UPDATE `experiments` SET `experiment_id` = ?,`study_id` = ?,`panel_assay_screened` = ?,`test_date` = ?,`chip_cartridge_barcode` = ?,`complete_date` = ?,`pcr` = ?,`sample_id` = ?,`project_name` = ?,`priority` = ?,`opened_date` = ?,`project_id` = ?,`has_project_files` = ?,`procedure_order_datetime` = ? WHERE `experiment_id` = ?;")
 
 	if err != nil {
 		log.Fatal(err)

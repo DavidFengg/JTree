@@ -41,7 +41,7 @@ func InsertPatient(person *models.Patient) bool {
 
 //UpdatePatient remove a patient by id
 func UpdatePatient(person *models.Patient) bool {
-	stmt, err := database.DBUpdate.Prepare("UPDATE `JTree`.`patients` SET`first_name` = ?,`last_name` = ?,`initials` = ?,`gender` = ?,`mrn` = ?,`dob` = ?,`on_hcn` = ?,`clinical_history` = ?,`patient_type` = ?,`se_num` = ?,`patient_id` = ?,`date_received` = ?,`referring_physican` = ?,`date_reported` = ?,`surgical_date` = ? WHERE `patient_id` = ?;")
+	stmt, err := database.DBUpdate.Prepare("UPDATE `patients` SET`first_name` = ?,`last_name` = ?,`initials` = ?,`gender` = ?,`mrn` = ?,`dob` = ?,`on_hcn` = ?,`clinical_history` = ?,`patient_type` = ?,`se_num` = ?,`patient_id` = ?,`date_received` = ?,`referring_physican` = ?,`date_reported` = ?,`surgical_date` = ? WHERE `patient_id` = ?;")
 	if err != nil {
 		log.Fatal(err)
 		return false

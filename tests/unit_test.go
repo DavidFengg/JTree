@@ -88,7 +88,7 @@ func TestUrls(t *testing.T) {
 	}
 }
 
-func TestAddPatientsPOST(t *testing.T) {
+func TestAddPatientPOST(t *testing.T) {
 
 	patient := dummydata.MakePatient(-1)
 	person1Bytes, err := json.Marshal(patient)
@@ -125,153 +125,222 @@ func TestAddPatientsPOST(t *testing.T) {
 
 }
 
-// func TestAddSamplesPOST(t *testing.T) {
-// 	sampleidSample1 := "Sample1"
-// 	facilitySample1 := "TGH"
-// 	var volumeOfBloodMarrowSample1 float32
-// 	volumeOfBloodMarrowSample1 = 14.2
-// 	dateCollectedSample1 := "20140506"
-// 	sampleidSample2 := "Sample2"
-// 	facilitySample2 := "PMH"
-// 	var volumeOfBloodMarrowSample2 float32
-// 	volumeOfBloodMarrowSample2 = 105.67
-// 	dateCollectedSample2 := "2020-09-08"
+func TestUpdatePatientPOST(t *testing.T) {
 
-// 	sample1 := models.Sample{
-// 		SampleID:            &sampleidSample1,
-// 		Facility:            &facilitySample1,
-// 		VolumeOfBloodMarrow: &volumeOfBloodMarrowSample1,
-// 		DateCollected:       &dateCollectedSample1,
-// 	}
+	patient := repos.GetPatientByID("1")
+	first := "Mitchell"
+	last := "Strong"
+	patient.FirstName = &first
+	patient.LastName = &last
+	person1Bytes, err := json.Marshal(patient)
 
-// 	sample2 := models.Sample{
-// 		SampleID:            &sampleidSample2,
-// 		Facility:            &facilitySample2,
-// 		VolumeOfBloodMarrow: &volumeOfBloodMarrowSample2,
-// 		DateCollected:       &dateCollectedSample2,
-// 	}
+	if err != nil {
+		t.Fail()
+		return
+	}
 
-// 	sample1Bytes, err := json.Marshal(sample1)
-// 	sample2Bytes, err2 := json.Marshal(sample2)
+	body := bytes.NewReader(person1Bytes)
 
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
+	req, err := http.NewRequest("POST", host+"/Jtree/metadata/0.1.0/patient", body)
 
-// 	if err2 != nil {
-// 		t.Fail()
-// 		return
-// 	}
+	if err != nil {
+		t.Fail()
+		return
+	}
 
-// 	body := bytes.NewReader(sample1Bytes)
-// 	body2 := bytes.NewReader(sample2Bytes)
+	req.Header.Set("Content-Type", "application/json")
 
-// 	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/sample", body)
-// 	req2, err2 := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/sample", body2)
+	resp, err := http.DefaultClient.Do(req)
 
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	if err2 != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	req.Header.Set("Content-Type", "application/json")
-// 	req2.Header.Set("Content-Type", "application/json")
+	if resp.Status != "201 Created" {
+		t.Fail()
+		return
+	}
 
-// 	resp, err := http.DefaultClient.Do(req)
-// 	resp2, err2 := http.DefaultClient.Do(req2)
+	if err != nil {
+		t.Fail()
+		return
+	}
 
-// 	if resp.Status != "201 Created" || resp2.Status != "201 Created" {
-// 		t.Fail()
-// 		return
-// 	}
+	defer resp.Body.Close()
 
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	if err2 != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	defer resp.Body.Close()
-// 	defer resp2.Body.Close()
+	patientNew := repos.GetPatientByID("1")
 
-// }
+	if *patientNew.FirstName != first || *patientNew.LastName != last {
+		t.Fail()
+		return
+	}
 
-// func TestAddExperimentsPOST(t *testing.T) {
-// 	sampleidSample1 := "Sample1"
-// 	pcrSample1 := "PCR1"
-// 	dateCollectedSample1 := "20140506"
-// 	sampleidSample2 := "Sample2"
-// 	pcrSample2 := "PCR2"
-// 	dateCollectedSample2 := "2020-09-08"
+	return
+}
 
-// 	sample1 := models.Experiment{
-// 		SampleID:     &sampleidSample1,
-// 		Pcr:          &pcrSample1,
-// 		CompleteDate: &dateCollectedSample1,
-// 	}
+func TestAddSamplePOST(t *testing.T) {
 
-// 	sample2 := models.Experiment{
-// 		SampleID:     &sampleidSample2,
-// 		Pcr:          &pcrSample2,
-// 		CompleteDate: &dateCollectedSample2,
-// 	}
+	sample := dummydata.MakeSample(1, -1)
+	sample1Bytes, err := json.Marshal(sample)
 
-// 	sample1Bytes, err := json.Marshal(sample1)
-// 	sample2Bytes, err2 := json.Marshal(sample2)
+	if err != nil {
+		t.Fail()
+		return
+	}
 
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
+	body := bytes.NewReader(sample1Bytes)
 
-// 	if err2 != nil {
-// 		t.Fail()
-// 		return
-// 	}
+	req, err := http.NewRequest("POST", host+"/Jtree/metadata/0.1.0/sample", body)
 
-// 	body := bytes.NewReader(sample1Bytes)
-// 	body2 := bytes.NewReader(sample2Bytes)
+	if err != nil {
+		t.Fail()
+		return
+	}
 
-// 	req, err := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/experiment", body)
-// 	req2, err2 := http.NewRequest("POST", server+"/Jtree/metadata/0.1.0/experiment", body2)
+	req.Header.Set("Content-Type", "application/json")
 
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	if err2 != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	req.Header.Set("Content-Type", "application/json")
-// 	req2.Header.Set("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
 
-// 	resp, err := http.DefaultClient.Do(req)
-// 	resp2, err2 := http.DefaultClient.Do(req2)
+	if resp.Status != "201 Created" {
+		t.Fail()
+		return
+	}
 
-// 	if resp.Status != "201 Created" || resp2.Status != "201 Created" {
-// 		t.Fail()
-// 		return
-// 	}
+	if err != nil {
+		t.Fail()
+		return
+	}
 
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	if err2 != nil {
-// 		t.Fail()
-// 		return
-// 	}
-// 	defer resp.Body.Close()
-// 	defer resp2.Body.Close()
+	defer resp.Body.Close()
 
-// }
+}
+
+func TestUpdateSamplePOST(t *testing.T) {
+
+	sample := repos.GetSampleByID("1")
+	comments := "updated"
+	sample.Comments = &comments
+	sample1Bytes, err := json.Marshal(sample)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	body := bytes.NewReader(sample1Bytes)
+
+	req, err := http.NewRequest("POST", host+"/Jtree/metadata/0.1.0/sample", body)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := http.DefaultClient.Do(req)
+
+	if resp.Status != "201 Created" {
+		t.Fail()
+		return
+	}
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+	sampleNew := repos.GetSampleByID("1")
+
+	if *sampleNew.Comments != comments {
+		t.Fail()
+		return
+	}
+
+	return
+}
+
+func TestAddExperimentPOST(t *testing.T) {
+
+	experiment := dummydata.MakeExperiment(1, -1)
+	experiment1Bytes, err := json.Marshal(experiment)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	body := bytes.NewReader(experiment1Bytes)
+
+	req, err := http.NewRequest("POST", host+"/Jtree/metadata/0.1.0/experiment", body)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := http.DefaultClient.Do(req)
+
+	if resp.Status != "201 Created" {
+		t.Fail()
+		return
+	}
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+
+func TestUpdateExperimentPOST(t *testing.T) {
+
+	experiment := repos.GetExperimentByID("1")
+	projectName := "updated"
+	experiment.ProjectName = &projectName
+	experiment1Bytes, err := json.Marshal(experiment)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	body := bytes.NewReader(experiment1Bytes)
+
+	req, err := http.NewRequest("POST", host+"/Jtree/metadata/0.1.0/experiment", body)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := http.DefaultClient.Do(req)
+
+	if resp.Status != "201 Created" {
+		t.Fail()
+		return
+	}
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+	experimentNew := repos.GetExperimentByID("1")
+
+	if *experimentNew.ProjectName != projectName {
+		t.Fail()
+		return
+	}
+
+	return
+}
 
 func TestQueries(t *testing.T) {
 

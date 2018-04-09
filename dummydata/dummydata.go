@@ -267,7 +267,9 @@ func MakePatient(patientID int) models.Patient {
 func MakeSample(patientID int, sampleID int) models.Sample {
 	sample := models.Sample{}
 	SampleID := strconv.Itoa(sampleID)
-	sample.SampleID = &SampleID
+	if sampleID > 0 {
+		sample.SampleID = &SampleID
+	}
 	Facility := makeRandomString()
 	sample.Facility = &Facility
 	TestRequested := makeRandomString()
@@ -382,7 +384,9 @@ func MakeExperiment(sampleID int, experimentID int) models.Experiment {
 	CompleteDate, _ := time.Parse(shortForm, makeRandomDate())
 	experiment.CompleteDate = &CompleteDate
 	ExperimentID := strconv.Itoa(experimentID)
-	experiment.ExperimentID = &ExperimentID
+	if experimentID > 0 {
+		experiment.ExperimentID = &ExperimentID
+	}
 	HasProjectFiles := makeRandomBool()
 	experiment.HasProjectFiles = &HasProjectFiles
 	OpenedDate, _ := time.Parse(shortForm, makeRandomDate())
