@@ -49,10 +49,3 @@ func returnQuery(fields, tables []string, conditions [][]string) models.Query {
 	}
 	return query
 }
-
-func tearDown() bool {
-	result := true
-	//result = result && repos.RemoveUnitTestPatients()
-	//result = result && repos.RemoveUnitTestSamples()
-	return result
-}

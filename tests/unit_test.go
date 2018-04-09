@@ -22,21 +22,23 @@ import (
 var host = "http://127.0.0.1:8000"
 
 func TestMain(m *testing.M) {
+	testResults := m.Run()
+	os.Exit(testResults)
+}
+
+func TestSetupSever(t *testing.T) {
 	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
 	if err != nil {
+		t.Errorf("%v", err)
 		log.Fatalln(err)
 	}
 
 	api := operations.NewJtreeMetadataAPI(swaggerSpec)
 	server := restapi.NewServer(api)
-	defer server.Shutdown()
 
 	server.ConfigureAPI()
 
 	go server.Serve()
-
-	testResults := m.Run()
-	os.Exit(testResults)
 }
 
 func TestGenerateDummyData(t *testing.T) {
