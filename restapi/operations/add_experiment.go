@@ -31,7 +31,7 @@ func NewAddExperiment(ctx *middleware.Context, handler AddExperimentHandler) *Ad
 
 /*AddExperiment swagger:route POST /experiment addExperiment
 
-adds an experiment
+adds an experiment item
 
 Adds an experiment to the system
 
@@ -42,7 +42,6 @@ type AddExperiment struct {
 }
 
 func (o *AddExperiment) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-	rw.Header().Set("Access-Control-Allow-Origin", "*")
 	route, rCtx, _ := o.Context.RouteInfo(r)
 	if rCtx != nil {
 		r = rCtx

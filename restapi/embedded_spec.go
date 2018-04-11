@@ -80,8 +80,11 @@ func init() {
           }
         ],
         "responses": {
-          "201": {
-            "description": "item created"
+          "200": {
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
           },
           "400": {
             "description": "invalid input, object invalid"
@@ -135,8 +138,11 @@ func init() {
           }
         ],
         "responses": {
-          "201": {
-            "description": "item created"
+          "200": {
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
           },
           "400": {
             "description": "invalid input, object invalid"
@@ -204,8 +210,11 @@ func init() {
           }
         ],
         "responses": {
-          "201": {
-            "description": "item created"
+          "200": {
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
           },
           "400": {
             "description": "invalid input, object invalid"
@@ -238,8 +247,11 @@ func init() {
           }
         ],
         "responses": {
-          "201": {
-            "description": "item created"
+          "200": {
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
           },
           "400": {
             "description": "invalid input, object invalid"
@@ -272,8 +284,11 @@ func init() {
           }
         ],
         "responses": {
-          "201": {
-            "description": "item created"
+          "200": {
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
           },
           "400": {
             "description": "invalid input, object invalid"
@@ -1055,8 +1070,11 @@ func init() {
           }
         ],
         "responses": {
-          "201": {
-            "description": "item created"
+          "200": {
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
           },
           "400": {
             "description": "invalid input, object invalid"
@@ -1110,8 +1128,11 @@ func init() {
           }
         ],
         "responses": {
-          "201": {
-            "description": "item created"
+          "200": {
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
           },
           "400": {
             "description": "invalid input, object invalid"
@@ -1179,8 +1200,11 @@ func init() {
           }
         ],
         "responses": {
-          "201": {
-            "description": "item created"
+          "200": {
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
           },
           "400": {
             "description": "invalid input, object invalid"
@@ -1213,8 +1237,11 @@ func init() {
           }
         ],
         "responses": {
-          "201": {
-            "description": "item created"
+          "200": {
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
           },
           "400": {
             "description": "invalid input, object invalid"
@@ -1247,8 +1274,11 @@ func init() {
           }
         ],
         "responses": {
-          "201": {
-            "description": "item created"
+          "200": {
+            "description": "id",
+            "schema": {
+              "type": "string"
+            }
           },
           "400": {
             "description": "invalid input, object invalid"

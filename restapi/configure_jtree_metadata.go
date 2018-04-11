@@ -39,99 +39,101 @@ func newID() string {
 	return ID
 }
 
-func addPatient(patient *models.Patient) error {
+func addPatient(patient *models.Patient) string {
 	if patient == nil {
-		return errors.New(500, "item must be present")
+		return "item must be present"
 	}
 
 	if patient.PatientID != nil {
 		patientOLD := repos.GetPatientByID(*patient.PatientID)
 		if patientOLD == nil {
-			return errors.New(500, "item must be present")
+			return "incorrect id"
 		}
 		repos.UpdatePatient(patient)
-	} else {
-		var newID = newID()
-		patient.PatientID = &newID
-		repos.InsertPatient(patient)
+		return *patient.PatientID
 	}
-	return nil
+	NewID := newID()
+	patient.PatientID = &NewID
+	repos.InsertPatient(patient)
+	return NewID
 }
 
-func addSample(sample *models.Sample) error {
+func addSample(sample *models.Sample) string {
 	if sample == nil {
-		return errors.New(500, "item must be present")
+		return "item must be present"
 	}
 
 	if sample.SampleID != nil {
 		sampleOLD := repos.GetSampleByID(*sample.SampleID)
 		if sampleOLD == nil {
-			return errors.New(500, "item must be present")
+			return "incorrect id"
 		}
 		repos.UpdateSample(sample)
-	} else {
-		var newID = newID()
-		sample.SampleID = &newID
-		repos.InsertSample(sample)
+		return *sample.SampleID
 	}
-	return nil
+	NewID := newID()
+	sample.SampleID = &NewID
+	repos.InsertSample(sample)
+	return NewID
 }
 
-func addExperiment(experiment *models.Experiment) error {
+func addExperiment(experiment *models.Experiment) string {
 	if experiment == nil {
-		return errors.New(500, "item must be present")
+		//return errors.New(500, "item must be present")
+		return "Item must be present"
 	}
 
 	if experiment.ExperimentID != nil {
 		experimentOLD := repos.GetExperimentByID(*experiment.ExperimentID)
 		if experimentOLD == nil {
-			return errors.New(500, "item must be present")
+			//return errors.New(500, "item must be present")
+			return "ID is not valid"
 		}
 		repos.UpdateExperiment(experiment)
-	} else {
-		var newID = newID()
-		experiment.ExperimentID = &newID
-		repos.InsertExperiment(experiment)
+		return *experiment.ExperimentID
 	}
-	return nil
+	NewID := newID()
+	experiment.ExperimentID = &NewID
+	repos.InsertExperiment(experiment)
+	return NewID
 }
 
-func addResult(result *models.Result) error {
+func addResult(result *models.Result) string {
 	if result == nil {
-		return errors.New(500, "item must be present")
+		return "item must be present"
 	}
 
 	if result.ResultsID != nil {
 		resultOLD := repos.GetResultByID(*result.ResultsID)
 		if resultOLD == nil {
-			return errors.New(500, "item must be present")
+			return "incorrect id"
 		}
 		repos.UpdateResult(result)
-	} else {
-		var newID = newID()
-		result.ResultsID = &newID
-		repos.InsertResult(result)
+		return *result.ResultsID
 	}
-	return nil
+	NewID := newID()
+	result.ResultsID = &NewID
+	repos.InsertResult(result)
+	return NewID
 }
 
-func addResultdetail(resultdetail *models.Resultdetails) error {
+func addResultdetail(resultdetail *models.Resultdetails) string {
 	if resultdetail == nil {
-		return errors.New(500, "item must be present")
+		return "item must be present"
 	}
 
 	if resultdetail.ResultsDetailsID != nil {
 		resultdetailOLD := repos.GetResultDetailByID(*resultdetail.ResultsDetailsID)
 		if resultdetailOLD == nil {
-			return errors.New(500, "item must be present")
+			return "incorrect id"
 		}
 		repos.UpdateResultDetail(resultdetail)
-	} else {
-		var newID = newID()
-		resultdetail.ResultsDetailsID = &newID
-		repos.InsertResultDetail(resultdetail)
+		return *resultdetail.ResultsDetailsID
 	}
-	return nil
+	NewID := newID()
+	resultdetail.ResultsDetailsID = &NewID
+	repos.InsertResultDetail(resultdetail)
+	return NewID
 }
 
 func allSamples(query string) (result []*models.Record) {
@@ -267,34 +269,19 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 		return operations.NewPostUploadOK().WithPayload(true)
 	})
 	api.AddExperimentHandler = operations.AddExperimentHandlerFunc(func(params operations.AddExperimentParams) middleware.Responder {
-		if err := addExperiment(params.Experiment); err != nil {
-			return operations.NewAddExperimentBadRequest()
-		}
-		return operations.NewAddExperimentCreated()
+		return operations.NewAddExperimentOK().WithPayload(addExperiment(params.Experiment))
 	})
 	api.AddPatientHandler = operations.AddPatientHandlerFunc(func(params operations.AddPatientParams) middleware.Responder {
-		if err := addPatient(params.Patient); err != nil {
-			return operations.NewAddPatientBadRequest()
-		}
-		return operations.NewAddPatientCreated()
+		return operations.NewAddPatientOK().WithPayload(addPatient(params.Patient))
 	})
 	api.AddSampleHandler = operations.AddSampleHandlerFunc(func(params operations.AddSampleParams) middleware.Responder {
-		if err := addSample(params.Sample); err != nil {
-			return operations.NewAddSampleBadRequest()
-		}
-		return operations.NewAddSampleCreated()
+		return operations.NewAddSampleOK().WithPayload(addSample(params.Sample))
 	})
 	api.AddResultHandler = operations.AddResultHandlerFunc(func(params operations.AddResultParams) middleware.Responder {
-		if err := addResult(params.Result); err != nil {
-			return operations.NewAddResultBadRequest()
-		}
-		return operations.NewAddResultCreated()
+		return operations.NewAddResultOK().WithPayload(addResult(params.Result))
 	})
 	api.AddResultdetailsHandler = operations.AddResultdetailsHandlerFunc(func(params operations.AddResultdetailsParams) middleware.Responder {
-		if err := addResultdetail(params.Resultdetails); err != nil {
-			return operations.NewAddResultdetailsBadRequest()
-		}
-		return operations.NewAddResultdetailsCreated()
+		return operations.NewAddResultdetailsOK().WithPayload(addResultdetail(params.Resultdetails))
 	})
 	api.GetSamplesByQueryHandler = operations.GetSamplesByQueryHandlerFunc(func(params operations.GetSamplesByQueryParams) middleware.Responder {
 		return operations.NewGetSamplesByQueryOK().WithPayload(getSamplesByQuery(params.Query))

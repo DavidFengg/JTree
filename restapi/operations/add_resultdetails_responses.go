@@ -11,27 +11,46 @@ import (
 	"github.com/go-openapi/runtime"
 )
 
-// AddResultdetailsCreatedCode is the HTTP code returned for type AddResultdetailsCreated
-const AddResultdetailsCreatedCode int = 201
+// AddResultdetailsOKCode is the HTTP code returned for type AddResultdetailsOK
+const AddResultdetailsOKCode int = 200
 
-/*AddResultdetailsCreated item created
+/*AddResultdetailsOK id
 
-swagger:response addResultdetailsCreated
+swagger:response addResultdetailsOK
 */
-type AddResultdetailsCreated struct {
+type AddResultdetailsOK struct {
+
+	/*
+	  In: Body
+	*/
+	Payload string `json:"body,omitempty"`
 }
 
-// NewAddResultdetailsCreated creates AddResultdetailsCreated with default headers values
-func NewAddResultdetailsCreated() *AddResultdetailsCreated {
-	return &AddResultdetailsCreated{}
+// NewAddResultdetailsOK creates AddResultdetailsOK with default headers values
+func NewAddResultdetailsOK() *AddResultdetailsOK {
+	return &AddResultdetailsOK{}
+}
+
+// WithPayload adds the payload to the add resultdetails o k response
+func (o *AddResultdetailsOK) WithPayload(payload string) *AddResultdetailsOK {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the add resultdetails o k response
+func (o *AddResultdetailsOK) SetPayload(payload string) {
+	o.Payload = payload
 }
 
 // WriteResponse to the client
-func (o *AddResultdetailsCreated) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+func (o *AddResultdetailsOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+	rw.WriteHeader(200)
+	payload := o.Payload
+	if err := producer.Produce(rw, payload); err != nil {
+		panic(err) // let the recovery middleware deal with this
+	}
 
-	rw.WriteHeader(201)
 }
 
 // AddResultdetailsBadRequestCode is the HTTP code returned for type AddResultdetailsBadRequest

@@ -11,27 +11,46 @@ import (
 	"github.com/go-openapi/runtime"
 )
 
-// AddPatientCreatedCode is the HTTP code returned for type AddPatientCreated
-const AddPatientCreatedCode int = 201
+// AddPatientOKCode is the HTTP code returned for type AddPatientOK
+const AddPatientOKCode int = 200
 
-/*AddPatientCreated item created
+/*AddPatientOK id
 
-swagger:response addPatientCreated
+swagger:response addPatientOK
 */
-type AddPatientCreated struct {
+type AddPatientOK struct {
+
+	/*
+	  In: Body
+	*/
+	Payload string `json:"body,omitempty"`
 }
 
-// NewAddPatientCreated creates AddPatientCreated with default headers values
-func NewAddPatientCreated() *AddPatientCreated {
-	return &AddPatientCreated{}
+// NewAddPatientOK creates AddPatientOK with default headers values
+func NewAddPatientOK() *AddPatientOK {
+	return &AddPatientOK{}
+}
+
+// WithPayload adds the payload to the add patient o k response
+func (o *AddPatientOK) WithPayload(payload string) *AddPatientOK {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the add patient o k response
+func (o *AddPatientOK) SetPayload(payload string) {
+	o.Payload = payload
 }
 
 // WriteResponse to the client
-func (o *AddPatientCreated) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+func (o *AddPatientOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+	rw.WriteHeader(200)
+	payload := o.Payload
+	if err := producer.Produce(rw, payload); err != nil {
+		panic(err) // let the recovery middleware deal with this
+	}
 
-	rw.WriteHeader(201)
 }
 
 // AddPatientBadRequestCode is the HTTP code returned for type AddPatientBadRequest

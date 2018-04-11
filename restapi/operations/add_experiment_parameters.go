@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	models "github.com/Bio-core/jtree/models"
+	"github.com/Bio-core/jtree/models"
 )
 
 // NewAddExperimentParams creates a new AddExperimentParams object

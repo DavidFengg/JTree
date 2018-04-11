@@ -42,7 +42,6 @@ type AddSample struct {
 }
 
 func (o *AddSample) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
-	rw.Header().Set("Access-Control-Allow-Origin", "*")
 	route, rCtx, _ := o.Context.RouteInfo(r)
 	if rCtx != nil {
 		r = rCtx

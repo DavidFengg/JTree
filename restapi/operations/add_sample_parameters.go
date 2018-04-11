@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	models "github.com/Bio-core/jtree/models"
+	"github.com/Bio-core/jtree/models"
 )
 
 // NewAddSampleParams creates a new AddSampleParams object

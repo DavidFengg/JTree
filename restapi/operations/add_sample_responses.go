@@ -11,27 +11,46 @@ import (
 	"github.com/go-openapi/runtime"
 )
 
-// AddSampleCreatedCode is the HTTP code returned for type AddSampleCreated
-const AddSampleCreatedCode int = 201
+// AddSampleOKCode is the HTTP code returned for type AddSampleOK
+const AddSampleOKCode int = 200
 
-/*AddSampleCreated item created
+/*AddSampleOK id
 
-swagger:response addSampleCreated
+swagger:response addSampleOK
 */
-type AddSampleCreated struct {
+type AddSampleOK struct {
+
+	/*
+	  In: Body
+	*/
+	Payload string `json:"body,omitempty"`
 }
 
-// NewAddSampleCreated creates AddSampleCreated with default headers values
-func NewAddSampleCreated() *AddSampleCreated {
-	return &AddSampleCreated{}
+// NewAddSampleOK creates AddSampleOK with default headers values
+func NewAddSampleOK() *AddSampleOK {
+	return &AddSampleOK{}
+}
+
+// WithPayload adds the payload to the add sample o k response
+func (o *AddSampleOK) WithPayload(payload string) *AddSampleOK {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the add sample o k response
+func (o *AddSampleOK) SetPayload(payload string) {
+	o.Payload = payload
 }
 
 // WriteResponse to the client
-func (o *AddSampleCreated) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+func (o *AddSampleOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
-	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+	rw.WriteHeader(200)
+	payload := o.Payload
+	if err := producer.Produce(rw, payload); err != nil {
+		panic(err) // let the recovery middleware deal with this
+	}
 
-	rw.WriteHeader(201)
 }
 
 // AddSampleBadRequestCode is the HTTP code returned for type AddSampleBadRequest
