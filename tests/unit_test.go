@@ -113,7 +113,12 @@ func TestAddPatientPOST(t *testing.T) {
 
 	resp, err := http.DefaultClient.Do(req)
 
-	if resp.Status != "201 Created" {
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if resp.Status != "200 OK" && string(content) != "error" {
 		t.Fail()
 		return
 	}
@@ -153,8 +158,12 @@ func TestUpdatePatientPOST(t *testing.T) {
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := http.DefaultClient.Do(req)
-
-	if resp.Status != "201 Created" {
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if resp.Status != "200 OK" && string(content) != "error" {
 		t.Fail()
 		return
 	}
@@ -199,7 +208,12 @@ func TestAddSamplePOST(t *testing.T) {
 
 	resp, err := http.DefaultClient.Do(req)
 
-	if resp.Status != "201 Created" {
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if resp.Status != "200 OK" && string(content) != "error" {
 		t.Fail()
 		return
 	}
@@ -238,7 +252,12 @@ func TestUpdateSamplePOST(t *testing.T) {
 
 	resp, err := http.DefaultClient.Do(req)
 
-	if resp.Status != "201 Created" {
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if resp.Status != "200 OK" && string(content) != "error" {
 		t.Fail()
 		return
 	}
@@ -283,7 +302,12 @@ func TestAddExperimentPOST(t *testing.T) {
 
 	resp, err := http.DefaultClient.Do(req)
 
-	if resp.Status != "201 Created" {
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if resp.Status != "200 OK" && string(content) != "error" {
 		t.Fail()
 		return
 	}
@@ -322,7 +346,12 @@ func TestUpdateExperimentPOST(t *testing.T) {
 
 	resp, err := http.DefaultClient.Do(req)
 
-	if resp.Status != "201 Created" {
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if resp.Status != "200 OK" && string(content) != "error" {
 		t.Fail()
 		return
 	}
@@ -367,7 +396,12 @@ func TestAddResultPOST(t *testing.T) {
 
 	resp, err := http.DefaultClient.Do(req)
 
-	if resp.Status != "201 Created" {
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if resp.Status != "200 OK" && string(content) != "error" {
 		t.Fail()
 		return
 	}
@@ -406,11 +440,15 @@ func TestUpdateResultPOST(t *testing.T) {
 
 	resp, err := http.DefaultClient.Do(req)
 
-	if resp.Status != "201 Created" {
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
 		t.Fail()
 		return
 	}
-
+	if resp.Status != "200 OK" && string(content) != "error" {
+		t.Fail()
+		return
+	}
 	if err != nil {
 		t.Fail()
 		return
@@ -451,7 +489,12 @@ func TestAddResultDetailPOST(t *testing.T) {
 
 	resp, err := http.DefaultClient.Do(req)
 
-	if resp.Status != "201 Created" {
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if resp.Status != "200 OK" && string(content) != "error" {
 		t.Fail()
 		return
 	}
@@ -489,12 +532,15 @@ func TestUpdateResultDetailPOST(t *testing.T) {
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := http.DefaultClient.Do(req)
-
-	if resp.Status != "201 Created" {
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
 		t.Fail()
 		return
 	}
-
+	if resp.Status != "200 OK" && string(content) != "error" {
+		t.Fail()
+		return
+	}
 	if err != nil {
 		t.Fail()
 		return

@@ -41,13 +41,13 @@ func newID() string {
 
 func addPatient(patient *models.Patient) string {
 	if patient == nil {
-		return "item must be present"
+		return "error"
 	}
 
 	if patient.PatientID != nil {
 		patientOLD := repos.GetPatientByID(*patient.PatientID)
 		if patientOLD == nil {
-			return "incorrect id"
+			return "error"
 		}
 		repos.UpdatePatient(patient)
 		return *patient.PatientID
@@ -60,13 +60,13 @@ func addPatient(patient *models.Patient) string {
 
 func addSample(sample *models.Sample) string {
 	if sample == nil {
-		return "item must be present"
+		return "error"
 	}
 
 	if sample.SampleID != nil {
 		sampleOLD := repos.GetSampleByID(*sample.SampleID)
 		if sampleOLD == nil {
-			return "incorrect id"
+			return "error"
 		}
 		repos.UpdateSample(sample)
 		return *sample.SampleID
@@ -79,15 +79,15 @@ func addSample(sample *models.Sample) string {
 
 func addExperiment(experiment *models.Experiment) string {
 	if experiment == nil {
-		//return errors.New(500, "item must be present")
-		return "Item must be present"
+		//return errors.New(500, "error")
+		return "error"
 	}
 
 	if experiment.ExperimentID != nil {
 		experimentOLD := repos.GetExperimentByID(*experiment.ExperimentID)
 		if experimentOLD == nil {
-			//return errors.New(500, "item must be present")
-			return "ID is not valid"
+			//return errors.New(500, "error")
+			return "error"
 		}
 		repos.UpdateExperiment(experiment)
 		return *experiment.ExperimentID
@@ -100,13 +100,13 @@ func addExperiment(experiment *models.Experiment) string {
 
 func addResult(result *models.Result) string {
 	if result == nil {
-		return "item must be present"
+		return "error"
 	}
 
 	if result.ResultsID != nil {
 		resultOLD := repos.GetResultByID(*result.ResultsID)
 		if resultOLD == nil {
-			return "incorrect id"
+			return "error"
 		}
 		repos.UpdateResult(result)
 		return *result.ResultsID
@@ -119,13 +119,13 @@ func addResult(result *models.Result) string {
 
 func addResultdetail(resultdetail *models.Resultdetails) string {
 	if resultdetail == nil {
-		return "item must be present"
+		return "error"
 	}
 
 	if resultdetail.ResultsDetailsID != nil {
 		resultdetailOLD := repos.GetResultDetailByID(*resultdetail.ResultsDetailsID)
 		if resultdetailOLD == nil {
-			return "incorrect id"
+			return "error"
 		}
 		repos.UpdateResultDetail(resultdetail)
 		return *resultdetail.ResultsDetailsID
