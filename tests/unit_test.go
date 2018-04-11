@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Bio-core/Jtree/dummydata"
 	"github.com/Bio-core/jtree/database"
+	"github.com/Bio-core/jtree/dummydata"
 	"github.com/Bio-core/jtree/models"
 	"github.com/Bio-core/jtree/repos"
 	"github.com/Bio-core/jtree/restapi"
