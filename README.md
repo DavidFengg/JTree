@@ -81,5 +81,5 @@ $ curl -X POST -H "Content-Type: application/json" /
 $ docker network create -d bridge mysql-network
 $ docker run --name mysqldb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=waterloo -d --network=mysql-network mysql/mysql-server
 $ docker build -t docker/jtree .
-$ docker run --link mysqldb --name jtree -p 8000:8000 docker/jtree
+$ docker run --network=mysql-network --name jtree -p 8000:8000 docker/jtree
 ```
