@@ -74,3 +74,12 @@ $ curl -X POST -H "Content-Type: application/json" /
  -d '{`# See models.resultdetails for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/resultdetails
 
 ```
+
+
+# Docker
+```bash
+$ docker network create -d bridge mysql-network
+$ docker run --name mysqldb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=waterloo -d --network=mysql-network mysql/mysql-server
+$ docker build -t docker/jtree .
+$ docker run --link mysqldb --name jtree -p 8000:8000 docker/jtree
+```
