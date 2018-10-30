@@ -87,7 +87,7 @@ $ docker network create -d bridge mysql-network
 $ docker run --name mysqldb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=waterloo -d --network=mysql-network mysql/mysql-server
 $ docker exec -i mysqldb mysql -u root -pwaterloo -e "CREATE DATABASE JTree"
 $ docker exec -i mysqldb mysql -u root -pwaterloo JTree < ./sql/jtree_backup.sql
-$ docker exec -i mysqldb mysql -u root -pwaterloo -e "grant SELECT on JTree.* to 'select'@'%' identified by 'passwords';flush privileges;grant SELECT,INSERT, UPDATE on JTree.* to 'update'@'%' identified by 'passwordu';flush privileges;"
+$ docker exec -i mysqldb mysql -u root -pwaterloo -e "CREATE USER 'select'@'%' identified by 'passwords';grant SELECT on JTree.* to 'select'@'%';flush privileges;CREATE USER 'update'@'%' identified by 'passwordu';grant SELECT,INSERT, UPDATE on JTree.* to 'update'@'%';flush privileges;"
 $ docker build -t docker/jtree .
 $ docker run --network=mysql-network --name jtree -p 8000:8000 -d docker/jtree
 ```
