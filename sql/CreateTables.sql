@@ -132,3 +132,9 @@ CREATE TABLE `resultdetails` (
   KEY `FK_results_id` (`results_id`),
   CONSTRAINT `FK_results_id` FOREIGN KEY (`results_id`) REFERENCES `results` (`results_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `turnaroundtime` (
+    `display_name` nvarchar(50) NOT NULL,
+    `accession_date` date DEFAULT NULL,
+    `quantification_store_date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
