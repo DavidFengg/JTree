@@ -77,7 +77,7 @@ $ curl -X POST -H "Content-Type: application/json" /
 
 
 # Docker
-For golang code, may need to change the connection string with the update ip for the docker continer
+For golang code, may need to change the connection string with an updated IP address for the docker container
 ```bash
 $ docker inspect <container name> | grep IPAddr
 ```
