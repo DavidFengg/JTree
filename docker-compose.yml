@@ -19,7 +19,7 @@ services:
            - "8000:8000"
        links:
            - mysql
-   limsinsight:
+    limsinsight:
        container_name: limsinsight
        build: ./limsinsight
        ports:
