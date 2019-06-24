@@ -81,7 +81,8 @@ For golang code, may need to change the connection string with an updated IP add
 ```bash
 $ docker inspect <container name> | grep IPAddr
 ```
-Then git commit and puch to master (because it does a goget) and run the docker commands below
+The base IP address for docker containers will need to be updated in the `restapi/configure_jtree_metadata.go`
+file then commit and push to master (because it does a goget) and run the docker commands below:
 ```bash
 $ docker network create -d bridge mysql-network
 $ docker run --name mysqldb -p 3306:3306 -e MYSQL_ROOT_PASSWORD=waterloo -d --network=mysql-network mysql/mysql-server
