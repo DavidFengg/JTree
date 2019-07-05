@@ -242,8 +242,8 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 
 	//database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@/"+c.Database.Name+"?parseTime=true", database.DBSelect)
 	//database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@/"+c.Database.Name+"?parseTime=true", database.DBUpdate)
-	database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@tcp(172.23.0.2:3306)/"+c.Database.Name+"?parseTime=true", database.DBSelect)
-	database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@tcp(172.23.0.2:3306)/"+c.Database.Name+"?parseTime=true", database.DBUpdate)
+	database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@tcp(172.20.0.2:3306)/"+c.Database.Name+"?parseTime=true", database.DBSelect)
+	database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@tcp(172.20.0.2:3306)/"+c.Database.Name+"?parseTime=true", database.DBUpdate)
 	ServerName := c.App.Host + ":" + strconv.Itoa(c.App.Port)
 	KeycloakserverName := c.Keycloak.Host
 
