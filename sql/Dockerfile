@@ -1,2 +1,3 @@
 FROM mysql:5.6
-COPY CreateDatabase.sql /docker-entrypoint-initdb.d/CreateDatabase.sql
+
+COPY CreateAll.sql /docker-entrypoint-initdb.d/CreateAll.sql
