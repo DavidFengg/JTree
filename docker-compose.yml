@@ -2,7 +2,8 @@ version: "3"
 services:
     mysql:
         container_name: mysqldb
-        image: mysql/mysql-server:latest
+        build: ./sql
+        # image: mysql/mysql-server:latest
         environment:
             - MYSQL_ROOT_PASSWORD=waterloo
             - MYSQL_ROOT_HOST=%
