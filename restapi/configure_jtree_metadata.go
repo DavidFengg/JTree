@@ -8,7 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"os/exec"
+	// "os/exec"
 	"strconv"
 
 	config "github.com/Bio-core/jtree/conf"
@@ -25,12 +25,15 @@ import (
 
 	"github.com/Bio-core/jtree/restapi/operations"
 	"github.com/rs/cors"
+	"github.com/nu7hatch/gouuid"
 )
 
 var c config.Conf
 
 func newID() string {
-	out, err := exec.Command("uuidgen").Output()
+	// below command does not work since JTree is not using a linux container
+	// out, err := exec.Command("uuidgen").Output()
+	out, err := uuid.NewV4()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -114,6 +117,8 @@ func addResult(result *models.Result) string {
 	NewID := newID()
 	result.ResultsID = &NewID
 	repos.InsertResult(result)
+	fmt.Println("new result added")
+	fmt.Print(NewID)
 	return NewID
 }
 
@@ -242,9 +247,14 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 
 	//database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@/"+c.Database.Name+"?parseTime=true", database.DBSelect)
 	//database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@/"+c.Database.Name+"?parseTime=true", database.DBUpdate)
-	database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@tcp(172.23.0.2:3306)/"+c.Database.Name+"?parseTime=true", database.DBSelect)
-	database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@tcp(172.23.0.2:3306)/"+c.Database.Name+"?parseTime=true", database.DBUpdate)
+	// database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@tcp(172.23.0.2:3306)/"+c.Database.Name+"?parseTime=true", database.DBSelect)
+	// database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@tcp(172.23.0.2:3306)/"+c.Database.Name+"?parseTime=true", database.DBUpdate)
+	database.DBSelect = database.Init(c.Database.Host, c.Database.Selectuser+":"+c.Database.Selectpass+"@tcp(mysql:3306)/"+c.Database.Name+"?parseTime=true", database.DBSelect)
+	database.DBUpdate = database.Init(c.Database.Host, c.Database.Updateuser+":"+c.Database.Updatepass+"@tcp(mysql:3306)/"+c.Database.Name+"?parseTime=true", database.DBUpdate)
 	ServerName := c.App.Host + ":" + strconv.Itoa(c.App.Port)
+	// REmove
+	fmt.Println("server name is:")
+	fmt.Print(ServerName)
 	KeycloakserverName := c.Keycloak.Host
 
 	if keycloakFlags.Active {
