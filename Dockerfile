@@ -1,4 +1,5 @@
-FROM golang:1.9
+# Use golang:1.13 when becomes available
+FROM golang:1.12
 
 WORKDIR /go/src/github.com/Bio-core/jtree
 COPY . .
@@ -14,6 +15,8 @@ RUN make build
 EXPOSE 8000
 
 # May have to add entrypoint
-CMD /go/src/github.com/Bio-core/jtree/bin/jtree
+# ENTRYPOINT [ "./bin/jtree" ]
+# ENTRYPOINT ["./bash_script.sh"]
 
-# RUN ./bin/jtree -g=100
+# RUN ./bin/jtree
+CMD /go/src/github.com/Bio-core/jtree/bin/jtree
