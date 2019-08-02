@@ -73,7 +73,7 @@ CREATE TABLE `patients` (
   `se_num` varchar(50) DEFAULT NULL,
   `patient_id` varchar(50) NOT NULL,
   `date_received` date DEFAULT NULL,
-  `referring_physican` varchar(150) DEFAULT NULL,
+  `referring_physician` varchar(150) DEFAULT NULL,
   `date_reported` date DEFAULT NULL,
   `surgical_date` date DEFAULT NULL,
   PRIMARY KEY (`patient_id`)

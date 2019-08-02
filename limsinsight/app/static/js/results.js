@@ -1,4 +1,5 @@
 var queryall = '{"selected_fields":["results.failed_regions", "results.mean_depth_of_coveage", "results.mlpa_pcr", "results.mutation", "results.overall_hotspots_threshold", "results.overall_quality_threshold", "results.results_id", "results.uid", "results.verification_pcr", "results.experiment_id"], "selected_tables":["results"], "selected_conditions":[[]]}'
+// var queryall = '{"selected_fields":["results.failed_regions", "results.mean_depth_of_coveage", "results.mlpa_pcr", "results.mutation", "results.overall_hotspots_threshold", "results.overall_quality_threshold", "results.results_id", "results.uid", "results.verification_pcr"], "selected_tables":["results"], "selected_conditions":[[]]}'
 var queryurl = apihost + "/query";
 $(document).ready(function() {
     var resultsTable;

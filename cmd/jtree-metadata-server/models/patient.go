@@ -50,8 +50,8 @@ type Patient struct {
 	// patient type
 	PatientType *string `json:"patients.patient_type,omitempty" db:"patients.patient_type"`
 
-	// referring physican
-	ReferringPhysican *string `json:"patients.referring_physican,omitempty" db:"patients.referring_physican"`
+	// referring physician
+	Referringphysician *string `json:"patients.referring_physician,omitempty" db:"patients.referring_physician"`
 
 	// sample id
 	SampleID *string `json:"patients.sample_id,omitempty" db:"patients.sample_id"`

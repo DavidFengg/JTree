@@ -18,7 +18,7 @@ CREATE TABLE `patients` (
   `se_num` nvarchar(50) DEFAULT NULL,
   `patient_id` nvarchar(50) NOT NULL,
   `date_received` date DEFAULT NULL,
-  `referring_physican` nvarchar(150) DEFAULT NULL,
+  `referring_physician` nvarchar(150) DEFAULT NULL,
   `date_reported` date DEFAULT NULL,
   `surgical_date` date DEFAULT NULL,
   PRIMARY KEY (`patient_id`)

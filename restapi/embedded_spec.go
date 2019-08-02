@@ -519,9 +519,9 @@ func init() {
           "x-go-custom-tag": "db:\"patient_type\"",
           "x-nullable": true
         },
-        "referring_physican": {
+        "referring_physician": {
           "type": "string",
-          "x-go-custom-tag": "db:\"referring_physican\"",
+          "x-go-custom-tag": "db:\"referring_physician\"",
           "x-nullable": true
         },
         "sample_id": {
@@ -1509,9 +1509,9 @@ func init() {
           "x-go-custom-tag": "db:\"patient_type\"",
           "x-nullable": true
         },
-        "referring_physican": {
+        "referring_physician": {
           "type": "string",
-          "x-go-custom-tag": "db:\"referring_physican\"",
+          "x-go-custom-tag": "db:\"referring_physician\"",
           "x-nullable": true
         },
         "sample_id": {

@@ -1,4 +1,4 @@
-var queryall = '{"selected_fields":["patients.first_name", "patients.last_name", "patients.initials", "patients.gender", "patients.mrn", "patients.dob", "patients.on_hcn", "patients.clinical_history", "patients.patient_type", "patients.se_num", "patients.patient_id", "patients.date_received", "patients.referring_physican", "patients.date_reported", "patients.surgical_date"],"selected_tables":["patients"],"selected_conditions":[[]]}';
+var queryall = '{"selected_fields":["patients.first_name", "patients.last_name", "patients.initials", "patients.gender", "patients.mrn", "patients.dob", "patients.on_hcn", "patients.clinical_history", "patients.patient_type", "patients.se_num", "patients.patient_id", "patients.date_received", "patients.referring_physician", "patients.date_reported", "patients.surgical_date"],"selected_tables":["patients"],"selected_conditions":[[]]}';
 var queryurl = apihost + "/query";
 $(document).ready(function() {
     var patientTable;

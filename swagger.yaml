@@ -267,10 +267,10 @@ definitions:
         type: "string" 
         x-nullable: true         
         x-go-custom-tag: "db:\"date_received\""
-      referring_physican: 
+      referring_physician: 
         type: "string" 
         x-nullable: true         
-        x-go-custom-tag: "db:\"referring_physican\""
+        x-go-custom-tag: "db:\"referring_physician\""
       date_reported:
         type: "string" 
         x-nullable: true         
