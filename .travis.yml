@@ -13,7 +13,7 @@ notifications:
 
 services:
   - docker
-  # - mysql
+  - mysql
 
 script: make test
 
