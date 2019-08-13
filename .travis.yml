@@ -3,6 +3,9 @@ language: go
 go:
   - 1.8.x
 
+env:
+  - DOCKER_COMPOSE_VERSION=1.4.2
+
 install:
   - go get -v github.com/Masterminds/glide 
   - make get-deps
@@ -13,10 +16,6 @@ notifications:
 
 services:
   - docker
-
-before_script:
-  - go get github.com/callicoder/go-docker-compose
-  - go install github.com/callicoder/go-docker-compose
 
 script:
   - docker-compose up --build
