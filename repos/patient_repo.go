@@ -61,7 +61,7 @@ func UpdatePatient(person *models.Patient) bool {
 		person.PatientID,
 		person.DateReceived.Format(shortForm),
 		//FIX THIS	
-		person.ReferringPhysician,
+		person.ReferringPhysican,
 		person.DateReported.Format(shortForm),
 		person.SurgicalDate.Format(shortForm),
 		person.PatientID)
