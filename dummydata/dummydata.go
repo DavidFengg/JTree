@@ -66,6 +66,7 @@ func makeRandomName(id int, last bool) string {
 	if last {
 		return random[id-1].Surname
 	}
+	// return random[1].Name
 	return random[id-1].Name
 }
 
@@ -224,7 +225,7 @@ func randSeq(n int) string {
 	return string(b)
 }
 
-//MakePatient makes a patient provided a pateint ID
+//MakePatient makes a patient provided a patient ID
 func MakePatient(patientID int) models.Patient {
 	patient := models.Patient{}
 	ClinicalHistory := makeRandomString()

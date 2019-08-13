@@ -14,7 +14,7 @@ services:
 
     jtree:
        container_name: jtree
-       image: docker/jtree
+    #    image: docker/jtree
        build: ./
        ports:
            - "8000:8000"

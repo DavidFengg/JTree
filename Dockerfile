@@ -15,8 +15,9 @@ RUN make build
 EXPOSE 8000
 
 # May have to add entrypoint
+CMD /go/src/github.com/Bio-core/jtree/bin/jtree
+# ENTRYPOINT [ "/go/src/github.com/Bio-core/jtree/bin/jtree" ]
 # ENTRYPOINT [ "./bin/jtree" ]
-# ENTRYPOINT ["./bash_script.sh"]
 
 # RUN ./bin/jtree
-CMD /go/src/github.com/Bio-core/jtree/bin/jtree
+# CMD /go/src/github.com/Bio-core/jtree/bin/jtree
