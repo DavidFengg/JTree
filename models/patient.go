@@ -29,16 +29,16 @@ type Patient struct {
 	Dob *time.Time `json:"patients.dob,omitempty" db:"patients.dob"`
 
 	// first name
-	1FirstName *string `json:"patients.first_name,omitempty" db:"patients.first_name"`
+	FirstName *string `json:"patients.first_name,omitempty" db:"patients.first_name"`
 
 	// gender
 	Gender *string `json:"patients.gender,omitempty" db:"patients.gender"`
 
 	// initials
-	2Initials *string `json:"patients.initials,omitempty" db:"patients.initials"`
+	Initials *string `json:"patients.initials,omitempty" db:"patients.initials"`
 
 	// last name
-	1LastName *string `json:"patients.last_name,omitempty" db:"patients.last_name"`
+	LastName *string `json:"patients.last_name,omitempty" db:"patients.last_name"`
 
 	// mrn
 	Mrn *string `json:"patients.mrn,omitempty" db:"patients.mrn"`
