@@ -18,7 +18,8 @@ services:
 script: make test
 
 before_install:
-  - docker build -t sql/Dockerfile
+  - docker build -t mysqlimage sql/Dockerfile
+  - docker run mysqlimage
   # - mysql -u "root" < "./tests/sql/DropDatabase.sql"
   # - mysql -u "root" < "./tests/sql/CreateDatabase.sql"
   # - mysql -u "root" < "./tests/sql/CreateTables.sql"
