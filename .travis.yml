@@ -18,7 +18,7 @@ services:
 script: make test
 
 before_install:
-  - docker build -t mysqlimage sql
+  - docker build -t mysqlimage sql -e MYSQL_ROOT_PASSWORD=waterloo
   - docker run mysqlimage
   # - mysql -u "root" < "./tests/sql/DropDatabase.sql"
   # - mysql -u "root" < "./tests/sql/CreateDatabase.sql"
