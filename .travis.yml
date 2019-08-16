@@ -18,11 +18,11 @@ services:
   - docker
 
 script:
-  - docker-compose up --build
+  - make test
+  # - docker-compose up --build
 
 before_install:
-  # - docker build -t mysqlimage sql 
-  # - docker run mysqlimage -e MYSQL_ROOT_PASSWORD=waterloo
+  - docker-compose up --build
   # - mysql -u "root" < "./tests/sql/DropDatabase.sql"
   # - mysql -u "root" < "./tests/sql/CreateDatabase.sql"
   # - mysql -u "root" < "./tests/sql/CreateTables.sql"
