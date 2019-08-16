@@ -70,7 +70,7 @@ before_install:
   # otherwise it can be really tricky to debug why tests are failing sometimes.
   - docker container ls
   # use -d flag to run this process in the background
-  - docker exec -it jtree ./bin/jtree
+  # - docker exec -it jtree ./bin/jtree
 # This is just our script to setup all the database tables and other fixtures
   # we need. You should remove this if it's not necessary or you have other
   # scripts handling this.
@@ -79,9 +79,6 @@ before_install:
   # - mysql -u "root" < "./tests/sql/CreateTables.sql"
   # - mysql -u "root" < "./tests/sql/DeleteData.sql"
   # - mysql -u "root" < "./tests/sql/CreateUsers.sql"
-
-# before_script:
-#   - docker exec -it jtree ./bin/jtree
 
 install:
   - go get -v github.com/Masterminds/glide
