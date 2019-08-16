@@ -57,6 +57,8 @@ clean:
 	@test ! -e bin/${BIN_NAME} || rm bin/${BIN_NAME}
 
 test:
+	curl http://localhost:8000/Jtree/metadata/0.1.0/columns > sample.txt
+	cat sample.txt
 	go test ./jin
 	# go test -coverprofile c.out ./tests -test.v GOCACHE=off 
 	# bash travisCheck.sh 
