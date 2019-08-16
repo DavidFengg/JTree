@@ -83,6 +83,10 @@ before_install:
 # before_script:
 #   - docker exec -it jtree ./bin/jtree
 
+install:
+  - go get -v github.com/Masterminds/glide 
+  - make get-deps
+
 script:
   - make test
   # - docker-compose up --build
