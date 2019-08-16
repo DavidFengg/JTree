@@ -21,6 +21,9 @@ script:
   - make test
   # - docker-compose up --build
 
+before_script:
+  - docker-compose up --build
+
 before_install:
   - docker-compose up --build
   # - mysql -u "root" < "./tests/sql/DropDatabase.sql"

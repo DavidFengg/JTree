@@ -12,4 +12,4 @@ if ls $dir/*.go &> /dev/null; then
 fi
 done
 
-go tool cover -func profile.cov
+go tool cover -func profile.covx

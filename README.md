@@ -55,19 +55,19 @@ $ curl http://127.0.0.1:8000/Jtree/metadata/0.1.0/query -X POST -H "content-type
 # Note that inserts and updates operate the same way, the only difference is that the public key is not passed with the object structure for in insert
 # samples
 $ curl -X POST -H "Content-Type: application/json" /
- -d '{`# See models.samples for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/samples
+ -d '{`# See models.samples for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/sample
 
 # patients
 $ curl -X POST -H "Content-Type: application/json" /
- -d '{`# See models.patients for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/patients
+ -d '{`# See models.patients for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/patient
 
 # experiments
 $ curl -X POST -H "Content-Type: application/json" /
- -d '{`# See models.experiments for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/experiments
+ -d '{`# See models.experiments for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/experiment
 
  # results
 $ curl -X POST -H "Content-Type: application/json" /
- -d '{`# See models.results for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/results
+ -d '{`# See models.results for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/result
 
  # Example:
  $ curl -X POST -H "Content-Type: application/json" -d '{"results.failed_regions":"ABC", "results.mean_depth_of_coveage":928.123, "results.mlpa_pcr":"ABCD", "results.mutation":"EFG", "results.overall_hotspots_threshold":419.668, "results.overall_quality_threshold":123.234, "results.uid":"Jin", "results.verification_pcr":"Hwang"}' localhost:8000/Jtree/metadata/0.1.0/result
