@@ -1,4 +1,4 @@
-package: github.com/bio-core/jtree
+package: github.com/Bio-core/jtree
 imports:
 - package: github.com/Sirupsen/logrus
 - package: github.com/go-openapi/loads

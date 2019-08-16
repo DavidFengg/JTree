@@ -3,8 +3,8 @@
 # go:
 #   - 1.8.x
 
-# notifications:
-#   email: false
+notifications:
+  email: false
 
 # services:
 #   - docker
