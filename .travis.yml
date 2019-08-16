@@ -22,7 +22,6 @@ notifications:
 # install:
 #   - go get -v github.com/Masterminds/glide 
 #   - make get-deps
-#   - docker build .
 #  # - make test
 
 # before_script:
@@ -84,7 +83,8 @@ before_install:
 #   - docker exec -it jtree ./bin/jtree
 
 install:
-  - go get -v github.com/Masterminds/glide 
+  - go get -v github.com/Masterminds/glide
+  # - go get github.com/Bio-Core/JTree
   - make get-deps
 
 script:
