@@ -256,7 +256,7 @@ func MakePatient(patientID int) models.Patient {
 	patient.PatientType = &PatientType
 	ReferringPhysician := makeRandomString()
 	//FIX THIS
-	patient.ReferringPhysician = &ReferringPhysician
+	patient.ReferringPhysican = &ReferringPhysician
 	SeNum := makeRandomString()
 	patient.SeNum = &SeNum
 	SurgicalDate, _ := time.Parse(shortForm, makeRandomDate())

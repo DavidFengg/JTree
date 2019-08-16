@@ -29,7 +29,8 @@ func InsertPatient(person *models.Patient) bool {
 		person.SeNum,
 		person.PatientID,
 		person.DateReceived.Format(shortForm),
-		person.ReferringPhysician,
+		//FIXTHIS
+		person.ReferringPhysican,
 		person.DateReported.Format(shortForm),
 		person.SurgicalDate.Format(shortForm))
 	stmt.Close()
@@ -59,7 +60,8 @@ func UpdatePatient(person *models.Patient) bool {
 		person.SeNum,
 		person.PatientID,
 		person.DateReceived.Format(shortForm),
-		person.ReferringPhysician,
+		//FIXTHIS
+		person.ReferringPhysican,
 		person.DateReported.Format(shortForm),
 		person.SurgicalDate.Format(shortForm),
 		person.PatientID)
