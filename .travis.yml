@@ -25,7 +25,7 @@ services:
   - docker
 
 before_script:
-  - docker-compose up --build jtree
+  - docker build .
 
 script:
   - make test
