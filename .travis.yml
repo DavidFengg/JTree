@@ -83,16 +83,17 @@ before_install:
 #   - docker exec -it jtree ./bin/jtree
 
 install:
-  # - go get -v github.com/Masterminds/glide
-  - go get github.com/Sirupsen/logrus
-  - go get github.com/go-openapi/loads
-  - go get github.com/go-openapi/strfmt
-  - go get github.com/go-openapi/errors
-  - go get github.com/go-openapi/runtime
-  - go get github.com/jessevdk/go-flags
-  - go get github.com/tylerb/graceful
-  - go get github.com/Bio-Core/JTree
-  # - make get-deps
+  - go get -v github.com/Masterminds/glide
+  # - go get github.com/Sirupsen/logrus
+  # - go get github.com/go-openapi/loads
+  # - go get github.com/go-openapi/strfmt
+  # - go get github.com/go-openapi/errors
+  # - go get github.com/go-openapi/runtime
+  # - go get github.com/jessevdk/go-flags
+  # - go get github.com/tylerb/graceful
+  # - go get github.com/Bio-core/jtree
+  # - go install -v 
+  - make get-deps
 
 script:
   - make test
