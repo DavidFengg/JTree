@@ -69,7 +69,8 @@ before_install:
 # You will want this for logging. If one of your containers does not build for
   # whatever reason it's best to report that now before your tests start
   # otherwise it can be really tricky to debug why tests are failing sometimes.
-  - docker ps
+  - docker container ls
+  - docker exec -it jtree ./bin/jtree
 # This is just our script to setup all the database tables and other fixtures
   # we need. You should remove this if it's not necessary or you have other
   # scripts handling this.
@@ -79,8 +80,8 @@ before_install:
   # - mysql -u "root" < "./tests/sql/DeleteData.sql"
   # - mysql -u "root" < "./tests/sql/CreateUsers.sql"
 
-before_script:
-  - docker exec -it jtree ./bin/jtree
+# before_script:
+#   - docker exec -it jtree ./bin/jtree
 
 script:
   - make test
