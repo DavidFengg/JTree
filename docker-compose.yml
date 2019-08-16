@@ -1,4 +1,5 @@
-version: "3"
+# Changed from 3
+version: "2"
 services:
     mysql:
         container_name: mysqldb
