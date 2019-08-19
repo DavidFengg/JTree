@@ -18,7 +18,7 @@ EXPOSE 8000
 # 1 NOPE
 # CMD /go/src/github.com/Bio-core/jtree/bin/jtree
 # 2 NOPE
-# CMD ./bin/jtree
+CMD ./bin/jtree
 # 3 NOPE
 # RUN ./bin/jtree
 # 4 NOPE
@@ -28,6 +28,6 @@ EXPOSE 8000
 # 6 NOPE
 # ENTRYPOINT [ "/go/src/github.com/Bio-core/jtree/bin/jtree" ]
 # 7 NOPE
-ENTRYPOINT [ "./bin/jtree" ]
+# ENTRYPOINT [ "./bin/jtree" ]
 # 8 NOPE
 # ENTRYPOINT [ "/bin/jtree" ]
