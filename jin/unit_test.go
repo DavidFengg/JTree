@@ -8,14 +8,14 @@ import (
 	// "net/http"
 	// "github.com/Bio-core/jtree/dummydata"
 
-	"log"
+	// "log"
 	"os"
 	"testing"
 
-	"github.com/Bio-core/jtree/restapi/operations"
-	"github.com/go-openapi/loads"
+	// "github.com/Bio-core/jtree/restapi/operations"
+	// "github.com/go-openapi/loads"
 	// "log"
-	"github.com/Bio-core/jtree/restapi"
+	// "github.com/Bio-core/jtree/restapi"
 	// "github.com/Bio-core/jtree/restapi/operations"
 	// "github.com/go-openapi/loads"
 	// "github.com/Bio-core/jtree/restapi/operations"
@@ -32,20 +32,20 @@ func TestMain(m *testing.M) {
 	os.Exit(testResults)
 }
 
-func TestSetupSever(t *testing.T) {
-	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
-	if err != nil {
-		t.Errorf("%v", err)
-		log.Fatalln(err)
-	}
+// func TestSetupSever(t *testing.T) {
+// 	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
+// 	if err != nil {
+// 		t.Errorf("%v", err)
+// 		log.Fatalln(err)
+// 	}
 
-	api := operations.NewJtreeMetadataAPI(swaggerSpec)
-	server := restapi.NewServer(api)
+// 	api := operations.NewJtreeMetadataAPI(swaggerSpec)
+// 	server := restapi.NewServer(api)
 
-	server.ConfigureAPI()
+// 	server.ConfigureAPI()
 
-	go server.Serve()
-}
+// 	go server.Serve()
+// }
 
 func TestUrls(t *testing.T) {
 	result := true
