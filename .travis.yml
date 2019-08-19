@@ -14,10 +14,10 @@ before_install:
   # new docker-compose
   - docker-compose --version
   # start the containers in the background
-  - docker-compose pull
-  - docker-compose build
+  # - docker-compose pull
+  # - docker-compose build
   - docker-compose up -d mysql
-  # - docker-compose up -d jtree
+  - docker-compose up -d jtree
   - docker-compose up -d limsinsight
   # check that containers are running
   - docker container ls
@@ -26,7 +26,6 @@ before_install:
   # - docker exec -it jtree ./bin/jtree
 
 install:
-  - docker-compose up -d jtree
   - go get -v github.com/Masterminds/glide
   # - go get github.com/Sirupsen/logrus
   # - go get github.com/go-openapi/loads
