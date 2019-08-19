@@ -29,6 +29,7 @@ func InsertPatient(person *models.Patient) bool {
 		person.SeNum,
 		person.PatientID,
 		person.DateReceived.Format(shortForm),
+		//FIXTHIS
 		person.ReferringPhysician,
 		person.DateReported.Format(shortForm),
 		person.SurgicalDate.Format(shortForm))
