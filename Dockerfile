@@ -16,7 +16,7 @@ EXPOSE 8000
 
 # May have to add entrypoint
 # 1 NOPE
-# CMD /go/src/github.com/Bio-core/jtree/bin/jtree -g=5
+# CMD /go/src/github.com/Bio-core/jtree/bin/jtree
 # 2 NOPE
 # CMD ./bin/jtree
 # 3 NOPE
