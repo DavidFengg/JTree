@@ -7,6 +7,7 @@ before_install:
   - sudo apt-get update
   # old docker-compose
   - docker-compose --version
+  # change docker-compose version
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
@@ -14,28 +15,14 @@ before_install:
   # new docker-compose
   - docker-compose --version
   # start the containers in the background
-  # - docker-compose pull
-  # - docker-compose build
   - docker-compose up -d mysql
   - docker-compose up -d jtree
   - docker-compose up -d limsinsight
   # check that containers are running
   - docker container ls
-  # - docker exec -d -it jtree ./bin/jtree
-  # use -d flag to run this process in the background
-  # - docker exec -it jtree ./bin/jtree
 
 install:
   - go get -v github.com/Masterminds/glide
-  # - go get github.com/Sirupsen/logrus
-  # - go get github.com/go-openapi/loads
-  # - go get github.com/go-openapi/strfmt
-  # - go get github.com/go-openapi/errors
-  # - go get github.com/go-openapi/runtime
-  # - go get github.com/jessevdk/go-flags
-  # - go get github.com/tylerb/graceful
-  # - go get github.com/Bio-core/jtree
-  # - go install -v 
   - make get-deps
 
 script:
