@@ -21,7 +21,7 @@ before_install:
   - docker-compose up -d limsinsight
   # check that containers are running
   - docker container ls
-  - docker exec -it jtree ./bin/jtree
+  - docker exec -d -it jtree ./bin/jtree
   # use -d flag to run this process in the background
   # - docker exec -it jtree ./bin/jtree
 
