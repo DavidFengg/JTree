@@ -1,10 +1,8 @@
-# Changed from 3
 version: "2"
 services:
     mysql:
         container_name: mysqldb
         build: ./sql
-        # image: mysql/mysql-server:latest
         environment:
             - MYSQL_ROOT_PASSWORD=waterloo
             - MYSQL_ROOT_HOST=%
@@ -15,7 +13,6 @@ services:
 
     jtree:
        container_name: jtree
-    #    image: docker/jtree
        build: ./
        ports:
            - "8000:8000"
@@ -32,4 +29,3 @@ services:
        depends_on:
            - mysql
            - jtree
-

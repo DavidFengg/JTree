@@ -14,11 +14,4 @@ RUN make build
 
 EXPOSE 8000
 
-
-# CMD ./bin/jtree
-
 ENTRYPOINT [ "/go/src/github.com/Bio-core/jtree/bin/jtree" ]
-# 7 NOPE
-# ENTRYPOINT [ "./bin/jtree" ]
-# 8 NOPE
-# ENTRYPOINT [ "/bin/jtree" ]
