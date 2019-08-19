@@ -16,7 +16,9 @@ before_install:
   # start the containers in the background
   - docker-compose pull
   - docker-compose build
-  - docker-compose up -d
+  - docker-compose up -d mysql
+  - docker-compose up -d jtree
+  - docker-compose up -d limsinsight
   # check that containers are running
   - docker container ls
   # use -d flag to run this process in the background
