@@ -1,6 +1,5 @@
 package: .
 imports:
-- package: github.com/Bio-Core/jtree/
 - package: github.com/Sirupsen/logrus
 - package: github.com/go-openapi/loads
 - package: github.com/go-openapi/strfmt
