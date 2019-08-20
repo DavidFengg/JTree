@@ -1,28 +1,22 @@
 package jin
 
 import (
-	// "bytes"
-	// "encoding/json"
-	// "fmt"
-	// "io/ioutil"
-	// "net/http"
-	// "github.com/Bio-core/jtree/dummydata"
-
-	// "log"
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"net/http"
 	"os"
 	"testing"
 
-	// "github.com/Bio-core/jtree/restapi/operations"
-	// "github.com/go-openapi/loads"
-	// "log"
-	// "github.com/Bio-core/jtree/restapi"
-	// "github.com/Bio-core/jtree/restapi/operations"
-	// "github.com/go-openapi/loads"
-	// "github.com/Bio-core/jtree/restapi/operations"
-	// "github.com/go-openapi/loads"
 	// "github.com/Bio-core/jtree/database"
+	"github.com/Bio-core/jtree/dummydata"
 	// "github.com/Bio-core/jtree/models"
 	// "github.com/Bio-core/jtree/repos"
+	"github.com/Bio-core/jtree/restapi"
+	"github.com/Bio-core/jtree/restapi/operations"
+	"github.com/go-openapi/loads"
 )
 
 var host = "http://127.0.0.1:8000"
@@ -32,20 +26,20 @@ func TestMain(m *testing.M) {
 	os.Exit(testResults)
 }
 
-// func TestSetupSever(t *testing.T) {
-// 	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
-// 	if err != nil {
-// 		t.Errorf("%v", err)
-// 		log.Fatalln(err)
-// 	}
+func TestSetupSever(t *testing.T) {
+	swaggerSpec, err := loads.Embedded(restapi.SwaggerJSON, restapi.FlatSwaggerJSON)
+	if err != nil {
+		t.Errorf("%v", err)
+		log.Fatalln(err)
+	}
 
-// 	api := operations.NewJtreeMetadataAPI(swaggerSpec)
-// 	server := restapi.NewServer(api)
+	api := operations.NewJtreeMetadataAPI(swaggerSpec)
+	server := restapi.NewServer(api)
 
-// 	server.ConfigureAPI()
+	server.ConfigureAPI()
 
-// 	go server.Serve()
-// }
+	go server.Serve()
+}
 
 func TestUrls(t *testing.T) {
 	result := true
@@ -97,11 +91,65 @@ func TestUrls(t *testing.T) {
 // 	return
 // }
 
-// func TestAddPatientPOST(t *testing.T) {
+func TestAddPatientPOST(t *testing.T) {
 
-// 	dummydata.MakeData(100)
-// 	fmt.Println("Adding Patient Post")
-// 	patient := dummydata.MakePatient(-1)
+	// dummydata.MakeData(100)
+	fmt.Println("Adding Patient Post")
+	patient := dummydata.MakePatient(-1)
+	person1Bytes, err := json.Marshal(patient)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	body := bytes.NewReader(person1Bytes)
+	fmt.Print(body)
+
+	req, err := http.NewRequest("POST", host+"/Jtree/metadata/0.1.0/patient", body)
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := http.DefaultClient.Do(req)
+
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Fail()
+		return
+	}
+	if resp.Status != "200 OK" && string(content) != "error" {
+		t.Fail()
+		return
+	}
+
+	if err != nil {
+		t.Fail()
+		return
+	}
+
+	defer resp.Body.Close()
+
+}
+
+// func TestUpdatePatientPOST(t *testing.T) {
+
+// 	// patient := repos.GetPatientByID("1")
+// 	// first := "Jin"
+// 	// last := "Hwang"
+// 	// patient.FirstName = &first
+// 	// patient.LastName = &last
+// 	patient := models.Patient{}
+// 	ID := "1"
+// 	first := "Jin"
+// 	last := "Hwang"
+// 	patient.PatientID = &ID
+// 	patient.FirstName = &first
+// 	patient.LastName = &last
 // 	person1Bytes, err := json.Marshal(patient)
 
 // 	if err != nil {
@@ -110,7 +158,6 @@ func TestUrls(t *testing.T) {
 // 	}
 
 // 	body := bytes.NewReader(person1Bytes)
-// 	fmt.Print(body)
 
 // 	req, err := http.NewRequest("POST", host+"/Jtree/metadata/0.1.0/patient", body)
 
@@ -121,23 +168,30 @@ func TestUrls(t *testing.T) {
 
 // 	req.Header.Set("Content-Type", "application/json")
 
-// 	resp, err := http.DefaultClient.Do(req)
+// 	// resp, err := http.DefaultClient.Do(req)
+// 	// content, err := ioutil.ReadAll(resp.Body)
+// 	// if err != nil {
+// 	// 	t.Fail()
+// 	// 	return
+// 	// }
+// 	// if resp.Status != "200 OK" && string(content) != "error" {
+// 	// 	t.Fail()
+// 	// 	return
+// 	// }
 
-// 	content, err := ioutil.ReadAll(resp.Body)
-// 	if err != nil {
+// 	// if err != nil {
+// 	// 	t.Fail()
+// 	// 	return
+// 	// }
+
+// 	// defer resp.Body.Close()
+
+// 	patientNew := repos.GetPatientByID("1")
+
+// 	if *patientNew.FirstName != first || *patientNew.LastName != last {
 // 		t.Fail()
 // 		return
 // 	}
-// 	if resp.Status != "200 OK" && string(content) != "error" {
-// 		t.Fail()
-// 		return
-// 	}
 
-// 	if err != nil {
-// 		t.Fail()
-// 		return
-// 	}
-
-// 	defer resp.Body.Close()
-
+// 	return
 // }

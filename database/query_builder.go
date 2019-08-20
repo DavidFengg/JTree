@@ -75,7 +75,7 @@ func printConditions(SelectedCondition [][]string) string {
 	return str
 }
 
-//GetColumns returns colums based off of table names
+//GetColumns returns columns based off of table names
 func GetColumns(tables []string) []string {
 	var columns []string
 	for _, tableName := range tables {
