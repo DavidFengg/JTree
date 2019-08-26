@@ -8,7 +8,8 @@ env:
   
 before_install:
   # - sudo apt-get update
-  - sudo apt -o Acquire::https::No-Cache=True -o Acquire::http::No-Cache=True update
+  - sudo apt update
+  - sudo apt upgrade
   # old docker-compose
   - docker-compose --version
   # change docker-compose version
