@@ -91,50 +91,50 @@ func TestUrls(t *testing.T) {
 // 	return
 // }
 
-func TestAddPatientPOST(t *testing.T) {
+// func TestAddPatientPOST(t *testing.T) {
 
-	// dummydata.MakeData(100)
-	fmt.Println("Adding Patient Post")
-	patient := dummydata.MakePatient(-1)
-	person1Bytes, err := json.Marshal(patient)
+// 	// dummydata.MakeData(100)
+// 	fmt.Println("Adding Patient Post")
+// 	patient := dummydata.MakePatient(-1)
+// 	person1Bytes, err := json.Marshal(patient)
 
-	if err != nil {
-		t.Fail()
-		return
-	}
+// 	if err != nil {
+// 		t.Fail()
+// 		return
+// 	}
 
-	body := bytes.NewReader(person1Bytes)
-	fmt.Print(body)
+// 	body := bytes.NewReader(person1Bytes)
+// 	fmt.Print(body)
 
-	req, err := http.NewRequest("POST", host+"/Jtree/metadata/0.1.0/patient", body)
+// 	req, err := http.NewRequest("POST", host+"/Jtree/metadata/0.1.0/patient", body)
 
-	if err != nil {
-		t.Fail()
-		return
-	}
+// 	if err != nil {
+// 		t.Fail()
+// 		return
+// 	}
 
-	req.Header.Set("Content-Type", "application/json")
+// 	req.Header.Set("Content-Type", "application/json")
 
-	resp, err := http.DefaultClient.Do(req)
+// 	resp, err := http.DefaultClient.Do(req)
 
-	content, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		t.Fail()
-		return
-	}
-	if resp.Status != "200 OK" && string(content) != "error" {
-		t.Fail()
-		return
-	}
+// 	content, err := ioutil.ReadAll(resp.Body)
+// 	if err != nil {
+// 		t.Fail()
+// 		return
+// 	}
+// 	if resp.Status != "200 OK" && string(content) != "error" {
+// 		t.Fail()
+// 		return
+// 	}
 
-	if err != nil {
-		t.Fail()
-		return
-	}
+// 	if err != nil {
+// 		t.Fail()
+// 		return
+// 	}
 
-	defer resp.Body.Close()
+// 	defer resp.Body.Close()
 
-}
+// }
 
 // func TestUpdatePatientPOST(t *testing.T) {
 
