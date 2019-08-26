@@ -7,7 +7,6 @@ env:
   DOCKER_COMPOSE_VERSION: 1.8.0
   
 before_install:
-  - apt-get clean
   - sudo apt-get update
   # old docker-compose
   - docker-compose --version
