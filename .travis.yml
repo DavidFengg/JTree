@@ -5,7 +5,11 @@ language: go
 
 env:
   DOCKER_COMPOSE_VERSION: 1.8.0
-  
+
+branches:
+  only:
+    - add_docker_compose
+
 before_install:
   - sudo apt-get update
   # old docker-compose
