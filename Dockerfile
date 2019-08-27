@@ -4,7 +4,10 @@ FROM golang:1.12
 WORKDIR /go/src/github.com/Bio-core/jtree
 COPY . .
 
+# This is getting master branch
 RUN go get -d -v ./...
+RUN git checkout add_docker_compose
+# RUN git checkout add_docker_compose
 RUN go install -v ./...
 
 # Import gouuid executable to generate uuid
