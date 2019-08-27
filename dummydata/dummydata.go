@@ -59,7 +59,7 @@ func makeRandomString() string {
 	value := randSeq(num)
 	return value
 }
-func makeRandomName(id int, last bool) string {
+func makeRandomNames(id int, last bool) string {
 	if id < 0 {
 		id = rand.Intn(99) + 1
 	}
@@ -238,13 +238,13 @@ func MakePatient(patientID int) models.Patient {
 	patient.DateReported = &DateReported
 	Dob, _ := time.Parse(shortForm, makeRandomDate())
 	patient.Dob = &Dob
-	FirstName := makeRandomName(patientID, false)
+	FirstName := makeRandomNames(patientID, false)
 	patient.FirstName = &FirstName
 	Gender := makeRandomString()
 	patient.Gender = &Gender
 	Initials := makeRandomString()
 	patient.Initials = &Initials
-	LastName := makeRandomName(patientID, true)
+	LastName := makeRandomNames(patientID, true)
 	patient.LastName = &LastName
 	Mrn := makeRandomString()
 	patient.Mrn = &Mrn
