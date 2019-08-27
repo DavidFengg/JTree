@@ -6,6 +6,12 @@ language: go
 env:
   DOCKER_COMPOSE_VERSION: 1.8.0
 
+#bloclist
+branches:
+  except:
+  - master
+
+#safelist
 branches:
   only:
     - add_docker_compose
