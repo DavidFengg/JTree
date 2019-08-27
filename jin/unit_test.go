@@ -90,7 +90,7 @@ func TestAddPatientPOST(t *testing.T) {
 
 	// dummydata.MakeData(100)
 	fmt.Println("Adding Patient Post")
-	patient := dummydata.MakePatient(-1)
+	patient := dummydata.MakePatient(1)
 	person1Bytes, err := json.Marshal(patient)
 
 	if err != nil {
