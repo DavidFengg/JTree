@@ -1,4 +1,4 @@
-package: .
+# package: .
 imports:
 - package: github.com/Sirupsen/logrus
 - package: github.com/go-openapi/loads
