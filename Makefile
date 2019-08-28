@@ -58,7 +58,9 @@ clean:
 	@test ! -e bin/${BIN_NAME} || rm bin/${BIN_NAME}
 
 test:
-	go test ./jin
+	# go test ./jin
+	go test -coverprofile c.out ./jin -test.v GOCACHE=off 
+
 	# go test -coverprofile c.out ./tests -test.v GOCACHE=off 
 	# bash travisCheck.sh 
 
