@@ -2,8 +2,6 @@ package jin
 
 import (
 	"net/http"
-	// Does not get imported in TRAVIS FIX THIS
-	// "github.com/Bio-core/jtree/models"
 )
 
 //CheckPageResponse checks if a page that should respond is found correctly

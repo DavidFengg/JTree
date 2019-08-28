@@ -4,7 +4,7 @@ FROM golang:1.12
 WORKDIR /go/src/github.com/Bio-core/jtree
 COPY . .
 
-# This is getting master branch
+# This is getting master branch on Travis ... FIX
 RUN go get -d -v ./...
 RUN go get github.com/Bio-core/keycloakgo
 RUN go get github.com/go-openapi/errors
