@@ -31,6 +31,7 @@ build:
 
 get-deps:
 	glide install
+	git checkout add_docker_compose
 
 build-alpine:
 	@echo "building ${BIN_NAME} ${VERSION}"

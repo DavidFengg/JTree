@@ -21,6 +21,7 @@ RUN go get github.com/go-sql-driver/mysql
 # RUN git checkout add_docker_compose
 # RUN git checkout add_docker_compose
 RUN go install -v ./...
+RUN git checkout add_docker_compose
 
 # Import gouuid executable to generate uuid
 RUN go get github.com/nu7hatch/gouuid
