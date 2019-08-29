@@ -64,12 +64,12 @@ func makeRandomNames(id int, last bool) string {
 		id = rand.Intn(99) + 1
 	}
 	if last {
-		// return random[id-1].Surname
-		return "DEF"
+		return random[id-1].Surname
+		// return "DEF"
 	}
 	// return random[1].Name
-	// return random[id-1].Name
-	return "ABC"
+	return random[id-1].Name
+	// return "ABC"
 }
 
 func makeRandomDate() string {

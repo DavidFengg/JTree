@@ -72,6 +72,8 @@ $ curl -X POST -H "Content-Type: application/json" /
  # Example:
  $ curl -X POST -H "Content-Type: application/json" -d '{"results.failed_regions":"ABC", "results.mean_depth_of_coveage":928.123, "results.mlpa_pcr":"ABCD", "results.mutation":"EFG", "results.overall_hotspots_threshold":419.668, "results.overall_quality_threshold":123.234, "results.uid":"Jin", "results.verification_pcr":"Hwang"}' localhost:8000/Jtree/metadata/0.1.0/result
 
+ # see Notes for more examples
+
 
  # resultdetails
 $ curl -X POST -H "Content-Type: application/json" /
