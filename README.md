@@ -81,18 +81,26 @@ $ curl -X POST -H "Content-Type: application/json" /
 
 ```
 # Docker Compose
-Build 3 containers using docker-compose
+Build 3 containers using docker-compose.  At this time, the 3 containers need to be built in a specific order to ensure correct operations.
+```
 $ docker-compose up --build mysql
 $ docker-compose up --build jtree
 $ docker-compose up --build limsinsight
+```
+
 Then use curl statements or postman to make POST calls
 http://localhost:8003/patients to view generated patients
-To login to any of the containers use: docker exec -it container_name bash
+To login to any of the containers use:
+```
+docker exec -it container_name bash
+```
 
 To generate fake patients use
+```
 $ docker-compose up --build
 $ docker exec -it jtree bash
 $ ./bin/jtree -g=100
+```
 
 # Docker
 For golang code, may need to change the connection string with an updated IP address for the docker container
