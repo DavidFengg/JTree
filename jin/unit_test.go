@@ -1,17 +1,8 @@
 package jin
 
 import (
-
-	"bytes"
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"net/http"
 	"os"
 	"testing"
-
-	"github.com/Bio-core/jtree/dummydata"
-
 )
 
 var host = "http://127.0.0.1:8000"

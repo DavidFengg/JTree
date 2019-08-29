@@ -16,8 +16,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
     "patients.patient_type": "FQGZsnwTKSmVoiGLOpbU",
     "patients.referring_physician": "pEdKupdOMeRVjaRzLNTX",
     "patients.se_num": "eUCWKsXbGyRAOmBTvKSJ",
-    "patients.surgical_date": "1911-10-25T00:00:00Z",
-    "patients.patient_id": "1" //UPDATE ONLY
+    "patients.surgical_date": "1911-10-25T00:00:00Z"
 }' http://localhost:8000/Jtree/metadata/0.1.0/patient
 
 Samples:
