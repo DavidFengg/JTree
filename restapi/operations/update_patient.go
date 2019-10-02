@@ -29,7 +29,7 @@ func NewUpdatePatient(ctx *middleware.Context, handler UpdatePatientHandler) *Up
 	return &UpdatePatient{Context: ctx, Handler: handler}
 }
 
-/*UpdatePatient swagger:route PUT /patient updatePatient
+/*UpdatePatient swagger:route PUT /patient/{id} updatePatient
 
 updates a patient
 

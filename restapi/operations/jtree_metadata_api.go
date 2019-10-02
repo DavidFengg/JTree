@@ -56,6 +56,9 @@ func NewJtreeMetadataAPI(spec *loads.Document) *JtreeMetadataAPI {
 		AddSampleHandler: AddSampleHandlerFunc(func(params AddSampleParams) middleware.Responder {
 			return middleware.NotImplemented("operation AddSample has not yet been implemented")
 		}),
+		DeletePatientHandler: DeletePatientHandlerFunc(func(params DeletePatientParams) middleware.Responder {
+			return middleware.NotImplemented("operation DeletePatient has not yet been implemented")
+		}),
 		GetSampleColumnsHandler: GetSampleColumnsHandlerFunc(func(params GetSampleColumnsParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetSampleColumns has not yet been implemented")
 		}),
@@ -113,6 +116,8 @@ type JtreeMetadataAPI struct {
 	AddResultdetailsHandler AddResultdetailsHandler
 	// AddSampleHandler sets the operation handler for the add sample operation
 	AddSampleHandler AddSampleHandler
+	// DeletePatientHandler sets the operation handler for the delete patient operation
+	DeletePatientHandler DeletePatientHandler
 	// GetSampleColumnsHandler sets the operation handler for the get sample columns operation
 	GetSampleColumnsHandler GetSampleColumnsHandler
 	// GetSamplesByQueryHandler sets the operation handler for the get samples by query operation
@@ -214,6 +219,10 @@ func (o *JtreeMetadataAPI) Validate() error {
 
 	if o.AddSampleHandler == nil {
 		unregistered = append(unregistered, "AddSampleHandler")
+	}
+
+	if o.DeletePatientHandler == nil {
+		unregistered = append(unregistered, "DeletePatientHandler")
 	}
 
 	if o.GetSampleColumnsHandler == nil {
@@ -363,6 +372,11 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 	}
 	o.handlers["POST"]["/sample"] = NewAddSample(o.context, o.AddSampleHandler)
 
+	if o.handlers["DELETE"] == nil {
+		o.handlers["DELETE"] = make(map[string]http.Handler)
+	}
+	o.handlers["DELETE"]["/patient/{id}"] = NewDeletePatient(o.context, o.DeletePatientHandler)
+
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
@@ -381,7 +395,7 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 	if o.handlers["PUT"] == nil {
 		o.handlers["PUT"] = make(map[string]http.Handler)
 	}
-	o.handlers["PUT"]["/patient"] = NewUpdatePatient(o.context, o.UpdatePatientHandler)
+	o.handlers["PUT"]["/patient/{id}"] = NewUpdatePatient(o.context, o.UpdatePatientHandler)
 
 }
 

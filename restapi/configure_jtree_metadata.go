@@ -21,6 +21,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/strfmt"
 	graceful "github.com/tylerb/graceful"
 
 	"github.com/Bio-core/jtree/restapi/operations"
@@ -70,19 +71,22 @@ func updatePatient(patient *models.Patient) string {
 	return *patient.PatientID
 }
 
-func deletePatient(patient *models.Patient) string {
+func deletePatient(id strfmt.UUID) string {
+	// patientID := func (id UUID) String() string {
+	// 	return string(id)
+	// }
+	patientID := string(id)
+
 	// return error if empty patient or specified patient id not specified
-	if patient == nil || patient.PatientID == nil {
+	if patientID == "" {
 		return "error"
 	}
 
-	existingID := repos.GetPatientByID(*patient.PatientID)
+	existingID := repos.GetPatientByID(patientID)
 
 	if existingID == nil {
 		return "error"
 	}
-
-	patientID := *patient.PatientID
 
 	repos.DeletePatient(patientID)
 	return patientID
@@ -304,12 +308,20 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	api.AddExperimentHandler = operations.AddExperimentHandlerFunc(func(params operations.AddExperimentParams) middleware.Responder {
 		return operations.NewAddExperimentOK().WithPayload(addExperiment(params.Experiment))
 	})
+
+	/*
+		endpoint: /patient
+	*/
 	api.AddPatientHandler = operations.AddPatientHandlerFunc(func(params operations.AddPatientParams) middleware.Responder {
 		return operations.NewAddPatientOK().WithPayload(addPatient(params.Patient))
 	})
 	api.UpdatePatientHandler = operations.UpdatePatientHandlerFunc(func(params operations.UpdatePatientParams) middleware.Responder {
 		return operations.NewUpdatePatientCreated().WithPayload(updatePatient(params.Patient))
 	})
+	api.DeletePatientHandler = operations.DeletePatientHandlerFunc(func(params operations.DeletePatientParams) middleware.Responder {
+		return operations.NewDeletePatientOK().WithPayload(deletePatient(params.ID))
+	})
+
 	api.AddSampleHandler = operations.AddSampleHandlerFunc(func(params operations.AddSampleParams) middleware.Responder {
 		return operations.NewAddSampleOK().WithPayload(addSample(params.Sample))
 	})

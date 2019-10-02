@@ -39,6 +39,12 @@ paths:
           description: "an existing item already exists"
   
   /patient/{id}:
+    parameters:
+      - type: "string"
+        name: "id"
+        in: "path"
+        required: true
+
     put:
       summary: "updates a patient"
       description: "Updates a patient to the system"
@@ -56,7 +62,17 @@ paths:
       responses:
         201:
           description: "works"
-    
+
+    delete:
+      summary: "deletes a patient"
+      description: "Deletes a patient to the system"
+      operationId: "deletePatient"
+      consumes:
+        - "application/json"
+      responses:
+        200:
+          description: "Deleted item"
+        
   /sample:
     post:
       summary: "adds a sample"

@@ -14,8 +14,8 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// UpdatePatientURL generates an URL for the update patient operation
-type UpdatePatientURL struct {
+// DeletePatientURL generates an URL for the delete patient operation
+type DeletePatientURL struct {
 	ID strfmt.UUID
 
 	_basePath string
@@ -26,7 +26,7 @@ type UpdatePatientURL struct {
 // WithBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
-func (o *UpdatePatientURL) WithBasePath(bp string) *UpdatePatientURL {
+func (o *DeletePatientURL) WithBasePath(bp string) *DeletePatientURL {
 	o.SetBasePath(bp)
 	return o
 }
@@ -34,12 +34,12 @@ func (o *UpdatePatientURL) WithBasePath(bp string) *UpdatePatientURL {
 // SetBasePath sets the base path for this url builder, only required when it's different from the
 // base path specified in the swagger spec.
 // When the value of the base path is an empty string
-func (o *UpdatePatientURL) SetBasePath(bp string) {
+func (o *DeletePatientURL) SetBasePath(bp string) {
 	o._basePath = bp
 }
 
 // Build a url path and query string
-func (o *UpdatePatientURL) Build() (*url.URL, error) {
+func (o *DeletePatientURL) Build() (*url.URL, error) {
 	var _result url.URL
 
 	var _path = "/patient/{id}"
@@ -48,7 +48,7 @@ func (o *UpdatePatientURL) Build() (*url.URL, error) {
 	if id != "" {
 		_path = strings.Replace(_path, "{id}", id, -1)
 	} else {
-		return nil, errors.New("id is required on UpdatePatientURL")
+		return nil, errors.New("id is required on DeletePatientURL")
 	}
 
 	_basePath := o._basePath
@@ -61,7 +61,7 @@ func (o *UpdatePatientURL) Build() (*url.URL, error) {
 }
 
 // Must is a helper function to panic when the url builder returns an error
-func (o *UpdatePatientURL) Must(u *url.URL, err error) *url.URL {
+func (o *DeletePatientURL) Must(u *url.URL, err error) *url.URL {
 	if err != nil {
 		panic(err)
 	}
@@ -72,17 +72,17 @@ func (o *UpdatePatientURL) Must(u *url.URL, err error) *url.URL {
 }
 
 // String returns the string representation of the path with query string
-func (o *UpdatePatientURL) String() string {
+func (o *DeletePatientURL) String() string {
 	return o.Must(o.Build()).String()
 }
 
 // BuildFull builds a full url with scheme, host, path and query string
-func (o *UpdatePatientURL) BuildFull(scheme, host string) (*url.URL, error) {
+func (o *DeletePatientURL) BuildFull(scheme, host string) (*url.URL, error) {
 	if scheme == "" {
-		return nil, errors.New("scheme is required for a full url on UpdatePatientURL")
+		return nil, errors.New("scheme is required for a full url on DeletePatientURL")
 	}
 	if host == "" {
-		return nil, errors.New("host is required for a full url on UpdatePatientURL")
+		return nil, errors.New("host is required for a full url on DeletePatientURL")
 	}
 
 	base, err := o.Build()
@@ -96,6 +96,6 @@ func (o *UpdatePatientURL) BuildFull(scheme, host string) (*url.URL, error) {
 }
 
 // StringFull returns the string representation of a complete url
-func (o *UpdatePatientURL) StringFull(scheme, host string) string {
+func (o *DeletePatientURL) StringFull(scheme, host string) string {
 	return o.Must(o.BuildFull(scheme, host)).String()
 }

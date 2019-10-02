@@ -117,31 +117,6 @@ func init() {
       }
     },
     "/patient": {
-      "put": {
-        "description": "Updates a patient to the system",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "summary": "updates a patient",
-        "operationId": "updatePatient",
-        "parameters": [
-          {
-            "name": "patient",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/Patient"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "works"
-          }
-        }
-      },
       "post": {
         "description": "Adds a patient to the system",
         "consumes": [
@@ -174,6 +149,55 @@ func init() {
           }
         }
       }
+    },
+    "/patient/{id}": {
+      "put": {
+        "description": "Updates a patient to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "updates a patient",
+        "operationId": "updatePatient",
+        "parameters": [
+          {
+            "name": "patient",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Patient"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "works"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes a patient to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "summary": "deletes a patient",
+        "operationId": "deletePatient",
+        "responses": {
+          "200": {
+            "description": "Deleted item"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "format": "uuid",
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ]
     },
     "/query": {
       "post": {
@@ -1067,31 +1091,6 @@ func init() {
       }
     },
     "/patient": {
-      "put": {
-        "description": "Updates a patient to the system",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "summary": "updates a patient",
-        "operationId": "updatePatient",
-        "parameters": [
-          {
-            "name": "patient",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/Patient"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "works"
-          }
-        }
-      },
       "post": {
         "description": "Adds a patient to the system",
         "consumes": [
@@ -1124,6 +1123,55 @@ func init() {
           }
         }
       }
+    },
+    "/patient/{id}": {
+      "put": {
+        "description": "Updates a patient to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "updates a patient",
+        "operationId": "updatePatient",
+        "parameters": [
+          {
+            "name": "patient",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Patient"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "works"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes a patient to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "summary": "deletes a patient",
+        "operationId": "deletePatient",
+        "responses": {
+          "200": {
+            "description": "Deleted item"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "format": "uuid",
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ]
     },
     "/query": {
       "post": {
