@@ -37,7 +37,26 @@ paths:
           description: "invalid input, object invalid"
         409:
           description: "an existing item already exists"
-          
+  
+  /patient/{id}:
+    put:
+      summary: "updates a patient"
+      description: "Updates a patient to the system"
+      operationId: "updatePatient"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "patient"
+        required: false
+        schema:
+          $ref: "#/definitions/Patient"
+      responses:
+        201:
+          description: "works"
+    
   /sample:
     post:
       summary: "adds a sample"

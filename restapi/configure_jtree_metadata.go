@@ -43,22 +43,49 @@ func newID() string {
 }
 
 func addPatient(patient *models.Patient) string {
-	if patient == nil {
+	// return error if empty patient or specified patient id
+	if patient == nil || patient.PatientID != nil {
 		return "error"
 	}
 
-	if patient.PatientID != nil {
-		patientOLD := repos.GetPatientByID(*patient.PatientID)
-		if patientOLD == nil {
-			return "error"
-		}
-		repos.UpdatePatient(patient)
-		return *patient.PatientID
-	}
+	// insert new patient
 	NewID := newID()
 	patient.PatientID = &NewID
 	repos.InsertPatient(patient)
 	return NewID
+}
+
+func updatePatient(patient *models.Patient) string {
+	// return error if empty patient or specified patient id not specified
+	if patient == nil || patient.PatientID == nil {
+		return "error"
+	}
+
+	patientOLD := repos.GetPatientByID(*patient.PatientID)
+
+	if patientOLD == nil {
+		return "error, patient_id not in db"
+	}
+	repos.UpdatePatients(patient)
+	return *patient.PatientID
+}
+
+func deletePatient(patient *models.Patient) string {
+	// return error if empty patient or specified patient id not specified
+	if patient == nil || patient.PatientID == nil {
+		return "error"
+	}
+
+	existingID := repos.GetPatientByID(*patient.PatientID)
+
+	if existingID == nil {
+		return "error"
+	}
+
+	patientID := *patient.PatientID
+
+	repos.DeletePatient(patientID)
+	return patientID
 }
 
 func addSample(sample *models.Sample) string {
@@ -280,6 +307,9 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	api.AddPatientHandler = operations.AddPatientHandlerFunc(func(params operations.AddPatientParams) middleware.Responder {
 		return operations.NewAddPatientOK().WithPayload(addPatient(params.Patient))
 	})
+	api.UpdatePatientHandler = operations.UpdatePatientHandlerFunc(func(params operations.UpdatePatientParams) middleware.Responder {
+		return operations.NewUpdatePatientCreated().WithPayload(updatePatient(params.Patient))
+	})
 	api.AddSampleHandler = operations.AddSampleHandlerFunc(func(params operations.AddSampleParams) middleware.Responder {
 		return operations.NewAddSampleOK().WithPayload(addSample(params.Sample))
 	})
@@ -334,7 +364,7 @@ func setupGlobalMiddleware(handler http.Handler) http.Handler {
 	x := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
 		AllowCredentials: true,
-		AllowedMethods:   []string{"GET", "POST", "PUT"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE"},
 		AllowedHeaders:   []string{"*"},
 	})
 	handler = x.Handler(handler)

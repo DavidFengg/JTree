@@ -39,8 +39,8 @@ func InsertPatient(person *models.Patient) bool {
 	return true
 }
 
-//UpdatePatient remove a patient by id
-func UpdatePatient(person *models.Patient) bool {
+//UpdatePatient updates a patient by id
+func UpdatePatients(person *models.Patient) bool {
 	stmt, err := database.DBUpdate.Prepare("UPDATE `patients` SET`first_name` = ?,`last_name` = ?,`initials` = ?,`gender` = ?,`mrn` = ?,`dob` = ?,`on_hcn` = ?,`clinical_history` = ?,`patient_type` = ?,`se_num` = ?,`patient_id` = ?,`date_received` = ?,`referring_physician` = ?,`date_reported` = ?,`surgical_date` = ? WHERE `patient_id` = ?;")
 	if err != nil {
 		log.Fatal(err)
@@ -63,6 +63,23 @@ func UpdatePatient(person *models.Patient) bool {
 		person.DateReported.Format(shortForm),
 		person.SurgicalDate.Format(shortForm),
 		person.PatientID)
+	stmt.Close()
+	if err != nil {
+		log.Fatal(err, result)
+		return false
+	}
+	return true
+}
+
+//DeletePatient removes a patient by id
+func DeletePatient(patientID string) bool {
+	stmt, err := database.DBUpdate.Prepare("DELETE from patients WHERE patient_id=?;")
+	if err != nil {
+		log.Fatal(err)
+		return false
+	}
+
+	result, err := stmt.Exec(patientID)
 	stmt.Close()
 	if err != nil {
 		log.Fatal(err, result)
