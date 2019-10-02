@@ -192,7 +192,6 @@ func init() {
       "parameters": [
         {
           "type": "string",
-          "format": "uuid",
           "name": "id",
           "in": "path",
           "required": true
@@ -1166,7 +1165,6 @@ func init() {
       "parameters": [
         {
           "type": "string",
-          "format": "uuid",
           "name": "id",
           "in": "path",
           "required": true

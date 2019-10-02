@@ -21,7 +21,6 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/strfmt"
 	graceful "github.com/tylerb/graceful"
 
 	"github.com/Bio-core/jtree/restapi/operations"
@@ -38,6 +37,7 @@ func newID() string {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	ID := fmt.Sprintf("%s", out)
 	ID = ID[:len(ID)-1]
 	return ID
@@ -56,27 +56,22 @@ func addPatient(patient *models.Patient) string {
 	return NewID
 }
 
-func updatePatient(patient *models.Patient) string {
+func updatePatient(patientID string, patient *models.Patient) string {
 	// return error if empty patient or specified patient id not specified
-	if patient == nil || patient.PatientID == nil {
+	if patient == nil {
 		return "error"
 	}
 
-	patientOLD := repos.GetPatientByID(*patient.PatientID)
+	patientOLD := repos.GetPatientByID(patientID)
 
 	if patientOLD == nil {
 		return "error, patient_id not in db"
 	}
-	repos.UpdatePatients(patient)
-	return *patient.PatientID
+	repos.UpdatePatients(patientID, patient)
+	return patientID
 }
 
-func deletePatient(id strfmt.UUID) string {
-	// patientID := func (id UUID) String() string {
-	// 	return string(id)
-	// }
-	patientID := string(id)
-
+func deletePatient(patientID string) string {
 	// return error if empty patient or specified patient id not specified
 	if patientID == "" {
 		return "error"
@@ -316,7 +311,7 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 		return operations.NewAddPatientOK().WithPayload(addPatient(params.Patient))
 	})
 	api.UpdatePatientHandler = operations.UpdatePatientHandlerFunc(func(params operations.UpdatePatientParams) middleware.Responder {
-		return operations.NewUpdatePatientCreated().WithPayload(updatePatient(params.Patient))
+		return operations.NewUpdatePatientCreated().WithPayload(updatePatient(params.ID, params.Patient))
 	})
 	api.DeletePatientHandler = operations.DeletePatientHandlerFunc(func(params operations.DeletePatientParams) middleware.Responder {
 		return operations.NewDeletePatientOK().WithPayload(deletePatient(params.ID))
