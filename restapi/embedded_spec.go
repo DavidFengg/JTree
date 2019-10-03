@@ -95,6 +95,54 @@ func init() {
         }
       }
     },
+    "/experiment/{id}": {
+      "put": {
+        "description": "Updates an experiment to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "updates an experiment",
+        "operationId": "updateExperiment",
+        "parameters": [
+          {
+            "name": "experiment",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Experiment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "experiment updated"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes an experiment to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "summary": "deletes an experiment",
+        "operationId": "deleteExperiment",
+        "responses": {
+          "200": {
+            "description": "Deleted experiment"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
     "/logout": {
       "get": {
         "description": "logs users out",
@@ -267,6 +315,54 @@ func init() {
         }
       }
     },
+    "/result/{id}": {
+      "put": {
+        "description": "Updates a result to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "updates a result",
+        "operationId": "updateResult",
+        "parameters": [
+          {
+            "name": "result",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "result updated"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes a result to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "summary": "deletes a result",
+        "operationId": "deleteResult",
+        "responses": {
+          "200": {
+            "description": "Deleted result"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
     "/resultdetails": {
       "post": {
         "description": "Adds a resultdetails to the system",
@@ -301,6 +397,54 @@ func init() {
         }
       }
     },
+    "/resultdetails/{id}": {
+      "put": {
+        "description": "Updates a resultdetails to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "updates a resultdetails",
+        "operationId": "updateResultdetails",
+        "parameters": [
+          {
+            "name": "resultdetails",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Resultdetails"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "resultdetails updated"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes a resultdetails to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "summary": "deletes a resultdetails",
+        "operationId": "deleteResultdetails",
+        "responses": {
+          "200": {
+            "description": "Deleted resultdetails"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
     "/sample": {
       "post": {
         "description": "Adds a sample to the system",
@@ -334,6 +478,54 @@ func init() {
           }
         }
       }
+    },
+    "/sample/{id}": {
+      "put": {
+        "description": "Updates a sample to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "updates a sample",
+        "operationId": "updateSample",
+        "parameters": [
+          {
+            "name": "sample",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Sample"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "sample created"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes a sample to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "summary": "deletes a sample",
+        "operationId": "deleteSample",
+        "responses": {
+          "200": {
+            "description": "Deleted sample"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ]
     },
     "/upload": {
       "post": {
@@ -1068,6 +1260,54 @@ func init() {
         }
       }
     },
+    "/experiment/{id}": {
+      "put": {
+        "description": "Updates an experiment to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "updates an experiment",
+        "operationId": "updateExperiment",
+        "parameters": [
+          {
+            "name": "experiment",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Experiment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "experiment updated"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes an experiment to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "summary": "deletes an experiment",
+        "operationId": "deleteExperiment",
+        "responses": {
+          "200": {
+            "description": "Deleted experiment"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
     "/logout": {
       "get": {
         "description": "logs users out",
@@ -1240,6 +1480,54 @@ func init() {
         }
       }
     },
+    "/result/{id}": {
+      "put": {
+        "description": "Updates a result to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "updates a result",
+        "operationId": "updateResult",
+        "parameters": [
+          {
+            "name": "result",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "result updated"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes a result to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "summary": "deletes a result",
+        "operationId": "deleteResult",
+        "responses": {
+          "200": {
+            "description": "Deleted result"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
     "/resultdetails": {
       "post": {
         "description": "Adds a resultdetails to the system",
@@ -1274,6 +1562,54 @@ func init() {
         }
       }
     },
+    "/resultdetails/{id}": {
+      "put": {
+        "description": "Updates a resultdetails to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "updates a resultdetails",
+        "operationId": "updateResultdetails",
+        "parameters": [
+          {
+            "name": "resultdetails",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Resultdetails"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "resultdetails updated"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes a resultdetails to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "summary": "deletes a resultdetails",
+        "operationId": "deleteResultdetails",
+        "responses": {
+          "200": {
+            "description": "Deleted resultdetails"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
     "/sample": {
       "post": {
         "description": "Adds a sample to the system",
@@ -1307,6 +1643,54 @@ func init() {
           }
         }
       }
+    },
+    "/sample/{id}": {
+      "put": {
+        "description": "Updates a sample to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "updates a sample",
+        "operationId": "updateSample",
+        "parameters": [
+          {
+            "name": "sample",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Sample"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "sample created"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes a sample to the system",
+        "consumes": [
+          "application/json"
+        ],
+        "summary": "deletes a sample",
+        "operationId": "deleteSample",
+        "responses": {
+          "200": {
+            "description": "Deleted sample"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "type": "string",
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ]
     },
     "/upload": {
       "post": {

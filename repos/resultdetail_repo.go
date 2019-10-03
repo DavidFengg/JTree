@@ -61,7 +61,7 @@ func GetResultDetailByID(ID string) *models.Resultdetails {
 }
 
 //UpdateResultDetail allows users to add generic objects to a collection in the database
-func UpdateResultDetail(result *models.Resultdetails) bool {
+func UpdateResultDetail(resultdetailsID string, result *models.Resultdetails) bool {
 	stmt, err := database.DBUpdate.Prepare("UPDATE `resultdetails` SET `VAF` = ?,`c_nomenclature` = ?,`coverage` = ?,`exon` = ?,`gene` = ?,`p_nomenclature` = ?,`pcr` = ?,`quality_score` = ?,`result` = ?,`results_details_id` = ?,`results_id` = ?,`risk_score` = ?,`uid` = ? WHERE `results_details_id` = ?;")
 	if err != nil {
 		log.Fatal(err)
@@ -76,14 +76,31 @@ func UpdateResultDetail(result *models.Resultdetails) bool {
 		result.Pcr,
 		result.QualityScore,
 		result.Result,
-		result.ResultsDetailsID,
+		resultdetailsID,
 		result.ResultsID,
 		result.RiskScore,
 		result.UID,
-		result.ResultsDetailsID)
+		resultdetailsID)
 	stmt.Close()
 	if err != nil {
 		log.Fatal(err, outcome)
+	}
+	return true
+}
+
+//DeleteResultDetail removes a resultdetail by id
+func DeleteResultDetail(resultdetailsID string) bool {
+	stmt, err := database.DBUpdate.Prepare("DELETE FROM resultdetails WHERE results_details_id = ?")
+	if err != nil {
+		log.Fatal(err)
+		return false
+	}
+
+	result, err := stmt.Exec(resultdetailsID)
+	stmt.Close()
+	if err != nil {
+		log.Fatal(err, result)
+		return false
 	}
 	return true
 }

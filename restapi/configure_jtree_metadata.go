@@ -57,7 +57,7 @@ func addPatient(patient *models.Patient) string {
 }
 
 func updatePatient(patientID string, patient *models.Patient) string {
-	// return error if empty patient or specified patient id not specified
+	// return error if empty patient model
 	if patient == nil {
 		return "error"
 	}
@@ -72,7 +72,7 @@ func updatePatient(patientID string, patient *models.Patient) string {
 }
 
 func deletePatient(patientID string) string {
-	// return error if empty patient or specified patient id not specified
+	// return error if patient id not specified
 	if patientID == "" {
 		return "error"
 	}
@@ -92,58 +92,129 @@ func addSample(sample *models.Sample) string {
 		return "error"
 	}
 
-	if sample.SampleID != nil {
-		sampleOLD := repos.GetSampleByID(*sample.SampleID)
-		if sampleOLD == nil {
-			return "error"
-		}
-		repos.UpdateSample(sample)
-		return *sample.SampleID
-	}
+	// insert new sample
 	NewID := newID()
 	sample.SampleID = &NewID
 	repos.InsertSample(sample)
 	return NewID
 }
 
-func addExperiment(experiment *models.Experiment) string {
-	if experiment == nil {
-		//return errors.New(500, "error")
+func updateSample(sampleID string, sample *models.Sample) string {
+	// return error if empty sample model
+	if sample == nil {
 		return "error"
 	}
 
-	if experiment.ExperimentID != nil {
-		experimentOLD := repos.GetExperimentByID(*experiment.ExperimentID)
-		if experimentOLD == nil {
-			//return errors.New(500, "error")
-			return "error"
-		}
-		repos.UpdateExperiment(experiment)
-		return *experiment.ExperimentID
+	sampleOLD := repos.GetSampleByID(sampleID)
+
+	if sampleOLD == nil {
+		return "error"
 	}
+	repos.UpdateSample(sampleID, sample)
+	return sampleID
+}
+
+func deleteSample(sampleID string) string {
+	// return error if sample id not specified
+	if sampleID == "" {
+		return "error"
+	}
+
+	existingID := repos.GetSampleByID(sampleID)
+
+	if existingID == nil {
+		return "error"
+	}
+
+	repos.DeleteSample(sampleID)
+	return sampleID
+}
+
+func addExperiment(experiment *models.Experiment) string {
+	if experiment == nil || *experiment.SampleID == "" {
+		return "error"
+	}
+
+	// insert new experiment
 	NewID := newID()
 	experiment.ExperimentID = &NewID
 	repos.InsertExperiment(experiment)
 	return NewID
 }
 
-func addResult(result *models.Result) string {
-	if result == nil {
+func updateExperiment(experimentID string, experiment *models.Experiment) string {
+	// return error if empty experiment model
+	if experiment == nil {
 		return "error"
 	}
 
-	if result.ResultsID != nil {
-		resultOLD := repos.GetResultByID(*result.ResultsID)
-		if resultOLD == nil {
-			return "error"
-		}
-		repos.UpdateResult(result)
-		return *result.ResultsID
+	experimentOLD := repos.GetExperimentByID(experimentID)
+
+	if experimentOLD == nil {
+		return "error"
 	}
+	repos.UpdateExperiment(experimentID, experiment)
+	return experimentID
+
+}
+
+func deleteExperiment(experimentID string) string {
+	// return error if experiment id not specified
+	if experimentID == "" {
+		return "error"
+	}
+
+	existingID := repos.GetExperimentByID(experimentID)
+
+	if existingID == nil {
+		return "error"
+	}
+
+	repos.DeleteExperiment(experimentID)
+	return experimentID
+}
+
+func addResult(result *models.Result) string {
+	if result == nil || *result.ExperimentID == "" {
+		return "error"
+	}
+
+	// insert new result
 	NewID := newID()
 	result.ResultsID = &NewID
 	repos.InsertResult(result)
 	return NewID
+}
+
+func updateResult(resultID string, result *models.Result) string {
+	// return error if empty result model
+	if result == nil {
+		return "error"
+	}
+
+	resultOLD := repos.GetResultByID(resultID)
+
+	if resultOLD == nil {
+		return "error"
+	}
+	repos.UpdateResult(resultID, result)
+	return resultID
+}
+
+func deleteResult(resultID string) string {
+	// return error if result id not specified
+	if resultID == "" {
+		return "error"
+	}
+
+	existingID := repos.GetResultByID(resultID)
+
+	if existingID == nil {
+		return "error"
+	}
+
+	repos.DeleteResult(resultID)
+	return resultID
 }
 
 func addResultdetail(resultdetail *models.Resultdetails) string {
@@ -151,18 +222,42 @@ func addResultdetail(resultdetail *models.Resultdetails) string {
 		return "error"
 	}
 
-	if resultdetail.ResultsDetailsID != nil {
-		resultdetailOLD := repos.GetResultDetailByID(*resultdetail.ResultsDetailsID)
-		if resultdetailOLD == nil {
-			return "error"
-		}
-		repos.UpdateResultDetail(resultdetail)
-		return *resultdetail.ResultsDetailsID
-	}
+	// insert new resultdetail
 	NewID := newID()
 	resultdetail.ResultsDetailsID = &NewID
 	repos.InsertResultDetail(resultdetail)
 	return NewID
+}
+
+func updateResultdetail(results_details_id string, resultdetail *models.Resultdetails) string {
+	// return error if empty resultdetail model
+	if resultdetail == nil {
+		return "error"
+	}
+
+	resultOLD := repos.GetResultDetailByID(results_details_id)
+
+	if resultOLD == nil {
+		return "error"
+	}
+	repos.UpdateResultDetail(results_details_id, resultdetail)
+	return results_details_id
+}
+
+func deleteResultdetail(result_details_id string) string {
+	// return error if resultdetails id not specified
+	if result_details_id == "" {
+		return "error"
+	}
+
+	existingID := repos.GetResultDetailByID(result_details_id)
+
+	if existingID == nil {
+		return "error"
+	}
+
+	repos.DeleteResultDetail(result_details_id)
+	return result_details_id
 }
 
 func allSamples(query string) (result []*models.Record) {
@@ -300,13 +395,8 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 		}
 		return operations.NewPostUploadOK().WithPayload(true)
 	})
-	api.AddExperimentHandler = operations.AddExperimentHandlerFunc(func(params operations.AddExperimentParams) middleware.Responder {
-		return operations.NewAddExperimentOK().WithPayload(addExperiment(params.Experiment))
-	})
 
-	/*
-		endpoint: /patient
-	*/
+	// endpoint: /patient
 	api.AddPatientHandler = operations.AddPatientHandlerFunc(func(params operations.AddPatientParams) middleware.Responder {
 		return operations.NewAddPatientOK().WithPayload(addPatient(params.Patient))
 	})
@@ -317,15 +407,50 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 		return operations.NewDeletePatientOK().WithPayload(deletePatient(params.ID))
 	})
 
+	// endpoint: /sample
 	api.AddSampleHandler = operations.AddSampleHandlerFunc(func(params operations.AddSampleParams) middleware.Responder {
 		return operations.NewAddSampleOK().WithPayload(addSample(params.Sample))
 	})
+	api.UpdateSampleHandler = operations.UpdateSampleHandlerFunc(func(params operations.UpdateSampleParams) middleware.Responder {
+		return operations.NewUpdateSampleOK().WithPayload(updateSample(params.ID, params.Sample))
+	})
+	api.DeleteSampleHandler = operations.DeleteSampleHandlerFunc(func(params operations.DeleteSampleParams) middleware.Responder {
+		return operations.NewDeleteSampleOK().WithPayload(deleteSample(params.ID))
+	})
+
+	// endpoint: /experiment
+	api.AddExperimentHandler = operations.AddExperimentHandlerFunc(func(params operations.AddExperimentParams) middleware.Responder {
+		return operations.NewAddExperimentOK().WithPayload(addExperiment(params.Experiment))
+	})
+	api.UpdateExperimentHandler = operations.UpdateExperimentHandlerFunc(func(params operations.UpdateExperimentParams) middleware.Responder {
+		return operations.NewUpdateExperimentOK().WithPayload(updateExperiment(params.ID, params.Experiment))
+	})
+	api.DeleteExperimentHandler = operations.DeleteExperimentHandlerFunc(func(params operations.DeleteExperimentParams) middleware.Responder {
+		return operations.NewDeleteExperimentOK().WithPayload(deleteExperiment(params.ID))
+	})
+
+	// endpoint: /result
 	api.AddResultHandler = operations.AddResultHandlerFunc(func(params operations.AddResultParams) middleware.Responder {
 		return operations.NewAddResultOK().WithPayload(addResult(params.Result))
 	})
+	api.UpdateResultHandler = operations.UpdateResultHandlerFunc(func(params operations.UpdateResultParams) middleware.Responder {
+		return operations.NewUpdateResultOK().WithPayload(updateResult(params.ID, params.Result))
+	})
+	api.DeleteResultHandler = operations.DeleteResultHandlerFunc(func(params operations.DeleteResultParams) middleware.Responder {
+		return operations.NewDeleteResultOK().WithPayload(deleteResult(params.ID))
+	})
+
+	// endpoint: /resultdetails
 	api.AddResultdetailsHandler = operations.AddResultdetailsHandlerFunc(func(params operations.AddResultdetailsParams) middleware.Responder {
 		return operations.NewAddResultdetailsOK().WithPayload(addResultdetail(params.Resultdetails))
 	})
+	api.UpdateResultdetailsHandler = operations.UpdateResultdetailsHandlerFunc(func(params operations.UpdateResultdetailsParams) middleware.Responder {
+		return operations.NewUpdateResultdetailsOK().WithPayload(updateResultdetail(params.ID, params.Resultdetails))
+	})
+	api.DeleteResultdetailsHandler = operations.DeleteResultdetailsHandlerFunc(func(params operations.DeleteResultdetailsParams) middleware.Responder {
+		return operations.NewDeleteResultdetailsOK().WithPayload(deleteResultdetail(params.ID))
+	})
+	
 	api.GetSamplesByQueryHandler = operations.GetSamplesByQueryHandlerFunc(func(params operations.GetSamplesByQueryParams) middleware.Responder {
 		return operations.NewGetSamplesByQueryOK().WithPayload(getSamplesByQuery(params.Query))
 	})

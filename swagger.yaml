@@ -96,7 +96,42 @@ paths:
           description: "invalid input, object invalid"
         409:
           description: "an existing item already exists"
-          
+  
+  /sample/{id}:
+    parameters:
+      - type: "string"
+        name: "id"
+        in: "path"
+        required: true
+
+    put:
+      summary: "updates a sample"
+      description: "Updates a sample to the system"
+      operationId: "updateSample"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "sample"
+        required: false
+        schema:
+          $ref: "#/definitions/Sample"
+      responses:
+        200:
+          description: "sample created"
+
+    delete:
+      summary: "deletes a sample"
+      description: "Deletes a sample to the system"
+      operationId: "deleteSample"
+      consumes:
+        - "application/json"
+      responses:
+        200:
+          description: "Deleted sample"
+
   /experiment:
     post:
       summary: "adds an experiment item"
@@ -120,7 +155,42 @@ paths:
           description: "invalid input, object invalid"
         409:
           description: "an existing item already exists"
-          
+
+  /experiment/{id}:
+    parameters:
+      - type: "string"
+        name: "id"
+        in: "path"
+        required: true
+
+    put:
+      summary: "updates an experiment"
+      description: "Updates an experiment to the system"
+      operationId: "updateExperiment"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "experiment"
+        required: false
+        schema:
+          $ref: "#/definitions/Experiment"
+      responses:
+        200:
+          description: "experiment updated"
+
+    delete:
+      summary: "deletes an experiment"
+      description: "Deletes an experiment to the system"
+      operationId: "deleteExperiment"
+      consumes:
+        - "application/json"
+      responses:
+        200:
+          description: "Deleted experiment"
+
   /result:
     post:
       summary: "adds a result item"
@@ -144,6 +214,41 @@ paths:
           description: "invalid input, object invalid"
         409:
           description: "an existing item already exists"
+  
+  /result/{id}:
+    parameters:
+    - type: "string"
+      name: "id"
+      in: "path"
+      required: true
+      
+    put:
+      summary: "updates a result"
+      description: "Updates a result to the system"
+      operationId: "updateResult"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "result"
+        required: false
+        schema:
+          $ref: "#/definitions/Result"
+      responses:
+        200:
+          description: "result updated"
+
+    delete:
+      summary: "deletes a result"
+      description: "Deletes a result to the system"
+      operationId: "deleteResult"
+      consumes:
+        - "application/json"
+      responses:
+        200:
+          description: "Deleted result"
 
   /resultdetails:
     post:
@@ -168,7 +273,41 @@ paths:
           description: "invalid input, object invalid"
         409:
           description: "an existing item already exists"
+  
+  /resultdetails/{id}:
+    parameters:
+      - type: "string"
+        name: "id"
+        in: "path"
+        required: true
 
+    put:
+      summary: "updates a resultdetails"
+      description: "Updates a resultdetails to the system"
+      operationId: "updateResultdetails"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "resultdetails"
+        required: false
+        schema:
+          $ref: "#/definitions/Resultdetails"
+      responses:
+        200:
+          description: "resultdetails updated"
+
+    delete:
+      summary: "deletes a resultdetails"
+      description: "Deletes a resultdetails to the system"
+      operationId: "deleteResultdetails"
+      consumes:
+        - "application/json"
+      responses:
+        200:
+          description: "Deleted resultdetails"
 
   /columns:
       get:

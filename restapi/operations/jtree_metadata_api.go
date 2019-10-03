@@ -56,8 +56,20 @@ func NewJtreeMetadataAPI(spec *loads.Document) *JtreeMetadataAPI {
 		AddSampleHandler: AddSampleHandlerFunc(func(params AddSampleParams) middleware.Responder {
 			return middleware.NotImplemented("operation AddSample has not yet been implemented")
 		}),
+		DeleteExperimentHandler: DeleteExperimentHandlerFunc(func(params DeleteExperimentParams) middleware.Responder {
+			return middleware.NotImplemented("operation DeleteExperiment has not yet been implemented")
+		}),
 		DeletePatientHandler: DeletePatientHandlerFunc(func(params DeletePatientParams) middleware.Responder {
 			return middleware.NotImplemented("operation DeletePatient has not yet been implemented")
+		}),
+		DeleteResultHandler: DeleteResultHandlerFunc(func(params DeleteResultParams) middleware.Responder {
+			return middleware.NotImplemented("operation DeleteResult has not yet been implemented")
+		}),
+		DeleteResultdetailsHandler: DeleteResultdetailsHandlerFunc(func(params DeleteResultdetailsParams) middleware.Responder {
+			return middleware.NotImplemented("operation DeleteResultdetails has not yet been implemented")
+		}),
+		DeleteSampleHandler: DeleteSampleHandlerFunc(func(params DeleteSampleParams) middleware.Responder {
+			return middleware.NotImplemented("operation DeleteSample has not yet been implemented")
 		}),
 		GetSampleColumnsHandler: GetSampleColumnsHandlerFunc(func(params GetSampleColumnsParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetSampleColumns has not yet been implemented")
@@ -68,8 +80,20 @@ func NewJtreeMetadataAPI(spec *loads.Document) *JtreeMetadataAPI {
 		LogoutHandler: LogoutHandlerFunc(func(params LogoutParams) middleware.Responder {
 			return middleware.NotImplemented("operation Logout has not yet been implemented")
 		}),
+		UpdateExperimentHandler: UpdateExperimentHandlerFunc(func(params UpdateExperimentParams) middleware.Responder {
+			return middleware.NotImplemented("operation UpdateExperiment has not yet been implemented")
+		}),
 		UpdatePatientHandler: UpdatePatientHandlerFunc(func(params UpdatePatientParams) middleware.Responder {
 			return middleware.NotImplemented("operation UpdatePatient has not yet been implemented")
+		}),
+		UpdateResultHandler: UpdateResultHandlerFunc(func(params UpdateResultParams) middleware.Responder {
+			return middleware.NotImplemented("operation UpdateResult has not yet been implemented")
+		}),
+		UpdateResultdetailsHandler: UpdateResultdetailsHandlerFunc(func(params UpdateResultdetailsParams) middleware.Responder {
+			return middleware.NotImplemented("operation UpdateResultdetails has not yet been implemented")
+		}),
+		UpdateSampleHandler: UpdateSampleHandlerFunc(func(params UpdateSampleParams) middleware.Responder {
+			return middleware.NotImplemented("operation UpdateSample has not yet been implemented")
 		}),
 	}
 }
@@ -116,8 +140,16 @@ type JtreeMetadataAPI struct {
 	AddResultdetailsHandler AddResultdetailsHandler
 	// AddSampleHandler sets the operation handler for the add sample operation
 	AddSampleHandler AddSampleHandler
+	// DeleteExperimentHandler sets the operation handler for the delete experiment operation
+	DeleteExperimentHandler DeleteExperimentHandler
 	// DeletePatientHandler sets the operation handler for the delete patient operation
 	DeletePatientHandler DeletePatientHandler
+	// DeleteResultHandler sets the operation handler for the delete result operation
+	DeleteResultHandler DeleteResultHandler
+	// DeleteResultdetailsHandler sets the operation handler for the delete resultdetails operation
+	DeleteResultdetailsHandler DeleteResultdetailsHandler
+	// DeleteSampleHandler sets the operation handler for the delete sample operation
+	DeleteSampleHandler DeleteSampleHandler
 	// GetSampleColumnsHandler sets the operation handler for the get sample columns operation
 	GetSampleColumnsHandler GetSampleColumnsHandler
 	// GetSamplesByQueryHandler sets the operation handler for the get samples by query operation
@@ -128,8 +160,16 @@ type JtreeMetadataAPI struct {
 	GetUneditableHandler GetUneditableHandler
 	// LogoutHandler sets the operation handler for the logout operation
 	LogoutHandler LogoutHandler
+	// UpdateExperimentHandler sets the operation handler for the update experiment operation
+	UpdateExperimentHandler UpdateExperimentHandler
 	// UpdatePatientHandler sets the operation handler for the update patient operation
 	UpdatePatientHandler UpdatePatientHandler
+	// UpdateResultHandler sets the operation handler for the update result operation
+	UpdateResultHandler UpdateResultHandler
+	// UpdateResultdetailsHandler sets the operation handler for the update resultdetails operation
+	UpdateResultdetailsHandler UpdateResultdetailsHandler
+	// UpdateSampleHandler sets the operation handler for the update sample operation
+	UpdateSampleHandler UpdateSampleHandler
 
 	// ServeError is called when an error is received, there is a default handler
 	// but you can set your own with this
@@ -221,8 +261,24 @@ func (o *JtreeMetadataAPI) Validate() error {
 		unregistered = append(unregistered, "AddSampleHandler")
 	}
 
+	if o.DeleteExperimentHandler == nil {
+		unregistered = append(unregistered, "DeleteExperimentHandler")
+	}
+
 	if o.DeletePatientHandler == nil {
 		unregistered = append(unregistered, "DeletePatientHandler")
+	}
+
+	if o.DeleteResultHandler == nil {
+		unregistered = append(unregistered, "DeleteResultHandler")
+	}
+
+	if o.DeleteResultdetailsHandler == nil {
+		unregistered = append(unregistered, "DeleteResultdetailsHandler")
+	}
+
+	if o.DeleteSampleHandler == nil {
+		unregistered = append(unregistered, "DeleteSampleHandler")
 	}
 
 	if o.GetSampleColumnsHandler == nil {
@@ -237,8 +293,24 @@ func (o *JtreeMetadataAPI) Validate() error {
 		unregistered = append(unregistered, "LogoutHandler")
 	}
 
+	if o.UpdateExperimentHandler == nil {
+		unregistered = append(unregistered, "UpdateExperimentHandler")
+	}
+
 	if o.UpdatePatientHandler == nil {
 		unregistered = append(unregistered, "UpdatePatientHandler")
+	}
+
+	if o.UpdateResultHandler == nil {
+		unregistered = append(unregistered, "UpdateResultHandler")
+	}
+
+	if o.UpdateResultdetailsHandler == nil {
+		unregistered = append(unregistered, "UpdateResultdetailsHandler")
+	}
+
+	if o.UpdateSampleHandler == nil {
+		unregistered = append(unregistered, "UpdateSampleHandler")
 	}
 
 	if len(unregistered) > 0 {
@@ -375,7 +447,27 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 	if o.handlers["DELETE"] == nil {
 		o.handlers["DELETE"] = make(map[string]http.Handler)
 	}
+	o.handlers["DELETE"]["/experiment/{id}"] = NewDeleteExperiment(o.context, o.DeleteExperimentHandler)
+
+	if o.handlers["DELETE"] == nil {
+		o.handlers["DELETE"] = make(map[string]http.Handler)
+	}
 	o.handlers["DELETE"]["/patient/{id}"] = NewDeletePatient(o.context, o.DeletePatientHandler)
+
+	if o.handlers["DELETE"] == nil {
+		o.handlers["DELETE"] = make(map[string]http.Handler)
+	}
+	o.handlers["DELETE"]["/result/{id}"] = NewDeleteResult(o.context, o.DeleteResultHandler)
+
+	if o.handlers["DELETE"] == nil {
+		o.handlers["DELETE"] = make(map[string]http.Handler)
+	}
+	o.handlers["DELETE"]["/resultdetails/{id}"] = NewDeleteResultdetails(o.context, o.DeleteResultdetailsHandler)
+
+	if o.handlers["DELETE"] == nil {
+		o.handlers["DELETE"] = make(map[string]http.Handler)
+	}
+	o.handlers["DELETE"]["/sample/{id}"] = NewDeleteSample(o.context, o.DeleteSampleHandler)
 
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
@@ -395,7 +487,27 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 	if o.handlers["PUT"] == nil {
 		o.handlers["PUT"] = make(map[string]http.Handler)
 	}
+	o.handlers["PUT"]["/experiment/{id}"] = NewUpdateExperiment(o.context, o.UpdateExperimentHandler)
+
+	if o.handlers["PUT"] == nil {
+		o.handlers["PUT"] = make(map[string]http.Handler)
+	}
 	o.handlers["PUT"]["/patient/{id}"] = NewUpdatePatient(o.context, o.UpdatePatientHandler)
+
+	if o.handlers["PUT"] == nil {
+		o.handlers["PUT"] = make(map[string]http.Handler)
+	}
+	o.handlers["PUT"]["/result/{id}"] = NewUpdateResult(o.context, o.UpdateResultHandler)
+
+	if o.handlers["PUT"] == nil {
+		o.handlers["PUT"] = make(map[string]http.Handler)
+	}
+	o.handlers["PUT"]["/resultdetails/{id}"] = NewUpdateResultdetails(o.context, o.UpdateResultdetailsHandler)
+
+	if o.handlers["PUT"] == nil {
+		o.handlers["PUT"] = make(map[string]http.Handler)
+	}
+	o.handlers["PUT"]["/sample/{id}"] = NewUpdateSample(o.context, o.UpdateSampleHandler)
 
 }
 

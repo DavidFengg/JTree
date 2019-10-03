@@ -58,7 +58,7 @@ func GetResultByID(ID string) *models.Result {
 }
 
 //UpdateResult allows users to add generic objects to a collection in the database
-func UpdateResult(result *models.Result) bool {
+func UpdateResult(resultID string, result *models.Result) bool {
 	stmt, err := database.DBUpdate.Prepare("UPDATE `results` SET `failed_regions` = ?,`mean_depth_of_coveage` = ?,`mlpa_pcr` = ?,`mutation` = ?,`overall_hotspots_threshold` = ?,`overall_quality_threshold` = ?,`results_id` = ?,`uid` = ?,`verification_pcr` = ?,`experiment_id` = ? WHERE `results_id` = ?;")
 	if err != nil {
 		log.Fatal(err)
@@ -70,14 +70,31 @@ func UpdateResult(result *models.Result) bool {
 		result.Mutation,
 		result.OverallHotspotsThreshold,
 		result.OverallQualityThreshold,
-		result.ResultsID,
+		resultID,
 		result.UID,
 		result.VerificationPcr,
 		result.ExperimentID,
-		result.ResultsID)
+		resultID)
 	stmt.Close()
 	if err != nil {
 		log.Fatal(err, outcome)
+	}
+	return true
+}
+
+//DeleteResult removes a result by id
+func DeleteResult(resultID string) bool {
+	stmt, err := database.DBUpdate.Prepare("DELETE FROM results WHERE results_id = ?")
+	if err != nil {
+		log.Fatal(err)
+		return false
+	}
+
+	result, err := stmt.Exec(resultID)
+	stmt.Close()
+	if err != nil {
+		log.Fatal(err, result)
+		return false
 	}
 	return true
 }

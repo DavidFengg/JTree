@@ -64,14 +64,14 @@ func GetExperimentByID(ID string) *models.Experiment {
 }
 
 //UpdateExperiment allows users to add generic objects to a collection in the database
-func UpdateExperiment(experiment *models.Experiment) bool {
+func UpdateExperiment(experimentID string, experiment *models.Experiment) bool {
 	stmt, err := database.DBUpdate.Prepare("UPDATE `experiments` SET `experiment_id` = ?,`study_id` = ?,`panel_assay_screened` = ?,`test_date` = ?,`chip_cartridge_barcode` = ?,`complete_date` = ?,`pcr` = ?,`sample_id` = ?,`project_name` = ?,`priority` = ?,`opened_date` = ?,`project_id` = ?,`has_project_files` = ?,`procedure_order_datetime` = ? WHERE `experiment_id` = ?;")
 
 	if err != nil {
 		log.Fatal(err)
 	}
 	_, err = stmt.Exec(
-		experiment.ExperimentID,
+		experimentID,
 		experiment.StudyID,
 		experiment.PanelAssayScreened,
 		experiment.TestDate.Format(shortForm),
@@ -85,10 +85,27 @@ func UpdateExperiment(experiment *models.Experiment) bool {
 		experiment.ProjectID,
 		experiment.HasProjectFiles,
 		experiment.ProcedureOrderDatetime.Format(shortForm),
-		experiment.ExperimentID)
+		experimentID)
 	stmt.Close()
 	if err != nil {
 		fmt.Println(err)
+		return false
+	}
+	return true
+}
+
+//DeleteExperiment removes a sample by id
+func DeleteExperiment(experimentID string) bool {
+	stmt, err := database.DBUpdate.Prepare("DELETE FROM experiments WHERE experiment_id = ?")
+	if err != nil {
+		log.Fatal(err)
+		return false
+	}
+
+	result, err := stmt.Exec(experimentID)
+	stmt.Close()
+	if err != nil {
+		log.Fatal(err, result)
 		return false
 	}
 	return true
