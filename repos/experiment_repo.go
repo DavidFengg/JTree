@@ -94,7 +94,7 @@ func UpdateExperiment(experimentID string, experiment *models.Experiment) bool {
 	return true
 }
 
-//DeleteExperiment removes a sample by id
+//DeleteExperiment removes an experiment by id
 func DeleteExperiment(experimentID string) bool {
 	stmt, err := database.DBUpdate.Prepare("DELETE FROM experiments WHERE experiment_id = ?")
 	if err != nil {

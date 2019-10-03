@@ -88,7 +88,8 @@ func deletePatient(patientID string) string {
 }
 
 func addSample(sample *models.Sample) string {
-	if sample == nil {
+	// return error if empty sample or patient id not specified
+	if sample == nil || *sample.PatientID == "" {
 		return "error"
 	}
 
@@ -131,6 +132,7 @@ func deleteSample(sampleID string) string {
 }
 
 func addExperiment(experiment *models.Experiment) string {
+	// return error if empty experiment or sample id not specified
 	if experiment == nil || *experiment.SampleID == "" {
 		return "error"
 	}
@@ -175,6 +177,7 @@ func deleteExperiment(experimentID string) string {
 }
 
 func addResult(result *models.Result) string {
+	// return error if empty result or experiment id not specified
 	if result == nil || *result.ExperimentID == "" {
 		return "error"
 	}
@@ -218,7 +221,8 @@ func deleteResult(resultID string) string {
 }
 
 func addResultdetail(resultdetail *models.Resultdetails) string {
-	if resultdetail == nil {
+	// return error if empty resultdetail or result id not specified
+	if resultdetail == nil || *resultdetail.ResultsID == "" {
 		return "error"
 	}
 
