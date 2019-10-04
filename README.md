@@ -25,7 +25,7 @@ $ make build
 $ ./bin/jtree
 ```
 To generate fake data, run `$ ./bin/jtree -g=100`, where 100 is the amount of dummy data requested
-To run on a spesific port run `$ ./bin/jtree -p=8000`, where 8000 is the desired port
+To run on a specific port run `$ ./bin/jtree -p=8000`, where 8000 is the desired port
 
 
 
@@ -51,8 +51,7 @@ $ curl http://127.0.0.1:8000/Jtree/metadata/0.1.0/query -X POST -H "content-type
 '{"selected_fields":["samples.sample_id", "patients.dob"],"selected_tables":["samples", "patients","experiments", "results", "resultdetails"],"selected_conditions":[["AND", "patients.dob", "Greater than", "1950"]]}'
 
 
-# INSERTS and UPDATES
-# Note that inserts and updates operate the same way, the only difference is that the public key is not passed with the object structure for in insert
+# INSERTS
 # samples
 $ curl -X POST -H "Content-Type: application/json" /
  -d '{`# See models.samples for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/sample
@@ -65,19 +64,30 @@ $ curl -X POST -H "Content-Type: application/json" /
 $ curl -X POST -H "Content-Type: application/json" /
  -d '{`# See models.experiments for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/experiment
 
- # results
+# results
 $ curl -X POST -H "Content-Type: application/json" /
  -d '{`# See models.results for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/result
 
- # Example:
- $ curl -X POST -H "Content-Type: application/json" -d '{"results.failed_regions":"ABC", "results.mean_depth_of_coveage":928.123, "results.mlpa_pcr":"ABCD", "results.mutation":"EFG", "results.overall_hotspots_threshold":419.668, "results.overall_quality_threshold":123.234, "results.uid":"Jin", "results.verification_pcr":"Hwang"}' localhost:8000/Jtree/metadata/0.1.0/result
-
- # see Notes for more examples
-
-
- # resultdetails
+# resultdetails
 $ curl -X POST -H "Content-Type: application/json" /
  -d '{`# See models.resultdetails for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/resultdetails
+
+# Example:
+$ curl -X POST -H "Content-Type: application/json" -d '{"results.failed_regions":"ABC", "results.mean_depth_of_coveage":928.123, "results.mlpa_pcr":"ABCD", "results.mutation":"EFG", "results.overall_hotspots_threshold":419.668, "results.overall_quality_threshold":123.234, "results.uid":"Jin", "results.verification_pcr":"Hwang"}' localhost:8000/Jtree/metadata/0.1.0/result
+
+# UPDATES/DELETES
+# Note that UPDATES and DELETES use the same request url as INSERTS, but with an added ID in the url path
+# Example (patient_id = 1):
+
+# UPDATE
+$ curl -X PUT -H "Content-Type: application/json" /
+ -d '{`# See models.patients for object structure`}' 127.0.0.1:8000/Jtree/metadata/0.1.0/patient/1
+
+# DELETE
+$ curl -X DELETE 127.0.0.1:8000/Jtree/metadata/0.1.0/patient/1
+
+
+# see Notes for more examples
 
 ```
 # Docker Compose

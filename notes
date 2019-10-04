@@ -1,23 +1,50 @@
 Flow: Patients -> Samples -> Experiments -> Results -> Result Details
 
+*************** NOTE ***************
+
+With updates/deletes, follow the Patients request format for the other Resources
+
+************************************
+
 Patients:
-Insert:
-curl -X POST -H "Content-Type: application/json" -d '{
-    "patients.clinical_history": "aiCMRAjWwhTHctcuAxhxKQFDa",
-    "patients.date_received": "1963-02-04T00:00:00Z",
-    "patients.date_reported": "1970-02-17T00:00:00Z",
-    "patients.dob": "1915-05-08T00:00:00Z",
-    "patients.first_name": "Jin",
-    "patients.gender": "EFfRsWxPLDnJObCsNVlgTeMaPEZQleQYhYzRyWJj",
-    "patients.initials": "jzpfRFEgmotaFetHsbZRjxAwnwekrBEmfdzdc",
-    "patients.last_name": "Hwang",
-    "patients.mrn": "kXBAkjQZLCtTMtTCoaNatyyiNK",
-    "patients.on_hcn": "ReKJyiXJrscctNswYNsGRussVmaozFZBsbOJ",
-    "patients.patient_type": "FQGZsnwTKSmVoiGLOpbU",
-    "patients.referring_physician": "pEdKupdOMeRVjaRzLNTX",
-    "patients.se_num": "eUCWKsXbGyRAOmBTvKSJ",
-    "patients.surgical_date": "1911-10-25T00:00:00Z"
-}' http://localhost:8000/Jtree/metadata/0.1.0/patient
+	Insert:
+	curl -X POST -H "Content-Type: application/json" -d '{
+		"patients.clinical_history": "aiCMRAjWwhTHctcuAxhxKQFDa",
+		"patients.date_received": "1963-02-04T00:00:00Z",
+		"patients.date_reported": "1970-02-17T00:00:00Z",
+		"patients.dob": "1915-05-08T00:00:00Z",
+		"patients.first_name": "Jin",
+		"patients.gender": "EFfRsWxPLDnJObCsNVlgTeMaPEZQleQYhYzRyWJj",
+		"patients.initials": "jzpfRFEgmotaFetHsbZRjxAwnwekrBEmfdzdc",
+		"patients.last_name": "Hwang",
+		"patients.mrn": "kXBAkjQZLCtTMtTCoaNatyyiNK",
+		"patients.on_hcn": "ReKJyiXJrscctNswYNsGRussVmaozFZBsbOJ",
+		"patients.patient_type": "FQGZsnwTKSmVoiGLOpbU",
+		"patients.referring_physician": "pEdKupdOMeRVjaRzLNTX",
+		"patients.se_num": "eUCWKsXbGyRAOmBTvKSJ",
+		"patients.surgical_date": "1911-10-25T00:00:00Z"
+	}' http://localhost:8000/Jtree/metadata/0.1.0/patient
+
+	Update:
+	curl -X POST -H "Content-Type: application/json" -d '{
+		"patients.clinical_history": "aiCMRAjWwhTHctcuAxhxKQFDa",
+		"patients.date_received": "1963-02-04T00:00:00Z",
+		"patients.date_reported": "1970-02-17T00:00:00Z",
+		"patients.dob": "1915-05-08T00:00:00Z",
+		"patients.first_name": "Jin",
+		"patients.gender": "EFfRsWxPLDnJObCsNVlgTeMaPEZQleQYhYzRyWJj",
+		"patients.initials": "jzpfRFEgmotaFetHsbZRjxAwnwekrBEmfdzdc",
+		"patients.last_name": "Hwang",
+		"patients.mrn": "kXBAkjQZLCtTMtTCoaNatyyiNK",
+		"patients.on_hcn": "ReKJyiXJrscctNswYNsGRussVmaozFZBsbOJ",
+		"patients.patient_type": "FQGZsnwTKSmVoiGLOpbU",
+		"patients.referring_physician": "pEdKupdOMeRVjaRzLNTX",
+		"patients.se_num": "eUCWKsXbGyRAOmBTvKSJ",
+		"patients.surgical_date": "1911-10-25T00:00:00Z"
+	}' http://localhost:8000/Jtree/metadata/0.1.0/patient/{patientID} // update patientID with the random uuid generated from insert
+
+	Delete:
+	curl -X DELETE -H http://localhost:8000/Jtree/metadata/0.1.0/patient/{patientID} // update patientID with the random uuid generated from insert
 
 Samples:
 Insert:
