@@ -44,7 +44,7 @@ Patients:
 	}' http://localhost:8000/Jtree/metadata/0.1.0/patient/{patientID} // update patientID with the random uuid generated from insert
 
 	Delete:
-	curl -X DELETE -H http://localhost:8000/Jtree/metadata/0.1.0/patient/{patientID} // update patientID with the random uuid generated from insert
+	curl -X DELETE http://localhost:8000/Jtree/metadata/0.1.0/patient/{patientID} // update patientID with the random uuid generated from insert
 
 Samples:
 Insert:
