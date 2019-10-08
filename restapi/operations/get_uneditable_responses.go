@@ -14,7 +14,7 @@ import (
 // GetUneditableOKCode is the HTTP code returned for type GetUneditableOK
 const GetUneditableOKCode int = 200
 
-/*GetUneditableOK columns
+/*GetUneditableOK uneditable
 
 swagger:response getUneditableOK
 */
@@ -28,6 +28,7 @@ type GetUneditableOK struct {
 
 // NewGetUneditableOK creates GetUneditableOK with default headers values
 func NewGetUneditableOK() *GetUneditableOK {
+
 	return &GetUneditableOK{}
 }
 
@@ -48,19 +49,19 @@ func (o *GetUneditableOK) WriteResponse(rw http.ResponseWriter, producer runtime
 	rw.WriteHeader(200)
 	payload := o.Payload
 	if payload == nil {
+		// return empty array
 		payload = make([]string, 0, 50)
 	}
 
 	if err := producer.Produce(rw, payload); err != nil {
 		panic(err) // let the recovery middleware deal with this
 	}
-
 }
 
 // GetUneditableBadRequestCode is the HTTP code returned for type GetUneditableBadRequest
 const GetUneditableBadRequestCode int = 400
 
-/*GetUneditableBadRequest bad input parameter
+/*GetUneditableBadRequest bad input
 
 swagger:response getUneditableBadRequest
 */
@@ -69,6 +70,7 @@ type GetUneditableBadRequest struct {
 
 // NewGetUneditableBadRequest creates GetUneditableBadRequest with default headers values
 func NewGetUneditableBadRequest() *GetUneditableBadRequest {
+
 	return &GetUneditableBadRequest{}
 }
 

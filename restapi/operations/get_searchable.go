@@ -31,9 +31,9 @@ func NewGetSearchable(ctx *middleware.Context, handler GetSearchableHandler) *Ge
 
 /*GetSearchable swagger:route GET /searchable getSearchable
 
-gets columns
+gets searchable fields
 
-gets searchable
+gets searchable fields from the database
 
 */
 type GetSearchable struct {
@@ -42,6 +42,7 @@ type GetSearchable struct {
 }
 
 func (o *GetSearchable) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
 	route, rCtx, _ := o.Context.RouteInfo(r)
 	if rCtx != nil {
 		r = rCtx

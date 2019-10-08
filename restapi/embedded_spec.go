@@ -527,6 +527,54 @@ func init() {
         }
       ]
     },
+    "/searchable": {
+      "get": {
+        "description": "gets searchable fields from the database",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets searchable fields",
+        "operationId": "getSearchable",
+        "responses": {
+          "200": {
+            "description": "searchable",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input"
+          }
+        }
+      }
+    },
+    "/uneditable": {
+      "get": {
+        "description": "gets uneditable fields from the database",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets uneditable fields",
+        "operationId": "getUneditable",
+        "responses": {
+          "200": {
+            "description": "uneditable",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input"
+          }
+        }
+      }
+    },
     "/upload": {
       "post": {
         "consumes": [
@@ -1691,6 +1739,54 @@ func init() {
           "required": true
         }
       ]
+    },
+    "/searchable": {
+      "get": {
+        "description": "gets searchable fields from the database",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets searchable fields",
+        "operationId": "getSearchable",
+        "responses": {
+          "200": {
+            "description": "searchable",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input"
+          }
+        }
+      }
+    },
+    "/uneditable": {
+      "get": {
+        "description": "gets uneditable fields from the database",
+        "produces": [
+          "application/json"
+        ],
+        "summary": "gets uneditable fields",
+        "operationId": "getUneditable",
+        "responses": {
+          "200": {
+            "description": "uneditable",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "bad input"
+          }
+        }
+      }
     },
     "/upload": {
       "post": {

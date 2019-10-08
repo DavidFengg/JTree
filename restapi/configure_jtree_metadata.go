@@ -461,6 +461,8 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	api.LogoutHandler = operations.LogoutHandlerFunc(func(params operations.LogoutParams) middleware.Responder {
 		return operations.NewLogoutOK().WithPayload(logout())
 	})
+
+	// Return database fields
 	api.GetSampleColumnsHandler = operations.GetSampleColumnsHandlerFunc(func(params operations.GetSampleColumnsParams) middleware.Responder {
 		return operations.NewGetSampleColumnsOK().WithPayload(getColumns())
 	})

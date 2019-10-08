@@ -31,9 +31,9 @@ func NewGetUneditable(ctx *middleware.Context, handler GetUneditableHandler) *Ge
 
 /*GetUneditable swagger:route GET /uneditable getUneditable
 
-gets columns
+gets uneditable fields
 
-gets uneditable
+gets uneditable fields from the database
 
 */
 type GetUneditable struct {
@@ -42,6 +42,7 @@ type GetUneditable struct {
 }
 
 func (o *GetUneditable) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
+	rw.Header().Set("Access-Control-Allow-Origin", "*")
 	route, rCtx, _ := o.Context.RouteInfo(r)
 	if rCtx != nil {
 		r = rCtx

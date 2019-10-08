@@ -325,6 +325,40 @@ paths:
                 type: "string"
           400:
             description: "bad input parameter"          
+  
+  /searchable:
+    get:
+      summary: "gets searchable fields"
+      description: "gets searchable fields from the database"
+      operationId: "getSearchable"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "searchable"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+        400:
+          description: "bad input"
+    
+  /uneditable:
+    get:
+      summary: "gets uneditable fields"
+      description: "gets uneditable fields from the database"
+      operationId: "getUneditable"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "uneditable"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+        400:
+          description: "bad input"
 
   /query:
     post:

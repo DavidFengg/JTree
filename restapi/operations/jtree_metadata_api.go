@@ -77,6 +77,12 @@ func NewJtreeMetadataAPI(spec *loads.Document) *JtreeMetadataAPI {
 		GetSamplesByQueryHandler: GetSamplesByQueryHandlerFunc(func(params GetSamplesByQueryParams) middleware.Responder {
 			return middleware.NotImplemented("operation GetSamplesByQuery has not yet been implemented")
 		}),
+		GetSearchableHandler: GetSearchableHandlerFunc(func(params GetSearchableParams) middleware.Responder {
+			return middleware.NotImplemented("operation GetSearchable has not yet been implemented")
+		}),
+		GetUneditableHandler: GetUneditableHandlerFunc(func(params GetUneditableParams) middleware.Responder {
+			return middleware.NotImplemented("operation GetUneditable has not yet been implemented")
+		}),
 		LogoutHandler: LogoutHandlerFunc(func(params LogoutParams) middleware.Responder {
 			return middleware.NotImplemented("operation Logout has not yet been implemented")
 		}),
@@ -289,6 +295,14 @@ func (o *JtreeMetadataAPI) Validate() error {
 		unregistered = append(unregistered, "GetSamplesByQueryHandler")
 	}
 
+	if o.GetSearchableHandler == nil {
+		unregistered = append(unregistered, "GetSearchableHandler")
+	}
+
+	if o.GetUneditableHandler == nil {
+		unregistered = append(unregistered, "GetUneditableHandler")
+	}
+
 	if o.LogoutHandler == nil {
 		unregistered = append(unregistered, "LogoutHandler")
 	}
@@ -478,6 +492,16 @@ func (o *JtreeMetadataAPI) initHandlerCache() {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
 	o.handlers["POST"]["/query"] = NewGetSamplesByQuery(o.context, o.GetSamplesByQueryHandler)
+
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/searchable"] = NewGetSearchable(o.context, o.GetSearchableHandler)
+
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/uneditable"] = NewGetUneditable(o.context, o.GetUneditableHandler)
 
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)

@@ -14,7 +14,7 @@ import (
 // GetSearchableOKCode is the HTTP code returned for type GetSearchableOK
 const GetSearchableOKCode int = 200
 
-/*GetSearchableOK columns
+/*GetSearchableOK searchable
 
 swagger:response getSearchableOK
 */
@@ -28,6 +28,7 @@ type GetSearchableOK struct {
 
 // NewGetSearchableOK creates GetSearchableOK with default headers values
 func NewGetSearchableOK() *GetSearchableOK {
+
 	return &GetSearchableOK{}
 }
 
@@ -48,19 +49,19 @@ func (o *GetSearchableOK) WriteResponse(rw http.ResponseWriter, producer runtime
 	rw.WriteHeader(200)
 	payload := o.Payload
 	if payload == nil {
+		// return empty array
 		payload = make([]string, 0, 50)
 	}
 
 	if err := producer.Produce(rw, payload); err != nil {
 		panic(err) // let the recovery middleware deal with this
 	}
-
 }
 
 // GetSearchableBadRequestCode is the HTTP code returned for type GetSearchableBadRequest
 const GetSearchableBadRequestCode int = 400
 
-/*GetSearchableBadRequest bad input parameter
+/*GetSearchableBadRequest bad input
 
 swagger:response getSearchableBadRequest
 */
@@ -69,6 +70,7 @@ type GetSearchableBadRequest struct {
 
 // NewGetSearchableBadRequest creates GetSearchableBadRequest with default headers values
 func NewGetSearchableBadRequest() *GetSearchableBadRequest {
+
 	return &GetSearchableBadRequest{}
 }
 
