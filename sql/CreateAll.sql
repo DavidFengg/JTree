@@ -5,7 +5,7 @@ CREATE DATABASE IF NOT EXISTS `JTree`;
 USE `JTree`
 
 #Create tables
-CREATE TABLE `patients` (
+CREATE TABLE IF NOT EXISTS `patients` (
   `first_name` nvarchar(50) DEFAULT NULL,
   `last_name` nvarchar(50) DEFAULT NULL,
   `initials` nvarchar(50) DEFAULT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE `patients` (
   PRIMARY KEY (`patient_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `samples` (
+CREATE TABLE IF NOT EXISTS `samples` (
   `sample_id` nvarchar(50) NOT NULL,
   `facility` nvarchar(255) DEFAULT NULL,
   `test_requested` nvarchar(50) DEFAULT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE `samples` (
   CONSTRAINT `patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`patient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `experiments` (
+CREATE TABLE IF NOT EXISTS `experiments` (
   `experiment_id` nvarchar(255) NOT NULL,
   `study_id` nvarchar(50) DEFAULT NULL,
   `panel_assay_screened` nvarchar(50) DEFAULT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE `experiments` (
   CONSTRAINT `sample_id_ex` FOREIGN KEY (`sample_id`) REFERENCES `samples` (`sample_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `results` (
+CREATE TABLE IF NOT EXISTS `results` (
   `failed_regions` nvarchar(255) DEFAULT NULL,
   `mean_depth_of_coveage` float DEFAULT NULL,
   `mlpa_pcr` nvarchar(255) DEFAULT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE `results` (
   CONSTRAINT `FK_experiment_id` FOREIGN KEY (`experiment_id`) REFERENCES `experiments` (`experiment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `resultdetails` (
+CREATE TABLE IF NOT EXISTS `resultdetails` (
   `VAF` float DEFAULT NULL,
   `c_nomenclature` nvarchar(255) DEFAULT NULL,
   `coverage` int(11) DEFAULT NULL,

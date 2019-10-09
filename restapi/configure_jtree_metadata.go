@@ -45,15 +45,18 @@ func newID() string {
 
 func addPatient(patient *models.Patient) string {
 	// return error if empty patient or specified patient id
-	if patient == nil || patient.PatientID != nil {
+	if patient == nil {
 		return "error"
 	}
 
 	// insert new patient
-	NewID := newID()
-	patient.PatientID = &NewID
+	if patient.PatientID == nil {
+		NewID := newID()
+		patient.PatientID = &NewID
+	}
+
 	repos.InsertPatient(patient)
-	return NewID
+	return *patient.PatientID
 }
 
 func updatePatient(patientID string, patient *models.Patient) string {
@@ -94,10 +97,13 @@ func addSample(sample *models.Sample) string {
 	}
 
 	// insert new sample
-	NewID := newID()
-	sample.SampleID = &NewID
+	if sample.SampleID == nil {
+		NewID := newID()
+		sample.SampleID = &NewID
+	}
+
 	repos.InsertSample(sample)
-	return NewID
+	return *sample.SampleID
 }
 
 func updateSample(sampleID string, sample *models.Sample) string {
@@ -138,10 +144,13 @@ func addExperiment(experiment *models.Experiment) string {
 	}
 
 	// insert new experiment
-	NewID := newID()
-	experiment.ExperimentID = &NewID
+	if experiment.ExperimentID == nil {
+		NewID := newID()
+		experiment.ExperimentID = &NewID
+	}
+
 	repos.InsertExperiment(experiment)
-	return NewID
+	return *experiment.ExperimentID
 }
 
 func updateExperiment(experimentID string, experiment *models.Experiment) string {
@@ -183,10 +192,13 @@ func addResult(result *models.Result) string {
 	}
 
 	// insert new result
-	NewID := newID()
-	result.ResultsID = &NewID
+	if result.ResultsID == nil {
+		NewID := newID()
+		result.ResultsID = &NewID
+	}
+
 	repos.InsertResult(result)
-	return NewID
+	return *result.ResultsID
 }
 
 func updateResult(resultID string, result *models.Result) string {
@@ -227,10 +239,13 @@ func addResultdetail(resultdetail *models.Resultdetails) string {
 	}
 
 	// insert new resultdetail
-	NewID := newID()
-	resultdetail.ResultsDetailsID = &NewID
+	if resultdetail.ResultsDetailsID == nil {
+		NewID := newID()
+		resultdetail.ResultsDetailsID = &NewID	
+	}
+
 	repos.InsertResultDetail(resultdetail)
-	return NewID
+	return *resultdetail.ResultsDetailsID
 }
 
 func updateResultdetail(results_details_id string, resultdetail *models.Resultdetails) string {

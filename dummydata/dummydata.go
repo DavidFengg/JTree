@@ -103,8 +103,9 @@ func makeRandomBool() bool {
 }
 
 func makeRandomGene() string {
-	num := genrand(0, 568, 0, 568, 5)
-	return genes.Genes[num]
+	// num := genrand(0, 568, 0, 568, 5)
+	// return genes.Genes[num]
+	return "random"
 }
 
 func getManyRandomPeople(num int) []RandomPerson {
