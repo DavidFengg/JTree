@@ -2,9 +2,15 @@ package tests
 
 import (
 	"net/http"
+	"log"
+	"bytes"
+	"io/ioutil"
+	"encoding/json"
 
 	"github.com/Bio-core/jtree/models"
 )
+
+var host = "http://localhost:8000"
 
 //CheckPageResponse checks if a page that should respond is found correctly
 func CheckPageResponse(url string) bool {
@@ -41,11 +47,51 @@ func CheckNoPageResponse(url string) bool {
 	return false
 }
 
-func returnQuery(fields, tables []string, conditions [][]string) models.Query {
+func returnQuery(fields []string, tables []string, conditions [][]string) models.Query {
 	query := models.Query{
 		SelectedFields:    fields,
 		SelectedTables:    tables,
 		SelectedCondition: conditions,
 	}
 	return query
+}
+
+// GetQueryReponse returns the json response of a specific query
+func GetQueryResponse(fields string, tables string, conditions []string ) []byte {
+	var query models.Query
+
+	query.SelectedFields = make([]string, 0)	
+	query.SelectedFields = append(query.SelectedFields, fields)
+	query.SelectedTables = make([]string, 0)
+	query.SelectedTables = append(query.SelectedTables, tables)
+	query.SelectedCondition = make([][]string, 0)
+	query.SelectedCondition = append(query.SelectedCondition, conditions)
+
+	queryBytes, err := json.Marshal(query)
+	if err != nil {
+		log.Println(err)
+	}
+
+	body := bytes.NewReader(queryBytes)
+
+	req, err := http.NewRequest("POST", host + "/Jtree/metadata/0.1.0/query", body)
+	if err != nil {
+		log.Println(err)
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		log.Println(err)
+	}
+
+	defer resp.Body.Close()
+
+	content, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Println(err)
+	}
+
+	return content
 }
