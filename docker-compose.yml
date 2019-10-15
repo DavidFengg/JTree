@@ -32,9 +32,13 @@ services:
 
     limsinsight:
        container_name: limsinsight
-       build: ./limsinsight
+    #    build: ./limsinsight
+       build: ./limsinsight2
        ports:
-           - "8003:8003"
+           - "8003:8080"
+       volumes:
+           - './limsinsight2:/app'
+           - 'app/node_modules'
        # service waits on mysql and jtree health checks before starting 
        depends_on:
             mysql:
