@@ -19,7 +19,7 @@ export default {
                         delete object[name];
                     }
                 }
-            })
+            });
 
             return filter;
         }); 
@@ -27,38 +27,40 @@ export default {
     
     createPatient(data) {
         return axios.post(API_URL + "/patient", {
-            "patients.clinical_history": "aiCMRAjWwhTHctcuAxhxKQFDa",
-            "patients.date_received": "1963-02-04T00:00:00Z",
-            "patients.date_reported": "1970-02-17T00:00:00Z",
-            "patients.dob": "1915-05-08T00:00:00Z",
-            "patients.first_name": "Jin",
-            "patients.gender": "EFfRsWxPLDnJObCsNVlgTeMaPEZQleQYhYzRyWJj",
-            "patients.initials": "jzpfRFEgmotaFetHsbZRjxAwnwekrBEmfdzdc",
-            "patients.last_name": "Hwang",
-            "patients.mrn": "kXBAkjQZLCtTMtTCoaNatyyiNK",
-            "patients.on_hcn": "ReKJyiXJrscctNswYNsGRussVmaozFZBsbOJ",
-            "patients.patient_type": "FQGZsnwTKSmVoiGLOpbU",
-            "patients.referring_physician": "pEdKupdOMeRVjaRzLNTX",
-            "patients.se_num": "eUCWKsXbGyRAOmBTvKSJ",
-            "patients.surgical_date": "1911-10-25T00:00:00Z"
-            // "patients.mrn": "data.mrn",
-            // "patients.first_name": data.first_name,
-            // "patients.last_name": data.last_name,
-            // "patients.initials": data.initials,
-            // "patients.gender": data.gender,
-            // "patients.dob": data.dob,
-            // "patients.on_hcn": data.on_hcn,
-            // "patients.clinical_history": data.clinical_history,
-            // "patients.patient_type": data.patient_type,
-            // "patients.date_recieved": data.dat_recieved,
-            // "patients.referring_physician": data.referring_physician,
-            // "patients.date_reported": data.date_reported,
-            // "patients.surgical_date": data.surgical_date
-        }).then().catch(err => console.log(err));
+            "patients.mrn": data.mrn,
+            "patients.se_num": data.se_num,
+            "patients.first_name": data.first_name,
+            "patients.last_name": data.last_name,
+            "patients.initials": data.initials,
+            "patients.gender": data.gender,
+            "patients.dob": data.dob,
+            "patients.on_hcn": data.on_hcn,
+            "patients.clinical_history": data.clinical_history,
+            "patients.patient_type": data.patient_type,
+            "patients.date_received": data.date_received,
+            "patients.referring_physician": data.referring_physician,
+            "patients.date_reported": data.date_reported,
+            "patients.surgical_date": data.surgical_date
+        }).then(res => console.log(res.data)).catch(err => console.log(err));
     },
 
-    updatePatient() {
-
+    updatePatient(data) {
+        return axios.put(API_URL + "/patient/" + data.patient_id, {
+            "patients.mrn": data.mrn,
+            "patients.se_num": data.se_num,
+            "patients.first_name": data.first_name,
+            "patients.last_name": data.last_name,
+            "patients.initials": data.initials,
+            "patients.gender": data.gender,
+            "patients.dob": data.dob,
+            "patients.on_hcn": data.on_hcn,
+            "patients.clinical_history": data.clinical_history,
+            "patients.patient_type": data.patient_type,
+            "patients.date_received": data.date_received,
+            "patients.referring_physician": data.referring_physician,
+            "patients.date_reported": data.date_reported,
+            "patients.surgical_date": data.surgical_date
+        }).then().catch(err => console.log(err));
     },
 
     deletePatient(id) {
