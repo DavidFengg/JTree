@@ -1,5 +1,4 @@
 import axios from "axios";
-import {addPrefix, removePrefix} from "./helper";
 
 const API_URL = "http://localhost:8000/Jtree/metadata/0.1.0";
 
@@ -10,29 +9,18 @@ export default {
             selected_tables: ["patients"],
             selected_conditions: [[]]
         }).then(res => {
-            let filter = res.data;
-
-            // remove the 'patients.' prefix for each object
-            filter.forEach( (object) => {
-                object = removePrefix(object, "patients");
-            });
-
-            return filter;
+            return res.data;
         }); 
     },
     
     createPatient(data) {
-        data = addPrefix(data);
-
         return axios.post(API_URL + "/patient", data)
         .then(res => console.log(res.data))
         .catch(err => console.log(err));
     },
 
     updatePatient(data) {
-        let id = data.patient_id;
-
-        data = addPrefix(data, "patients");
+        let id = data["patients.patient_id"];
 
         return axios.put(API_URL + "/patient/" + id, data);
     },
@@ -49,14 +37,7 @@ export default {
             selected_tables: ["patients", "samples"],
             selected_conditions: [[]]
         }).then(res => {
-            let filter = res.data;
-
-            // remove the 'samples.' prefix for each object
-            filter.forEach( (object) => {
-                object = removePrefix(object, "samples");
-            });
-
-            return filter;
+            return res.data;
         }); 
     
     }

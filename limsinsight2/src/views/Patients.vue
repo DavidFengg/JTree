@@ -5,7 +5,7 @@
     <b-table hover :items="patients" :fields="fields">
         <template v-slot:cell(action)="data">
             <b-button size="sm" class="mx-1" v-on:click="showModal(data.item)">Edit</b-button>
-            <b-button size="sm" class="mx-1" v-on:click="deletePatient(data.item.patient_id)"> Delete </b-button>
+            <b-button size="sm" class="mx-1" v-on:click="deletePatient(data.item)"> Delete </b-button>
         </template>
     </b-table>
 
@@ -16,7 +16,7 @@
                 <b-td v-for="(field,i) in fields" v-bind:key="i" colspan="2">
                     <!-- Input tag doesn't include 'Action' -->
                     <div v-if="showInputTag(field)" class="input-field">
-                        <label>{{ field.key }}</label>
+                        <label>{{ field.label }}</label>
                         <input placeholder="" v-model="input[field.key]" type="text">
                     </div>
                 </b-td>
@@ -57,40 +57,40 @@ export default {
     data() {
         return {
             fields: [
-                {key: "mrn", label: "MRN", sortable: true},
-                {key: "se_num", label: "SE Number", sortable: true},
-                {key: "first_name", label: "First Name", sortable: true},
-                {key: "last_name", label: "Last Name", sortable: true},
-                {key: "initials", label: "Initials", sortable: true},
-                {key: "gender", label: "Gender", sortable: true},
-                {key: "dob", label: "Date of Birth", sortable: true},
-                {key: "on_hcn", label: "On HCN", sortable: true},
-                {key: "clinical_history", label: "Clinical History", sortable: true},
-                {key: "patient_type", label: "Patient Type", sortable: true},
-                {key: "patient_id", label: "Patient ID", sortable: true},
-                {key: "date_received", label: "Date Received", sortable: true},
-                {key: "referring_physician", label: "Referring Physician", sortable: true},
-                {key: "date_reported", label: "Date Reported", sortable: true},
-                {key: "surgical_date", label: "Surgical Date", sortable: true},
+                {key: "patients.mrn", label: "MRN", sortable: true},
+                {key: "patients.se_num", label: "SE Number", sortable: true},
+                {key: "patients.first_name", label: "First Name", sortable: true},
+                {key: "patients.last_name", label: "Last Name", sortable: true},
+                {key: "patients.initials", label: "Initials", sortable: true},
+                {key: "patients.gender", label: "Gender", sortable: true},
+                {key: "patients.dob", label: "Date of Birth", sortable: true},
+                {key: "patients.on_hcn", label: "On HCN", sortable: true},
+                {key: "patients.clinical_history", label: "Clinical History", sortable: true},
+                {key: "patients.patient_type", label: "Patient Type", sortable: true},
+                {key: "patients.patient_id", label: "Patient ID", sortable: true},
+                {key: "patients.date_received", label: "Date Received", sortable: true},
+                {key: "patients.referring_physician", label: "Referring Physician", sortable: true},
+                {key: "patients.date_reported", label: "Date Reported", sortable: true},
+                {key: "patients.surgical_date", label: "Surgical Date", sortable: true},
                 "Action"
             ],
             patients: [],
             edit: {},
             input: {
-                mrn: "",
-                se_num: "",
-                first_name: "",
-                last_name: "",
-                initials: "",
-                gender: "",
-                dob: "",
-                on_hcn: "",
-                clinical_history: "",
-                patient_type: "",
-                date_received: "",
-                referring_physician: "",
-                date_reported: "",
-                surgical_date: "", 
+                "patients.mrn": "",
+                "patients.se_num": "",
+                "patients.first_name": "",
+                "patients.last_name": "",
+                "patients.initials": "",
+                "patients.gender": "",
+                "patients.dob": "",
+                "patients.on_hcn": "",
+                "patients.clinical_history": "",
+                "patients.patient_type": "",
+                "patients.date_received": "",
+                "patients.referring_physician": "",
+                "patients.date_reported": "",
+                "patients.surgical_date": "", 
             }
         };
     },
@@ -122,7 +122,8 @@ export default {
             })
         },
 
-        deletePatient(id) {
+        deletePatient(data) {
+            let id = data["patients.patient_id"];
             APIService.deletePatient(id).then(res => {
                 this.getPatients();
             });

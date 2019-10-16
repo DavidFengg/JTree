@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- <NavBar/> -->
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <HelloWorld msg="Test"/>
   </div>
 </template>
 
