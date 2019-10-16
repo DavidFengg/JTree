@@ -1,50 +1,13 @@
 <template>
     <div>
 
-    <!-- Patient Table  -->
+    <!-- Sample Table  -->
     <b-table hover :items="patients" :fields="fields">
         <template v-slot:cell(action)="data">
             <b-button size="sm" class="mx-1" v-on:click="showModal(data.item)">Edit</b-button>
-            <b-button size="sm" class="mx-1" v-on:click="deletePatient(data.item.patient_id)"> Delete </b-button>
+            <b-button size="sm" class="mx-1" v-on:click="deleteSample(data.item.sample_id)"> Delete </b-button>
         </template>
     </b-table>
-
-    <!-- Add Patient -->
-    <b-table-simple hover> 
-        <b-tbody>
-            <b-tr>
-                <b-td v-for="(field,i) in fields" v-bind:key="i" colspan="2">
-                    <!-- Input tag doesn't include 'Action' -->
-                    <div v-if="showInputTag(field)" class="input-field">
-                        <label>{{ field.key }}</label>
-                        <input placeholder="" v-model="input[field.key]" type="text">
-                    </div>
-                </b-td>
-                
-                <!-- Add button -->
-                <b-td>
-                    <b-button class="button" size="sm" v-on:click="createPatient()"> Add </b-button>
-                </b-td>
-            </b-tr>
-        </b-tbody>
-    </b-table-simple>
-
-    <!-- Edit Modal -->
-    <b-modal id="edit" title="Edit Patient Data">
-        <b-form-group v-for="(field,i) in fields" v-bind:key="i">
-            <!-- Input tag doesn't include 'Action' -->
-            <div v-if="showInputTag(field)">
-                <label> {{ field.label }}</label>
-                <b-form-input
-                    v-model="edit[field.key]"
-                    placeholder= "">
-                </b-form-input>
-            </div>
-        </b-form-group>
-
-        <!-- Confirmation button -->
-        <b-button class="btn btn-primary" v-on:click="updatePatient()">Confirm</b-button>
-    </b-modal>
 
     </div>
 </template>
@@ -57,6 +20,7 @@ export default {
     data() {
         return {
             fields: [
+                
                 {key: "mrn", label: "MRN", sortable: true},
                 {key: "se_num", label: "SE Number", sortable: true},
                 {key: "first_name", label: "First Name", sortable: true},
@@ -74,7 +38,7 @@ export default {
                 {key: "surgical_date", label: "Surgical Date", sortable: true},
                 "Action"
             ],
-            patients: [],
+            samples: [],
             edit: {},
             input: {
                 mrn: "",
@@ -104,9 +68,9 @@ export default {
             this.$bvModal.show('edit');
         },
 
-        getPatients() {
-            APIService.getPatients().then(data => {
-                this.patients = data;
+        getSamples() {
+            APIService.getSamples().then(data => {
+                this.samples = data;
             }).catch(err => console.error(err));
         },
 
@@ -136,7 +100,7 @@ export default {
 
     // Calls getPatients method when component is created
     mounted() {
-        this.getPatients();
+        this.getSamples();
     }
 }
 </script>

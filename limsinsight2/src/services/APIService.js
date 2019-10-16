@@ -1,4 +1,6 @@
 import axios from "axios";
+import {addPrefix, removePrefix} from "./helper";
+
 const API_URL = "http://localhost:8000/Jtree/metadata/0.1.0";
 
 export default {
@@ -10,15 +12,9 @@ export default {
         }).then(res => {
             let filter = res.data;
 
-            // filter the 'patients.' prefix in each key
+            // remove the 'patients.' prefix for each object
             filter.forEach( (object) => {
-                for (name in object) {
-                    if(name.startsWith('patients.')){
-                        let replaced_key = name.replace('patients.', '');
-                        object[replaced_key] = object[name];
-                        delete object[name];
-                    }
-                }
+                object = removePrefix(object, "patients");
             });
 
             return filter;
@@ -26,46 +22,42 @@ export default {
     },
     
     createPatient(data) {
-        return axios.post(API_URL + "/patient", {
-            "patients.mrn": data.mrn,
-            "patients.se_num": data.se_num,
-            "patients.first_name": data.first_name,
-            "patients.last_name": data.last_name,
-            "patients.initials": data.initials,
-            "patients.gender": data.gender,
-            "patients.dob": data.dob,
-            "patients.on_hcn": data.on_hcn,
-            "patients.clinical_history": data.clinical_history,
-            "patients.patient_type": data.patient_type,
-            "patients.date_received": data.date_received,
-            "patients.referring_physician": data.referring_physician,
-            "patients.date_reported": data.date_reported,
-            "patients.surgical_date": data.surgical_date
-        }).then(res => console.log(res.data)).catch(err => console.log(err));
+        data = addPrefix(data);
+
+        return axios.post(API_URL + "/patient", data)
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err));
     },
 
     updatePatient(data) {
-        return axios.put(API_URL + "/patient/" + data.patient_id, {
-            "patients.mrn": data.mrn,
-            "patients.se_num": data.se_num,
-            "patients.first_name": data.first_name,
-            "patients.last_name": data.last_name,
-            "patients.initials": data.initials,
-            "patients.gender": data.gender,
-            "patients.dob": data.dob,
-            "patients.on_hcn": data.on_hcn,
-            "patients.clinical_history": data.clinical_history,
-            "patients.patient_type": data.patient_type,
-            "patients.date_received": data.date_received,
-            "patients.referring_physician": data.referring_physician,
-            "patients.date_reported": data.date_reported,
-            "patients.surgical_date": data.surgical_date
-        }).then().catch(err => console.log(err));
+        let id = data.patient_id;
+
+        data = addPrefix(data, "patients");
+
+        return axios.put(API_URL + "/patient/" + id, data);
     },
 
     deletePatient(id) {
         return axios.delete(API_URL + "/patient/" + id).then(res => {
             console.log(res.data);
         });
+    },
+
+    getSamples() {
+        return axios.post(API_URL + "/query", {
+            selected_fields: ["patients.first_name", "patients.last_name", "samples.sample_id", "patients.mrn", "samples.sample_id", "samples.facility", "samples.test_requested", "samples.se_num", "samples.date_collected", "samples.date_received", "samples.sample_type", "samples.material_received", "samples.material_received_num", "samples.material_received_other", "samples.volume_of_blood_marrow", "samples.surgical_num", "samples.tumor_site", "samples.historical_diagnosis", "samples.tumor_percnt_of_total", "samples.tumor_percnt_of_circled", "samples.reviewed_by", "samples.h_e_slide_location", "samples.non_uhn_id", "samples.name_of_requestor", "samples.dna_concentration", "samples.dna_volume", "samples.dna_location", "samples.rna_concentration", "samples.rna_volume", "samples.rna_location", "samples.wbc_location", "samples.plasma_location", "samples.cf_plasma_location", "samples.pb_bm_location", "samples.rna_lysate_location", "samples.sample_size", "samples.study_id", "samples.sample_name", "samples.date_submitted", "samples.container_type", "samples.container_name", "samples.container_id", "samples.container_well", "samples.copath_num", "samples.other_identifier", "samples.has_sample_files", "samples.dna_sample_barcode", "samples.dna_extraction_date", "samples.dna_quality", "samples.ffpe_qc_date", "samples.delta_ct_value", "samples.comments", "samples.rnase_p_date", "samples.dna_quality_by_rnase_p", "samples.rna_quality", "samples.rna_extraction_date", "samples.patient_id"],
+            selected_tables: ["patients", "samples"],
+            selected_conditions: [[]]
+        }).then(res => {
+            let filter = res.data;
+
+            // remove the 'samples.' prefix for each object
+            filter.forEach( (object) => {
+                object = removePrefix(object, "samples");
+            });
+
+            return filter;
+        }); 
+    
     }
 }
