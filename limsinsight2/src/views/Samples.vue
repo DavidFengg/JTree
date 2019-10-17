@@ -318,6 +318,10 @@ export default {
     // Calls getSamples method when component is created
     mounted() {
         this.getSamples();
+
+        APIService.getPatients().then(data => {
+            this.$store.dispatch("addUniquePatients", data);
+        }).catch(err => console.error(err));
     }
 }
 </script>
