@@ -39,6 +39,25 @@ export default {
         }).then(res => {
             return res.data;
         }); 
-    
-    }
+    },
+
+    createSample(data) {
+        console.log(data);
+        return axios.post(API_URL + "/sample", data)
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err));
+    },
+
+    updateSample(data) {
+        console.log(data);
+        let id = data["samples.sample_id"];
+
+        return axios.put(API_URL + "/sample/" + id, data);
+    },
+
+    deleteSample(id) {
+        return axios.delete(API_URL + "/sample/" + id).then(res => {
+            console.log(res.data);
+        });
+    },
 }

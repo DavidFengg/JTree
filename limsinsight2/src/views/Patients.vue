@@ -2,7 +2,7 @@
     <div>
 
     <!-- Patient Table  -->
-    <b-table hover :items="patients" :fields="fields">
+    <b-table hover bordered responsive :items="patients" :fields="fields">
         <template v-slot:cell(action)="data">
             <b-button size="sm" class="mx-1" v-on:click="showModal(data.item)">Edit</b-button>
             <b-button size="sm" class="mx-1" v-on:click="deletePatient(data.item)"> Delete </b-button>
@@ -10,7 +10,7 @@
     </b-table>
 
     <!-- Add Patient -->
-    <b-table-simple hover> 
+    <b-table-simple hover responsive> 
         <b-tbody>
             <b-tr>
                 <b-td v-for="(field,i) in fields" v-bind:key="i" colspan="2">
@@ -20,14 +20,13 @@
                         <input placeholder="" v-model="input[field.key]" type="text">
                     </div>
                 </b-td>
-                
-                <!-- Add button -->
-                <b-td>
-                    <b-button class="button" size="sm" v-on:click="createPatient()"> Add </b-button>
-                </b-td>
             </b-tr>
         </b-tbody>
     </b-table-simple>
+
+    <!-- Add button -->
+    <b-button class="button" size="m" v-on:click="createPatient()"> Add </b-button>
+
 
     <!-- Edit Modal -->
     <b-modal id="edit" title="Edit Patient Data">
@@ -98,8 +97,8 @@ export default {
     methods: {
         // function initalizes edit information and shows the edit modal
         showModal(patient) {
-            // update placeholder information
-            this.edit = patient;
+            // update placeholder information by copying values
+            this.edit = Object.assign({}, patient);
             
             this.$bvModal.show('edit');
         },
@@ -107,6 +106,7 @@ export default {
         getPatients() {
             APIService.getPatients().then(data => {
                 this.patients = data;
+                this.$store.dispatch("addUniquePatients", this.patients);
             }).catch(err => console.error(err));
         },
 
@@ -129,9 +129,9 @@ export default {
             });
         },
         
-        // function returns true if the field is NOT action or the field key is NOT 'patient_id'
+        // function returns true if the field is NOT action or the field key is NOT 'patient.patient_id'
         showInputTag(field) {
-            return field != "Action" && field.key != "patient_id";
+            return field != "Action" && field.key != "patient.patient_id";
         }
     },
 
