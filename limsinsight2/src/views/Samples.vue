@@ -166,21 +166,21 @@ export default {
                 "samples.material_received": "",
                 "samples.material_received_num": "",
                 "samples.material_received_other": "",
-                "samples.volume_of_blood_marrow": 0,
+                "samples.volume_of_blood_marrow": "",
                 "samples.surgical_num": "",
                 "samples.tumor_site": "",
                 "samples.historical_diagnosis": "",
-                "samples.tumor_percnt_of_total": 0,
-                "samples.tumor_percnt_of_circled": 0,
+                "samples.tumor_percnt_of_total": "",
+                "samples.tumor_percnt_of_circled": "",
                 "samples.reviewed_by": "",
                 "samples.h_e_slide_location": "",
                 "samples.non_uhn_id": "",
                 "samples.name_of_requestor": "",
-                "samples.dna_concentration": 0,
-                "samples.dna_volume": 0,
+                "samples.dna_concentration": "",
+                "samples.dna_volume": "",
                 "samples.dna_location": "",
-                "samples.rna_concentration": 0,
-                "samples.rna_volume": 0,
+                "samples.rna_concentration": "",
+                "samples.rna_volume": "",
                 "samples.rna_location": "",
                 "samples.wbc_location": "",
                 "samples.plasma_location": "",
@@ -202,11 +202,11 @@ export default {
                 "samples.dna_extraction_date": "",
                 "samples.dna_quality": "",
                 "samples.ffpe_qc_date": "",
-                "samples.delta_ct_value": 0,
+                "samples.delta_ct_value": "",
                 "samples.comments": "",
                 "samples.rnase_p_date": "",
-                "samples.dna_quality_by_rnase_p": 0,
-                "samples.rna_quality": 0,
+                "samples.dna_quality_by_rnase_p": "",
+                "samples.rna_quality": "",
                 "samples.rna_extraction_date": "",
                 "samples.patient_id": ""
             },
@@ -233,7 +233,7 @@ export default {
             for (let key in modify) {
                 for (let i = 0; i < this.fields.length; i++) {
                     if (this.fields[i].key == key) {
-
+                        
                         // convert string to number
                         if (this.fields[i].type == "number") {
                             console.log(this.fields[i].key);
@@ -254,6 +254,7 @@ export default {
         getSamples() {
             APIService.getSamples().then(data => {
                 this.samples = data;
+                this.$store.dispatch("addUniqueSamples", this.samples);
             }).catch(err => console.error(err));
         },
 
