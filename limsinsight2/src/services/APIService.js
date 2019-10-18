@@ -81,12 +81,15 @@ export default {
         .catch(err => console.log(err));
     },
 
-    updateExperiment(date) {
+    updateExperiment(data) {
+        console.log(data);
+        let id = data["experiments.experiment_id"];
 
+        return axios.put(API_URL + "/experiment/" + id, data);
     },
 
     deleteExperiment(id) {
-
+        return axios.delete(API_URL + "/experiment/" + id);
     },
 
 }

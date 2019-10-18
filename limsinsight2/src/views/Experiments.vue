@@ -5,7 +5,7 @@
     <b-table :items="experiments" :fields="fields" hover responsive bordered>
         <template v-slot:cell(action)="data">
             <b-button size="sm" class="mx-1" v-on:click="showModal(data.item)">Edit</b-button>
-            <b-button size="sm" class="mx-1" v-on:click="deleteSample(data.item)"> Delete </b-button>
+            <b-button size="sm" class="mx-1" v-on:click="deleteExperiment(data.item)"> Delete </b-button>
         </template>
     </b-table>
 
@@ -35,7 +35,7 @@
                     <!-- input type changes based on field property -->
                     <input v-if="field.type == 'date'" placeholder="" v-model="input[field.key]" type="datetime-local">
                     <input v-else-if="field.type == 'checkbox'" placeholder="" v-model="input[field.key]" type="checkbox">
-                    <input v-else-if="field.label != 'experiments.sample_id'" placeholder="" v-model="input[field.key]" type="text">
+                    <input v-else placeholder="" v-model="input[field.key]" type="text">
                 </b-td>
 
             </b-tr>
@@ -44,6 +44,23 @@
 
     <!-- Add button -->
     <b-button class="button" size="m" v-on:click="createExperiment()"> Add </b-button>
+
+
+    <!-- Edit Modal -->
+    <b-modal id="edit" title="Edit Experiment Data">
+        <b-form-group>
+            <div v-for="(field,i) in modified()" v-bind:key="i">
+                <label> {{ field.label }}</label>
+
+                <!-- input type changes based on field property -->
+                <b-form-checkbox v-if="field.type == 'checkbox'" placeholder="" v-model="edit[field.key]" type="checkbox"></b-form-checkbox>
+                <b-form-input v-else placeholder="" v-model="edit[field.key]" type="text"></b-form-input>
+            </div>
+        </b-form-group>
+
+        <!-- Confirmation button -->
+        <b-button class="btn btn-primary" v-on:click="updateExperiment()">Confirm</b-button>
+    </b-modal>
 
     </div>
 </template>
@@ -94,6 +111,14 @@ export default {
 
     methods: {
 
+        // function initalizes edit information and shows the edit modal
+        showModal(experiment) {
+            // update placeholder information by copying values
+            this.edit = Object.assign({}, experiment);
+            
+            this.$bvModal.show('edit');
+        },
+
         // function converts fields from the input/edit objects to the correct data types
         convert(object) {
             let modify = Object.assign({}, object);
@@ -134,10 +159,21 @@ export default {
             });
         },
 
+        updateExperiment() {
+            let modify = this.convert(this.edit);
 
+            APIService.updateExperiment(modify).then(res => {
+                this.getExperiments();
+            });
+        },
 
+        deleteExperiment(data) {
+            let id = data["experiments.experiment_id"];
 
-
+            APIService.deleteExperiment(id).then(res => {
+                this.getExperiments();
+            });
+        },
 
         // returns a modified version of the fields array with only objects needed for creating experiments
         modified() {
