@@ -11,7 +11,7 @@
 
     <!-- Patient ID dropdown -->
     <b-dropdown text="Patient ID">
-        <b-dropdown-item v-on:click="updateCurrPatient(patient)" v-for="patient in getPatients()">
+        <b-dropdown-item v-on:click="updateCurrPatient(patient)" v-for="(patient,i) in getPatients()" v-bind:key="i">
             {{ patient["patients.patient_id"]}}
         </b-dropdown-item>
     </b-dropdown>

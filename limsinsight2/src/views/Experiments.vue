@@ -11,7 +11,7 @@
 
     <!-- Dropdown -->
     <b-dropdown text="Sample ID">
-        <b-dropdown-item v-on:click="updateCurrSample(sample)" v-for="sample in getSamples()">
+        <b-dropdown-item v-on:click="updateCurrSample(sample)" v-for="(sample,i) in getSamples()" v-bind:key="i">
             {{ sample["samples.sample_id"]}}
         </b-dropdown-item>
     </b-dropdown>
@@ -191,7 +191,7 @@ export default {
             return modified;
         },
 
-        // get the patients saved from store
+        // get the samples saved from store
         getSamples() {
             return this.$store.getters.samples;
         },
@@ -200,7 +200,7 @@ export default {
         updateCurrSample(sample) {
             this.selected = sample;
 
-            // update the input's patient id
+            // update the input's sample id
             this.input["experiments.sample_id"] = sample["samples.sample_id"];
         }
 
