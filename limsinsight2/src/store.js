@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     uniquePatients: [],
-    uniqueSamples: []
+    uniqueSamples: [],
+    uniqueExperiments: []
   },
 
   mutations: {
@@ -17,6 +18,10 @@ export default new Vuex.Store({
     addUniqueSamples(state, samples) {
       state.uniqueSamples = samples;
     },
+
+    addUniqueExperiments(state, experiments) {
+      state.uniqueExperiments = experiments;
+    },
   },
 
   actions: {
@@ -26,7 +31,11 @@ export default new Vuex.Store({
 
     addUniqueSamples({ commit }, samples) {
       commit('addUniqueSamples', samples);
-    }
+    },
+
+    addUniqueExperiments({ commit }, experiments) {
+      commit('addUniqueExperiments', experiments);
+    },
   },
 
   getters: {
@@ -36,6 +45,10 @@ export default new Vuex.Store({
 
     samples: (state) => {
       return state.uniqueSamples;
+    },
+
+    experiments: (state) => {
+      return state.uniqueExperiments;
     }
   }
 })

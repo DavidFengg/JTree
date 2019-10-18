@@ -91,5 +91,34 @@ export default {
     deleteExperiment(id) {
         return axios.delete(API_URL + "/experiment/" + id);
     },
+    
+    // Result http requests
+    getResults() {
+        return axios.post(API_URL + "/query", {
+            selected_fields: ["results.failed_regions", "results.mean_depth_of_coveage", "results.mlpa_pcr", "results.mutation", "results.overall_hotspots_threshold", "results.overall_quality_threshold", "results.results_id", "results.uid", "results.verification_pcr", "results.experiment_id"],
+            selected_tables: ["results"],
+            selected_conditions: [[]]            
+        }).then(res => {
+            return res.data;
+        });
+    },
+
+    createResult(data) {
+        console.log(data);
+        return axios.post(API_URL + "/result", data)
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err));
+    },
+
+    updateResult(data) {
+        console.log(data);
+        let id = data["results.results_id"];
+
+        return axios.put(API_URL + "/result/" + id, data);
+    },
+
+    deleteResult(id) {
+        return axios.delete(API_URL + "/result/" + id);
+    }
 
 }

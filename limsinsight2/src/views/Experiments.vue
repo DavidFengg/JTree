@@ -148,6 +148,7 @@ export default {
         getExperiments() {
             APIService.getExperiments().then(data => {
                 this.experiments = data;
+                this.$store.dispatch('addUniqueExperiments', this.experiments);
             });
         },
 

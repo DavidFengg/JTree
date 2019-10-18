@@ -4,6 +4,8 @@ import Home from './views/Home.vue'
 import Patients from './views/Patients.vue'
 import Samples from './views/Samples.vue'
 import Experiments from './views/Experiments.vue'
+import Results from './views/Results.vue'
+
 
 Vue.use(Router)
 
@@ -28,6 +30,11 @@ export default new Router({
       path: '/experiments',
       name: 'Experiments',
       component: Experiments
+    },
+    {
+      path: '/results',
+      name: 'Results',
+      component: Results
     }
   ]
 })
