@@ -20,7 +20,7 @@
     <b-table-simple hover responsive class="mt-3"> 
         <b-tbody>
             <b-tr>
-                <!-- Static field based on Sample ID selected -->
+                <!-- Static field based on Experiment ID selected -->
                 <b-td colspan="2">
                     <div class="input-field">
                         <label>Experiment ID</label>
@@ -139,6 +139,7 @@ export default {
         getResults() {
             APIService.getResults().then(data => {
                 this.results = data;
+                this.$store.dispatch('addUniqueResults', this.results);
             });
         },
 

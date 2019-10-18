@@ -5,6 +5,7 @@ import Patients from './views/Patients.vue'
 import Samples from './views/Samples.vue'
 import Experiments from './views/Experiments.vue'
 import Results from './views/Results.vue'
+import ResultDetails from './views/ResultDetails.vue'
 
 
 Vue.use(Router)
@@ -35,6 +36,11 @@ export default new Router({
       path: '/results',
       name: 'Results',
       component: Results
+    },
+    {
+      path: '/resultdetails',
+      name: 'ResultDetails',
+      component: ResultDetails
     }
   ]
 })

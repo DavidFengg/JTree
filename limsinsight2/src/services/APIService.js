@@ -119,6 +119,35 @@ export default {
 
     deleteResult(id) {
         return axios.delete(API_URL + "/result/" + id);
+    },
+
+    // ResultDetail http requests
+    getResultDetails() {
+        return axios.post(API_URL + "/query", {
+            selected_fields: ["resultdetails.VAF", "resultdetails.c_nomenclature", "resultdetails.coverage", "resultdetails.exon", "resultdetails.gene", "resultdetails.p_nomenclature", "resultdetails.pcr", "resultdetails.quality_score", "resultdetails.result", "resultdetails.results_details_id", "resultdetails.results_id", "resultdetails.risk_score", "resultdetails.uid"],
+            selected_tables: ["resultdetails"],
+            selected_conditions: [[]] 
+        }).then(res => {
+            return res.data;
+        });
+    },
+
+    createResultDetail(data) {
+        console.log(data);
+        return axios.post(API_URL + "/resultdetails", data)
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err));
+    },
+
+    updateResultDetail(data) {
+        console.log(data);
+        let id = data["resultdetails.results_details_id"];
+
+        return axios.put(API_URL + "/resultdetails/" + id, data);
+    },
+
+    deleteResultDetail(id) {
+        return axios.delete(API_URL + "/resultdetails/" + id);
     }
 
 }

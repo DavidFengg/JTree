@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     uniquePatients: [],
     uniqueSamples: [],
-    uniqueExperiments: []
+    uniqueExperiments: [],
+    uniqueResults: []
   },
 
   mutations: {
@@ -21,6 +22,10 @@ export default new Vuex.Store({
 
     addUniqueExperiments(state, experiments) {
       state.uniqueExperiments = experiments;
+    },
+
+    addUniqueResults(state, results) {
+      state.uniqueResults = results;
     },
   },
 
@@ -36,6 +41,10 @@ export default new Vuex.Store({
     addUniqueExperiments({ commit }, experiments) {
       commit('addUniqueExperiments', experiments);
     },
+
+    addUniqueResults({ commit }, results) {
+      commit('addUniqueResults', results);
+    },
   },
 
   getters: {
@@ -49,6 +58,10 @@ export default new Vuex.Store({
 
     experiments: (state) => {
       return state.uniqueExperiments;
+    },
+
+    results: (state) => {
+      return state.uniqueResults;
     }
   }
 })
