@@ -186,7 +186,7 @@ func deleteExperiment(experimentID string) string {
 	}
 
 	// return a 405 error if there are existing results with the experiment id
-	if repos.HasExperiments(experimentID) {
+	if repos.HasResults(experimentID) {
 		return "405"
 	}
 
@@ -235,6 +235,11 @@ func deleteResult(resultID string) string {
 	// return error if result id not specified
 	if resultID == "" {
 		return "error"
+	}
+
+	// return a 405 error if there are existing resultdetails with the result id
+	if repos.HasResultDetails(resultID) {
+		return "405"
 	}
 
 	existingID := repos.GetResultByID(resultID)
@@ -482,9 +487,13 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	api.UpdateResultHandler = operations.UpdateResultHandlerFunc(func(params operations.UpdateResultParams) middleware.Responder {
 		return operations.NewUpdateResultOK().WithPayload(updateResult(params.ID, params.Result))
 	})
-	// api.DeleteResultHandler = operations.DeleteResultHandlerFunc(func(params operations.DeleteResultParams) middleware.Responder {
-	// 	return operations.NewDeleteResultOK().WithPayload(deleteResult(params.ID))
-	// })
+	api.DeleteResultHandler = operations.DeleteResultHandlerFunc(func(params operations.DeleteResultParams) middleware.Responder {
+		if deleteResult(params.ID) == "405" {
+			return operations.NewDeleteResultMethodNotAllowed()
+		} else {
+			return operations.NewDeleteResultOK()
+		}
+	})
 
 	// endpoint: /resultdetails
 	api.AddResultdetailsHandler = operations.AddResultdetailsHandlerFunc(func(params operations.AddResultdetailsParams) middleware.Responder {
@@ -493,9 +502,10 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	api.UpdateResultdetailsHandler = operations.UpdateResultdetailsHandlerFunc(func(params operations.UpdateResultdetailsParams) middleware.Responder {
 		return operations.NewUpdateResultdetailsOK().WithPayload(updateResultdetail(params.ID, params.Resultdetails))
 	})
-	// api.DeleteResultdetailsHandler = operations.DeleteResultdetailsHandlerFunc(func(params operations.DeleteResultdetailsParams) middleware.Responder {
-	// 	return operations.NewDeleteResultdetailsOK().WithPayload(deleteResultdetail(params.ID))
-	// })
+	api.DeleteResultdetailsHandler = operations.DeleteResultdetailsHandlerFunc(func(params operations.DeleteResultdetailsParams) middleware.Responder {
+		deleteResultdetail(params.ID)
+		return operations.NewDeleteResultdetailsOK()
+	})
 	
 	api.GetSamplesByQueryHandler = operations.GetSamplesByQueryHandlerFunc(func(params operations.GetSamplesByQueryParams) middleware.Responder {
 		return operations.NewGetSamplesByQueryOK().WithPayload(getSamplesByQuery(params.Query))

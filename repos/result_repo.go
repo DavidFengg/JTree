@@ -98,3 +98,26 @@ func DeleteResult(resultID string) bool {
 	}
 	return true
 }
+
+//HasResultDetails returns a boolean depending on whether the result has resultdetails
+func HasResultDetails(ID string) bool {
+	resultdetails := []*models.Resultdetails{}
+	query := models.Query{}
+	query.SelectedFields = make([]string, 0)
+	query.SelectedFields = append(query.SelectedFields, "*")
+	query.SelectedTables = make([]string, 0)
+	query.SelectedTables = append(query.SelectedTables, "resultdetails")
+	query.SelectedCondition = make([][]string, 0)
+
+	conditions := []string{"AND", "resultdetails.results_id", "Equal to", ID}
+	query.SelectedCondition = append(query.SelectedCondition, conditions)
+
+	queryString := database.BuildQuery(query)
+	err := database.DBSelect.Select(&resultdetails, queryString)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// returns true if length of resultdetails is greater than 0
+	return len(resultdetails) > 0;
+}

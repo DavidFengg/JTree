@@ -207,7 +207,7 @@ func HasExperiments(ID string) bool {
 	query.SelectedFields = make([]string, 0)
 	query.SelectedFields = append(query.SelectedFields, "*")
 	query.SelectedTables = make([]string, 0)
-	query.SelectedTables = append(query.SelectedTables, "samples")
+	query.SelectedTables = append(query.SelectedTables, "experiments")
 	query.SelectedCondition = make([][]string, 0)
 
 	conditions := []string{"AND", "experiments.sample_id", "Equal to", ID}
