@@ -16,9 +16,6 @@
         </b-dropdown-item>
     </b-dropdown>
 
-    <!-- Selected ID text -->
-    <div class="mt-3">Selected: <strong>{{ selected["patients.patient_id"] }}</strong></div>
-
     <!-- Add Sample -->
     <b-table-simple hover responsive class="mt-3"> 
         <b-tbody>
@@ -42,7 +39,13 @@
                         <input :disabled="true" :placeholder="selected['patients.mrn']" type="text">
                     </div>
                 </b-td>
-                
+                <b-td colspan="2">
+                    <div class="input-field">
+                        <label>Patient ID</label>
+                        <input :disabled="true" :placeholder="selected['patients.patient_id']" type="text">
+                    </div>
+                </b-td>
+
                 <!-- Input fields -->
                 <b-td v-for="(field,i) in modified()" v-bind:key="i">
                         <label>{{ field.label }}</label>
@@ -294,7 +297,7 @@ export default {
                 let key = this.fields[i].key;
 
                 // adds only the objects needed for adding samples
-                if (!(key.startsWith("patients") || key == "samples.sample_id" || key == "Action")) {
+                if (!(key.startsWith("patients") || key == "samples.sample_id" || key == "samples.patient_id" || key == "Action")) {
                     modified.push(this.fields[i]);
                 }
             }

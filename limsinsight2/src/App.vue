@@ -14,10 +14,27 @@
 </template>
 
 <script>
-// import NavBar from '@/components/NavBar.vue'
-
+import APIService from './services/APIService';
+ 
 export default {
-  
+  // load all data from tables upon creation
+  mounted() {
+    APIService.getPatients().then(data => {
+      this.$store.dispatch('addUniquePatients', data);
+    });
+
+    APIService.getSamples().then(data => {
+      this.$store.dispatch('addUniqueSamples', data);
+    });
+
+    APIService.getExperiments().then(data => {
+      this.$store.dispatch('addUniqueExperiments', data);
+    });
+
+    APIService.getResults().then(data => {
+      this.$store.dispatch('addUniqueResults', data);
+    });
+  }
 }
 </script>
 
