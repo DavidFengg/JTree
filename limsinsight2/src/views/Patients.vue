@@ -1,6 +1,8 @@
 <template>
     <div>
 
+    <Alert :message="message" @done="clearMessage"/>
+
     <!-- Patient Table  -->
     <b-table hover bordered responsive :items="patients" :fields="fields">
         <template v-slot:cell(action)="data">
@@ -49,9 +51,13 @@
 </template>
 
 <script>
+import Alert from "../components/Alert";
 import APIService from '../services/APIService';
 
 export default {
+    components: {
+        Alert
+    },
 
     data() {
         return {
@@ -90,7 +96,9 @@ export default {
                 "patients.referring_physician": "",
                 "patients.date_reported": "",
                 "patients.surgical_date": "", 
-            }
+            },
+            // Error handling
+            message: ""
         };
     },
 
@@ -124,14 +132,31 @@ export default {
 
         deletePatient(data) {
             let id = data["patients.patient_id"];
+
             APIService.deletePatient(id).then(res => {
-                this.getPatients();
+                // call updateMessage func if status code is 405
+                if (res == 405) {
+                    this.updateMessage(id);
+                }
+                else {
+                    this.getPatients();
+                }
             });
         },
         
         // function returns true if the field is NOT action or the field key is NOT 'patient.patient_id'
         showInputTag(field) {
             return field != "Action" && field.key != "patient.patient_id";
+        },
+
+        // Updates the message to be sent to the alert component
+        updateMessage(id) {
+            this.message = "Patient with ID: " + id + " cannot be deleted";
+        },
+
+        // Clears the message once alert has finished
+        clearMessage() {
+            this.message = "";
         }
     },
 

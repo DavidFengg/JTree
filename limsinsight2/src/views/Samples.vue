@@ -1,5 +1,7 @@
 <template>
     <div>
+    
+    <Alert :message="message" @done="clearMessage"/>
 
     <!-- Samples Table  -->
     <b-table :items="samples" :fields="fields" hover responsive bordered>
@@ -92,9 +94,13 @@
 </style>
 
 <script>
+import Alert from "../components/Alert";
 import APIService from '../services/APIService';
 
 export default {
+    components: {
+        Alert
+    },
 
     data() {
         return {
@@ -214,7 +220,9 @@ export default {
                 "samples.patient_id": ""
             },
             // chosen patient from dropdown
-            selected: {}
+            selected: {},
+            // Error handling
+            message: ""
         };
     },
 
@@ -281,7 +289,12 @@ export default {
             let id = data["samples.sample_id"];
 
             APIService.deleteSample(id).then(res => {
-                this.getSamples();
+                if (res == 405) {
+                    this.updateMessage(id);
+                }
+                else {
+                    this.getSamples();
+                }
             });
         },
         
@@ -316,6 +329,16 @@ export default {
 
             // update the input's patient id
             this.input["samples.patient_id"] = patient["patients.patient_id"];
+        },
+
+        // Updates the message to be sent to the alert component
+        updateMessage(id) {
+            this.message = "Sample with ID: " + id + " cannot be deleted";
+        },
+
+        // Clears the message once alert has finished
+        clearMessage() {
+            this.message = "";
         }
     },
 

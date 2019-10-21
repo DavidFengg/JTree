@@ -1,6 +1,8 @@
 <template>
     <div>
 
+    <Alert :message="message" @done="clearMessage"/>
+
     <!-- Results Table -->
     <b-table :items="results" :fields="fields" hover responsive bordered>
         <template v-slot:cell(action)="data">
@@ -65,9 +67,14 @@
 </template>
 
 <script>
+import Alert from "../components/Alert";
 import APIService from '../services/APIService';
 
 export default {
+    components: {
+        Alert
+    },
+
     data() {
         return {
             fields: [
@@ -96,7 +103,9 @@ export default {
                 "results.uid": "",
                 "results.verification_pcr": "",
             },
-            selected: {}
+            selected: {},
+            // Error handling
+            message: ""
         }
     },
 
@@ -163,7 +172,12 @@ export default {
             let id = data["results.results_id"];
 
             APIService.deleteResult(id).then(res => {
-                this.getResults();
+                if (res == 405) {
+                    this.updateMessage(id);
+                }
+                else {
+                    this.getSamples();
+                }
             });
         },
 
@@ -193,6 +207,16 @@ export default {
 
             // update the input's experiment id
             this.input["results.experiment_id"] = experiment["experiments.experiment_id"];
+        },
+
+        // Updates the message to be sent to the alert component
+        updateMessage(id) {
+            this.message = "Result with ID: " + id + " cannot be deleted";
+        },
+
+        // Clears the message once alert has finished
+        clearMessage() {
+            this.message = "";
         }
     },
 

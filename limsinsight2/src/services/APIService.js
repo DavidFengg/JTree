@@ -28,8 +28,10 @@ export default {
 
     deletePatient(id) {
         return axios.delete(API_URL + "/patient/" + id).then(res => {
-            console.log(res.data);
-        });
+            console.log(res.status);
+        })
+        .catch(err => {
+            return err.response.status});
     },
 
     // Sample http requests
@@ -59,8 +61,10 @@ export default {
 
     deleteSample(id) {
         return axios.delete(API_URL + "/sample/" + id).then(res => {
-            console.log(res.data);
-        });
+            console.log(res.status);
+        })
+        .catch(err => {
+            return err.response.status});
     },
 
     // Experiment http requests
@@ -89,7 +93,11 @@ export default {
     },
 
     deleteExperiment(id) {
-        return axios.delete(API_URL + "/experiment/" + id);
+        return axios.delete(API_URL + "/experiment/" + id).then(res => {
+            console.log(res.status);
+        })
+        .catch(err => {
+            return err.response.status});
     },
     
     // Result http requests
@@ -118,7 +126,11 @@ export default {
     },
 
     deleteResult(id) {
-        return axios.delete(API_URL + "/result/" + id);
+        return axios.delete(API_URL + "/result/" + id).then(res => {
+            console.log(res.status);
+        })
+        .catch(err => {
+            return err.response.status});
     },
 
     // ResultDetail http requests

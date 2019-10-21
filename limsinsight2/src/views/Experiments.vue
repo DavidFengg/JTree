@@ -1,5 +1,7 @@
 <template>
     <div>
+    
+    <Alert :message="message" @done="clearMessage"/>
 
     <!-- Experiments Table -->
     <b-table :items="experiments" :fields="fields" hover responsive bordered>
@@ -66,9 +68,14 @@
 </template>
 
 <script>
+import Alert from "../components/Alert";
 import APIService from '../services/APIService';
 
 export default {
+    components: {
+        Alert
+    },
+
     data() {
         return {
             fields: [
@@ -105,7 +112,9 @@ export default {
                 "experiments.has_project_files": "",
                 "experiments.procedure_order__datetime": ""
             },
-            selected: {}
+            selected: {},
+            // Error handling
+            message: ""
         }
     },
 
@@ -172,7 +181,12 @@ export default {
             let id = data["experiments.experiment_id"];
 
             APIService.deleteExperiment(id).then(res => {
-                this.getExperiments();
+                if (res == 405) {
+                    this.updateMessage(id);
+                }
+                else {
+                    this.getSamples();
+                }
             });
         },
 
@@ -202,9 +216,17 @@ export default {
 
             // update the input's sample id
             this.input["experiments.sample_id"] = sample["samples.sample_id"];
+        },
+
+        // Updates the message to be sent to the alert component
+        updateMessage(id) {
+            this.message = "Experiment with ID: " + id + " cannot be deleted";
+        },
+
+        // Clears the message once alert has finished
+        clearMessage() {
+            this.message = "";
         }
-
-
     },
 
     mounted() {
