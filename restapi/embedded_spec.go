@@ -131,6 +131,9 @@ func init() {
         "responses": {
           "200": {
             "description": "Deleted experiment"
+          },
+          "405": {
+            "description": "Invalid Request Method"
           }
         }
       },
@@ -234,6 +237,9 @@ func init() {
         "responses": {
           "200": {
             "description": "Deleted item"
+          },
+          "405": {
+            "description": "Invalid Request Method"
           }
         }
       },
@@ -351,6 +357,9 @@ func init() {
         "responses": {
           "200": {
             "description": "Deleted result"
+          },
+          "405": {
+            "description": "Invalid Request Method"
           }
         }
       },
@@ -433,6 +442,9 @@ func init() {
         "responses": {
           "200": {
             "description": "Deleted resultdetails"
+          },
+          "405": {
+            "description": "Invalid Request Method"
           }
         }
       },
@@ -515,6 +527,9 @@ func init() {
         "responses": {
           "200": {
             "description": "Deleted sample"
+          },
+          "405": {
+            "description": "Invalid Request Method"
           }
         }
       },
@@ -1344,6 +1359,9 @@ func init() {
         "responses": {
           "200": {
             "description": "Deleted experiment"
+          },
+          "405": {
+            "description": "Invalid Request Method"
           }
         }
       },
@@ -1447,6 +1465,9 @@ func init() {
         "responses": {
           "200": {
             "description": "Deleted item"
+          },
+          "405": {
+            "description": "Invalid Request Method"
           }
         }
       },
@@ -1564,6 +1585,9 @@ func init() {
         "responses": {
           "200": {
             "description": "Deleted result"
+          },
+          "405": {
+            "description": "Invalid Request Method"
           }
         }
       },
@@ -1646,6 +1670,9 @@ func init() {
         "responses": {
           "200": {
             "description": "Deleted resultdetails"
+          },
+          "405": {
+            "description": "Invalid Request Method"
           }
         }
       },
@@ -1728,6 +1755,9 @@ func init() {
         "responses": {
           "200": {
             "description": "Deleted sample"
+          },
+          "405": {
+            "description": "Invalid Request Method"
           }
         }
       },

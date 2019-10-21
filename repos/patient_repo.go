@@ -112,3 +112,26 @@ func GetPatientByID(ID string) *models.Patient {
 	}
 	return patients[0]
 }
+
+//HasSamples returns a boolean depending on whether the patient has samples
+func HasSamples(ID string) bool {
+	samples := []*models.Sample{}
+	query := models.Query{}
+	query.SelectedFields = make([]string, 0)
+	query.SelectedFields = append(query.SelectedFields, "*")
+	query.SelectedTables = make([]string, 0)
+	query.SelectedTables = append(query.SelectedTables, "samples")
+	query.SelectedCondition = make([][]string, 0)
+
+	conditions := []string{"AND", "samples.patient_id", "Equal to", ID}
+	query.SelectedCondition = append(query.SelectedCondition, conditions)
+
+	queryString := database.BuildQuery(query)
+	err := database.DBSelect.Select(&samples, queryString)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// returns true if length of samples is greater than 0
+	return len(samples) > 0;
+}

@@ -80,6 +80,11 @@ func deletePatient(patientID string) string {
 		return "error"
 	}
 
+	// return a 405 error if there are existing samples with the patient id
+	if repos.HasSamples(patientID) {
+		return "405"
+	}
+
 	existingID := repos.GetPatientByID(patientID)
 
 	if existingID == nil {
@@ -125,6 +130,11 @@ func deleteSample(sampleID string) string {
 	// return error if sample id not specified
 	if sampleID == "" {
 		return "error"
+	}
+
+	// return a 405 error if there are existing experiments with the sample id
+	if repos.HasSamples(sampleID) {
+		return "405"
 	}
 
 	existingID := repos.GetSampleByID(sampleID)
@@ -173,6 +183,11 @@ func deleteExperiment(experimentID string) string {
 	// return error if experiment id not specified
 	if experimentID == "" {
 		return "error"
+	}
+
+	// return a 405 error if there are existing results with the experiment id
+	if repos.HasExperiments(experimentID) {
+		return "405"
 	}
 
 	existingID := repos.GetExperimentByID(experimentID)
@@ -423,7 +438,11 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 		return operations.NewUpdatePatientCreated().WithPayload(updatePatient(params.ID, params.Patient))
 	})
 	api.DeletePatientHandler = operations.DeletePatientHandlerFunc(func(params operations.DeletePatientParams) middleware.Responder {
-		return operations.NewDeletePatientOK().WithPayload(deletePatient(params.ID))
+		if deletePatient(params.ID) == "405" {
+			return operations.NewDeletePatientMethodNotAllowed()
+		} else {
+			return operations.NewDeletePatientOK()
+		}
 	})
 
 	// endpoint: /sample
@@ -434,7 +453,11 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 		return operations.NewUpdateSampleOK().WithPayload(updateSample(params.ID, params.Sample))
 	})
 	api.DeleteSampleHandler = operations.DeleteSampleHandlerFunc(func(params operations.DeleteSampleParams) middleware.Responder {
-		return operations.NewDeleteSampleOK().WithPayload(deleteSample(params.ID))
+		if deleteSample(params.ID) == "405" {
+			return operations.NewDeleteSampleMethodNotAllowed()
+		} else {
+			return operations.NewDeleteSampleOK()
+		}
 	})
 
 	// endpoint: /experiment
@@ -445,7 +468,11 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 		return operations.NewUpdateExperimentOK().WithPayload(updateExperiment(params.ID, params.Experiment))
 	})
 	api.DeleteExperimentHandler = operations.DeleteExperimentHandlerFunc(func(params operations.DeleteExperimentParams) middleware.Responder {
-		return operations.NewDeleteExperimentOK().WithPayload(deleteExperiment(params.ID))
+		if deleteExperiment(params.ID) == "405" {
+			return operations.NewDeleteExperimentMethodNotAllowed()
+		} else {
+			return operations.NewDeleteExperimentOK()
+		}
 	})
 
 	// endpoint: /result
@@ -455,9 +482,9 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	api.UpdateResultHandler = operations.UpdateResultHandlerFunc(func(params operations.UpdateResultParams) middleware.Responder {
 		return operations.NewUpdateResultOK().WithPayload(updateResult(params.ID, params.Result))
 	})
-	api.DeleteResultHandler = operations.DeleteResultHandlerFunc(func(params operations.DeleteResultParams) middleware.Responder {
-		return operations.NewDeleteResultOK().WithPayload(deleteResult(params.ID))
-	})
+	// api.DeleteResultHandler = operations.DeleteResultHandlerFunc(func(params operations.DeleteResultParams) middleware.Responder {
+	// 	return operations.NewDeleteResultOK().WithPayload(deleteResult(params.ID))
+	// })
 
 	// endpoint: /resultdetails
 	api.AddResultdetailsHandler = operations.AddResultdetailsHandlerFunc(func(params operations.AddResultdetailsParams) middleware.Responder {
@@ -466,9 +493,9 @@ func configureAPI(api *operations.JtreeMetadataAPI) http.Handler {
 	api.UpdateResultdetailsHandler = operations.UpdateResultdetailsHandlerFunc(func(params operations.UpdateResultdetailsParams) middleware.Responder {
 		return operations.NewUpdateResultdetailsOK().WithPayload(updateResultdetail(params.ID, params.Resultdetails))
 	})
-	api.DeleteResultdetailsHandler = operations.DeleteResultdetailsHandlerFunc(func(params operations.DeleteResultdetailsParams) middleware.Responder {
-		return operations.NewDeleteResultdetailsOK().WithPayload(deleteResultdetail(params.ID))
-	})
+	// api.DeleteResultdetailsHandler = operations.DeleteResultdetailsHandlerFunc(func(params operations.DeleteResultdetailsParams) middleware.Responder {
+	// 	return operations.NewDeleteResultdetailsOK().WithPayload(deleteResultdetail(params.ID))
+	// })
 	
 	api.GetSamplesByQueryHandler = operations.GetSamplesByQueryHandlerFunc(func(params operations.GetSamplesByQueryParams) middleware.Responder {
 		return operations.NewGetSamplesByQueryOK().WithPayload(getSamplesByQuery(params.Query))
