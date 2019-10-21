@@ -19,7 +19,6 @@ const DeleteSampleOKCode int = 200
 swagger:response deleteSampleOK
 */
 type DeleteSampleOK struct {
-	Payload string `json:"body,omitempty"`
 }
 
 // NewDeleteSampleOK creates DeleteSampleOK with default headers values
@@ -28,16 +27,34 @@ func NewDeleteSampleOK() *DeleteSampleOK {
 	return &DeleteSampleOK{}
 }
 
-// WithPayload adds the payload to the delete sample o k response
-func (o *DeleteSampleOK) WithPayload(payload string) *DeleteSampleOK {
-	o.Payload = payload
-	return o
-}
-
 // WriteResponse to the client
 func (o *DeleteSampleOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
 	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
 
 	rw.WriteHeader(200)
+}
+
+// DeleteSampleMethodNotAllowedCode is the HTTP code returned for type DeleteSampleMethodNotAllowed
+const DeleteSampleMethodNotAllowedCode int = 405
+
+/*DeleteSampleMethodNotAllowed Invalid Request Method
+
+swagger:response deleteSampleMethodNotAllowed
+*/
+type DeleteSampleMethodNotAllowed struct {
+}
+
+// NewDeleteSampleMethodNotAllowed creates DeleteSampleMethodNotAllowed with default headers values
+func NewDeleteSampleMethodNotAllowed() *DeleteSampleMethodNotAllowed {
+
+	return &DeleteSampleMethodNotAllowed{}
+}
+
+// WriteResponse to the client
+func (o *DeleteSampleMethodNotAllowed) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+
+	rw.WriteHeader(405)
 }

@@ -19,7 +19,6 @@ const DeletePatientOKCode int = 200
 swagger:response deletePatientOK
 */
 type DeletePatientOK struct {
-	Payload string `json:"body,omitempty"`
 }
 
 // NewDeletePatientOK creates DeletePatientOK with default headers values
@@ -28,16 +27,34 @@ func NewDeletePatientOK() *DeletePatientOK {
 	return &DeletePatientOK{}
 }
 
-// WithPayload adds the payload to the deleter patient o k response
-func (o *DeletePatientOK) WithPayload(payload string) *DeletePatientOK {
-	o.Payload = payload
-	return o
-}
-
 // WriteResponse to the client
 func (o *DeletePatientOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
 
 	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
 
 	rw.WriteHeader(200)
+}
+
+// DeletePatientMethodNotAllowedCode is the HTTP code returned for type DeletePatientMethodNotAllowed
+const DeletePatientMethodNotAllowedCode int = 405
+
+/*DeletePatientMethodNotAllowed Invalid Request Method
+
+swagger:response deletePatientMethodNotAllowed
+*/
+type DeletePatientMethodNotAllowed struct {
+}
+
+// NewDeletePatientMethodNotAllowed creates DeletePatientMethodNotAllowed with default headers values
+func NewDeletePatientMethodNotAllowed() *DeletePatientMethodNotAllowed {
+
+	return &DeletePatientMethodNotAllowed{}
+}
+
+// WriteResponse to the client
+func (o *DeletePatientMethodNotAllowed) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+
+	rw.WriteHeader(405)
 }

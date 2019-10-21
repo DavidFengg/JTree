@@ -72,6 +72,8 @@ paths:
       responses:
         200:
           description: "Deleted item"
+        405:
+          description: "Invalid Request Method"
         
   /sample:
     post:
@@ -131,6 +133,8 @@ paths:
       responses:
         200:
           description: "Deleted sample"
+        405:
+          description: "Invalid Request Method"
 
   /experiment:
     post:
@@ -190,6 +194,8 @@ paths:
       responses:
         200:
           description: "Deleted experiment"
+        405:
+          description: "Invalid Request Method"
 
   /result:
     post:
@@ -249,6 +255,8 @@ paths:
       responses:
         200:
           description: "Deleted result"
+        405:
+          description: "Invalid Request Method"
 
   /resultdetails:
     post:
@@ -308,7 +316,9 @@ paths:
       responses:
         200:
           description: "Deleted resultdetails"
-
+        405:
+          description: "Invalid Request Method"
+          
   /columns:
       get:
         summary: "gets columns"
