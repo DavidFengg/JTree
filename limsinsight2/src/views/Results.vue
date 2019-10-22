@@ -18,7 +18,7 @@
         </b-dropdown-item>
     </b-dropdown>
 
-     <!-- Add Sample -->
+     <!-- Add Result -->
     <b-table-simple hover responsive class="mt-3"> 
         <b-tbody>
             <b-tr>

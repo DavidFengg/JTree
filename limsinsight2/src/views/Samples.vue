@@ -298,11 +298,6 @@ export default {
             });
         },
         
-        // 
-        showInputTag(field) {
-            return field != "Action" && field.key != "samples.sample_id" && !field.key.startsWith("patients");
-        },
-
         // returns a modified version of the fields array with only objects needed for creating samples
         modified() {
             let modified = [];
@@ -342,13 +337,9 @@ export default {
         }
     },
 
-    // Calls getSamples method when component is created
+    // Calls getSamples() method when component is created
     mounted() {
         this.getSamples();
-
-        APIService.getPatients().then(data => {
-            this.$store.dispatch("addUniquePatients", data);
-        }).catch(err => console.error(err));
     }
 }
 </script>

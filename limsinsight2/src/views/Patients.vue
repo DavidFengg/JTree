@@ -19,7 +19,9 @@
                     <!-- Input tag doesn't include 'Action' -->
                     <div v-if="showInputTag(field)" class="input-field">
                         <label>{{ field.label }}</label>
-                        <input placeholder="" v-model="input[field.key]" type="text">
+
+                        <input v-if="field.type == 'date'" placeholder="" v-model="input[field.key]" type="datetime-local">
+                        <input v-else placeholder="" v-model="input[field.key]" type="text">
                     </div>
                 </b-td>
             </b-tr>
@@ -68,15 +70,15 @@ export default {
                 {key: "patients.last_name", label: "Last Name", sortable: true},
                 {key: "patients.initials", label: "Initials", sortable: true},
                 {key: "patients.gender", label: "Gender", sortable: true},
-                {key: "patients.dob", label: "Date of Birth", sortable: true},
+                {key: "patients.dob", label: "Date of Birth", type: "date", sortable: true},
                 {key: "patients.on_hcn", label: "On HCN", sortable: true},
                 {key: "patients.clinical_history", label: "Clinical History", sortable: true},
                 {key: "patients.patient_type", label: "Patient Type", sortable: true},
                 {key: "patients.patient_id", label: "Patient ID", sortable: true},
-                {key: "patients.date_received", label: "Date Received", sortable: true},
+                {key: "patients.date_received", label: "Date Received", type: "date", sortable: true},
                 {key: "patients.referring_physician", label: "Referring Physician", sortable: true},
-                {key: "patients.date_reported", label: "Date Reported", sortable: true},
-                {key: "patients.surgical_date", label: "Surgical Date", sortable: true},
+                {key: "patients.date_reported", label: "Date Reported", type: "date", sortable: true},
+                {key: "patients.surgical_date", label: "Surgical Date", type: "date", sortable: true},
                 "Action"
             ],
             patients: [],
@@ -98,7 +100,7 @@ export default {
                 "patients.surgical_date": "", 
             },
             // Error handling
-            message: ""
+            message: "",
         };
     },
 
@@ -111,6 +113,32 @@ export default {
             this.$bvModal.show('edit');
         },
 
+        // function converts fields from the input/edit objects to the correct data types
+        convert(object) {
+            let modify = Object.assign({}, object);
+
+            // find which fields require conversions
+            for (let key in modify) {
+                for (let i = 0; i < this.fields.length; i++) {
+                    if (this.fields[i].key == key) {
+                        
+                        // convert string to number
+                        if (this.fields[i].type == "number") {
+                            console.log(this.fields[i].key);
+                            modify[key] = Number(modify[key]);
+                        }
+                        // convert dates to iso string
+                        else if (this.fields[i].type == "date") {
+                            let date = new Date(modify[key]);
+
+                            modify[key] = date.toISOString();
+                        }   
+                    }
+                }
+            }
+            return modify;
+        },
+        
         getPatients() {
             APIService.getPatients().then(data => {
                 this.patients = data;
@@ -119,7 +147,9 @@ export default {
         },
 
         createPatient() {
-            APIService.createPatient(this.input).then(res => {
+            let modify = this.convert(this.input);
+
+            APIService.createPatient(modify).then(res => {
                 this.getPatients();
             });
         },
@@ -146,7 +176,7 @@ export default {
         
         // function returns true if the field is NOT action or the field key is NOT 'patient.patient_id'
         showInputTag(field) {
-            return field != "Action" && field.key != "patient.patient_id";
+            return field != "Action" && field.key != "patients.patient_id";
         },
 
         // Updates the message to be sent to the alert component
