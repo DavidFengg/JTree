@@ -1,0 +1,29 @@
+export default {
+
+    // function converts fields from the input/edit objects to the correct data types
+    convert(object, fields) {
+        // make a copy of the object
+        let modify = Object.assign({}, object);
+
+        // find which fields require conversions
+        for (let key in modify) {
+            for (let i = 0; i < fields.length; i++) {
+                if (fields[i].key == key) {
+                    
+                    // convert string to number
+                    if (fields[i].type == "number") {
+                        modify[key] = Number(modify[key]);
+                    }
+                    // convert dates to iso string
+                    else if (fields[i].type == "date") {
+                        let date = new Date(modify[key]);
+
+                        modify[key] = date.toISOString();
+                    }   
+                }
+            }
+        }
+        console.log(modify);
+        return modify;
+    }
+}

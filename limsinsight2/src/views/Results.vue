@@ -68,6 +68,7 @@
 
 <script>
 import Alert from "../components/Alert";
+import Shared from "../shared";
 import APIService from '../services/APIService';
 
 export default {
@@ -119,32 +120,6 @@ export default {
             this.$bvModal.show('edit');
         },
 
-        // function converts fields from the input/edit objects to the correct data types
-        convert(object) {
-            let modify = Object.assign({}, object);
-
-            // find which fields require conversions
-            for (let key in modify) {
-                for (let i = 0; i < this.fields.length; i++) {
-                    if (this.fields[i].key == key) {
-                        
-                        // convert string to number
-                        if (this.fields[i].type == "number") {
-                            console.log(this.fields[i].key);
-                            modify[key] = Number(modify[key]);
-                        }
-                        // convert dates to iso string
-                        else if (this.fields[i].type == "date") {
-                            let date = new Date(modify[key]);
-
-                            modify[key] = date.toISOString();
-                        }   
-                    }
-                }
-            }
-            return modify;
-        },
-
         getResults() {
             APIService.getResults().then(data => {
                 this.results = data;
@@ -153,7 +128,8 @@ export default {
         },
 
         createResult() {
-            let modify = this.convert(this.input);
+            // creates a new object with corrected data types 
+            let modify = Shared.convert(this.input, this.fields);
 
             APIService.createResult(modify).then(res => {
                 this.getResults();
@@ -181,13 +157,13 @@ export default {
             });
         },
 
-        // returns a modified version of the fields array with only objects needed for creating results
+        // returns a modified version of the fields object with only attributes needed for creating results
         modified() {
             let modified = [];
             for (let i = 0; i < this.fields.length - 1; i++) {
                 let key = this.fields[i].key;
 
-                // adds only the objects needed for adding results
+                // filter for keys needed in adding results
                 if (!(key == "results.results_id" || key == "results.experiment_id" || key == "Action")) {
                     modified.push(this.fields[i]);
                 }
