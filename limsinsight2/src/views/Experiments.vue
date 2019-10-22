@@ -146,7 +146,8 @@ export default {
         },
 
         updateExperiment() {
-            let modify = this.convert(this.edit);
+            // creates a new object with corrected data types 
+            let modify = Shared.convert(this.edit, this.fields);
 
             APIService.updateExperiment(modify).then(res => {
                 this.getExperiments();

@@ -52,7 +52,7 @@
                 <label> {{ field.label }}</label>
 
                 <!-- input type changes based on field property -->
-                <b-form-checkbox v-if="field.type == 'checkbox'" placeholder="" v-model="edit[field.key]" type="checkbox"></b-form-checkbox>
+                <b-form-input v-if="field.type == 'number'" placeholder="" v-model="edit[field.key]" type="number"></b-form-input>
                 <b-form-input v-else placeholder="" v-model="edit[field.key]" type="text"></b-form-input>
             </div>
         </b-form-group>
@@ -125,7 +125,7 @@ export default {
 
         createResultDetail() {
             // creates a new object with corrected data types 
-            let modify = Shared.convert(this.input);
+            let modify = Shared.convert(this.input, this.fields);
 
             APIService.createResultDetail(modify).then(res => {
                 this.getResultDetails();
@@ -133,7 +133,8 @@ export default {
         },
 
         updateResultDetail() {
-            let modify = this.convert(this.edit);
+            // creates a new object with corrected data types 
+            let modify = Shared.convert(this.edit, this.fields);
 
             APIService.updateResultDetail(modify).then(res => {
                 this.getResultDetails();

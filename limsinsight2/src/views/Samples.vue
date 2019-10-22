@@ -254,6 +254,7 @@ export default {
         },
 
         updateSample() {
+            // creates a new object with corrected data types 
             let modify = this.convert(this.edit);
 
             APIService.updateSample(modify).then(res => {

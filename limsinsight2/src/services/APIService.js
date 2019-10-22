@@ -152,7 +152,6 @@ export default {
     },
 
     updateResultDetail(data) {
-        console.log(data);
         let id = data["resultdetails.results_details_id"];
 
         return axios.put(API_URL + "/resultdetails/" + id, data);
