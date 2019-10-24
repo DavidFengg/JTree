@@ -245,6 +245,12 @@ export default {
         },
 
         createSample() {
+            // check if all fields have been filled
+            if (Shared.emptyFields(this.input)) {
+                this.updateMessage("Please fill in all fields");
+                return;
+            }
+
             // creates a new object with corrected data types 
             let modify = Shared.convert(this.input, this.fields);
 
@@ -267,7 +273,7 @@ export default {
 
             APIService.deleteSample(id).then(res => {
                 if (res == 405) {
-                    this.updateMessage(id);
+                    this.updateMessage("Sample with ID: " + id + " cannot be deleted");
                 }
                 else {
                     this.getSamples();
@@ -304,8 +310,8 @@ export default {
         },
 
         // Updates the message to be sent to the alert component
-        updateMessage(id) {
-            this.message = "Sample with ID: " + id + " cannot be deleted";
+        updateMessage(message) {
+            this.message = message;
         },
 
         // Clears the message once alert has finished

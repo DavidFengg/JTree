@@ -6,7 +6,7 @@
       <router-link to="/samples">Samples</router-link> |
       <router-link to="/experiments">Experiments</router-link> |
       <router-link to="/results">Results</router-link> |
-      <router-link to="/resultdetails">Result Details</router-link> |
+      <router-link to="/resultdetails">Result Details</router-link>
 
     </div>
     <router-view/>

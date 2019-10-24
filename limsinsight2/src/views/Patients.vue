@@ -54,7 +54,7 @@
 
 <script>
 import Alert from "../components/Alert";
-import shared from "../shared";
+import Shared from "../shared";
 import APIService from '../services/APIService';
 
 export default {
@@ -123,6 +123,12 @@ export default {
         },
 
         createPatient() {
+            // check if all fields have been filled
+            if (Shared.emptyFields(this.input)) {
+                this.updateMessage("Please fill in all fields");
+                return;
+            }
+
             // creates a new object with corrected data types 
             let modify = Shared.convert(this.input, this.fields);
 
@@ -143,7 +149,7 @@ export default {
             APIService.deletePatient(id).then(res => {
                 // call updateMessage func if status code is 405
                 if (res == 405) {
-                    this.updateMessage(id);
+                    this.updateMessage("Patient with ID: " + id + " cannot be deleted");
                 }
                 else {
                     this.getPatients();
@@ -157,8 +163,8 @@ export default {
         },
 
         // Updates the message to be sent to the alert component
-        updateMessage(id) {
-            this.message = "Patient with ID: " + id + " cannot be deleted";
+        updateMessage(message) {
+            this.message = message;
         },
 
         // Clears the message once alert has finished

@@ -1,6 +1,8 @@
 <template>
     <div>
 
+    <Alert :message="message" @done="clearMessage"/>
+
     <!-- ResultDetails Table -->
     <b-table :items="resultdetails" :fields="fields" hover responsive bordered>
         <template v-slot:cell(action)="data">
@@ -65,10 +67,15 @@
 </template>
 
 <script>
+import Alert from "../components/Alert";
 import Shared from '../shared';
 import APIService from '../services/APIService';
 
 export default {
+    components: {
+        Alert
+    },
+
     data() {
         return {
             fields: [
@@ -103,7 +110,9 @@ export default {
                 "resultdetails.risk_score" : "",
                 "resultdetails.uid": "",
             },
-            selected: {}
+            selected: {},
+            // Error handling
+            message: "",
         }
     },
 
@@ -124,6 +133,12 @@ export default {
         },
 
         createResultDetail() {
+            // check if all fields have been filled
+            if (Shared.emptyFields(this.input)) {
+                this.updateMessage("Please fill in all fields");
+                return;
+            }
+
             // creates a new object with corrected data types 
             let modify = Shared.convert(this.input, this.fields);
 
@@ -175,6 +190,16 @@ export default {
 
             // update the input's result id
             this.input["resultdetails.results_id"] = result["results.results_id"];
+        },
+
+        // Updates the message to be sent to the alert component
+        updateMessage(message) {
+            this.message = message;
+        },
+
+        // Clears the message once alert has finished
+        clearMessage() {
+            this.message = "";
         }
     },
 

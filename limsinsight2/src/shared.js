@@ -8,6 +8,7 @@ export default {
         // find which fields require conversions
         for (let key in modify) {
             for (let i = 0; i < fields.length; i++) {
+                // match key with list of fields to find type property
                 if (fields[i].key == key) {
                     
                     // convert string to number
@@ -24,5 +25,16 @@ export default {
             }
         }
         return modify;
+    },
+
+    emptyFields(input) {
+        let inputs = Object.values(input);
+
+        for (let value of inputs) {
+            if (value == "") {
+                return true;
+            }
+        }
+        return false;
     }
 }
