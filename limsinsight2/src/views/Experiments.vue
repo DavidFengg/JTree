@@ -4,7 +4,14 @@
     <Alert :message="message" @done="clearMessage"/>
 
     <!-- Experiments Table -->
-    <b-table :items="experiments" :fields="fields" hover responsive bordered>
+    <b-table :items="filtered" :fields="fields" hover responsive bordered>
+        <!-- Search Inputs -->
+        <template slot="top-row" slot-scope="{ fields }">
+            <td v-for="field in fields" :key="field.key">
+                <input v-model="filter[field.key]" :placeholder="field.label">
+            </td>
+        </template>
+
         <template v-slot:cell(action)="data">
             <b-button size="sm" class="mx-1" v-on:click="showModal(data.item)">Edit</b-button>
             <b-button size="sm" class="mx-1" v-on:click="deleteExperiment(data.item)"> Delete </b-button>
@@ -115,10 +122,28 @@ export default {
             },
             selected: {},
             // Error handling
-            message: ""
+            message: "",
+            filter: {}
         }
     },
 
+    computed: {
+        // function returns a filtered version of the experiments array
+        filtered() {
+            // filter each experiment in experiments
+            let filtered = this.experiments.filter(experiment => {
+                // returns true if for EVERY key in filter, there is a substring of that key's value
+                // within the corresponding experiment's key  
+                return Object.keys(this.filter).every(key => 
+                    String(experiment[key]).includes(this.filter[key])
+                );
+            });
+
+            return filtered;
+        },
+    },
+
+ 
     methods: {
 
         // function initalizes edit information and shows the edit modal
@@ -168,7 +193,7 @@ export default {
                     this.updateMessage("Experiment with ID: " + id + " cannot be deleted");
                 }
                 else {
-                    this.getSamples();
+                    this.getExperiments();
                 }
             });
         },

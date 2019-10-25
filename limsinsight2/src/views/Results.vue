@@ -4,7 +4,14 @@
     <Alert :message="message" @done="clearMessage"/>
 
     <!-- Results Table -->
-    <b-table :items="results" :fields="fields" hover responsive bordered>
+    <b-table :items="filtered" :fields="fields" hover responsive bordered>
+        <!-- Search Inputs -->
+        <template slot="top-row" slot-scope="{ fields }">
+            <td v-for="field in fields" :key="field.key">
+                <input v-model="filter[field.key]" :placeholder="field.label">
+            </td>
+        </template>
+
         <template v-slot:cell(action)="data">
             <b-button size="sm" class="mx-1" v-on:click="showModal(data.item)">Edit</b-button>
             <b-button size="sm" class="mx-1" v-on:click="deleteResult(data.item)"> Delete </b-button>
@@ -106,8 +113,25 @@ export default {
             },
             selected: {},
             // Error handling
-            message: ""
+            message: "",
+            filter: {}
         }
+    },
+
+    computed: {
+        // function returns a filtered version of the results array
+        filtered() {
+            // filter each result in results
+            let filtered = this.results.filter(result => {
+                // returns true if for EVERY key in filter, there is a substring of that key's value
+                // within the corresponding result's key  
+                return Object.keys(this.filter).every(key => 
+                    String(result[key]).includes(this.filter[key])
+                );
+            });
+
+            return filtered;
+        },
     },
 
     methods: {
@@ -159,7 +183,7 @@ export default {
                     this.updateMessage("Result with ID: " + id + " cannot be deleted");
                 }
                 else {
-                    this.getSamples();
+                    this.getResults();
                 }
             });
         },

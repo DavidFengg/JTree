@@ -4,7 +4,14 @@
     <Alert :message="message" @done="clearMessage"/>
 
     <!-- Patient Table  -->
-    <b-table hover bordered responsive :items="patients" :fields="fields">
+    <b-table hover bordered responsive :items="filtered" :fields="fields">
+        <!-- Search Inputs -->
+        <template slot="top-row" slot-scope="{ fields }">
+            <td v-for="field in fields" :key="field.key">
+                <input v-model="filter[field.key]" :placeholder="field.label">
+            </td>
+        </template>
+
         <template v-slot:cell(action)="data">
             <b-button size="sm" class="mx-1" v-on:click="showModal(data.item)">Edit</b-button>
             <b-button size="sm" class="mx-1" v-on:click="deletePatient(data.item)"> Delete </b-button>
@@ -102,7 +109,24 @@ export default {
             },
             // Error handling
             message: "",
+            filter: {}
         };
+    },
+
+    computed: {
+        // function returns a filtered version of the patients array
+        filtered() {
+            // filter each patient in patients
+            let filtered = this.patients.filter(patient => {
+                // returns true if for EVERY key in filter, there is a substring of that key's value
+                // within the corresponding patient's key  
+                return Object.keys(this.filter).every(key => 
+                    String(patient[key]).includes(this.filter[key])
+                );
+            });
+
+            return filtered;
+        },
     },
 
     methods: {
