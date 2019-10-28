@@ -8,7 +8,7 @@
         <!-- Search Inputs -->
         <template slot="top-row" slot-scope="{ fields }">
             <td v-for="field in fields" :key="field.key">
-                <input v-model="filter[field.key]" :placeholder="field.label">
+                <input v-if="field.key != 'Action'" v-model="filter[field.key]" :placeholder="field.label">
             </td>
         </template>
 
